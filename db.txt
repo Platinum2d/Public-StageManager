@@ -1,0 +1,1 @@
+a:6:{s:4:"host";s:9:"localhost";s:4:"name";s:11:"sql958586_1";s:4:"user";s:4:"root";s:8:"password";s:0:"";s:9:"overwrite";s:5:"false";s:10:"readytouse";s:4:"true";}
