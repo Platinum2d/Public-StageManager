@@ -8,7 +8,7 @@
 <body>
     
     <?php
-        topNavbar("");    
+        topNavbar(""); //commento per testare netbeans
         titleImg("");     
         printChat("");
     ?>
