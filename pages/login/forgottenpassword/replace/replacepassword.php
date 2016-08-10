@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    $conn = dbConnection();
+    $conn = dbConnection("../../../../");
         
     $id = $_POST['userid'];
     $tabella = $_POST['tabella'];
@@ -11,8 +11,9 @@
     if ($tuttobene)
     {
         open_html ( "Ripristino Completato" );
-        topNavbar ();
-        titleImg ();
+        import("../../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
         ?>
 <body>
     <div class="container">
@@ -26,15 +27,16 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
+        <script> localStorage.clear(); </script>
 </body>
         <?php 
     }
     else
     {
         open_html ( "Errore" );
-        topNavbar ();
-        titleImg ();
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
         ?>
 <body>
     <div class="container">
