@@ -4,11 +4,11 @@
     {
         $connessione = dbConnection ("../../../");
         $id_studente = $_SESSION ['userId'];
-        $nome =  $connessione->escape_string( $_POST ['first'] );
-        $cognome = $connessione->escape_string ( $_POST ['last'] );
-        $citta =  $connessione->escape_string( $_POST ['city'] );
-        $email =  $connessione->escape_string( $_POST ['mail'] );
-        $telefono =  $connessione->escape_string( $_POST ['phone'] );
+                $nome = $connessione->escape_string ( strip_tags($_POST ['first']));
+        $cognome = $connessione->escape_string ( strip_tags($_POST ['last']) );
+        $email = $connessione->escape_string ( strip_tags($_POST ['mail']) );
+        $telefono = $connessione->escape_string ( strip_tags($_POST ['phone']) );
+        $citta =  $connessione->escape_string(strip_tags($_POST ['city']) );
         $sql = "update studente set nome='$nome',cognome='$cognome', citta='$citta', email='$email', telefono='$telefono' where id_studente='$id_studente';";
         $result = $connessione->query ( $sql );
 //	$query = "SELECT * FROM studente_has_preferenza WHERE studente_id_studente = ".$_SESSION['userId'];
