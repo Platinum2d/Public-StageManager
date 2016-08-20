@@ -119,8 +119,8 @@ HTML;
 HTML;
                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_tutor/profiloutente/index.php'>Profilo</a></li>";
-		echo "<li><a href='".$goBack."pages/docente_tutor/contatta/index.php'>Contatta</a></li>";
-		echo "<li><a href='".$goBack."pages/docente_tutor/registro/index.php'>Studenti</a></li>";
+                echo "<li><a href='".$goBack."pages/docente_tutor/registro/index.php'>Studenti</a></li>";
+		echo "<li><a href='".$goBack."pages/docente_tutor/contatta/index.php'>Contatta</a></li>";		
                 echo <<<HTML
                     </ul>      
 HTML;
