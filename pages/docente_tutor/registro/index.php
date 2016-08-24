@@ -3,14 +3,11 @@
     checkLogin ( doctutType , "../../../");
     open_html ( "Studenti" );
     $conn = dbConnection ("../../../");
-    import("../../../");
-    
+    echo "<script src=\"script/script.js\"> </script>";
+    import("../../../");   
     $id_doc = $_SESSION ['userId'];
 
 ?>
-
-<script> $("#selectvalutazione")[0].selectedIndex = 0; </script>
-<script> $("#selectvalutazione").selectedIndex = 0; </script>
 
 <body>
    	<?php
@@ -25,19 +22,21 @@
                     <h1>Studenti</h1>
                     <div class="row">
                         <div class="col col-sm-12">
-                            <div class="table-responsive"><table id="mainTable" class="table table-striped">
+                            <!--<div class="table-responsive">--><table id="mainTable" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
                                         <th>Cognome</th>
                                         <th>Email</th>
                                         <th>Telefono</th>
+                                        <th>Azioni</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         $sql = "SELECT  `nome` ,  `cognome`, `id_studente`,`telefono`, `email`,`azienda_id_azienda`,`valutazione_stage_id_valutazione_stage`,`valutazione_studente_id_valutazione_studente`  FROM  `studente` where docente_id_docente=$id_doc";
                                         $Result = $conn->query ( $sql );
+                                        $I=0;
                                         while ( $row = $Result->fetch_assoc () ) {
                                             $id_studente = $row ['id_studente'];
                                             $nome = $row ['nome'];
@@ -47,36 +46,43 @@
                                             $id_azienda = $row ['azienda_id_azienda'];
                                             $id_valutazione_studente = $row ['valutazione_stage_id_valutazione_stage'];
                                             $id_valutazione_azienda = $row ['valutazione_studente_id_valutazione_studente']; 
+                                            echo <<<HTML
+                                            <form action="registro.php" method="POST" id="registro$I" style="height:0px">
+                                                            <input type="hidden" value="$id_studente" name="id_studente">
+                                                            <input type="hidden" value="$nome" name="nome_studente">
+                                                            <input type="hidden" value="$cognome" name="cognome_studente">
+                                            </form>
+                                            <tr id="$I">
+                                                <td id="first">$nome</td>
+                                                <td id="last">$cognome</td>
+                                                <td id="mail">$email</td>
+                                                <td id="phone">$telefono</td>
+                                                <td> 
+                                                <select class = "selectpicker" onchange="redirect($I, 
+HTML;
+                                            if (!isset($id_valutazione_studente)) echo "-1,";
+                                            else echo "$id_valutazione_studente,";
+                                            
+                                            if (!isset($id_valutazione_azienda)) echo "-1)\" id=\"select$I\">";
+                                            else echo "$id_valutazione_azienda)\" id=\"select$I\">";
                                             
                                             echo <<<HTML
-                                                <tr id="$id_doc">
-                                                    <td id="first">$nome</td>
-                                                    <td id="last">$cognome</td>
-                                                    <td id="mail">$email</td>
-                                                    <td id="phone">$telefono</td>
-                                                    <td> <select id=\"selectvalutazione\" ONCHANGE="location = this.options[this.selectedIndex].value;"> 
-                                                        <option value="index.php"> Visualizza.... </option>
-                                                        <option id="optionstudente" value="valutazione_studente.php?id_studente=$id_valutazione_studente&nomestudente=$nome&cognomestudente=$cognome"> Valutazione dello studente </option>
-                                                        <option id="optionazienda" value="valutazione_azienda.php?id_valutazione=$id_valutazione_azienda&nomestudente=$nome&cognomestudente=$cognome"> Valutazione dell'azienda </option>
+                                                            <option selected disabled> Visualizza </option>
+                                                            <optgroup>
+                                                                <option value = "registro"> Registro </option>
+                                                            </optgroup>
+                                                            <optgroup>
+                                                                <option value = "valutazioneazienda"> Valutazione dell'azienda </option>
+                                                                <option value = "valutazionestudente"> Valutazione dello studente </option>
+                                                            </optgroup>
                                                         </select> 
-                                                        <input type="submit" name="registro_studente" value="Registro" onclick="window.location.href='registro.php?id_studente=$id_studente'"></td>
-                                                </tr>
+                                                    </td>
 HTML;
-                                            
-                                             echo "<script> $(\"#selectvalutazione\")[0].selectedIndex = 0; </script>";
-//                                            if(!isset($id_valutazione_studente) || empty($id_valutazione_studente))
-//                                            {
-//                                                echo "<script> $('#optionstudente').attr('value',''); </script>";                                            
-//                                            }
-                                            
-//                                            if(!isset($id_valutazione_azienda) || empty($id_valutazione_azienda))
-//                                            {
-//                                                echo "<script> $('#optionazienda').attr('value',''); </script>";                                            
-//                                            }
+                                            $I++;
                                         }
                                     ?>
                                 </tbody>
-                            </table></div>
+                            </table><!--</div>-->
                         </div>
                     </div>
                 </div>
