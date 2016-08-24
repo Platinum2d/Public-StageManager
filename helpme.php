@@ -8,8 +8,9 @@
 <body>
     
     <?php
-        topNavbar(""); //commento per testare netbeans
+        topNavbar("");    
         titleImg("");     
+        if (isset($_SESSION['user']))  
         printChat("");
     ?>
         

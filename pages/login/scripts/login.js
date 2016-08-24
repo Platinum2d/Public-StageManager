@@ -28,6 +28,10 @@ function check_login(){
                   $("#password").val("");
             }
             else{
+                localStorage.removeItem("dialogconst");
+                localStorage.removeItem("openedChat");
+                localStorage.removeItem("chatCode");
+                
                 if(tipo==='1')    //admin
                 {
                     location.href = ((location.href.indexOf("/pages/login/index.php") > 0)) ? "../admin/profiloutente/index.php" : "pages/admin/profiloutente/index.php";
