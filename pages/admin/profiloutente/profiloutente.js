@@ -26,7 +26,8 @@ $(document).ready(function(){
 		
 		//rendo al tabella editabile
 		$("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-                
+                $("#password").attr('contenteditable', 'false');
+                $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
 	});
 	
 	$("#saveButton").click(function(){
@@ -64,7 +65,7 @@ $(document).ready(function(){
 	});
 	
 	function exitEdit(){
-
+                $("#password").html("");
 		//blocco la tabella
 		$("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
 		
@@ -76,3 +77,104 @@ $(document).ready(function(){
 		$("#editButton").show();
 	}
 });
+
+function addPasswordEdit()
+{
+    String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+    };
+    
+    $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
+                                      <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
+                                      <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
+                                      <span> Conferma la nuova </span> <input for=\"confermapassword\" class=\"form-control\" type=\"password\" > <br>\n\
+                                      \n\
+                                      <input class=\"btn btn-primary leftAlignment\" type=\"button\" value=\"Salva le modifiche\" disabled=\"true\" onclick=\"updatePassword()\">\n\
+                                      <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
+                                      </div>\n\
+                                      <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+    $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
+        if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
+            updatePassword();
+        
+       $.ajax({
+           type : 'POST',
+           url : 'ajaxOps/ajaxCheckPassword.php',
+           cache : false,
+           data : { 'password' : $("input[for=\"vecchiapassword\"]").val() },
+           success : function (msg)
+           {
+            if (msg !== "esiste")
+                 $("#validpassword").val("0");
+             else
+                 $("#validpassword").val("1");
+             
+             checkTheWhole();
+           }
+       })
+    });
+    
+    $("input[for=\"nuovapassword\"]").on("keyup",function (e){
+        if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
+            updatePassword();
+        
+        if ($("input[for=\"nuovapassword\"]").val() !== $("input[for=\"confermapassword\"]").val() || $("input[for=\"nuovapassword\"]").val().isEmpty() || $("input[for=\"confermapassword\"]").val().isEmpty())
+        {
+            $("#validinput").val("0");
+        }
+        else
+        {
+            $("#validinput").val("1");
+        }
+        checkTheWhole();
+    });
+    
+    $("input[for=\"confermapassword\"]").on("keyup",function (e){
+        if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
+            updatePassword();
+            
+        if ($("input[for=\"nuovapassword\"]").val() !== $("input[for=\"confermapassword\"]").val() || $("input[for=\"nuovapassword\"]").val().isEmpty() || $("input[for=\"confermapassword\"]").val().isEmpty())
+        {
+            $("#validinput").val("0");
+        }
+        else
+        {
+            $("#validinput").val("1");
+        }
+        checkTheWhole();
+    });
+}
+
+function checkTheWhole()
+{
+    if ($("#validinput").val() === "1" && $("#validpassword").val() === "1") 
+        $("input[value=\"Salva le modifiche\"]").prop("disabled", false);
+    else
+        $("input[value=\"Salva le modifiche\"]").prop("disabled", true);
+}
+
+function rollbackToEdit()
+{
+    $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
+}
+
+function updatePassword()
+{
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOps/ajaxReplacePassword.php',
+        cache : false,
+        data : { 'password' : $("input[for=\"nuovapassword\"]").val() },
+        success : function (msg)
+        {
+            if (msg === "ok")
+            {
+                $("#reportcol").html("<div align=\"center\" name=\"reportwrap\"><span style=\"color:green\">Modifiche salvate con successo</span></div>");
+                $("#reportcol").hide();
+                $("#reportcol").fadeIn(2450);
+                $("#reportcol").fadeOut(1500);
+            }
+        }
+    })
+}
+

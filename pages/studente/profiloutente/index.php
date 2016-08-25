@@ -14,6 +14,7 @@
         $citta = $row ['citta'];
         $email = $row ['email'];
         $telefono = $row ['telefono'];
+        $username = $row ['username'];
 		//$preferenza = $row ['preferenza'];
     }
 	$result = $connessione->query($sql);
@@ -37,7 +38,15 @@
                     <br>
                     <div class="row">
                         <div class="col col-sm-12">
-                            <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout:fixed">
+                            <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout:fixed"><tr>
+                                    <th class="col-sm-5">Username</th>
+                                        <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-5">Password</th>
+                                        <td id="password" class="col-sm-5"></td>
+                                    </tr>
+                                    
                                     <tr>
                                         <th class="col-sm-5">Nome</th>
                                         <td id="first" class="col-sm-5"><?php echo $nome; ?></td>

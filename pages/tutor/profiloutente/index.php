@@ -6,7 +6,7 @@
     $id_tutor = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "select `nome`,`username`,`cognome`,`email`,`telefono`  from `tutor` where `id_tutor`=$id_tutor";
+    $sql = "SELECT nome, cognome, nome_aziendale, tutor.email, tutor.telefono, tutor.username FROM tutor, azienda WHERE id_tutor = $id_tutor AND id_azienda = azienda_id_azienda";
     $result = $connessione->query ( $sql );
         
     while ( $row = $result->fetch_assoc () ) {
@@ -14,6 +14,8 @@
         $cognome = $row ['cognome'];
         $email = $row ['email'];
         $telefono = $row ['telefono'];
+        $username = $row ['username'];
+        $azienda = $row ['nome_aziendale'];
     }
 ?>
     
@@ -33,6 +35,14 @@
                         <div class="col col-sm-12">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout: fixed">
                                     <tr>
+                                        <th class="col-sm-5">Username</th>
+                                        <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-5">Password</th>
+                                        <td id="password" class="col-sm-5"></td>
+                                    </tr>
+                                    <tr>
                                         <th>Nome</th>
                                         <td id="first"><?php echo $nome; ?></td>
                                     </tr>
@@ -47,6 +57,10 @@
                                     <tr>
                                         <th>Telefono</th>
                                         <td id="phone"><?php echo $telefono; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Azienda</th>
+                                        <td id="company"><?php echo $azienda; ?></td>
                                     </tr>
                                 </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">

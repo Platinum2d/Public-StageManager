@@ -14,6 +14,7 @@
         $cognome = $row ['cognome'];
         $email = $row ['email'];
         $telefono = $row ['telefono'];
+        $username = $row ['username']; 
     }
 ?>
 <body>
@@ -32,6 +33,14 @@
                     <div class="row">
                         <div class="col col-sm-12">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped">
+                                <tr>
+                                    <th class="col-sm-5">Username</th>
+                                    <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="col-sm-5">Password</th>
+                                    <td id="password" class="col-sm-5"></td>
+                                </tr>
                                 <tr>
                                     <th class="col-sm-5">Nome</th>
                                     <td id="first" class="col-sm-5"><?php echo $nome; ?></td>

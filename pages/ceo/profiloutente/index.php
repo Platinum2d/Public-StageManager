@@ -6,7 +6,7 @@
     $id_az = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile FROM azienda WHERE id_azienda=$id_az";
+    $sql = "SELECT nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile, username FROM azienda WHERE id_azienda=$id_az";
     $result = $connessione->query ( $sql );
         
     while ( $row = $result->fetch_assoc () ) {
@@ -14,6 +14,7 @@
         $cognome = $row ['cognome_responsabile'];
         $email = $row ['email_responsabile'];
         $telefono = $row ['telefono_responsabile'];
+        $username = $row ['username'];
     }
 ?>
 <body>
@@ -31,6 +32,14 @@
                     <div class="row">
                         <div class="col col-sm-12">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout: fixed">
+                                <tr>
+                                    <th class="col-sm-5">Username</th>
+                                    <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="col-sm-5">Password</th>
+                                    <td id="password" class="col-sm-5"></td>
+                                </tr>
                                 <tr>
                                     <th >Nome</th>
                                     <td id="first" ><?php echo $nome; ?></td>
