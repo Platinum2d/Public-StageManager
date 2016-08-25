@@ -161,11 +161,11 @@
                                     }
                                 } else {
                             ?>
-                            <form enctype="multipart/form-data" method="post" action="" name="uploadform">
+                            <form enctype="multipart/form-data" method="post" action="studentloader.php" name="uploadform">
                                 Seleziona il file contenente gli studenti da caricare:
                                 <br>
                                 <br>
-                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="file1">
+                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="studentfile">
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="invia" name="invio">
                             </form>
