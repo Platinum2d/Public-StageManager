@@ -3,6 +3,7 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Docenti" );
     import("../../../../");
+    $recordperpagina = (!isset($_POST['ndocenti'])) ? 10 : $_POST['ndocenti'];
 ?>
 <body>
     <style>
@@ -18,19 +19,59 @@
     <script src="scripts/scripts.js"></script>
         
     <!-- Begin Body -->
+    <script>            
+        function changePage(tupledastampare, offset, pagetounderline)
+        {
+                
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerDocente/ajaxGetTablePortion.php',
+                data : { 'offset' : offset, 'tuple' : tupledastampare },
+                cache : false,
+                success : function (html)
+                {
+                    $("#tabledocenti").html("Caricamento....");
+                    $("#tabledocenti").html("<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>");
+                    $("#tabledocenti").append(html);                   
+                    $("#tabledocenti").hide();
+                    $("#tabledocenti").fadeIn();
+                    $("#pages > a").css("font-size","25px");
+                    $("#"+pagetounderline).css("font-size","35px");
+                    $("form[target=\"_blank\"]").height($("#modifica0").height())
+                }
+            })
+        }
+    </script>
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id="mainPanel" style="min-height: 0px">
-                    <h1>Visualizza Docenti</h1> <br> 
-                                            
+                    <h1>Visualizza Docenti</h1>                                             
                                         <?php
+                                        echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
+                                            if (isset($_POST['ndocenti']))
+                                            {
+                                        ?>
+                                        <script>
+                                            var rightindex = 1;
+                                            $("#slc > option").each(function() {
+                                                if (this.text === '<?php echo intval($_POST['ndocenti']); ?>')
+                                                rightindex = this.index;
+                                            
+                                                $("#slc").prop('selectedIndex', rightindex);
+                                            });
+                                        </script>      
+                                      <?php }
+                                            else 
+                                            { ?> 
+                                        <script> $("#slc").prop('selectedIndex', 1); </script> 
+                                      <?php }
                                             $conn = dbConnection("../../../../");
-                                            $query = "SELECT * FROM docente WHERE id_docente != ".$_SESSION['userId']." ORDER BY cognome";
+                                            $query = "SELECT * FROM docente WHERE id_docente != ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;
-                                            echo "<div class=\"table-responsive\"><table class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
+                                            echo "<div class=\"table-responsive\"><table id=\"tabledocenti\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
                                             if($result->num_rows > 0)
                                             {
                                                 while ($row = $result->fetch_assoc())
@@ -49,6 +90,19 @@
                                                     
                                             }
                                             echo "</tbody></table></div>";
+                                            $querycount = "SELECT COUNT(*) FROM azienda";
+                                            $resultcount = $conn->query($querycount);
+                                            $rowcount = $resultcount->fetch_assoc();
+                                            $tuple = intval($rowcount['COUNT(*)']);
+                                            $npagine = intval($tuple / $recordperpagina) + 1;
+                                            echo "<div align=\"center\" id=\"pages\">";
+                                            for ($I = 0;$I < $npagine + 1;$I++)
+                                            {
+                                                $idtoprint = $I * $recordperpagina;
+                                                echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
+                                            }
+                                            
+                                            
                                             echo "</div>";
                                                 
                                             echo "</div>";
@@ -58,6 +112,21 @@
             </div>
         </div>
     </div>
+    <script>
+        var found = false;
+        var dio = $("#pages").children();
+        for (I = 0;I < dio.length;I++)
+            if(dio[I].style.fontSize === '35px')
+                found = true;
+                
+        if (!found) 
+            $("#pages").children().first().css("font-size","35px");
+                
+        $("select[name=\"ndocenti\"]").change(function (){
+            $("#manualredirect").submit();
+        });
+        $("form[target=\"_blank\"]").height($("#modifica0").height());
+    </script>
 </body>
 <?php
     close_html ();

@@ -94,11 +94,11 @@
                                         $I++;
                                     }
                                 ?>
-                    </ul> <br>
+                    </ul>
                     <?php 
                     if (isset($_POST['idclasse']))
                     {
-                            echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> Studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div> ";
+                            echo "<br><div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
                             if (isset($_POST['nstud']))
                             {
                     ?>
@@ -118,7 +118,6 @@
                       <?php }
                     }?>
                     
-                    <br><br>
                     <?php
                         $connessione = dbConnection("../../../../");
                         $Query = (!isset($_POST['idclasse'])) ? null : "SELECT * FROM studente WHERE classe_id_classe = $ClasseSelezionata ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
