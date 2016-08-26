@@ -21,26 +21,16 @@ function openEdit (id, idazienda)
     
     $("#VisibleBox"+numberId).append("<div id=\"HiddenBox"+numberId+"\"> </div>");
     $("#HiddenBox"+numberId).hide();
-    $("#HiddenBox"+numberId).append(" <div class=\"row\"><form class=\"form-vertical\"> \n\
-        <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"> \n\
-        <div class=\"form-group\">Username <input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Citta <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"></div> \n\
-        <div class=\"form-group\">CAP <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Indirizzo <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"></div> \n\
-        <div class=\"form-group\">Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\"></div>\n\
-        </div> \n\
-        <div class=\"col col-sm-6\"> \n\
-        <div class=\"form-group\">Password <input type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>  \n\
-        <div class=\"form-group\">Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"></div> \n\
-        <div class=\"form-group\">Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"></div> \n\
-        <div class=\"form-group\">Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\"></div>\n\
-        <div class=\"form-group\">Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\"></div>\n\
+    $("#HiddenBox"+numberId).append(" <div class=\"row\"> <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"> Username <input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+        Citta <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> CAP <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
+        Indirizzo <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
+        </div> <div class=\"col col-sm-6\"> Password <input type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">  Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
+        Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
+        Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
+        Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
         <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
         <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
-        </div></div></form></div><br><br>");
+        </div></div></div><br><br>");
     $("#modifica"+numberId).prop('disabled',true);
     setOnChangeEvents(numberId);
     
