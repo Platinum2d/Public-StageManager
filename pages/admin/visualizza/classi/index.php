@@ -3,7 +3,11 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Classi" );
     import("../../../../");
-    $recordperpagina = (!isset($_POST['nclassi'])) ? 10 : $_POST['nclassi'];
+    $recordperpagina = (isset($_POST['customclassi'])) ? $_POST['customclassi'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['nclassi'])) ? 10 : $_POST['nclassi'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
     <style>
@@ -19,7 +23,6 @@
     
     <script src="scripts/script.js"> </script>
     <script>
-        
         function changePage(tupledastampare, offset, pagetounderline)
         {
             
@@ -49,7 +52,7 @@
                 <div class="panel" style="min-height: 0px">
                     <h1>Visualizza Classi</h1>
                     <?php
-                    echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"nclassi\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> classi per pagina </form></div><br> ";
+                    echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customclassi\"> <select name=\"nclassi\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> classi per pagina </form></div><br> ";
                         if (isset($_POST['nclassi']))
                         {
                     ?>
@@ -125,6 +128,13 @@
         $("select[name=\"nclassi\"]").change(function (){
             $("#manualredirect").submit();
         });
+        
+        $("#customclassi").keyup(function (e){
+            if (e.which === 13){
+                $("#manualredirect").submit();
+            }
+        });
+        
         $("form[target=\"_blank\"]").height($("#modifica0").height());
     </script>
 </body>

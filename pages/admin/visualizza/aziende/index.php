@@ -3,7 +3,11 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Aziende" );
     import("../../../../");
-    $recordperpagina = (!isset($_POST['naziende'])) ? 10 : $_POST['naziende'];
+    $recordperpagina = (isset($_POST['customaz'])) ? $_POST['customaz'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['naziende'])) ? 10 : $_POST['naziende'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
         <style>
@@ -50,7 +54,7 @@
 					<h1>Visualizza Aziende</h1> 
                                         
                                         <?php
-                                            echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"naziende\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div> ";
+                                            echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customaz\"> <select name=\"naziende\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div> ";
                                             if (isset($_POST['naziende']))
                                             {
                                         ?>
@@ -126,6 +130,13 @@
             $("select[name=\"naziende\"]").change(function (){
                 $("#manualredirect").submit();
             });
+            
+            $("#customnum").keyup(function (e){
+                if (e.which === 13){
+                    $("#manualredirect").submit();
+                }
+            });
+            
             $("form[target=\"_blank\"]").height($("#modifica0").height());
         </script>
 </body>

@@ -3,7 +3,11 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Docenti" );
     import("../../../../");
-    $recordperpagina = (!isset($_POST['ndocenti'])) ? 10 : $_POST['ndocenti'];
+    $recordperpagina = (isset($_POST['customdocente'])) ? $_POST['customdocente'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['ndocenti'])) ? 10 : $_POST['ndocenti'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
     <style>
@@ -48,7 +52,7 @@
                 <div class="panel" id="mainPanel" style="min-height: 0px">
                     <h1>Visualizza Docenti</h1>                                             
                                         <?php
-                                        echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
+                                        echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customdocente\"> <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
                                             if (isset($_POST['ndocenti']))
                                             {
                                         ?>
@@ -126,6 +130,13 @@
         $("select[name=\"ndocenti\"]").change(function (){
             $("#manualredirect").submit();
         });
+        
+        $("#customdocente").keyup(function (e){
+            if (e.which === 13){
+                $("#manualredirect").submit();
+            }
+        });
+        
         $("form[target=\"_blank\"]").height($("#modifica0").height());
     </script>
 </body>

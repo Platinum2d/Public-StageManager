@@ -4,6 +4,11 @@
     open_html ( "Visualizza Specializzazioni" );
     import("../../../../");
     $recordperpagina = (!isset($_POST['nspec'])) ? 10 : $_POST['nspec'];
+    $recordperpagina = (isset($_POST['customspec'])) ? $_POST['customspec'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['nspec'])) ? 10 : $_POST['nspec'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
     <style>
@@ -50,7 +55,7 @@
                     <h1>Visualizza Specializzazioni</h1>    
                     
                     <?php
-                    echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"nspec\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br> ";
+                    echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customspec\"> <select name=\"nspec\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br> ";
                             if (isset($_POST['nspec']))
                             {
                         ?>
@@ -123,6 +128,13 @@
         $("select[name=\"nspec\"]").change(function (){
             $("#manualredirect").submit();
         });
+        
+        $("#customnum").keyup(function (e){
+            if (e.which === 13){
+                $("#manualredirect").submit();
+            }
+        });
+        
         $("form[target=\"_blank\"]").height($("#modifica0").height());
     </script>
 </body>

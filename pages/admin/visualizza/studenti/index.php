@@ -5,7 +5,11 @@
     import("../../../../");
 //    echo "<link rel=\"stylesheet\" href=\"Chat/style.css\">";
 //    echo "<script src=\"Chat/chat.js\"> </script>";
-    $recordperpagina = (!isset($_POST['nstud'])) ? 10 : $_POST['nstud'];
+    $recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['nstud'])) ? 10 : $_POST['nstud'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
 <!--    <script>
@@ -98,7 +102,7 @@
                     <?php 
                     if (isset($_POST['idclasse']))
                     {
-                            echo "<br><div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
+                            echo "<br><div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customnstud\"> <select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
                             if (isset($_POST['nstud']))
                             {
                     ?>
@@ -187,6 +191,13 @@
             $("select[name=\"nstud\"]").change(function (){
                 $("#manualredirect").submit();
             });
+            
+            $("#customnum").keyup(function (e){
+                if (e.which === 13){
+                    $("#manualredirect").submit();
+                }
+            });
+            
             $("form[target=\"_blank\"]").height($("#modifica0").height());
             
             function redirectForClass(progressiv){

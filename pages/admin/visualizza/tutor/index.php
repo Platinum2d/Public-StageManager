@@ -3,7 +3,11 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Tutor" );
     import("../../../../");
-    $recordperpagina = (!isset($_POST['ntutor'])) ? 10 : $_POST['ntutor'];
+    $recordperpagina = (isset($_POST['customtutor'])) ? $_POST['customtutor'] : null;
+    if (!isset($recordperpagina)){  
+        $recordperpagina = (!isset($_POST['ntutor'])) ? 10 : $_POST['ntutor'];
+    }
+    if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
     <style>
@@ -49,7 +53,7 @@
 				<div class="panel" id="mainPanel" style="min-height: 0px">
 					<h1>Visualizza Tutor</h1> 
                                         <?php
-                                            echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
+                                            echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\"> <select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
                                             if (isset($_POST['ntutor']))
                                             {
                                         ?>
@@ -126,6 +130,13 @@
         $("select[name=\"ntutor\"]").change(function (){
             $("#manualredirect").submit();
         });
+        
+        $("#customnum").keyup(function (e){
+            if (e.which === 13){
+                $("#manualredirect").submit();
+            }
+        });
+        
         $("form[target=\"_blank\"]").height($("#modifica0").height());
     </script>
 </body>
