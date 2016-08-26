@@ -3,7 +3,6 @@
     checkLogin ( adminType , "../../../../");
     open_html ( "Visualizza Specializzazioni" );
     import("../../../../");
-    $recordperpagina = (!isset($_POST['nspec'])) ? 10 : $_POST['nspec'];
     $recordperpagina = (isset($_POST['customspec'])) ? $_POST['customspec'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['nspec'])) ? 10 : $_POST['nspec'];
@@ -55,7 +54,7 @@
                     <h1>Visualizza Specializzazioni</h1>    
                     
                     <?php
-                    echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customspec\"> <select name=\"nspec\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br> ";
+                    echo "<div align=\"right\"> Visualizza  <form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> <input type=\"text\" id=\"customnum\" name=\"customspec\"> </form> <form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"> <select name=\"nspec\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br> ";
                             if (isset($_POST['nspec']))
                             {
                         ?>
@@ -132,7 +131,7 @@
         
         $("#customnum").keyup(function (e){
             if (e.which === 13){
-                $("#manualredirect").submit();
+                $("#manualcustomredirect").submit();
             }
         });
         

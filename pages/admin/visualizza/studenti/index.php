@@ -102,7 +102,8 @@
                     <?php 
                     if (isset($_POST['idclasse']))
                     {
-                            echo "<br><div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customnstud\"> <select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
+                            echo "<br><div align=\"right\"> <form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customnstud\"> <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"> </form> "
+                                . "<form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
                             if (isset($_POST['nstud']))
                             {
                     ?>
@@ -193,7 +194,7 @@
         
         $("#customnum").keyup(function (e){
             if (e.which === 13){
-                $("#manualredirect").submit();
+                $("#manualcustomredirect").submit();
             }
         });
         

@@ -52,7 +52,7 @@
                 <div class="panel" id="mainPanel" style="min-height: 0px">
                     <h1>Visualizza Docenti</h1>                                             
                                         <?php
-                                        echo "<div align=\"right\"> <form action=\"index.php\" method=\"POST\" id=\"manualredirect\">Visualizza <input type=\"text\" id=\"customnum\" name=\"customdocente\"> <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
+                                        echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customdocente\"> </form>  <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"> <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
                                             if (isset($_POST['ndocenti']))
                                             {
                                         ?>
@@ -134,7 +134,7 @@
         
         $("#customdocente").keyup(function (e){
             if (e.which === 13){
-                $("#manualredirect").submit();
+                $("#manualcustomredirect").submit();
             }
         });
         
