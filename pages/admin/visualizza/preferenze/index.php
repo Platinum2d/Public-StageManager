@@ -115,6 +115,7 @@
         </div>
     </div>
     <script>
+        $("#customnum").css("height",parseInt($("#slc").height()));
         var found = false;
         var dio = $("#pages").children();
         for (I = 0;I < dio.length;I++)

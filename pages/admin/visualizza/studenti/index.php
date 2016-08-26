@@ -34,18 +34,18 @@
         printChat("../../../../");
     ?>
     
-<!--    <div id="wholechat">
-        <div id="chat" onclick="fillChat()" class="chat-container">
-            <p id="nascondi" class="hide-show-p"><a id="nascondilink" href="javascript:hideChat()" class="hide-show-link"> Chat </a></p>
-            <div id='chatcontent'>
+    <!--    <div id="wholechat">
+            <div id="chat" onclick="fillChat()" class="chat-container">
+                <p id="nascondi" class="hide-show-p"><a id="nascondilink" href="javascript:hideChat()" class="hide-show-link"> Chat </a></p>
+                <div id='chatcontent'>
+                </div>
             </div>
-        </div>
-    </div>-->
-        
+        </div>-->
+            
     <script>
-    if (typeof(localStorage.chatCode) !== "undefined"){
-        $("#wholechat").html(localStorage.chatCode);
-    }
+        if (typeof(localStorage.chatCode) !== "undefined"){
+            $("#wholechat").html(localStorage.chatCode);
+        }
     </script>
     <script src="scripts/script.js"> </script>
     <script>
@@ -106,19 +106,19 @@
                             if (isset($_POST['nstud']))
                             {
                     ?>
-                                    <script>
-                                        var rightindex = 1;
-                                        $("#slc > option").each(function() {
-                                            if (this.text === '<?php echo intval($_POST['nstud']); ?>')
-                                                rightindex = this.index;
-
-                                            $("#slc").prop('selectedIndex', rightindex);
-                                        });
-                                    </script>      
+                    <script>
+                        var rightindex = 1;
+                        $("#slc > option").each(function() {
+                            if (this.text === '<?php echo intval($_POST['nstud']); ?>')
+                            rightindex = this.index;
+                            
+                            $("#slc").prop('selectedIndex', rightindex);
+                        });
+                    </script>      
                     <?php }
                             else 
                             { ?> 
-                                    <script> $("#slc").prop('selectedIndex', 1); </script> 
+                    <script> $("#slc").prop('selectedIndex', 1); </script> 
                       <?php }
                     }?>
                     
@@ -128,7 +128,7 @@
                             
                         if ($Query !== null && $result = $connessione->query ($Query))
                         {
-                           
+                            
                             echo "<div class=\"row\">";
                             echo "<div class = \"col col-sm-12\">";
                             $I=0;
@@ -151,10 +151,8 @@
                                     echo "</div>";
                                 echo "</tr>";
                                 $I++;
-                            }
-                                
+                            }  
                             echo "</tbody></table></div>";
-                            
                             if (isset($_POST['idclasse']))
                             {
                                 $querycount = "SELECT COUNT(*) FROM studente WHERE classe_id_classe = ".$_POST['idclasse']."";
@@ -163,7 +161,7 @@
                                 $tuple = intval($rowcount['COUNT(*)']);
                                 $npagine = intval($tuple / $recordperpagina);
                                 if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                                
+                                    
                                 echo "<div align=\"center\" id=\"pages\">";
                                 for ($I = 0;$I < $npagine;$I++)
                                 {
@@ -179,30 +177,31 @@
         </div>
     </div>
     <script>
-            var found = false;
-            var dio = $("#pages").children();
-            for (I = 0;I < dio.length;I++)
-                if(dio[I].style.fontSize === '35px')
-                    found = true;
-            
-            if (!found) 
-                $("#pages").children().first().css("font-size","35px");
-            
-            $("select[name=\"nstud\"]").change(function (){
+        $("#customnum").css("height",parseInt($("#slc").height()));
+        var found = false;
+        var dio = $("#pages").children();
+        for (I = 0;I < dio.length;I++)
+            if(dio[I].style.fontSize === '35px')
+                found = true;
+        
+        if (!found) 
+            $("#pages").children().first().css("font-size","35px");
+        
+        $("select[name=\"nstud\"]").change(function (){
+            $("#manualredirect").submit();
+        });
+        
+        $("#customnum").keyup(function (e){
+            if (e.which === 13){
                 $("#manualredirect").submit();
-            });
-            
-            $("#customnum").keyup(function (e){
-                if (e.which === 13){
-                    $("#manualredirect").submit();
-                }
-            });
-            
-            $("form[target=\"_blank\"]").height($("#modifica0").height());
-            
-            function redirectForClass(progressiv){
-                $("#classform"+progressiv).submit();
             }
+        });
+        
+        $("form[target=\"_blank\"]").height($("#modifica0").height());
+        
+        function redirectForClass(progressiv){
+            $("#classform"+progressiv).submit();
+        }
     </script>
         
 </body>
