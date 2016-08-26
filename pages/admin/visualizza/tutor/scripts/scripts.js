@@ -14,27 +14,27 @@ function openEdit (id, idTutor)
     var numberId = id;
     
     $("#VisibleBox"+numberId).append("\
-    <div id=\"HiddenBox"+numberId+"\"><form class=\"form-vertical\">\n\
+    <div id=\"HiddenBox"+numberId+"\">\n\
         <div class=\"row\">\n\
             <div class=\"col col-sm-12\">\n\
                 <div class=\"row\">\n\
                     <div class=\"col col-sm-6\">\n\
-                        <div class=\"form-group\">Username <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\"></div>\n\
+                        Username <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                        Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                        Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\">\n\
+                        Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\">\n\
                      </div>\n\
                      <div class=\"col col-sm-6\">\n\
-                        <div class=\"form-group\">Telefono <input placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Azienda <select id=\"azienda"+numberId+"\" class=\"form-control\"> <option value=\"-1\"></option> </select></div>\n\
+                        Telefono <input placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\">\n\
+                        E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\">\n\
+                        Azienda <select id=\"azienda"+numberId+"\" class=\"form-control\"> <option value=\"-1\"></option> </select>\n\
                      </div>\n\
                 </div>\n\
                         <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button>\n\
                         <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idTutor+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
             </div>\n\
         </div>\n\
-    </form></div>");
+    </div>");
     $("#modifica"+numberId).prop('disabled',true);
     $("#HiddenBox"+numberId).hide();
     setOnChangeEvents(numberId);
