@@ -11,8 +11,15 @@ function openEdit(id, idClasse)
     
     $("#modifica"+numberId).prop("disabled",true);
     $("#elimina"+numberId).prop("disabled",true);
-    $('#'+id).append("<div id=\"HiddenBox"+numberId+"\"> <label id=\"label"+numberId+"\"> Nome </label><input placeholder=\"Nome della classe\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"> ");
-    $("#HiddenBox"+numberId).append(" Specializzazione <select class=\"form-control\" type=\"text\" id=\"spec"+numberId+"\"> <option value=\"-1\"> </option> </select>  <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idClasse+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> <br><br></div>");
+    $('#'+id).append("\<div id=\"HiddenBox"+numberId+"\">\n\
+    <form class=\"form-vertical\"> \n\
+        <label id=\"label"+numberId+"\"> Nome </label>\n\
+        <div class=\"form-group\"><input placeholder=\"Nome della classe\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div>  \n\
+        <div class=\"form-group\">Specializzazione <select class=\"form-control\" type=\"text\" id=\"spec"+numberId+"\"> <option value=\"-1\"> </option> </select></div>  \n\
+        <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
+        <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idClasse+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> \n\
+        </button> <br><br>\n\
+    </form></div>");
     $("#HiddenBox"+numberId).hide();
 //    $("#HiddenBox"+numberId).fadeIn("slow");    
     $.ajax(

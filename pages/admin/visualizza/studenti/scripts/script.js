@@ -25,26 +25,27 @@ function openEdit(id, idStudente)
     $("#modifica"+numberId).prop("disabled",true);
     $("#registro"+numberId).prop("disabled",true);
     $('#'+id).append("<div id=\"HiddenBox"+numberId+"\">\n\
+<form class=\"form-vertical\">\n\
 <div class=\"row\">\n\
  <div class=\"col col-sm-12\">\n\
  <div class=\"row\"> \n\
 <div class=\"col col-sm-6\"> \n\
-                username <input placeholder=\"Username\" class=\"form-control\" name=\"nc\" type=\"text\" id=\"username"+numberId+"\">\n\
-                nome <input  placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"> \n\
-                cognome <input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\">\n\
-                citta <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\">\n\
-                e-mail <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"> \n\
-                telefono <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\">\n\
-                inizio stage <input placeholder=\"Data di inizio stage\" data-provide=\"datepicker\" class=\"form-control\" type=\"text\" id=\"iniziostage"+numberId+"\">\n\
-                durata stage <input placeholder=\"Data di fine stage\" class=\"form-control\" type=\"number\" min=\"1\" id=\"duratastage"+numberId+"\">\n\
-                <div align=\"center\" style=\"padding-top:5px\"><input type=\"checkbox\" id=\"visitaazienda"+numberId+"\"> <label id=\"visitalabel"+numberId+"\"> azienda visitata </label></div></div>\n\
+                <div class=\"form-group\">username <input placeholder=\"Username\" class=\"form-control\" name=\"nc\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
+                <div class=\"form-group\">nome <input  placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
+                <div class=\"form-group\">cognome <input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
+                <div class=\"form-group\">citta <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
+                <div class=\"form-group\">e-mail <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
+                <div class=\"form-group\">telefono <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
+                <div class=\"form-group\">inizio stage <input placeholder=\"Data di inizio stage\" data-provide=\"datepicker\" class=\"form-control\" type=\"text\" id=\"iniziostage"+numberId+"\"></div>\n\
+                <div class=\"form-group\">durata stage <input placeholder=\"Data di fine stage\" class=\"form-control\" type=\"number\" min=\"1\" id=\"duratastage"+numberId+"\"></div>\n\
+                <div class=\"form-group\"><div align=\"center\" style=\"padding-top:5px\"><input type=\"checkbox\" id=\"visitaazienda"+numberId+"\"> <label id=\"visitalabel"+numberId+"\"> azienda visitata </label></div></div></div>\n\
 <div class=\"col col-sm-6\">\n\
-                password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                classe <select placeholder=\"Classe\" class=\"form-control\" id=\"classe"+numberId+"\"> </select>\n\
-                preferenze <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /> \n\
-                <br>azienda <select placeholder=\"Azienda\" class=\"form-control\" id=\"azienda"+numberId+"\"> </select>\n\
-                docente <select class=\"form-control\" id=\"docente"+numberId+"\"> </select>\n\
-                tutor <select class=\"form-control\" id=\"tutor"+numberId+"\"></select> </div>");
+                <div class=\"form-group\">password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
+                <div class=\"form-group\">classe <select placeholder=\"Classe\" class=\"form-control\" id=\"classe"+numberId+"\"> </select></div>\n\
+                <div class=\"form-group\">preferenze <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div> \n\
+                <div class=\"form-group\">azienda <select placeholder=\"Azienda\" class=\"form-control\" id=\"azienda"+numberId+"\"> </select></div>\n\
+                <div class=\"form-group\">docente <select class=\"form-control\" id=\"docente"+numberId+"\"> </select></div>\n\
+                <div class=\"form-group\">tutor <select class=\"form-control\" id=\"tutor"+numberId+"\"></select></div></form></div>");
     
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
