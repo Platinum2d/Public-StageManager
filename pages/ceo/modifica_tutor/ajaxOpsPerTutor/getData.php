@@ -23,6 +23,17 @@ XML;
         $tutor->addChild('cognome',$row['cognome']);
         $tutor->addChild('telefono',$row['telefono']);
         $tutor->addChild('email',$row['email']);
+        $resultstudent = $conn->query("SELECT cognome, nome FROM studente WHERE tutor_id_tutor = $idtutor");
+        if ($resultstudent && $resultstudent->num_rows > 0)
+        {
+            $studenti = $tutor->addChild('studenti');
+            while ($rowstudent = $resultstudent->fetch_assoc())
+            {
+                $studente = $studenti->addChild('studente');
+                $studente->addChild('nome', $rowstudent['nome']);
+                $studente->addChild('cognome', $rowstudent['cognome']);
+            }        
+        }
     }
     
     echo $xml->asXML();
