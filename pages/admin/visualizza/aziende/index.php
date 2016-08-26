@@ -96,9 +96,10 @@
                                             $resultcount = $conn->query($querycount);
                                             $rowcount = $resultcount->fetch_assoc();
                                             $tuple = intval($rowcount['COUNT(*)']);
-                                            $npagine = intval($tuple / $recordperpagina) + 1;
+                                            $npagine = intval($tuple / $recordperpagina);
+                                            if ($npagine * $recordperpagina < $tuple) $npagine += 1;
                                             echo "<div align=\"center\" id=\"pages\">";
-                                            for ($I = 0;$I < $npagine + 1;$I++)
+                                            for ($I = 0;$I < $npagine;$I++)
                                             {
                                                 $idtoprint = $I * $recordperpagina;
                                                 echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
