@@ -72,7 +72,7 @@ function sendData(idPreferenza, numberId)
 
 function deleteData(idPreferenza)
 {
-    var confirmed = confirm("Confermare la cancellazione di questa preferenza?");
+    var confirmed = confirm("Confermare l'eliminazione di questa preferenza?");
     if (confirmed)
     {
         $.ajax({
