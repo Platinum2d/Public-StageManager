@@ -16,7 +16,7 @@ $(document).ready(function(){
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
     //contact.preference=$("#preference").html();
-    $("span[data-role=\"remove\"]").css("visibility","hidden");
+    $("span[data-role=\"remove\"]").hide();
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
@@ -93,7 +93,7 @@ $(document).ready(function(){
         
         //compare bottone edit
         $("#editButton").show();
-//        $("span[data-role=\"remove\"]").css("visibility","hidden");
+//        $("span[data-role=\"remove\"]").hide();
 //        $("input[type=\"text\"]").prop("disabled",true);
 //        $("#btnaddpref").prop("disabled",true);
 //        $("#HiddenAddBox").hide();
@@ -107,14 +107,14 @@ function openPreferenceEdit(){
         $("#cancelButtonpreference").show();
         $("#HiddenAddBox").show("slide");
         $("#addpreference").prop("disabled",false);
-        $("span[data-role=\"remove\"]").css("visibility","visible");
+        $("span[data-role=\"remove\"]").fadeIn("slow")
         $("#preferenceslist").prop("disabled",false)
 }
 
 function closePreferenceEdit(){
     $("#editButtonpreference").show();
     $("#cancelButtonpreference").hide();
-    $("span[data-role=\"remove\"]").css("visibility","hidden");
+    $("span[data-role=\"remove\"]").fadeOut("slow")
     $("#HiddenAddBox").hide();
 }
 
