@@ -30,8 +30,8 @@ function openEdit(id, idStudente)
  <div class=\"col col-sm-12\">\n\
  <div class=\"row\"> \n\
 <div class=\"col col-sm-6\"> \n\
-                <div class=\"form-group\">username <input placeholder=\"Username\" class=\"form-control\" name=\"nc\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
-                <div class=\"form-group\">nome <input  placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
+                <div class=\"form-group\"><label id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
+                <div class=\"form-group\">nome <input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
                 <div class=\"form-group\">cognome <input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
                 <div class=\"form-group\">citta <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
                 <div class=\"form-group\">e-mail <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
@@ -50,18 +50,17 @@ function openEdit(id, idStudente)
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
     $("#iniziostage"+numberId).datepicker({ dateFormat: 'yy-mm-dd' });    
-    setOnChangeEvents(numberId);
-    
+    setOnChangeEvents(numberId);    
     
     $.ajax(
             {
-        type : 'POST',
+                type : 'POST',
         url : 'ajaxOpsPerStudente/getData.php',
         data : { 'id' : idStudente},
         success : function (xml)
-        {
-            
+        {            
             $("#username"+numberId).attr('value',$(xml).find('username').text());
+            $("#username"+numberId).attr('name',$(xml).find('username').text());
             $("#nome"+numberId).attr('value',$(xml).find('nome').text());
             $("#cognome"+numberId).attr('value',$(xml).find('cognome').text());
             $("#citta"+numberId).attr('value',$(xml).find('citta').text());
@@ -194,15 +193,36 @@ function openEdit(id, idStudente)
         }
     });  
     
+    $("#username"+numberId).on("input", function (){
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOpsPerStudente/ajaxCheckUserExistence.php',
+            cache : false,
+            data : { 'user' : $("#username"+numberId).val(), 'original' : $("#username"+numberId).attr("name") },
+            success : function(msg){
+                if (msg === "trovato")
+                {                    
+                    $("#userlabel"+numberId).css("color", "red");
+                    $("#userlabel"+numberId).html("username (esiste gia')");
+                }
+                else
+                {
+                    $("#userlabel"+numberId).css("color", "#828282");
+                    $("#userlabel"+numberId).html("username");
+                }
+            }
+        });
+    });
+    
     $("#nome"+numberId).keypress(function (event){
         if (event.which === 13) sendData(idStudente, numberId);
     });
     
     $("#HiddenBox"+numberId).fadeIn("slow")
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height())
-//        $("#ButtonBox"+numberId).animate({
-//        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-//    }, 500)
+    //        $("#ButtonBox"+numberId).animate({
+    //        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
+    //    }, 500)
 }
 
 function sendData(idStudente, numberId)
@@ -244,9 +264,9 @@ function sendData(idStudente, numberId)
             data : studente,
             success : function (xml)
             {      
-//                var nome     = $(xml).find("nome").text();
-//                var cognome  = $(xml).find("cognome").text();
-//                var username = $(xml).find("user").text();
+                //                var nome     = $(xml).find("nome").text();
+                //                var cognome  = $(xml).find("cognome").text();
+                //                var username = $(xml).find("user").text();
                 var query    = $(xml).find("query").text();
                 $("#label"+numberId).html(studente.cognome + " " + studente.nome + " ("+studente.username+")");
                 resetColors(numberId);
@@ -278,11 +298,11 @@ function deleteData(idClasse, idStudente)
 
 function closeEdit(numberId)
 {
-//    $("#ButtonBox"+numberId).animate({
-//        height : $("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height() 
-//    }, 500);
+    //    $("#ButtonBox"+numberId).animate({
+    //        height : $("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height() 
+    //    }, 500);
     $("#ButtonBox"+numberId).height($("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height());
-
+    
     $( "#HiddenBox"+numberId ).remove("br");
     $( "#HiddenBox"+numberId ).remove();
     
@@ -323,10 +343,10 @@ function setOnChangeEvents(numberId)
             {
                 
                 $(xml).find('tutors').find('tutor').each(function () {
-                   var nome = $(this).find('nome').text();
-                   var cognome = $(this).find('cognome').text();
-                   var id = $(this).find('id').text();
-                   $("#tutor"+numberId).append("<option value="+id+"> "+cognome+" "+nome+" </option>");
+                    var nome = $(this).find('nome').text();
+                    var cognome = $(this).find('cognome').text();
+                    var id = $(this).find('id').text();
+                    $("#tutor"+numberId).append("<option value="+id+"> "+cognome+" "+nome+" </option>");
                 });
             }
         })
@@ -367,7 +387,7 @@ function openRegistro(id, idStudente)
         'studente' : idStudente
     }
     
-     //$("#RegistroBox"+numberId).append("Loading... <br><br>");
+    //$("#RegistroBox"+numberId).append("Loading... <br><br>");
     
     $.ajax({
         url : 'ajaxOpsPerStudente/ajaxRegistro.php',
@@ -388,18 +408,18 @@ function openRegistro(id, idStudente)
             $("#RegistroBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeRegistro("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <br><br><br>")            
             $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#RegistroBox"+numberId).height());
             
-//            $("#ButtonBox"+numberId).animate({
-//                height : ($("#ButtonBox"+numberId).height() + $("#RegistroBox"+numberId).height())
-//            }, 500)
+            //            $("#ButtonBox"+numberId).animate({
+            //                height : ($("#ButtonBox"+numberId).height() + $("#RegistroBox"+numberId).height())
+            //            }, 500)
         }
     });
 }
 
 function closeRegistro (numberId)
 {
-//    $("#ButtonBox"+numberId).animate({
-//        height : $("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height()
-//    }, 500)
+    //    $("#ButtonBox"+numberId).animate({
+    //        height : $("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height()
+    //    }, 500)
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height())
     $( "#RegistroBox"+numberId ).remove();
     

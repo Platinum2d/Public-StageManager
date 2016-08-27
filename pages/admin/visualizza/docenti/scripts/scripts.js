@@ -23,7 +23,7 @@ function openEdit (id, iddocente)
             <div class=\"row\">\n\
                 <div class=\"col col-sm-6\">\n\
                     <form class=\"form-vertical\">\n\
-                        <div class=\"form-group\">Username <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\"></div>\n\
+                        <div class=\"form-group\"><label id=\"userlabel"+numberId+"\">Username</label><input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\"></div>\n\
                         <div class=\"form-group\">Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
                         <div class=\"form-group\">Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\"></div>\n\
                         <div class=\"form-group\">Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\"></div>\n\
@@ -52,6 +52,7 @@ function openEdit (id, iddocente)
         {
             $(xml).find("docenti").find("docente").each(function (){
                 $("#username"+numberId).val($(this).find("username").text());
+                $("#username"+numberId).attr('name',$(xml).find('username').text());
                 $("#nome"+numberId).val($(this).find("nome").text());
                 $("#cognome"+numberId).val($(this).find("cognome").text());
                 $("#telefono"+numberId).val($(this).find("telefono").text());
@@ -59,6 +60,26 @@ function openEdit (id, iddocente)
                 if ($(this).find("docente_tutor").text() === "1") $("#docentetutor"+numberId).attr('checked',true);
                 if ($(this).find("super_user").text() === "1") $("#superuser"+numberId).attr('checked',true);
                 if ($(this).find("docente_referente").text() === "1") $("#docentereferente"+numberId).attr('checked',true);
+                $("#username"+numberId).on("input", function (){
+                    $.ajax({
+                        type : 'POST',
+                        url : 'ajaxOpsPerDocente/ajaxCheckUserExistence.php',
+                        cache : false,
+                        data : { 'user' : $("#username"+numberId).val(), 'original' : $("#username"+numberId).attr("name") },
+                        success : function(msg){
+                            if (msg === "trovato")
+                            {                    
+                                $("#userlabel"+numberId).css("color", "red");
+                                $("#userlabel"+numberId).html("username (esiste gia')");
+                            }
+                            else
+                            {
+                                $("#userlabel"+numberId).css("color", "#828282");
+                                $("#userlabel"+numberId).html("username");
+                            }
+                        }
+                    });
+                });
             });
         },
         error : function()
@@ -67,9 +88,9 @@ function openEdit (id, iddocente)
         }
     })
     $("#HiddenBox"+numberId).fadeIn("slow");
-        $("#ButtonBox"+numberId).animate({
-            height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-        }, 500)
+    $("#ButtonBox"+numberId).animate({
+        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
+    }, 500)
 }
 
 function closeEdit (numberId)

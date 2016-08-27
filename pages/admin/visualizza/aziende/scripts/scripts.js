@@ -21,7 +21,7 @@ function openEdit (id, idazienda)
     
     $("#VisibleBox"+numberId).append("<div id=\"HiddenBox"+numberId+"\"> </div>");
     $("#HiddenBox"+numberId).hide();
-    $("#HiddenBox"+numberId).append(" <div class=\"row\"> <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"> Username <input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+    $("#HiddenBox"+numberId).append(" <div class=\"row\"> <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"><label id=\"userlabel"+numberId+"\"> Username </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
         Citta <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> CAP <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
         Indirizzo <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
         </div> <div class=\"col col-sm-6\"> Password <input type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">  Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
@@ -43,6 +43,7 @@ function openEdit (id, idazienda)
         {
             $(xml).find("aziende").find("azienda").each(function (){
                 $("#username"+numberId).val($(this).find("username").text());
+                $("#username"+numberId).attr('name',$(xml).find('username').text());
                 $("#nomeazienda"+numberId).val($(this).find("nome_aziendale").text());
                 $("#cittaazienda"+numberId).val($(this).find("citta").text());
                 $("#capazienda"+numberId).val($(this).find("cap").text());
@@ -54,6 +55,27 @@ function openEdit (id, idazienda)
                 $("#cognomeresponsabile"+numberId).val($(this).find("cognome_responsabile").text());
                 $("#telefonoresponsabile"+numberId).val($(this).find("telefono_responsabile").text());
                 $("#emailresponsabile"+numberId).val($(this).find("email_responsabile").text());               
+            });
+            
+            $("#username"+numberId).on("input", function (){
+                $.ajax({
+                    type : 'POST',
+                    url : 'ajaxOpsPerAzienda/ajaxCheckUserExistence.php',
+                    cache : false,
+                    data : { 'user' : $("#username"+numberId).val(), 'original' : $("#username"+numberId).attr("name") },
+                    success : function(msg){
+                        if (msg === "trovato")
+                        {                    
+                            $("#userlabel"+numberId).css("color", "red");
+                            $("#userlabel"+numberId).html("username (esiste gia')");
+                        }
+                        else
+                        {
+                            $("#userlabel"+numberId).css("color", "#828282");
+                            $("#userlabel"+numberId).html("username");
+                        }
+                    }
+                });
             });
         },
         error : function()

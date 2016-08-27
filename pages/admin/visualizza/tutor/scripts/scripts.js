@@ -19,7 +19,7 @@ function openEdit (id, idTutor)
             <div class=\"col col-sm-12\">\n\
                 <div class=\"row\">\n\
                     <div class=\"col col-sm-6\">\n\
-                        Username <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                        <label id=\"userlabel"+numberId+"\">Username</label> <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
                         Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
                         Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\">\n\
                         Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\">\n\
@@ -48,6 +48,7 @@ function openEdit (id, idTutor)
         {
             $(xml).find('tutors').find('tutor').each(function(){
                 $("#username"+numberId).val(($(this).find('username').text()));
+                $("#username"+numberId).attr('name',$(xml).find('username').text());
                 $("#nome"+numberId).val(($(this).find('nome').text()));
                 $("#cognome"+numberId).val(($(this).find('cognome').text()));
                 $("#telefono"+numberId).val(($(this).find('telefono').text()));
@@ -56,21 +57,41 @@ function openEdit (id, idTutor)
                 var nomeaz = $(this).find('nome_azienda').text();
                 $("#azienda"+numberId).attr('name',nomeaz)
                 $.ajax({
-                   type : 'POST',
-                   url : 'ajaxOpsPerTutor/ajaxAzienda.php',
-                   cache : false,
-                   success : function (az)
-                   {
-                       $(az).find("aziende").find("azienda").each(function (){
+                    type : 'POST',
+                    url : 'ajaxOpsPerTutor/ajaxAzienda.php',
+                    cache : false,
+                    success : function (az)
+                    {
+                        $(az).find("aziende").find("azienda").each(function (){
                             $("#azienda"+numberId).append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
-                       });
-                       var rightindex;
-                       $("#azienda"+numberId+" > option").each(function() {
-                           if (this.text === $("#azienda"+numberId).attr('name')) 
-                               rightindex = this.index;
-                       });
-                       $("#azienda"+numberId).prop('selectedIndex', rightindex);
-                   }
+                        });
+                        var rightindex;
+                        $("#azienda"+numberId+" > option").each(function() {
+                            if (this.text === $("#azienda"+numberId).attr('name')) 
+                                rightindex = this.index;
+                        });
+                        $("#azienda"+numberId).prop('selectedIndex', rightindex);
+                    }
+                });
+                $("#username"+numberId).on("input", function (){
+                    $.ajax({
+                        type : 'POST',
+                        url : 'ajaxOpsPerTutor/ajaxCheckUserExistence.php',
+                        cache : false,
+                        data : { 'user' : $("#username"+numberId).val(), 'original' : $("#username"+numberId).attr("name") },
+                        success : function(msg){
+                            if (msg === "trovato")
+                            {                    
+                                $("#userlabel"+numberId).css("color", "red");
+                                $("#userlabel"+numberId).html("username (esiste gia')");
+                            }
+                            else
+                            {
+                                $("#userlabel"+numberId).css("color", "#828282");
+                                $("#userlabel"+numberId).html("username");
+                            }
+                        }
+                    });
                 });
             });
         },
@@ -80,22 +101,22 @@ function openEdit (id, idTutor)
         }
     })
     
-//    $("#HiddenBox"+numberId).hide();
-//    $("#HiddenBox"+numberId).fadeIn("slow");
-//    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
+    //    $("#HiddenBox"+numberId).hide();
+    //    $("#HiddenBox"+numberId).fadeIn("slow");
+    //    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
     $("#HiddenBox"+numberId).fadeIn("slow");
-     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height())
-//        $("#ButtonBox"+numberId).animate({
-//        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-//    }, 500)
+    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height())
+    //        $("#ButtonBox"+numberId).animate({
+    //        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
+    //    }, 500)
 }
 
 function closeEdit (numberId)
 {
-//    $("#ButtonBox"+numberId).animate({
-//        height : $("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height()
-//    }, 500)
-     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
+    //    $("#ButtonBox"+numberId).animate({
+    //        height : $("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height()
+    //    }, 500)
+    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
     $( "#HiddenBox"+numberId ).remove();
     
     //$( "#VisibleBox"+numberId).append('<br><br>');
