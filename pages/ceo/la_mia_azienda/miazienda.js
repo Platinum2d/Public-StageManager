@@ -8,13 +8,13 @@ contact = {
 
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
-    $("span[data-role=\"remove\"]").css("visibility","hidden");
     $("#cancelButtonspec").hide();
     contact.first=$("#first").html();
     contact.city=$("#city").html();
     contact.address=$("#address").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
+    $("span[data-role=\"remove\"]").hide();
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
@@ -88,13 +88,13 @@ function openSpecEdit(){
     $("#cancelButtonspec").show();
     $("#HiddenAddBox").show("slide");
     $("#addspec").prop("disabled",false);
-    $("span[data-role=\"remove\"]").css("visibility","visible");
-    $("#speclist").prop("disabled",false)
+    $("span[data-role=\"remove\"]").fadeIn("slow");
+    $("#speclist").prop("disabled",false);
 }
 
 function closeSpecEdit(){
     $("#editButtonspec").show();
     $("#cancelButtonspec").hide();
-    $("span[data-role=\"remove\"]").css("visibility","hidden");
+    $("span[data-role=\"remove\"]").fadeOut("fast");
     $("#HiddenAddBox").hide();
 }
