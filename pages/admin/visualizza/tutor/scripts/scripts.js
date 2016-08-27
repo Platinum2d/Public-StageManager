@@ -144,7 +144,7 @@ function sendData(idTutor, numberId)
 
 function deleteTutor(idTutor)
 {
-    var confirmed = confirm("Confermare la cancellazione di questo tutor?");
+    var confirmed = confirm("Confermare l'eliminazione di questo tutor?");
     if (confirmed)
     {
         $.ajax({

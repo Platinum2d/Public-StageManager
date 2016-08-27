@@ -125,7 +125,7 @@ function sendData(iddocente, numberId)
 
 function deleteDocente(idDocente)
 {
-    var confirmed = confirm("Confermare la cancellazione di questo docente?");
+    var confirmed = confirm("Confermare l'eliminazione di questo docente?");
     if (confirmed)
     {
         $.ajax({

@@ -139,7 +139,7 @@ function sendData(idazienda, numberId)
 
 function deleteAzienda(idAzienda)
 {
-    var confirmed = confirm("Confermare la cancellazione di questa azienda?");
+    var confirmed = confirm("Confermare l'eliminazione di questa azienda?");
     if (confirmed)
     {
         $.ajax({

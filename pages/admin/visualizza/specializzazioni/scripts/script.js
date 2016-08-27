@@ -70,7 +70,7 @@ function sendData(idSpecializzazione, numberId)
 
 function deleteData(idSpecializzazione)
 {
-    var confirmed = confirm("Confermare la cancellazione di questa specializzazione?");
+    var confirmed = confirm("Confermare l'eliminazione di questa specializzazione?");
     if (confirmed)
     {
         $.ajax({

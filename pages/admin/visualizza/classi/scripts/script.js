@@ -104,7 +104,7 @@ function sendData(idClasse, numberId)
 
 function deleteData(idClasse)
 {
-    var confirmed = confirm("Confermare la cancellazione di questa classe?");
+    var confirmed = confirm("Confermare l'eliminazione di questa classe?");
     if (confirmed)
     {
         $.ajax({
