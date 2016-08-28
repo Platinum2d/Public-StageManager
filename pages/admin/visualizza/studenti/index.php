@@ -12,35 +12,18 @@
     if ($recordperpagina <= 0) $recordperpagina = 1;
 ?>
 <body>
-<!--    <script>
-        if (typeof(Storage) !== "undefined") {
-            alert("supported")
-        }
-        else
-        {
-            alert("not supported")
-        }
-    </script>-->
-    
+        
     <style>
         .minw{
             width: 65%;
         }
     </style>
-    
+        
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
         printChat("../../../../");
     ?>
-    
-    <!--    <div id="wholechat">
-            <div id="chat" onclick="fillChat()" class="chat-container">
-                <p id="nascondi" class="hide-show-p"><a id="nascondilink" href="javascript:hideChat()" class="hide-show-link"> Chat </a></p>
-                <div id='chatcontent'>
-                </div>
-            </div>
-        </div>-->
             
     <script>
         if (typeof(localStorage.chatCode) !== "undefined"){
@@ -64,8 +47,12 @@
                     $("#tablestudenti").append(html);                   
                     $("#tablestudenti").hide();
                     $("#tablestudenti").fadeIn();
-                    $("#pages > a").css("font-size","25px");
-                    $("#"+pagetounderline).css("font-size","35px");
+                    
+                    $("#pages").find("ul").find("li").each(function (){
+                        $(this).removeClass("active");
+                    });
+                    $("#"+pagetounderline).parent().addClass("active");
+                    
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
@@ -122,7 +109,7 @@
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
                       <?php }
                     }?>
-                    
+                        
                     <?php
                         $connessione = dbConnection("../../../../");
                         $Query = (!isset($_POST['idclasse'])) ? null : "SELECT * FROM studente WHERE classe_id_classe = $ClasseSelezionata ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
@@ -162,14 +149,13 @@
                                 $tuple = intval($rowcount['COUNT(*)']);
                                 $npagine = intval($tuple / $recordperpagina);
                                 if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                                    
-                                echo "<div align=\"center\" id=\"pages\">";
+                                echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
                                 for ($I = 0;$I < $npagine;$I++)
                                 {
                                     $idtoprint = $I * $recordperpagina;
-                                    echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, ".$_POST['idclasse'].",$idtoprint)\"> ".($I + 1)." </a>";
+                                    echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, ".$_POST['idclasse'].",$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                 }
-                                echo "</div>";
+                                echo "</ul></div>";
                             }
                         }
                     ?>
@@ -179,14 +165,8 @@
     </div>
     <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
-        var found = false;
-        var dio = $("#pages").children();
-        for (I = 0;I < dio.length;I++)
-            if(dio[I].style.fontSize === '35px')
-                found = true;
-        
-        if (!found) 
-            $("#pages").children().first().css("font-size","35px");
+        if ($(".active").length === 0)
+            $("#pages").find("ul").children().first().addClass("active");
         
         $("select[name=\"nstud\"]").change(function (){
             $("#manualredirect").submit();
@@ -206,7 +186,7 @@
     </script>
         
 </body>
-
+    
 <?php
     close_html ();
 ?>

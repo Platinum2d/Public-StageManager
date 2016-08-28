@@ -11,16 +11,16 @@
 ?>
 <body>
     <style>
-.minw{
-    width: 65%;
-}
+        .minw{
+            width: 65%;
+        }
     </style>
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
         printChat("../../../../");
     ?>
-    
+        
     <script src="scripts/script.js"> </script>
     <script>
         function changePage(tupledastampare, offset, pagetounderline)
@@ -38,14 +38,16 @@
                     $("#tableclassi").append(html);                   
                     $("#tableclassi").hide();
                     $("#tableclassi").fadeIn();
-                    $("#pages > a").css("font-size","25px");
-                    $("#"+pagetounderline).css("font-size","35px");
+                    $("#pages").find("ul").find("li").each(function (){
+                        $(this).removeClass("active");
+                    });
+                    $("#"+pagetounderline).parent().addClass("active");
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
         }
     </script>
-    
+        
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -71,7 +73,7 @@
                   ?> 
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
                   <?php }
-                    
+                      
                         $connessione = dbConnection("../../../../");
                         $Query = "SELECT * FROM classe ORDER BY nome LIMIT $recordperpagina OFFSET 0";
                         if ($result = $connessione->query ($Query))
@@ -99,15 +101,14 @@
                             $tuple = intval($rowcount['COUNT(*)']);
                             $npagine = intval($tuple / $recordperpagina);
                             if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                            echo "<div align=\"center\" id=\"pages\">";
+                            echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
                             for ($I = 0;$I < $npagine;$I++)
                             {
                                 $idtoprint = $I * $recordperpagina;
-                                echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
+                                echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                             }
-                                            
-                            echo "</div>";
-                            
+                            echo "</ul></div>";
+                                                
                             echo "</div>";
                         }     
                     ?>
@@ -117,15 +118,9 @@
     </div>
     <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
-        var found = false;
-        var dio = $("#pages").children();
-        for (I = 0;I < dio.length;I++)
-            if(dio[I].style.fontSize === '35px')
-                found = true;
-                
-        if (!found) 
-            $("#pages").children().first().css("font-size","35px");
-                
+        if ($(".active").length === 0)
+            $("#pages").find("ul").children().first().addClass("active");
+        
         $("select[name=\"nclassi\"]").change(function (){
             $("#manualredirect").submit();
         });

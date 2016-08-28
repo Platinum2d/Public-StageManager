@@ -11,9 +11,9 @@
 ?>
 <body>
     <style>
-    .minw{
-        width: 65%;
-    }
+        .minw{
+            width: 65%;
+        }
     </style>
     <?php
         topNavbar ("../../../../");
@@ -21,13 +21,13 @@
         printChat("../../../../");
     ?>
     <script src="scripts/scripts.js"> </script>
-    
+        
     <!-- Begin Body -->
     <script>
-            
+        
         function changePage(tupledastampare, offset, pagetounderline)
         {
-                
+            
             $.ajax({
                 type : 'POST',
                 url : 'ajaxOpsPerTutor/ajaxGetTablePortion.php',
@@ -40,38 +40,40 @@
                     $("#tabletutor").append(html);                   
                     $("#tabletutor").hide();
                     $("#tabletutor").fadeIn();
-                    $("#pages > a").css("font-size","25px");
-                    $("#"+pagetounderline).css("font-size","35px");
+                    $("#pages").find("ul").find("li").each(function (){
+                        $(this).removeClass("active");
+                    });
+                    $("#"+pagetounderline).parent().addClass("active");
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
         }
     </script>
-	<div class="container">
-		<div class="row">
-			<div class="col col-sm-12">
-				<div class="panel" id="mainPanel" style="min-height: 0px">
-					<h1>Visualizza Tutor</h1> 
+    <div class="container">
+        <div class="row">
+            <div class="col col-sm-12">
+                <div class="panel" id="mainPanel" style="min-height: 0px">
+                    <h1>Visualizza Tutor</h1> 
                                         <?php
                                             echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
                                             if (isset($_POST['ntutor']))
                                             {
                                         ?>
-                                        <script>
-                                            var rightindex = 1;
-                                            $("#slc > option").each(function() {
-                                                if (this.text === '<?php echo intval($_POST['ntutor']); ?>')
-                                                rightindex = this.index;
-                                            
-                                                $("#slc").prop('selectedIndex', rightindex);
-                                            });
-                                        </script>      
+                    <script>
+                        var rightindex = 1;
+                        $("#slc > option").each(function() {
+                            if (this.text === '<?php echo intval($_POST['ntutor']); ?>')
+                            rightindex = this.index;
+                            
+                            $("#slc").prop('selectedIndex', rightindex);
+                        });
+                    </script>      
                                       <?php }
                                             else 
                                             { ?> 
-                                        <script> $("#slc").prop('selectedIndex', 1); </script> 
+                    <script> $("#slc").prop('selectedIndex', 1); </script> 
                                       <?php }
-                                      
+                                          
                                             $conn = dbConnection("../../../../");
                                             $query = "SELECT * FROM tutor ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
@@ -100,34 +102,27 @@
                                                 $tuple = intval($rowcount['COUNT(*)']);
                                                 $npagine = intval($tuple / $recordperpagina);
                                                 if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                                                echo "<div align=\"center\" id=\"pages\">";
+                                                echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
                                                 for ($I = 0;$I < $npagine;$I++)
                                                 {
                                                     $idtoprint = $I * $recordperpagina;
-                                                    echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
+                                                    echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                                 }
-
-                                                echo "</div>";
+                                                echo "</ul></div>";
                                             }
                                             echo "</div>";
-                                            
+                                                
                                             echo "</div>";
                                         ?>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
-        var found = false;
-        var dio = $("#pages").children();
-        for (I = 0;I < dio.length;I++)
-            if(dio[I].style.fontSize === '35px')
-                found = true;
-                
-        if (!found) 
-            $("#pages").children().first().css("font-size","35px");
-                
+        if ($(".active").length === 0)
+            $("#pages").find("ul").children().first().addClass("active");
+        
         $("select[name=\"ntutor\"]").change(function (){
             $("#manualredirect").submit();
         });

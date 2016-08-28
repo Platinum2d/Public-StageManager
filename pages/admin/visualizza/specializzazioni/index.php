@@ -39,8 +39,10 @@
                     $("#tablespec").append(html);                   
                     $("#tablespec").hide();
                     $("#tablespec").fadeIn();
-                    $("#pages > a").css("font-size","25px");
-                    $("#"+pagetounderline).css("font-size","35px");
+                    $("#pages").find("ul").find("li").each(function (){
+                        $(this).removeClass("active");
+                    });
+                    $("#"+pagetounderline).parent().addClass("active");
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
@@ -100,13 +102,13 @@
                             $tuple = intval($rowcount['COUNT(*)']);
                             $npagine = intval($tuple / $recordperpagina);
                             if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                            echo "<div align=\"center\" id=\"pages\">";
+                            echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
                             for ($I = 0;$I < $npagine;$I++)
                             {
                                 $idtoprint = $I * $recordperpagina;
-                                echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
+                                echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                             }
-                            echo "</div>";
+                            echo "</ul></div>";
                             echo "</div>";
                         }     
                     ?>
@@ -116,14 +118,8 @@
     </div>
     <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
-        var found = false;
-        var dio = $("#pages").children();
-        for (I = 0;I < dio.length;I++)
-            if(dio[I].style.fontSize === '35px')
-                found = true;
-                
-        if (!found) 
-            $("#pages").children().first().css("font-size","35px");
+        if ($(".active").length === 0)
+            $("#pages").find("ul").children().first().addClass("active");
                 
         $("select[name=\"nspec\"]").change(function (){
             $("#manualredirect").submit();

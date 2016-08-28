@@ -26,7 +26,7 @@
     <script>            
         function changePage(tupledastampare, offset, pagetounderline)
         {
-                
+            
             $.ajax({
                 type : 'POST',
                 url : 'ajaxOpsPerDocente/ajaxGetTablePortion.php',
@@ -39,8 +39,10 @@
                     $("#tabledocenti").append(html);                   
                     $("#tabledocenti").hide();
                     $("#tabledocenti").fadeIn();
-                    $("#pages > a").css("font-size","25px");
-                    $("#"+pagetounderline).css("font-size","35px");
+                    $("#pages").find("ul").find("li").each(function (){
+                        $(this).removeClass("active");
+                    });
+                    $("#"+pagetounderline).parent().addClass("active");
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
@@ -56,19 +58,19 @@
                                             if (isset($_POST['ndocenti']))
                                             {
                                         ?>
-                                        <script>
-                                            var rightindex = 1;
-                                            $("#slc > option").each(function() {
-                                                if (this.text === '<?php echo intval($_POST['ndocenti']); ?>')
-                                                rightindex = this.index;
-                                            
-                                                $("#slc").prop('selectedIndex', rightindex);
-                                            });
-                                        </script>      
+                    <script>
+                        var rightindex = 1;
+                        $("#slc > option").each(function() {
+                            if (this.text === '<?php echo intval($_POST['ndocenti']); ?>')
+                            rightindex = this.index;
+                            
+                            $("#slc").prop('selectedIndex', rightindex);
+                        });
+                    </script>      
                                       <?php }
                                             else 
                                             { ?> 
-                                        <script> $("#slc").prop('selectedIndex', 1); </script> 
+                    <script> $("#slc").prop('selectedIndex', 1); </script> 
                                       <?php }
                                             $conn = dbConnection("../../../../");
                                             $query = "SELECT * FROM docente WHERE id_docente != ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
@@ -100,18 +102,16 @@
                                             $tuple = intval($rowcount['COUNT(*)']);
                                             $npagine = intval($tuple / $recordperpagina);
                                             if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                                            echo "<div align=\"center\" id=\"pages\">";
+                                            echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
                                             for ($I = 0;$I < $npagine;$I++)
                                             {
                                                 $idtoprint = $I * $recordperpagina;
-                                                echo "<a style=\"font-size:25px; margin-right:20px; text-decoration:none\" id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint,$idtoprint)\"> ".($I + 1)." </a>";
+                                                echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                             }
-                                            
-                                            
+                                            echo "</ul></div>";
+                                
                                             echo "</div>";
                                                 
-                                            echo "</div>";
-                                            
                                         ?>
                 </div>
             </div>
@@ -119,15 +119,9 @@
     </div>
     <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
-        var found = false;
-        var dio = $("#pages").children();
-        for (I = 0;I < dio.length;I++)
-            if(dio[I].style.fontSize === '35px')
-                found = true;
-                
-        if (!found) 
-            $("#pages").children().first().css("font-size","35px");
-                
+        if ($(".active").length === 0)
+            $("#pages").find("ul").children().first().addClass("active");
+        
         $("select[name=\"ndocenti\"]").change(function (){
             $("#manualredirect").submit();
         });
