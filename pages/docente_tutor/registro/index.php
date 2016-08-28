@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>Studenti</h1>
+                    <h1>I miei studenti</h1> <br>
                     <div class="row">
                         <div class="col col-sm-12">
                             <!--<div class="table-responsive">--><table id="mainTable" class="table table-hover">
