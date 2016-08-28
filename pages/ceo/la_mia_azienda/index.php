@@ -84,7 +84,7 @@
                                             }
                                             echo " <input id=\"speclist\" disabled=\"true\" type=\"text\" value=\"$value\" data-role=\"tagsinput\" /> <br><br><div id=\"HiddenAddBox\">";
                                                 
-                                            $query = "SELECT * FROM specializzazione ORDER BY nome ASC";
+                                            $query = "SELECT * FROM specializzazione WHERE nome != 'sconosciuta' AND  nome != 'Sconosciuta' ORDER BY nome ASC";
                                             $result = $connessione->query($query);
                                             echo "<select id=\"addspec\" class=\"form-control\" style=\"max-width : 350px\">";
                                             while ($row = $result->fetch_assoc()){ echo "<option value=\"".$row['id_specializzazione']."\"> ".$row['nome']." </option>"; }

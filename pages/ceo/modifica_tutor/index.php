@@ -18,7 +18,6 @@
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-        printChat("../../../");
     ?>
     <script src="scripts/scripts.js"> </script>
         
