@@ -31,33 +31,62 @@
                     <h1>Il mio profilo</h1>
                     <br>
                     <div class="row">
-                        <div class="col col-sm-12">
+                        <div class="col col-sm-3" id='profilewrapper'>
+                            <?php 
+                            $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM docente WHERE id_docente = ".$_SESSION['userId'];
+                            $result = $connessione->query($query);
+                            $row = $result->fetch_assoc();
+                            if (!isset($row['profile']))
+                            {
+                            ?>
+                            <form enctype="multipart/form-data" method="post" action="ajaxOps/profileimageloader.php" name="uploadform">
+                                Immagine del profilo
+                                <br>
+                                <br>
+                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="profileimage">
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="invia" name="invio">                                    
+                            </form>
+                            <?php
+                            }
+                            else
+                            {
+                                $query = "SELECT URL FROM docente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_docente = ".$_SESSION['userId'];
+                                $result = $connessione->query($query);
+                                $row = $result->fetch_assoc();
+                                echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
+                                echo "<a style=\"color: #828282\" href=\"index.php\"><span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
+                                    
+                            }
+                            ?>
+                        </div>
+                        <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped">
-                                <tr>
-                                    <th class="col-sm-5">Username</th>
-                                    <td id="username" class="col-sm-5"><?php echo $username; ?></td>
-                                </tr>
-                                <tr>
-                                    <th class="col-sm-5">Password</th>
-                                    <td id="password" class="col-sm-5"></td>
-                                </tr>
-                                <tr>
-                                    <th class="col-sm-5">Nome</th>
-                                    <td id="first" class="col-sm-5"><?php echo $nome; ?></td>
-                                </tr>
-                                <tr>
-                                    <th>Cognome</th>
-                                    <td id="last"><?php echo $cognome; ?></td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <td id="mail"><?php echo $email; ?></td>
-                                </tr>
-                                <tr>
-                                    <th>Telefono</th>
-                                    <td id="phone"><?php echo $telefono; ?></td>
-                                </tr>
-                            </table></div>
+                                    <tr>
+                                        <th class="col-sm-5">Username</th>
+                                        <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-5">Password</th>
+                                        <td id="password" class="col-sm-5"></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="col-sm-5">Nome</th>
+                                        <td id="first" class="col-sm-5"><?php echo $nome; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cognome</th>
+                                        <td id="last"><?php echo $cognome; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td id="mail"><?php echo $email; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Telefono</th>
+                                        <td id="phone"><?php echo $telefono; ?></td>
+                                    </tr>
+                                </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
@@ -72,7 +101,25 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+        <script>
+            $("#editspan").css("left", $("#profilewrapper").width() / 1.8);
+            $("#editspan").css("top", $("#profilewrapper").height() / 2);
+            $("#editspan").css("visibility" , "hidden");
+            $("form[name=\"uploadform\"]").css("margin-top", $("#myInformations").height() / 4);
+            $("#profileimage").hover(function (){
+                $("#editspan").css("visibility" , "visible");
+                $("#profileimage").css("opacity", "0.2");
+            })
+            $("#profileimage").on("mouseout", function (){
+                $("#editspan").css("visibility" , "hidden");              
+                $("#profileimage").css("opacity", "1");
+            });
+            $("#editspan").hover(function (){
+                $("#editspan").css("visibility" , "visible");
+                $("#profileimage").css("opacity", "0.2");
+            });
+        </script>
 </body>
 <?php
     close_html ();
