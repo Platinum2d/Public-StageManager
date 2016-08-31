@@ -50,3 +50,9 @@ local.properties
 # Code Recommenders
 .recommenders/
 /nbproject/private/
+
+# NetBeans project files and folders
+.settings/
+cgi-bin/
+.buildpath
+.project
