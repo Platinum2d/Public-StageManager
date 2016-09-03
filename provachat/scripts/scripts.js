@@ -23,7 +23,10 @@ $(function (){
                         if (!isContainedInReceivedMessages(id))
                         {
                             var messaggio = $(this).find("testo").text();                        
-                            $("#messages").append("<div align=\"left\"><p name=\"sentbyother\" id=\"msg"+id+"\" style=\"max-width: 400px\" class=\"triangle-obtuse right\"> "+messaggio+" </p></div>")
+                            $("#messages").append("<div align=\"left\"><p name=\"sentbyother\" id=\"msg"+id+"\" style=\"max-width: 400px\" class=\"triangle-obtuse right\"> "+messaggio+" </p></div>");
+                            $('html, body').animate({
+                                scrollTop: $("#tobesent").offset().top
+                            }, 1);
                         }
                     });
                 }
@@ -79,6 +82,9 @@ function send(mittente, destinatario){
                             var messaggio = $(xml).find("messaggio").text();
                             
                             $("#messages").append("<div align=\"right\"><p name=\"sentbyme\" id=\"msg"+id+"\" style=\"max-width: 400px\" class=\"triangle-obtuse left\"> "+messaggio+" </p></div>");
+                            $('html, body').animate({
+                                scrollTop: $("#tobesent").offset().top
+                            }, 1);
                         }
                     });
                 }

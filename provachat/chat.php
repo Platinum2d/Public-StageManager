@@ -1444,6 +1444,10 @@ Dual licensed under MIT and GNU GPLv2 Nicolas Gallagher
                     $("#tobesent").val("");
                 }
             });
+            
+            $('html, body').animate({
+                scrollTop: $("#tobesent").offset().top
+            }, 1);
         </script>
     </body>
 </html>
