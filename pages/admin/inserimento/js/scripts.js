@@ -16,7 +16,6 @@ docente = {
     'cognome': '',
     'telefono': '',
     'email': '',
-    'isSuperUser': false,
     'isDocenteTutor': false,
     'isDocenteReferente': false        
 };
@@ -56,8 +55,7 @@ studente = {
 };
 
 classe = {
-    'nome' : '',
-    'specializzazione' : ''
+    'nome' : ''
 }
 
 specializzazione = {
@@ -102,7 +100,6 @@ function freeFieldsFor(userType)
             $("#CognomeDocente").val('');
             $("#TelefonoDocente").val('');
             $("#EmailDocente").val('');
-            $('#isSuperUser').val('');
             $('#isDocenteTutor').val('');
             $('#isDocenteReferente').val('');
             break;
@@ -126,7 +123,6 @@ function freeFieldsFor(userType)
         
         case 'classe':
             $("#nomeClasse").val('');
-            $("#SpecializzazioneClasse").val('');
         break;
         
         case 'specializzazione':
@@ -339,13 +335,10 @@ function sendSingleData(userType)
             docente.cognome = ''+$("#CognomeDocente").val().trim();
             docente.telefono = ''+$("#TelefonoDocente").val().trim();
             docente.email = ''+$("#EmailDocente").val().trim();
-            docente.isSuperUser = $('#isSuperUser').is(':checked');
             docente.isDocenteTutor = $('#isDocenteTutor').is(':checked');
             docente.isDocenteReferente = $('#isDocenteReferente').is(':checked');
-            
-            //alert($('#isSuperUser').is(':checked'));
             var NoCheckBoxSelected = false;
-            if (!$('#isSuperUser').is(':checked') && !$('#isDocenteTutor').is(':checked') && !$('#isDocenteReferente').is(':checked'))
+            if (!$('#isDocenteTutor').is(':checked') && !$('#isDocenteReferente').is(':checked'))
                 NoCheckBoxSelected = true;        
             
             if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty() || NoCheckBoxSelected)
@@ -368,7 +361,6 @@ function sendSingleData(userType)
                     cache: false,
                     success: function(msg)
                     {
-                        alert( msg );
                         if (msg === "Inserimento dei dati riuscito!")
                             freeFieldsFor('docente');
                     }
@@ -428,7 +420,6 @@ function sendSingleData(userType)
                 cache : false,
                 success: function(msg)
                 {
-                    alert(msg);
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('azienda');
                 }
@@ -492,9 +483,8 @@ function sendSingleData(userType)
                 return (this.length === 0 || !this.trim());
             };   
             classe.nome = $("#nomeClasse").val().trim();
-            classe.specializzazione = $("#SpecializzazioneClasse").val().trim();
             
-            if (classe.nome.isEmpty() || classe.specializzazione.isEmpty())
+            if (classe.nome.isEmpty())
             {
                 alert("Si prega di compilare i campi obbligatori");
                 return;
@@ -506,7 +496,7 @@ function sendSingleData(userType)
                 data : classe,
                 success : function(msg)
                 {
-                    alert(msg);
+                    alert(msg)
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('classe');
                 }
@@ -532,7 +522,6 @@ function sendSingleData(userType)
                 data : specializzazione,
                 success : function(msg)
                 {
-                    alert(msg);
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('specializzazione');
                 }                
@@ -571,7 +560,6 @@ function sendSingleData(userType)
                 data : tutor,
                 success : function(msg)
                 {
-                    alert(msg);
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('tutor');
                 }

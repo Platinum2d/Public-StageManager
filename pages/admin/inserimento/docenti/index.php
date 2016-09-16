@@ -74,9 +74,6 @@
                                 
                             <div name="paddedDiv">
                                 <div class="col col-sm-2">
-                                    <label><input type="checkbox" id="isSuperUser"> Super User</label> <br>
-                                </div>
-                                <div class="col col-sm-2">
                                     <label><input type="checkbox" id="isDocenteTutor" onchange="uncheckTheOtherCheckBox('docenteTutor')" checked=""> Docente Tutor</label><br>                      
                                 </div>
                                 <div class="col col-sm-2">

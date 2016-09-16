@@ -18,7 +18,7 @@
         
     function checkCompanyRecursive($username){
         $connection = dbConnection("../../../../");
-        $query = "SELECT id_azienda FROM azienda WHERE username = '".$connection->escape_string($username)."'";
+        $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($username)."'";
         $result = $connection->query($query);
         if (!$result || $result->num_rows === 0)
         {
@@ -31,7 +31,7 @@
             while (true)
             {
                 $newuser = $username.$tentativi;
-                $query = "SELECT id_azienda FROM azienda WHERE username = '".$connection->escape_string($newuser)."'";
+                $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($newuser)."'";
                 $result = $connection->query($query);
                 if (!$result || $result->num_rows === 0)
                 {
@@ -104,9 +104,12 @@
                             $cognomeresponsabile = (trim($sheet->getCell('I'.$I)->getValue()));
                             $telefonoresponsabile = (trim($sheet->getCell('J'.$I)->getValue()));
                             $mailresponsabile = (trim($sheet->getCell('K'.$I)->getValue()));
-                                
-                            $insertquery = "INSERT INTO azienda (username, password, nome_aziendale, citta_aziendale, CAP, indirizzo, telefono_aziendale, email_aziendale, sito_web, nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile)"
-                                            . " VALUES ('".$conn->escape_string($username)."','$cryptedPassword','".$conn->escape_string($nome)."','".$conn->escape_string($citta)."','".$conn->escape_string($CAP)."','".$conn->escape_string($indirizzo)."','".$conn->escape_string($telefono)."', '".$conn->escape_string($email)."'";
+                            $conn->query("SET FOREIGN_KEY_CHECKS = 0");
+                            
+                            $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', 4)";
+                            
+                            $insertquery = "INSERT INTO azienda (username, nome_aziendale, citta_aziendale, CAP, indirizzo, telefono_aziendale, email_aziendale, sito_web, nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile)"
+                                            . " VALUES ('(SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 4)','$cryptedPassword','".$conn->escape_string($nome)."','".$conn->escape_string($citta)."','".$conn->escape_string($CAP)."','".$conn->escape_string($indirizzo)."','".$conn->escape_string($telefono)."', '".$conn->escape_string($email)."'";
                              $htmltable .= "<tr> <td>$username</td> <td>$password</td> <td>$nome</td> <td>$citta</td> <td>$CAP</td> <td>$indirizzo</td>
                             <td>$telefono</td><td>$email</td><td>$sito</td><td>$nomeresponsabile</td><td>$cognomeresponsabile</td><td>$telefonoresponsabile</td> 
                             <td>$mailresponsabile</td></tr>";
@@ -125,6 +128,8 @@
                             if (!isset($mailresponsabile) || empty($mailresponsabile)) $insertquery .= ", NULL)";
                             else $insertquery .= ", '".$conn->escape_string($mailresponsabile)."')";
                                 
+                            $conn->query($userquery);
+                            
                             if ($conn->query($insertquery))
                             {
                                 echo "Generato l'utente $username <br><br>";

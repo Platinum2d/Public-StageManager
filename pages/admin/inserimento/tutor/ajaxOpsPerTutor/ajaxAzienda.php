@@ -11,7 +11,7 @@ XML;
     
     $connection = dbConnection("../../../../../");    
     
-    $Query = "SELECT id_azienda,nome_aziendale FROM azienda ORDER BY nome_aziendale";
+    $Query = "SELECT id_azienda, nome_aziendale FROM azienda ORDER BY nome_aziendale";
     
     if (!$result = $connection->query($Query))
     {

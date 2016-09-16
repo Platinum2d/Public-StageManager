@@ -13,7 +13,7 @@
     };      
     
     var check = setInterval(function(){
-        if ($("#nomeClasse").val().isEmpty() || $("#SpecializzazioneClasse").val().isEmpty())
+        if ($("#nomeClasse").val().isEmpty())
         {
             $("input[value=\"Invia\"]").prop("disabled",true);
         }

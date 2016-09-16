@@ -1,8 +1,8 @@
 <?php
-
+    
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
-    
+        
     $username = $connection->escape_string($_POST['username']);
     $psw = ($_POST['password']);
     $password = md5($_POST['password']);
@@ -14,11 +14,11 @@
     $iniziostage = $_POST['iniziostage'];    
     $duratastage = ($_POST['duratastage'] === '') ? "NULL" : $_POST['duratastage'];      
     $finestage = date("Y-m-d",strtotime("+".$duratastage." days", strtotime($iniziostage)));   
-   
-    
+        
+        
     if ($_POST['classe'] === "")
     {
-        $classe = "NULL";
+        $classe = "-1";
     }
     else
     {
@@ -28,12 +28,12 @@
             $classe = $row['id_classe'];
         }
         else 
-            $classe = "NULL";
+            $classe = "-1";
     }
-    
+        
     if ($_POST['azienda'] === "")
     {
-        $azienda = "NULL";
+        $azienda = "-1";
     }
     else
     {
@@ -43,31 +43,31 @@
             $azienda = $row['id_azienda'];
         }
         else 
-            $azienda = "NULL";
+            $azienda = "-1";
     }
-    
+        
     if ($_POST['docente'] === "")
     {
-        $docente = "NULL";
+        $docente = "-1";
     }
     else
     {
         $docenteEsploso = explode(" ", $_POST['docente']);
         $nomeDocente = $docenteEsploso[0]; $cognomeDocente = $docenteEsploso[1];
         $qu = "SELECT id_docente FROM docente WHERE cognome = '$nomeDocente' AND nome = '$cognomeDocente'";
-        
+            
         if($result = $connection->query($qu))
         {
             $row = $result->fetch_assoc();
             $docente = $row['id_docente'];
         }
         else 
-            $docente = "NULL";
+            $docente = "-1";
     }
-    
+        
     if ($_POST['tutor'] === "" || $_POST['tutor'] === 'selezionare una azienda....')
     {
-        $tutor = "NULL";
+        $tutor = "-1";
     }
     else
     {
@@ -81,24 +81,29 @@
             $tutor = $row['id_tutor'];
         }
         else 
-            $tutor = "NULL";       
+            $tutor = "-1";       
     }    
-    
-        $Query = "INSERT INTO `studente` (`username`, `password`, `nome`, `cognome`, `citta`, `email`, `telefono`, `inizio_stage`, `durata_stage`, `visita_azienda`, `classe_id_classe`, `azienda_id_azienda`, `docente_id_docente`, `tutor_id_tutor`, `valutazione_studente_id_valutazione_studente`, `valutazione_stage_id_valutazione_stage`) "
-                . "VALUES ('$username', '$password', '$nome', '$cognome', '$citta', '$mail', '$telefono', $iniziostage, $duratastage, 0, $classe, $azienda, $docente, $tutor, NULL, NULL);";
         
+        $connection->query("SET FOREIGN_KEY_CHECKS=0");
+        $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 6)";
+        $connection->query($userquery);
+
+        
+        $Query = "INSERT INTO `studente` (`id_studente`, `nome`, `cognome`, `citta`, `email`, `telefono`, `visita_azienda`, `azienda_id_azienda`, `docente_id_docente`, `tutor_id_tutor`, `valutazione_studente_id_valutazione_studente`, `valutazione_stage_id_valutazione_stage`) "
+                . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 6), '$nome', '$cognome', '$citta', '$mail', '$telefono', 0, $azienda, $docente, $tutor, -1, -1);";
+                    
         if(!$connection->query($Query))
         {   
             if(!$connection->query("SET FOREIGN_KEY_CHECKS=0"))
             {
-                echo "inserimento dei dati NON riuscito";
+                echo $connection->error; 
                 $connection->query("SET FOREIGN_KEY_CHECKS=1");
             }
             else 
             {
                 if(!$connection->query($Query))
                 {
-                    echo "inserimento dei dati NON riuscito";
+                    echo $connection->error; 
                     $connection->query("SET FOREIGN_KEY_CHECKS=1");
                 }
                 else
@@ -114,10 +119,10 @@
             $headers = "From:" . $cognome . " " . $nome . "<" . $mail .">";
             $messaggio = "Il tuo username e' : $username, la tua password e' : $psw";
             $object = "credenziali di acccesso";
-            
+                
             stripslashes ( $messaggio );
             stripslashes ( $object );
-            
+                
             if (mail($mail, $object, $messaggio, $headers)) 
             {
                 echo "Inserimento dei dati riuscito! (mail inviata)"; 

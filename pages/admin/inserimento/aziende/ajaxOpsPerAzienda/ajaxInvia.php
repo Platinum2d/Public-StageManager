@@ -17,13 +17,16 @@
     $telefonoresponsabile = $connection->escape_string($_POST['telefonoresponsabile']);
     $emailresponsabile = $connection->escape_string($_POST['emailresponsabile']);
     
-    $Query = "INSERT INTO `azienda` (`username`, `password`, `nome_aziendale`, `citta_aziendale`, `CAP`, `indirizzo`, `telefono_aziendale`, `email_aziendale`, `sito_web`, `nome_responsabile`, `cognome_responsabile`, `telefono_responsabile`, `email_responsabile`) "
-            . "VALUES ('$username', '$password', '$nome', '$citta', '$CAP', '$indirizzo', '$telefono', '$email', '$sito', '$nomeresponsabile', '$cognomeresponsabile', '$telefonoresponsabile', '$emailresponsabile');";
+    $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+    $ok = false;
     
+    $queryusers = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 4)";
+    $ok = (!$connection->query($queryusers)) ? false : true;
     
-    if(!$connection->query($Query))
-        echo "Inserimento dei dati NON riuscito";
-    else
-        echo "Inserimento dei dati riuscito!";
+    $Query = "INSERT INTO `azienda` (`id_azienda`, `nome_aziendale`, `citta_aziendale`, `CAP`, `indirizzo`, `telefono_aziendale`, `email_aziendale`, `sito_web`, `nome_responsabile`, `cognome_responsabile`, `telefono_responsabile`, `email_responsabile`) "
+            . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 4), '$nome', '$citta', '$CAP', '$indirizzo', '$telefono', '$email', '$sito', '$nomeresponsabile', '$cognomeresponsabile', '$telefonoresponsabile', '$emailresponsabile');";
     
-
+    $ok = (!$connection->query($Query)) ? false : true;
+    
+    if ($ok) echo "Inserimento dei dati riuscito!"; else echo "non ok";
+    $connection->query("SET FOREIGN_KEY_CHECKS = 1");

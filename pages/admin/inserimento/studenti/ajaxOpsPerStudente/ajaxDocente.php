@@ -11,7 +11,7 @@ XML;
     
     $connection = dbConnection("../../../../../");    
     
-    $Query = "SELECT username,nome,cognome FROM docente ORDER BY cognome";
+    $Query = "SELECT username, nome, cognome FROM utente, docente WHERE id_docente = id_utente ORDER BY cognome";
     
     if (!$result = $connection->query($Query))
     {
