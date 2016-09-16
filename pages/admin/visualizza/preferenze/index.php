@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Preferenze" );
     import("../../../../");
     $recordperpagina = (isset($_POST['custompreferenze'])) ? $_POST['custompreferenze'] : null;

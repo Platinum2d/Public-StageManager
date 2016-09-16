@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Studenti" );
     import("../../../../");
     $recordperpagina = (!isset($_GET['nstud'])) ? 10 : $_GET['nstud'];

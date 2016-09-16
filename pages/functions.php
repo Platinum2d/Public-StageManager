@@ -6,13 +6,14 @@
 //    define ( "prj_img", prj_src . "/img" ); //contiene il percorso alla cartella img 
 //    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
+    define ( "superUserType", 0 );
     define ( "adminType", 1 ); //contiene il valore corrispondente all'utente admin
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
     define ( "aztutType", 5 ); //contiene il valore corrispondente all'utente tutor azienda
-    define ( "studType", 6 ); //contiene il valore corrispondente all'utente studente
-        
+    define ( "studType", 6 ); //contiene il valore corrispondente all'utente studente 
+    
     define ( "err_noLog", 1 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina senza essersi loggato
     define ( "err_noPerm", 2 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina per la quale non ha i permessi necessari (pagina per un altro utente)
         
@@ -64,7 +65,7 @@ HTML;
 HTML;
         } else {
             
-            if ($_SESSION ['type'] == adminType) { // se e' loggato amministratore
+            if ($_SESSION ['type'] == superUserType) { // se e' loggato amministratore
                 echo "<script> $(\".dropdown-toggle .dropdown .dropdown-hover .open\").click(function (){ location.href = \"".$goBack."pages/admin/inserimento/index.php\" }) </script>";
                 echo "<ul class=\"nav navbar-nav\"> ";
                 //echo "<li> <span class=\"glyphicon glyphicon-question-sign\" aria-hidden=\"true\"></span> </li>";
@@ -137,7 +138,7 @@ HTML;
                                         <ul class="dropdown-menu dropdown-menu-hover" role="menu">
                                             
 HTML;
-                //echo "<li><a href='".$goBack."pages/ceo/assegnazione_tutor/index.php'>Assegna Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/assegna_tutor/index.php'>Assegna Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
                 echo "</ul></li>";
@@ -175,27 +176,14 @@ HTML;
     }
         
     function loginButton($goBack) { // conferma delle credenziali per il login
-        if (isset ( $_SESSION ['user'] )) {
+        if (isset ( $_SESSION ['user'] )) 
+        {
                         echo <<<HTML
                 <li class="button">
 HTML;
             echo "<a href='" . $goBack . "pages/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
-            echo <<<HTML
-                </li>            
-HTML;
-//
-//        } 
-//        else 
-//        {
-////            echo <<<HTML
-////                <li class="button">
-////HTML;
-////            echo "<a href='" . $goBack . "pages/login/index.php'><i class='glyphicon glyphicon-user'></i>  Login</a>";
-////            echo <<<HTML
-////                </li>
-////HTML;
-//        }
-    }
+            echo "<li>";
+        }
     }
         
     function checkLogin($type, $goBack) { // controllo del login
@@ -245,29 +233,26 @@ HTML;
         echo <<<HTML
             <ul class="nav navbar-right navbar-nav">
                   <li class="dropdown">
-                    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
-                    <ul class="dropdown-menu" style="padding:12px;">
-                        <form class="form-inline">
-                           <div class="input-group">
-                             <input type="text" class="form-control" placeholder="Search">
-                             <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                             </div>
-                          </div>
-                        </form>
-                      </ul> -->
 HTML;
-                    echo <<<HTML
-                <li class="button" onclick="alert("Serve Aiuto? Chiami il 334-9056026")">
-HTML;
-            echo "<a href=\"".$goBack."helpme.php\" > Serve Aiuto ?</a>";
+    
+            if (isset($_SESSION['type']))
+            {
+                if ($_SESSION['type'] !== superUserType)
+                {
+                    echo "<a href=\"".$goBack."helpme.php\" > Serve Aiuto ?</a>";
+                    if (isset($_SESSION ['type'])) 
+                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci! </a> </li>";
+                }
+                else
+                {
+                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/admin/impostazioni/index.php\"><i class=\"glyphicon glyphicon-cog\"></i>  Impostazioni </a></li>";
+                }
+            }                   
+            
             echo "</li>";
-            if (isset($_SESSION ['type'])) echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci! </a> </li>";
-        loginButton ($goBack);
-        echo <<<HTML
-                  </li>
-                </ul>
-HTML;
+                
+            loginButton ($goBack);
+            echo"</li></ul>";
     }
         
     function topNavbar($goBack) {  // barra di navigazione che contiene sia la barra orizzontale che i bottoni
@@ -338,6 +323,7 @@ HTML;
         echo "<link href='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/chat-0.0.1/chat.js'></script>";
         echo "<link href='".$goBack."src/lib/chat-0.0.1/style.css' rel='stylesheet'>";
+        $uploaderpath = $goBack."src/lib/jQuery-File-Upload";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       

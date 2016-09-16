@@ -18,8 +18,9 @@ function check_login(){
             'password':password
         },
         success: function(xml){
+            alert(xml)
             var tipo = $(xml).find("tipo").text(); //tipo contiene il tipo di utente loggato, è uguale a 0 se non loggato
-            if(tipo==='0')
+            if(tipo==='-1')
             {
                   $("#error").remove();
                   $("#login-text").html("<p id='error'>Utente e/o password sbagliati.</p>"); 
@@ -67,6 +68,13 @@ function check_login(){
                                         {
                                             location.href = ((location.href.indexOf("/pages/login/index.php") > 0)) ? "../studente/profiloutente/index.php" : "pages/studente/profiloutente/index.php";
                                         }
+                                      else
+                                      {
+                                        if (tipo === '0')
+                                        {
+                                            location.href = ((location.href.indexOf("/pages/login/index.php") > 0)) ? "../admin/profiloutente/index.php" : "pages/admin/profiloutente/index.php";
+                                        }
+                                      }
                                 }
                           }
                       }

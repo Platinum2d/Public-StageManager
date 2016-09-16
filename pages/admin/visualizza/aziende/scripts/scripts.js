@@ -15,6 +15,157 @@ azienda = {
     'emailresponsabile' : ''
 }
 
+$(function (){
+    $("#actions").change(function (){
+        
+        switch ($("#actions").find(":selected").val())
+        {
+            case "4":
+                var stile = "top=10, left=10, width=250, height=200, status=no, menubar=no, toolbar=no scrollbars=no";
+                window.open("newhtml.html", stile);
+            break;
+            
+            case "3":
+                $("#actions").val("");
+                getConfirmationForDeleteMultiple();
+                break;
+            
+            case "2":
+                $("#actions").val("");
+                reduceMultiple(parseInt($("#recordperpagina").val()));
+                break;
+            
+            case "1":
+                $("#actions").val("");
+                expandMultiple(parseInt($("#recordperpagina").val()));
+                break;
+        }
+    }); 
+    
+    if ($(".active").length === 0)
+        $("#pages").find("ul").children().first().addClass("active");
+    
+    $("select[name=\"naziende\"]").change(function (){
+        $("#manualredirect").submit();
+    });
+    
+    $("#customnum").keyup(function (e){
+        if (e.which === 13)
+        {
+            if ($.isNumeric($("#customnum").val()))
+                $("#manualcustomredirect").submit();
+        }
+    });
+    
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+    
+    $("form[target=\"_blank\"]").height($("#modifica0").height());
+});
+
+function changePage(tupledastampare, offset, pagetounderline)
+{
+    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerAzienda/ajaxGetTablePortion.php',
+        data : { 'offset' : offset, 'tuple' : tupledastampare },
+        cache : false,
+        success : function (html)
+        {
+            $("#tableaziende").html("Caricamento....");
+            $("#tableaziende").html("<thead style=\"background : #eee; font-color : white \"> <th><div align=\"center\"><input type=\"checkbox\" id=\"checkall\"></div> </th> <th style=\"text-align : center\"> Nome azienda, Username  </th> <th style=\"text-align : center\"> Azioni </th></thead> ");
+            $("#tableaziende").append(html);                   
+            $("#tableaziende").hide();
+            $("#tableaziende").fadeIn();
+            $("#pages").find("ul").find("li").each(function (){
+                $(this).removeClass("active");
+            });
+            $("#"+pagetounderline).parent().addClass("active");
+            $("form[target=\"_blank\"]").height($("#modifica0").height())
+            $("#checkall").change(function (){
+                if ($(this).prop("checked"))
+                    $(".singlecheck").prop("checked", true);
+                else
+                    $(".singlecheck").prop("checked", false);
+            });
+        }
+    })
+}
+
+function getConfirmationForDeleteMultiple()
+{
+    if(confirm("ATTENZIONE: Tutte le aziende selezionate verranno definitivamente cancellate.\nNON c'è modo di annullare l'azione.\nProcedere?"))
+        deleteMultiple(parseInt($("#recordperpagina").val()));
+}
+
+function deleteMultiple(recordperpagina)
+{
+    String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+    };
+    $("#actions").val("");
+    
+    var error = false;
+    for (var I=0; I < recordperpagina; I++)
+    {
+        if($("#check"+I).prop("checked"))
+        {
+            $.ajax({
+                url : 'ajaxOpsPerAzienda/ajaxElimina.php',
+                type : 'POST',
+                cache : false,
+                async : false, //IMPORTANTE: BLOCCA LE RICHIESTE DI FILE PHP ASINCRONE. IL CODICE ANDRA' AVANTI FINCHE' TUTTE LE RICHIESTE NON VERRANNO PORTATE A TERMINE
+                data : { 'idazienda' : $("#label"+I).attr("name") },
+                success : function(msg)
+                {
+                    if (msg === "non ok")
+                        error = true;
+                    else
+                    {
+                        $("#riga"+I).fadeOut({
+                            duration : 'slow',
+                            complete : function (){
+                                $("#riga"+I).remove();                                
+                            }
+                        });                        
+                    }                    
+                }
+            });
+        }
+    }
+    
+    if (error)
+        alert("Sono insorti errori durante l'operazione richiesta");
+    
+    if ($("#tableaziende").find("tbody").html().trim().isEmpty())
+    {
+        var newhref = $(".active").next().find("a").attr("href");
+        location.href = newhref;
+    }
+}
+
+function expandMultiple(recordperpagina)
+{
+    for (var I=0; I < recordperpagina; I++)
+    {
+        if($("#check"+I).prop("checked"))
+            $("#modifica"+I).trigger("click");
+    }
+}
+
+function reduceMultiple(recordperpagina){
+    for (var I=0; I < recordperpagina; I++)
+    {
+        if($("#check"+I).prop("checked"))
+            $("button[onclick=\"closeEdit("+I+")\"]").trigger("click");
+    }
+}
+
 function openEdit (id, idazienda)
 {
     var numberId = id;
@@ -83,28 +234,14 @@ function openEdit (id, idazienda)
             alert("errore")
         }
     })
-    
-    //    $("#HiddenBox"+numberId).hide();
-    //    $("#HiddenBox"+numberId).fadeIn("slow");
-    //    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
     $("#HiddenBox"+numberId).fadeIn("slow")
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
-    //    $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-    //    }, 500)
 }
 
 function closeEdit (numberId)
 {
-    //    $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height()
-    //    }, 500)
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height())
     $( "#HiddenBox"+numberId ).remove();
-    
-    //$( "#VisibleBox"+numberId).append('<br><br>');
-    //$( "#HiddenBox"+numberId ).remove();
-    
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);

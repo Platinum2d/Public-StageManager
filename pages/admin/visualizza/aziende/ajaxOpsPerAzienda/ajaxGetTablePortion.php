@@ -21,7 +21,7 @@ $connessione = dbConnection("../../../../../");
         $html = "";
         while ($row = $result->fetch_assoc())
         {
-            $html .= "<tr><td class=\"minw\"><div id=\"VisibleBox$I\"><label id=\"label".$I."\"> ".$row['nome_aziendale']." (".$row['username'].")</label> <input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">"
+            $html .= "<tr id=\"riga$I\"><td style=\"width: 5px\"><div align=\"center\"><input id=\"check$I\" type=\"checkbox\" class=\"singlecheck\"></div></td><td class=\"minw\"><div id=\"VisibleBox$I\"><label name=\"".$row['id_azienda']." id=\"label".$I."\"> ".$row['nome_aziendale']." (".$row['username'].")</label> <input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">"
                     . "</div></td><td><div align=\"center\" id=\"ButtonBox$I\"><input class=\"btn btn-success\" type=\"button\" id=\"modifica$I\" value=\"Modifica\" onclick=\"openEdit('$I','".$row['id_azienda']."')\"> <input class=\"btn btn-danger\" type=\"button\" value=\"Elimina\" onclick = \"deleteAzienda(".$row['id_azienda'].")\"></div>"
                     . "</td></tr>";
             $I++;            

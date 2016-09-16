@@ -1,6 +1,6 @@
 <?php
     include '../../../../functions.php';
-    checkLogin ( adminType,"../../../../../" );
+    checkLogin ( superUserType,"../../../../../" );
     open_html ( "Registro di" );
     import("../../../../../");
     $connessione = dbConnection ("../../../../../");

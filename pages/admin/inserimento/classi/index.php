@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci classi" );
     echo "<script src='../js/scripts.js'></script>";
     import("../../../../");

@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Tutor" );
     import("../../../../");
     $recordperpagina = (isset($_POST['customtutor'])) ? $_POST['customtutor'] : null;

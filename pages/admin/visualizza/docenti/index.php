@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Docenti" );
     import("../../../../");
     $recordperpagina = (isset($_POST['customdocente'])) ? $_POST['customdocente'] : null;
@@ -109,8 +109,6 @@
                                                 echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                             }
                                             echo "</ul></div>";
-                                
-                                            echo "</div>";
                                                 
                                         ?>
                 </div>

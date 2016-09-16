@@ -2,7 +2,7 @@
     
     require '../../../../src/lib/PHPReader/Classes/PHPExcel.php';
     include "../../../../pages/functions.php";
-    checkLogin(adminType, "../../../../");
+    checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
     import("../../../../");
         

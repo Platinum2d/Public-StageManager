@@ -1,6 +1,6 @@
 <?php
     include '../../functions.php';
-   checkLogin ( adminType , "../../../");
+   checkLogin ( superUserType , "../../../");
     import("../../../");
     open_html ( "Inserisci" );
     $connessione = dbConnection ("../../../");

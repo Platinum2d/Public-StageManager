@@ -1,45 +1,45 @@
 contact = {
-		'first': '',
-		'last': '',
-        'mail': '',
-        'phone': ''
+    'first': '',
+    'last': '',
+    'mail': '',
+    'phone': ''
 };
 
 $(document).ready(function(){
 	
-	contact.first=$("#first").html();
-	contact.last=$("#last").html();
-	contact.mail=$("#mail").html();
-	contact.phone=$("#phone").html();
+    contact.first=$("#first").html();
+    contact.last=$("#last").html();
+    contact.mail=$("#mail").html();
+    contact.phone=$("#phone").html();
 	
-	//nascondo i bottoni save e cancel che compaiono solo in modalità edit
-	$("#cancelButton").hide();
-	$("#saveButton").hide();
+    //nascondo i bottoni save e cancel che compaiono solo in modalità edit
+    $("#cancelButton").hide();
+    $("#saveButton").hide();
 	
-	$("#editButton").click(function(){
-		//faccio sparire il bottone edit
-		$("#editButton").hide();
+    $("#editButton").click(function(){
+        //faccio sparire il bottone edit
+        $("#editButton").hide();
 		
-		//faccio comprarire i bottoni save e cancel
-		$("#saveButton").show();
-		$("#cancelButton").show();
+        //faccio comprarire i bottoni save e cancel
+        $("#saveButton").show();
+        $("#cancelButton").show();
 		
-		//rendo al tabella editabile
-		$("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-                $("#password").attr('contenteditable', 'false');
-                $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
-	});
+        //rendo al tabella editabile
+        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
+        $("#password").attr('contenteditable', 'false');
+        $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
+    });
 	
-	$("#saveButton").click(function(){
+    $("#saveButton").click(function(){
 
-		//salvo i nuovi dati contenuti nella tabella nell'oggetto contact
-		contact.first=$("#first").html();
-		contact.last=$("#last").html();
-		contact.mail=$("#mail").html();
-		contact.phone=$("#phone").html();
+        //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
+        contact.first=$("#first").html();
+        contact.last=$("#last").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
 		
-		//eseguo query
-		if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        //eseguo query
+        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajax.php",
@@ -48,35 +48,44 @@ $(document).ready(function(){
             });
         }
 		
-		//esco dalla modalità edit
-		exitEdit();
-	});
+        //esco dalla modalità edit
+        exitEdit();
+    });
 
-	$("#cancelButton").click(function(){
+    $("#cancelButton").click(function(){
 		
-		//rimetto i valori precedenti nella tabella
-		$("#first").html(contact.first);
-		$("#last").html(contact.last);
-		$("#mail").html(contact.mail);
-		$("#phone").html(contact.phone);
+        //rimetto i valori precedenti nella tabella
+        $("#first").html(contact.first);
+        $("#last").html(contact.last);
+        $("#mail").html(contact.mail);
+        $("#phone").html(contact.phone);
 		
-		//esco dalla modalità edit
-		exitEdit();
-	});
+        //esco dalla modalità edit
+        exitEdit();
+    });
 	
-	function exitEdit(){
-                $("#password").html("");
-		//blocco la tabella
-		$("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+    function exitEdit(){
+        $("#password").html("");
+        //blocco la tabella
+        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
 		
-		//spariscono i bottoni save e cancel
-		$("#cancelButton").hide();
-		$("#saveButton").hide();
+        //spariscono i bottoni save e cancel
+        $("#cancelButton").hide();
+        $("#saveButton").hide();
 		
-		//compare bottone edit
-		$("#editButton").show();
-	}
+        //compare bottone edit
+        $("#editButton").show();
+    }
 });
+
+function changePicture(){
+    $("form[name=\"uploadchangeform\"]").fadeIn("fast");
+    $("span[class=\"buttonText\"]").text("Scegli un file");
+}
+
+function removeChangeForm(){
+    $("form[name=\"uploadchangeform\"]").hide();
+}
 
 function addPasswordEdit()
 {
@@ -84,6 +93,7 @@ function addPasswordEdit()
         return (this.length === 0 || !this.trim());
     };
     
+    $("#password").hide();
     $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
                                       <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
                                       <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
@@ -93,25 +103,26 @@ function addPasswordEdit()
                                       <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
                                       </div>\n\
                                       <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+    $("#password").fadeIn("slow");
     $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();
         
-       $.ajax({
-           type : 'POST',
-           url : 'ajaxOps/ajaxCheckPassword.php',
-           cache : false,
-           data : { 'password' : $("input[for=\"vecchiapassword\"]").val() },
-           success : function (msg)
-           {
-            if (msg !== "esiste")
-                 $("#validpassword").val("0");
-             else
-                 $("#validpassword").val("1");
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckPassword.php',
+            cache : false,
+            data : { 'password' : $("input[for=\"vecchiapassword\"]").val() },
+            success : function (msg)
+            {
+                if (msg !== "esiste")
+                    $("#validpassword").val("0");
+                else
+                    $("#validpassword").val("1");
              
-             checkTheWhole();
-           }
-       })
+                checkTheWhole();
+            }
+        })
     });
     
     $("input[for=\"nuovapassword\"]").on("keyup",function (e){

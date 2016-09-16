@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Studenti" );
     import("../../../../");
 //    echo "<link rel=\"stylesheet\" href=\"Chat/style.css\">";

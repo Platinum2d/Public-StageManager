@@ -1,7 +1,7 @@
 <?php
     include "../../../functions.php";
     $conn = dbConnection("../../../../");
-    checkLogin(adminType, "../../../../");
+    checkLogin(superUserType, "../../../../");
     import("../../../../");
     if (is_uploaded_file ( $_FILES ['profileimage'] ['tmp_name'] ))
     {

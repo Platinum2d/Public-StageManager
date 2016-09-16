@@ -1,6 +1,6 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( adminType , "../../../../");
+    checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci aziende" );
     import("../../../../");
     echo "<script src='../js/scripts.js'></script>";
