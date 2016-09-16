@@ -6,7 +6,7 @@
     $id_doc = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT * FROM docente WHERE id_docente=$id_doc";
+    $sql = "SELECT username, nome, cognome, email, telefono FROM super_user, utente WHERE id_super_user = ".$_SESSION['userId'] . " AND id_utente = id_super_user";
     $result = $connessione->query ( $sql );
         
     while ( $row = $result->fetch_assoc () ) {
@@ -33,10 +33,10 @@
                     <div class="row">
                         <div class="col col-sm-3" id='profilewrapper'>
                             <?php 
-                            $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM docente WHERE id_docente = ".$_SESSION['userId'];
+                            $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM utente WHERE id_utente = ".$_SESSION['userId'];
                             $result = $connessione->query($query);
                             $row = ($result && $result->num_rows > 0) ? $result->fetch_assoc() : null;
-                            if (!isset($row['profile']))
+                            if (!isset($row['profile']) || $row['profile'] === "-1")
                             {
                             ?>
                             <form enctype="multipart/form-data" method="post" action="ajaxOps/profileimageloader.php" name="uploadform">
@@ -52,7 +52,7 @@
                             }
                             else
                             {
-                                $query = "SELECT id_immagine_profilo, URL FROM docente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_docente = ".$_SESSION['userId'];
+                                $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
                                 $result = $connessione->query($query);
                                 $row = $result->fetch_assoc();
                                 echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
