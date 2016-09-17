@@ -20,7 +20,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
-                    || $("#CittaAzienda").val().isEmpty() || $("#CAPAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1")
+                    || $("#CittaAzienda").val().isEmpty() || $("#CAPAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -31,6 +31,7 @@
         },1);
     </script>
     <input type="hidden" id="userexists" value="0">
+    <input type="hidden" id="passworderror" value="0">
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -144,7 +145,7 @@
                                 var checkpw = setInterval(function (){
                                     if ($("#PasswordAzienda").val() !== $("#ConfermaPasswordAzienda").val() || $("#PasswordAzienda").val().length < 8)
                                     {
-                                        //alert($("#passwordTutor").val() + " " + $("#confermaPasswordTutor").val());
+                                        $("#passworderror").val("1");
                                         $("#psw").html("Password (Minimo 8 caratteri)* troppo corta o non coincide");
                                         $("#psw").css("color","red");
                                         $("#passwordregulator").removeClass("has-warning");
@@ -155,6 +156,7 @@
                                     }
                                     else
                                     {
+                                        $("#passworderror").val("0");
                                         $("#psw").css("color","#828282"); 
                                         $("#psw").html("Password (Minimo 8 caratteri)*");
                                         $("#passwordregulator").removeClass("has-warning");

@@ -1,10 +1,10 @@
 (function() {
-//    addSelectionsFor('studente','classe');
-//    addSelectionsFor('studente','azienda');
-//    addSelectionsFor('studente','docente');
-//    addSelectionsFor('classe','specializzazione');
-//    
-//    addDatePickerInInzioStage();
+    //    addSelectionsFor('studente','classe');
+    //    addSelectionsFor('studente','azienda');
+    //    addSelectionsFor('studente','docente');
+    //    addSelectionsFor('classe','specializzazione');
+    //    
+    //    addDatePickerInInzioStage();
 
 })();
 
@@ -77,6 +77,19 @@ preferenza = {
     'nome':''
 };
 
+scuola = {
+    'username':'',
+    'password':'',
+    'confermaPassword':'',
+    'nome':'',
+    'citta':'',
+    'CAP':'',
+    'indirizzo':'',
+    'telefono' : '',
+    'email':'',
+    'sito' : ''
+}
+
 function addDatePickerInInzioStage()
 {
     $("#inizioStageStudente").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -119,15 +132,15 @@ function freeFieldsFor(userType)
             $("#CognomeResponsabileAzienda").val('');
             $("#TelefonoResponsabileAzienda").val('');
             $("#MailResponsabileAzienda").val('');
-        break;
+            break;
         
         case 'classe':
             $("#nomeClasse").val('');
-        break;
+            break;
         
         case 'specializzazione':
             $("#nomespecializzazione").val('');
-        break;
+            break;
         
         case 'studente':
             $("#usernameStudente").val('');
@@ -144,7 +157,7 @@ function freeFieldsFor(userType)
             $("#aziendaStudente").val('');
             $("#docenteStudente").val('');
             $("#tutorStudente").val('');            
-        break;
+            break;
         
         case 'tutor':
             $("#usernameTutor").val('');
@@ -155,11 +168,24 @@ function freeFieldsFor(userType)
             $("#telefonoTutor").val('');
             $("#emailTutor").val('');
             $("#aziendaTutor").val('');
-        break;
+            break;
         
         case 'preferenza':
             $("#nomepreferenza").val('');
-        break;
+            break;
+            
+        case 'scuola':
+            $("#usernameScuola").val('');
+            $("#passwordScuola").val('');
+            $("#confermapasswordScuola").val('');
+            $("#nomeScuola").val('');
+            $("#cittaScuola").val('');
+            $("#CAPScuola").val('');
+            $("#indirizzoScuola").val('');
+            $("#telefonoScuola").val('');
+            $("#emailScuola").val('');
+            $("#sitoScuola").val('');
+            break;
     }
 }
 
@@ -293,29 +319,29 @@ function addSelectionsFor(page,field)
                     }
                     break;
             }
-        break;
+            break;
         
         case 'tutor':
             switch(field)
             {
                 case 'azienda':
-                        $.ajax({
-                            type : 'POST',
-                            url : '../tutor/ajaxOpsPerTutor/ajaxAzienda.php',
-                            cache : false,
-                            success : function (xml)
-                            {
-                                $('#aziendaTutor').html('<option> </option>');
-                                $(xml).find('aziende').find('azienda').each(function()
-                                {                                
-                                    currentAzienda = $(this).find('nome').text();
-                                    $('#aziendaTutor').append('<option> '+currentAzienda+'</option>');
-                                });
-                            }
-                        });
+                    $.ajax({
+                        type : 'POST',
+                        url : '../tutor/ajaxOpsPerTutor/ajaxAzienda.php',
+                        cache : false,
+                        success : function (xml)
+                        {
+                            $('#aziendaTutor').html('<option> </option>');
+                            $(xml).find('aziende').find('azienda').each(function()
+                            {                                
+                                currentAzienda = $(this).find('nome').text();
+                                $('#aziendaTutor').append('<option> '+currentAzienda+'</option>');
+                            });
+                        }
+                    });
                     break;
             }
-        break;
+            break;
     }
 }
 
@@ -445,7 +471,7 @@ function sendSingleData(userType)
             if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
-//                alert(studente.classe);
+                //                alert(studente.classe);
                 return;
             }
             if(!studente.password || studente.password !== studente.confermaPassword || studente.password < 8)
@@ -457,7 +483,7 @@ function sendSingleData(userType)
             //$("#tutor"+numberId).html('<option value = "-1"></option>');        
             studente.iniziostage = $('#inizioStageStudente').val();
             if (studente.iniziostage === '') studente.iniziostage = 'NULL';
-//            alert(studente.iniziostage);
+            //            alert(studente.iniziostage);
             studente.duratastage = ''+$('#durataStageStudente').val();
             studente.duratastage = (studente.duratastage === '') ? 'NULL' : studente.duratastage;
             studente.azienda = $('#aziendaStudente').val().trim();
@@ -471,7 +497,6 @@ function sendSingleData(userType)
                 cache : false,
                 success : function(msg)
                 {
-                    alert(msg);
                     if (msg === "Inserimento dei dati riuscito! (mail inviata)" || msg == "Inserimento dei dati riuscito! (mail non inviata)")
                         freeFieldsFor('studente');
                 }                
@@ -496,7 +521,6 @@ function sendSingleData(userType)
                 data : classe,
                 success : function(msg)
                 {
-                    alert(msg)
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('classe');
                 }
@@ -581,22 +605,45 @@ function sendSingleData(userType)
             else
             {
                 $.ajax({
-                   type : 'POST',
-                   url :  '../preferenze/ajaxOpsPerPreferenza/ajaxInvia.php',
-                   cache : false,
-                   data: preferenza,
-                   success : function (msg)
-                   {
-                       alert (msg);
-                       if (msg === "invio dei dati riuscito!")
-                           freeFieldsFor('preferenza');
-                   }
+                    type : 'POST',
+                    url :  '../preferenze/ajaxOpsPerPreferenza/ajaxInvia.php',
+                    cache : false,
+                    data: preferenza,
+                    success : function (msg)
+                    {
+                        alert (msg);
+                        if (msg === "invio dei dati riuscito!")
+                            freeFieldsFor('preferenza');
+                    }
                 });
             }            
             break;
+            
+        case 'scuola':
+            scuola.username = $("#usernameScuola").val().trim();
+            scuola.password = $("#passwordScuola").val();
+            scuola.confermaPassword = $("#confermapasswordScuola").val();
+            scuola.nome = $("#nomeScuola").val();
+            scuola.citta = ($("#cittaScuola").val().isEmpty()) ? "NULL" : $("#cittaScuola").val();
+            scuola.CAP = ($("#CAPScuola").val().isEmpty()) ? "NULL" : $("#CAPScuola").val();
+            scuola.indirizzo = ($("#indirizzoScuola").val().isEmpty()) ? "NULL" : $("#indirizzoScuola").val();
+            scuola.telefono = ($("#telefonoScuola").val().isEmpty()) ? "NULL" : $("#telefonoScuola").val();
+            scuola.email = ($("#emailScuola").val().isEmpty()) ? "NULL" : $("#emailScuola").val();
+            scuola.sito = ($("#sitoScuola").val().isEmpty()) ? "NULL" : $("#sitoScuola").val();
+            
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerScuola/ajaxInvia.php',
+                cache : false,
+                data : scuola,
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                    {
+                        freeFieldsFor("scuola");
+                    }
+                }
+            })
+        break;
     }   
-}
-
-function checkUserOnInput(user){
-
 }
