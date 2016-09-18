@@ -90,6 +90,24 @@ scuola = {
     'sito' : ''
 }
 
+annoscolastico = {
+    'nome' : ''
+}
+
+figuraprofessionale = {
+    'nome' : ''
+}
+
+stage = {
+    'inizio' : '',
+    'durata' : 0
+}
+
+settore = {
+    'nomesettore' : '',
+    'indirizzostudi' : ''    
+}
+
 function addDatePickerInInzioStage()
 {
     $("#inizioStageStudente").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -186,6 +204,25 @@ function freeFieldsFor(userType)
             $("#emailScuola").val('');
             $("#sitoScuola").val('');
             break;
+            
+        case 'annoscolastico':
+            $("#nomeAnno").val('');
+            break;
+            
+        case 'figuraprofessionale':
+            $("#nomeFigura").val('');
+            break;
+            
+        case 'stage':
+            $("#inizioStage").val('');
+            $("#durataStage").val('');
+            break;
+            
+        case 'settore':
+            $("#indirizzoStudi").val('');
+            $("#nomeSettore").val('');
+            break;
+            
     }
 }
 
@@ -643,7 +680,66 @@ function sendSingleData(userType)
                         freeFieldsFor("scuola");
                     }
                 }
-            })
-        break;
-    }   
+            });
+            break;
+        
+        case 'annoscolastico':
+            annoscolastico.nome = $("#nomeAnno").val();
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerAnnoScolastico/ajaxInvia.php',
+                cache : false,
+                data : annoscolastico,
+                success : function (msg){
+                    if (msg === "ok")
+                        freeFieldsFor ("annoscolastico");
+                }
+            });
+            break;
+            
+        case 'figuraprofessionale':
+            figuraprofessionale.nome = $("#nomeFigura").val();
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerFiguraProfessionale/ajaxInvia.php',
+                cache : false,
+                data : figuraprofessionale,
+                success : function (msg){
+                    alert(msg)
+                    if (msg === "ok")
+                        freeFieldsFor ("figuraprofessionale");
+                }
+            });
+            break;
+            
+        case 'stage':
+            stage.inizio = $("#inizioStage").val();
+            stage.durata = $("#durataStage").val();
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerStage/ajaxInvia.php',
+                cache : false,
+                data : stage,
+                success : function (msg){
+                    if (msg === "ok")
+                        freeFieldsFor ("stage");
+                }
+            });
+            break;
+            
+        case 'settore':
+            settore.indirizzostudi = $("#indirizzoStudi").val();
+            settore.nomesettore = $("#nomeSettore").val();
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerSettore/ajaxInvia.php',
+                cache : false,
+                data : settore,
+                success : function (msg){
+                    if (msg === "ok")
+                        freeFieldsFor ("settore");
+                }
+            });
+            break;
+    }
 }
