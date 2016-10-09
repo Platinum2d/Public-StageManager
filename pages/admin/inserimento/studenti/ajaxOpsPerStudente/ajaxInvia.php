@@ -10,27 +10,11 @@
     $cognome = $connection->escape_string($_POST['cognome']);
     $citta = $connection->escape_string($_POST['citta']);
     $mail = (isset($_POST['mail'])) ? $connection->escape_string($_POST['mail']) : "";
+    $classe = $_POST['classe'];
     $telefono = $connection->escape_string($_POST['telefono']);
-    $iniziostage = $_POST['iniziostage'];    
-    $duratastage = ($_POST['duratastage'] === '') ? "NULL" : $_POST['duratastage'];      
-    $finestage = date("Y-m-d",strtotime("+".$duratastage." days", strtotime($iniziostage)));   
-        
-        
-    if ($_POST['classe'] === "")
-    {
-        $classe = "-1";
-    }
-    else
-    {
-        if($result = $connection->query("SELECT id_classe FROM classe WHERE nome = '".$_POST['classe']."'"))
-        {
-            $row = $result->fetch_assoc();
-            $classe = $row['id_classe'];
-        }
-        else 
-            $classe = "-1";
-    }
-        
+    $scuola = $_POST['scuola']; 
+    $annoscolastico = $_POST['annoclasse']; 
+    
     if ($_POST['azienda'] === "")
     {
         $azienda = "-1";
@@ -82,54 +66,17 @@
         }
         else 
             $tutor = "-1";       
-    }    
+    }
         
         $connection->query("SET FOREIGN_KEY_CHECKS=0");
         $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 6)";
-        $connection->query($userquery);
-
         
-        $Query = "INSERT INTO `studente` (`id_studente`, `nome`, `cognome`, `citta`, `email`, `telefono`, `visita_azienda`, `azienda_id_azienda`, `docente_id_docente`, `tutor_id_tutor`, `valutazione_studente_id_valutazione_studente`, `valutazione_stage_id_valutazione_stage`) "
-                . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 6), '$nome', '$cognome', '$citta', '$mail', '$telefono', 0, $azienda, $docente, $tutor, -1, -1);";
-                    
-        if(!$connection->query($Query))
-        {   
-            if(!$connection->query("SET FOREIGN_KEY_CHECKS=0"))
-            {
-                echo $connection->error; 
-                $connection->query("SET FOREIGN_KEY_CHECKS=1");
-            }
-            else 
-            {
-                if(!$connection->query($Query))
-                {
-                    echo $connection->error; 
-                    $connection->query("SET FOREIGN_KEY_CHECKS=1");
-                }
-                else
-                {
-                    echo "Inserimento dei dati riuscito!";
-                    $connection->query("SET FOREIGN_KEY_CHECKS=1");
-                }
-            }            
-        }
-        else
-        {
             
-            $headers = "From:" . $cognome . " " . $nome . "<" . $mail .">";
-            $messaggio = "Il tuo username e' : $username, la tua password e' : $psw";
-            $object = "credenziali di acccesso";
-                
-            stripslashes ( $messaggio );
-            stripslashes ( $object );
-                
-            if (mail($mail, $object, $messaggio, $headers)) 
-            {
-                echo "Inserimento dei dati riuscito! (mail inviata)"; 
-            }
-            else
-            {
-                echo "Inserimento dei dati riuscito! (mail non inviata)";
-            }
-            $connection->query("SET FOREIGN_KEY_CHECKS=1");
-        }
+        $Query = "INSERT INTO `studente` (`id_studente`, `nome`, `cognome`, `citta`, `email`, `telefono`, `visita_azienda`, `scuola_id_scuola`, `azienda_id_azienda`, `docente_id_docente`, `tutor_id_tutor`, `valutazione_studente_id_valutazione_studente`, `valutazione_stage_id_valutazione_stage`) "
+                . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 6), '$nome', '$cognome', '$citta', '$mail', '$telefono', 0, $scuola, $azienda, $docente, $tutor, -1, -1);";
+                    
+        $classquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico) VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 6), $classe, $annoscolastico)";
+       
+        $connection->query("SET FOREIGN_KEY_CHECKS = 0");
+        if ($connection->query($userquery) && $connection->query($Query) && $connection->query($classquery))
+            echo "ok";

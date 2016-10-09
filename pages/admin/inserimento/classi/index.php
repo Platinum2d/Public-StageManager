@@ -7,7 +7,7 @@
 ?>
     
 <script>
-    addSelectionsFor("classe","specializzazione");
+    
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     };      
@@ -40,20 +40,19 @@
                     <div class="row">
                         <form class="form-vertical">
                             <div class="col col-sm-6">
-                                <b>Nome della classe*</b> <div class="form-group"> <input class="form-control" id="nomeClasse"> </div>                           
-                                <br>
-                                * Campo Obbligatorio
-                                <br>
-                                <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('classe');">
+                                <b>Nome della classe*</b> <div class="form-group"> <input class="form-control" id="nomeClasse"> </div>       
+                                <!--Periodo di stage<div class="form-group"> <select class="form-control" id="stageClasse"> <option value="-1"> </option> </select></div>-->
                             </div>
                             
                             <div class="col col-sm-6">
-                                <b> Specializzazione* </b> <div class="form-group"> <select class="form-control" id="SpecializzazioneClasse" onclick="addSelectionsFor('classe','specializzazione');"></select></div>
-                                
+                                <b> Scuola* </b> <div class="form-group"> <select class="form-control" id="scuolaClasse"></select></div>
+                                <b> Settore di appartenenza* </b> <div class="form-group"> <select class="form-control" id="settoreClasse"></select></div>
+                                <!--<b> Anno Scolastico* </b> <div class="form-group"> <select class="form-control" id="annoscolasticoClasse"></select></div>-->                                
                             </div>
-                        </form>
+                        </form>                        
                     </div>
+                    * Campo Obbligatorio <br><br>
+                    <input class="btn btn-primary" value="Invia" onclick="sendSingleData('classe');">
                 </div>
                 
                 <div class="panel">
@@ -75,6 +74,12 @@
             </div>
         </div>
     </div>
+    <script>
+        addSelectionsFor("classe","scuola");
+        addSelectionsFor("classe","settore");
+//        addSelectionsFor("classe","anno_scolastico");        
+//        addSelectionsFor("classe","stage");
+    </script>
 </body>
 <?php
     close_html ();

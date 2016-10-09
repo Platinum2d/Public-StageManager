@@ -1,13 +1,3 @@
-(function() {
-    //    addSelectionsFor('studente','classe');
-    //    addSelectionsFor('studente','azienda');
-    //    addSelectionsFor('studente','docente');
-    //    addSelectionsFor('classe','specializzazione');
-    //    
-    //    addDatePickerInInzioStage();
-
-})();
-
 docente = {
     'username': '',
     'password': '',
@@ -46,16 +36,20 @@ studente = {
     'citta':'',
     'mail':'',
     'telefono':'',
-    'iniziostage':'',
-    'duratastage':0,
+    'scuola' : '',
     'classe':'',
+    'annoclasse':'',
     'azienda':'',
     'docente':'',
     'tutor':''
 };
 
 classe = {
-    'nome' : ''
+    'nome' : '',
+    'scuola' : '',
+//    'stage' : '',
+    'settore' : '',
+//    'anno' : ''
 }
 
 specializzazione = {
@@ -171,7 +165,6 @@ function freeFieldsFor(userType)
             $("#telefonoStudente").val('');
             $("#inizioStageStudente").val('');
             $("#durataStageStudente").val('');       
-            $("#classeStudente").val('');
             $("#aziendaStudente").val('');
             $("#docenteStudente").val('');
             $("#tutorStudente").val('');            
@@ -191,7 +184,7 @@ function freeFieldsFor(userType)
         case 'preferenza':
             $("#nomepreferenza").val('');
             break;
-            
+        
         case 'scuola':
             $("#usernameScuola").val('');
             $("#passwordScuola").val('');
@@ -204,55 +197,81 @@ function freeFieldsFor(userType)
             $("#emailScuola").val('');
             $("#sitoScuola").val('');
             break;
-            
+        
         case 'annoscolastico':
             $("#nomeAnno").val('');
             break;
-            
+        
         case 'figuraprofessionale':
             $("#nomeFigura").val('');
             break;
-            
+        
         case 'stage':
             $("#inizioStage").val('');
             $("#durataStage").val('');
             break;
-            
+        
         case 'settore':
             $("#indirizzoStudi").val('');
             $("#nomeSettore").val('');
             break;
-            
+        
     }
 }
 
-function addSelectionsFor(page,field)
+function addSelectionsFor(page, field)
 {
     switch (page)
     {
         case 'studente':
             switch (field)
             {
+                case 'anno_scolastico':
+                    $.ajax({
+                        url : "ajaxOpsPerStudente/ajaxAnnoScolastico.php",
+                        cache : false,
+                        success : function(xml)
+                        {
+                            $(xml).find("anni").find("anno").each(function (){
+                                $("#annoclasseStudente").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
+                            });
+                        }
+                    });
+                    break;
+                
+                case 'scuola':
+                    $.ajax({
+                        url : '../studenti/ajaxOpsPerStudente/ajaxScuola.php',
+                        cache : false,
+                        success : function (xml)
+                        {
+                            var selectedindex = 0+$("#classeStudente").prop('selectedIndex');
+                            $('#classeStudente').html('');
+                            $(xml).find('scuole').find("scuola").each(function()
+                            {
+                                $('#scuolaStudente').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
+                            });
+                            addSelectionsFor('studente', 'classe');
+                        }
+                    });
+                    break;
+                
                 case 'classe':
-                    if(!$('#classeStudente').is(':focus'))
-                    {
                         $.ajax({
+                            type : 'POST',
                             url : '../studenti/ajaxOpsPerStudente/ajaxClasse.php',
                             cache : false,
+                            data : { 'scuola' : $('#scuolaStudente').val() },
                             success : function (xml)
                             {
-                                //alert(xml);
                                 var selectedindex = 0+$("#classeStudente").prop('selectedIndex');
                                 $('#classeStudente').html('');
-                                $(xml).find('classe').each(function()
+                                $(xml).find('classi').find("classe").each(function()
                                 {
-                                    current = $(this).text();
-                                    $('#classeStudente').append('<option> '+current+' </option>');
+                                    $('#classeStudente').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+"</option>");
                                 });
-                                //$('#classeStudente')[selectedindex].selected = true;
                             }
                         });
-                    }
                     break;
                 
                 case 'azienda':
@@ -263,7 +282,6 @@ function addSelectionsFor(page,field)
                             cache : false,
                             success : function (xml)
                             {
-                                //                                alert(xml);
                                 $('#aziendaStudente').html('<option> </option>');
                                 $('#keepIdAzienda').html('');
                                 $(xml).find('aziende').find('azienda').each(function()
@@ -272,8 +290,6 @@ function addSelectionsFor(page,field)
                                     $('#keepIdAzienda').append('<option> '+currentid+'</option>');                                    
                                     currentAzienda = $(this).find('nome').text();
                                     $('#aziendaStudente').append('<option> '+currentAzienda+'</option>');
-                                    //                                    if ($("#aziendaStudente").prop('selectedIndex') !== '-1')
-                                    //                                        alert($("#aziendaStudente").prop('selectedIndex'));
                                 });
                             }
                         });
@@ -355,7 +371,47 @@ function addSelectionsFor(page,field)
                         });
                     }
                     break;
-            }
+                
+                case 'scuola':
+                    $.ajax({
+                        url : "ajaxOpsPerClasse/ajaxScuola.php",
+                        cache : false,
+                        success : function(xml)
+                        {
+                            $(xml).find("scuole").find("scuola").each(function (){
+                                $("#scuolaClasse").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
+                            });
+                        }
+                    });
+                    break;
+                
+                
+                case 'settore':
+                    $.ajax({
+                        url : "ajaxOpsPerClasse/ajaxSettore.php",
+                        cache : false,
+                        success : function(xml)
+                        {
+                            $(xml).find("settori").find("settore").each(function (){
+                                $("#settoreClasse").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("indirizzo").text()+" - "+$(this).find("nome").text()+" </option>");
+                            });
+                        }
+                    });
+                    break;
+                
+                //                case 'stage':
+                    //                    $.ajax({
+                //                        url : "ajaxOpsPerClasse/ajaxStage.php",
+            //                        cache : false,
+        //                        success : function(xml)
+        //                        {
+        //                            $(xml).find("stages").find("stage").each(function (){
+        //                                $("#stageClasse").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("inizio").text()+" - "+$(this).find("durata").text()+" giorni </option>");
+        //                            });
+        //                        }
+        //                    });
+        //                    break;
+                    }
             break;
         
         case 'tutor':
@@ -503,26 +559,20 @@ function sendSingleData(userType)
             studente.citta = $('#cittaStudente').val().trim();
             studente.mail = $('#mailStudente').val().trim();
             studente.telefono = $('#telefonoStudente').val().trim();
-            studente.classe = $('#classeStudente').val().trim();
+            studente.classe = $('#classeStudente').val();
+            studente.scuola = $('#scuolaStudente').val();
+            studente.annoclasse = $("#annoclasseStudente").val();
             
-            if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty())
+            if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty() || studente.scuola.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
-                //                alert(studente.classe);
                 return;
             }
             if(!studente.password || studente.password !== studente.confermaPassword || studente.password < 8)
             {
                 alert("errore nell'inserimento della password");
                 return;
-            }
-            
-            //$("#tutor"+numberId).html('<option value = "-1"></option>');        
-            studente.iniziostage = $('#inizioStageStudente').val();
-            if (studente.iniziostage === '') studente.iniziostage = 'NULL';
-            //            alert(studente.iniziostage);
-            studente.duratastage = ''+$('#durataStageStudente').val();
-            studente.duratastage = (studente.duratastage === '') ? 'NULL' : studente.duratastage;
+            }  
             studente.azienda = $('#aziendaStudente').val().trim();
             studente.docente = $('#docenteStudente').val().trim();
             studente.tutor = $('#tutorStudente').val().trim();
@@ -534,7 +584,7 @@ function sendSingleData(userType)
                 cache : false,
                 success : function(msg)
                 {
-                    if (msg === "Inserimento dei dati riuscito! (mail inviata)" || msg == "Inserimento dei dati riuscito! (mail non inviata)")
+                    if (msg === "ok")
                         freeFieldsFor('studente');
                 }                
             });
@@ -545,6 +595,10 @@ function sendSingleData(userType)
                 return (this.length === 0 || !this.trim());
             };   
             classe.nome = $("#nomeClasse").val().trim();
+//            classe.anno = $("#annoscolasticoClasse").val();
+            classe.scuola = $("#scuolaClasse").val();
+            classe.settore = $("#settoreClasse").val();
+//            classe.stage = ($("#stageClasse").val() === "-1") ? "NULL" : $("#stageClasse").val();
             
             if (classe.nome.isEmpty())
             {
@@ -558,6 +612,7 @@ function sendSingleData(userType)
                 data : classe,
                 success : function(msg)
                 {
+                    alert(msg)
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('classe');
                 }
@@ -627,7 +682,7 @@ function sendSingleData(userType)
             });
             
             break;
-            
+        
         case 'preferenza':
             String.prototype.isEmpty = function() {
                 return (this.length === 0 || !this.trim());
@@ -655,7 +710,7 @@ function sendSingleData(userType)
                 });
             }            
             break;
-            
+        
         case 'scuola':
             scuola.username = $("#usernameScuola").val().trim();
             scuola.password = $("#passwordScuola").val();
@@ -696,7 +751,7 @@ function sendSingleData(userType)
                 }
             });
             break;
-            
+        
         case 'figuraprofessionale':
             figuraprofessionale.nome = $("#nomeFigura").val();
             $.ajax({
@@ -711,7 +766,7 @@ function sendSingleData(userType)
                 }
             });
             break;
-            
+        
         case 'stage':
             stage.inizio = $("#inizioStage").val();
             stage.durata = $("#durataStage").val();
@@ -726,7 +781,7 @@ function sendSingleData(userType)
                 }
             });
             break;
-            
+        
         case 'settore':
             settore.indirizzostudi = $("#indirizzoStudi").val();
             settore.nomesettore = $("#nomeSettore").val();

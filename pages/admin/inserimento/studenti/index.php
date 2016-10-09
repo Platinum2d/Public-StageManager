@@ -6,9 +6,10 @@
     import("../../../../");
 ?>
 <script>
-    addSelectionsFor('studente','classe');
+    addSelectionsFor('studente','scuola');
     addSelectionsFor('studente','azienda');
     addSelectionsFor('studente','docente');
+    addSelectionsFor('studente','anno_scolastico');
 </script>
 
 <body>
@@ -78,17 +79,13 @@
                             </div>
                                 
                             <div class="col col-sm-6">
-                                
-                                Inizio Stage <div class="form-group"> <input class="form-control" data-provide="datepicker" id="inizioStageStudente"> </div>
-                                Durata Stage <div class="form-group"> <input class="form-control" type="number" min="1" id="durataStageStudente"> </div>
-                                <b>Classe* </b> <div class="form-group"><select class="form-control"  id="classeStudente" onclick="addSelectionsFor('studente','classe')">  </select> </div>
-                                Azienda <div class="form-group"><select class="form-control"  id="aziendaStudente" onclick="addSelectionsFor('studente','azienda')"> </select>  </div>
-                                Docente <div class="form-group"><select class="form-control"  id="docenteStudente" onclick="addSelectionsFor('studente','docente')"> </select> </div>
+                                <b>Scuola* </b> <div class="form-group"><select class="form-control"  id="scuolaStudente">  </select> </div>
+                                <b>Classe* </b> <div class="form-group"><select class="form-control"  id="classeStudente">  </select> </div>
+                                <b>Anno Scolastico* </b> <div class="form-group"><select class="form-control"  id="annoclasseStudente">  </select> </div>
+                                Azienda <div class="form-group"><select class="form-control"  id="aziendaStudente" > </select>  </div>
+                                Docente <div class="form-group"><select class="form-control"  id="docenteStudente"> </select> </div>
                                 Tutor <div class="form-group"><select class="form-control"  id="tutorStudente" style="color:#D3D3D3"> <option> selezionare una azienda.... </option> </select> </div>
-    <!--                            Durata Stage <input class="form-control" type="number" min="1" id="duarataStageStudente">
-                                Durata Stage <input class="form-control" type="number" min="1" id="duarataStageStudente">-->
                                 <select id="keepIdAzienda" style="visibility: hidden"></select><br>
-                                    
                             </div>
                         </form>
                     </div>
@@ -106,6 +103,9 @@
                                 <input type="submit" class="btn btn-primary" value="invia" name="invio">
                             </form>
                             <script>
+                                $("#scuolaStudente").change(function (){
+                                    addSelectionsFor("studente", "classe");
+                                });
                                 $("#usernameStudente").on('input',function (){
                                     $.ajax({
                                         type : 'POST',
@@ -175,6 +175,7 @@
                                         $("#passwordspanregulator").addClass("glyphicon-ok");                                        
                                     }
                                 }, 1);
+                                
                             </script>
                         </div>
                     </div>
