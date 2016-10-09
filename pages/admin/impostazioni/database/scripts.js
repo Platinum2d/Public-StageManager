@@ -46,9 +46,11 @@ function openEdit(){
         }
         else
         {
+            $("#validpassword").val("0");
             $("#actualpassword").attr("disabled", false);
             $("#newpassword").attr("disabled", false);
-            $("#confirmnewpassword").attr("disabled", false); 
+            $("#confirmnewpassword").attr("disabled", false);   
+            checkTheWhole();
         }
     });
     
