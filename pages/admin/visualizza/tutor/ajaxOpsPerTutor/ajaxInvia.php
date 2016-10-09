@@ -11,11 +11,16 @@
     $telefono = $conn->escape_string($_POST['telefono']);
     $azienda = $_POST['azienda'];
     
-    $Query = "UPDATE `tutor` SET `username` = '$username', ";
-    if ($password !== "immutato") $Query .= "`password` = '".md5($password)."', ";
-    $Query .= "`nome` = '$nome', `cognome` = '$cognome',  `email` = '$mail', `telefono` = '$telefono', `azienda_id_azienda` = $azienda  WHERE id_tutor = $idtutor";
-    if ($conn->query($Query))
+    $Query = "UPDATE `utente` SET `username` = '$username' ";
+    if ($password !== "immutato") $Query .= ", `password` = '".md5($password)."' ";
+    $Query .= " WHERE `id_utente` = $idtutor";
+    $ok = ($conn->query($Query)) ? true : false ;
+    
+    $Query = "UPDATE `tutor` SET `nome` = '$nome', `cognome` = '$cognome',  `email` = '$mail', `telefono` = '$telefono', `azienda_id_azienda` = $azienda  WHERE id_tutor = $idtutor";
+    $ok = ($conn->query($Query)) ? true : false ;
+    
+    if ($ok)
         echo "Inserimento dei dati riuscito!";
     else
-        echo "Inserimento dei dati non riuscito!";
+        echo $conn->error;
     

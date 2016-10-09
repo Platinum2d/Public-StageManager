@@ -11,7 +11,7 @@ XML;
     $conn = dbConnection("../../../../../");
     $idazienda = $_POST['idazienda'];
     
-    $query = "SELECT * FROM azienda WHERE id_azienda = $idazienda ";
+    $query = "SELECT * FROM azienda, utente WHERE tipo_utente = 4 AND id_utente = $idazienda AND id_azienda = $idazienda ";
     $result = $conn->query($query);
     
     $aziende = $xml->addChild('aziende');

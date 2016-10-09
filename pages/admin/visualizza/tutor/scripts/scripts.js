@@ -99,34 +99,18 @@ function openEdit (id, idTutor)
         {
             alert("errore")
         }
-    })
-    
-    //    $("#HiddenBox"+numberId).hide();
-    //    $("#HiddenBox"+numberId).fadeIn("slow");
-    //    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
+    });
     $("#HiddenBox"+numberId).fadeIn("slow");
-    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height())
-    //        $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-    //    }, 500)
+    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
 }
 
 function closeEdit (numberId)
 {
-    //    $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height()
-    //    }, 500)
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
     $( "#HiddenBox"+numberId ).remove();
-    
-    //$( "#VisibleBox"+numberId).append('<br><br>');
-    //$( "#HiddenBox"+numberId ).remove();
-    
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);
-    
-    //$("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
 }
 
 function sendData(idTutor, numberId)
@@ -152,7 +136,7 @@ function sendData(idTutor, numberId)
             url : 'ajaxOpsPerTutor/ajaxInvia.php',
             data : tutor,
             success : function (msg)
-            {                
+            {
                 if (msg === "Inserimento dei dati riuscito!")
                 {
                     $("#label"+numberId).html($("#cognome"+numberId).val() + " " + $("#nome"+numberId).val() + " ("+$("#username"+numberId).val()+")");

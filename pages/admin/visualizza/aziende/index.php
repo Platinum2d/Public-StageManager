@@ -9,7 +9,7 @@
         $recordperpagina = (!isset($_POST['naziende'])) ? 10 : $_POST['naziende'];
     }
     if ($recordperpagina <= 0) {
-        $result = $conn->query("SELECT COUNT(id_azienda) AS tot FROM AZIENDA");
+        $result = $conn->query("SELECT COUNT(id_azienda) AS tot FROM azienda");
         $row = $result->fetch_assoc();
         $recordperpagina = intval($row['tot']);
     }
@@ -91,7 +91,7 @@
                                             <script> $("#slc").prop('selectedIndex', 1); </script> 
                                       <?php }
                                           
-                                            $query = "SELECT * FROM azienda ORDER BY username LIMIT $recordperpagina OFFSET 0";
+                                            $query = "SELECT * FROM azienda, utente WHERE tipo_utente = 4 AND id_utente = id_azienda ORDER BY username LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;

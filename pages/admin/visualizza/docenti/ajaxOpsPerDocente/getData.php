@@ -11,7 +11,7 @@ XML;
     $conn = dbConnection("../../../../../");
     $iddocente = $_POST['iddocente'];
     
-    $query = "SELECT * FROM docente WHERE id_docente = $iddocente ";
+    $query = "SELECT * FROM utente, docente WHERE id_utente = id_docente AND id_docente = $iddocente ";
     $result = $conn->query($query);
     
     $aziende = $xml->addChild('docenti');
@@ -25,7 +25,6 @@ XML;
         $azienda->addChild('email',$row['email']);
         $azienda->addChild('docente_referente',$row['docente_referente']);
         $azienda->addChild('docente_tutor',$row['docente_tutor']);
-        $azienda->addChild('super_user',$row['super_user']);
     }
     
     echo $xml->asXML();

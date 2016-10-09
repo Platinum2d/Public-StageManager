@@ -73,7 +73,7 @@
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
                                       <?php }
                                             $conn = dbConnection("../../../../");
-                                            $query = "SELECT * FROM docente WHERE id_docente != ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
+                                            $query = "SELECT * FROM utente, docente WHERE id_docente = id_utente AND id_docente != ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;

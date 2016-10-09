@@ -12,7 +12,7 @@ $connessione = dbConnection("../../../../../");
     $offset = $_POST['offset'];
     $tupledastampare = $_POST['tuple'];
     
-    $query = "SELECT * FROM tutor ORDER BY username LIMIT $tupledastampare OFFSET $offset";
+    $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor ORDER BY username LIMIT $tupledastampare OFFSET $offset";
     
     if ($result = $connessione->query($query))
     {

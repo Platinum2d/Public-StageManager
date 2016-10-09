@@ -3,8 +3,6 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Studenti" );
     import("../../../../");
-//    echo "<link rel=\"stylesheet\" href=\"Chat/style.css\">";
-//    echo "<script src=\"Chat/chat.js\"> </script>";
     $recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['nstud'])) ? 10 : $_POST['nstud'];
@@ -68,17 +66,18 @@
                     <ul id="classes" class="nav nav-tabs">
      							<?php
                                                         $conn = dbConnection("../../../../");
-                                    $ClasseSelezionata = (isset($_POST['idclasse'])) ? $_POST['idclasse'] : null;
-                                    $query = "SELECT  `nome`, `id_classe` FROM  `classe` ";
+                                    $ScuolaSelezionata = (isset($_POST['idscuola'])) ? $_POST['idscuola'] : null;
+                                    $query = "SELECT  `nome`, `id_scuola` FROM  `scuola` ";
                                     $result1 = $conn->query ( $query );
                                     $I=0;
-                                    while ( $row = $result1->fetch_assoc () ) {
+                                    while ( $row = $result1->fetch_assoc () ) 
+                                    {
                                         $nome = $row ['nome'];
-                                        $idclasse = $row ['id_classe'];
-                                        echo "<form action=\"index.php\" method=\"POST\" id=\"classform$I\"> <input type=\"hidden\" name=\"idclasse\" value=\"$idclasse\">  </form>";
+                                        $idscuola = $row ['id_scuola'];
+                                        echo "<form action=\"index.php\" method=\"POST\" id=\"classform$I\"> <input type=\"hidden\" name=\"idscuola\" value=\"$idscuola\">  </form>";
                                         echo "<li>
                                                 <a class='navbar-brand' href='javascript:redirectForClass($I)'>
-                                                    <input type='hidden' value='$idclasse' class='classe_id'/>
+                                                    <input type='hidden' value='$idscuola' class='scuola_id'/>
                                                     $nome
                                                 </a>
                                             </li>";

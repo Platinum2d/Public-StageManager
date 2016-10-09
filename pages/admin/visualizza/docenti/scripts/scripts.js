@@ -7,8 +7,7 @@ docente = {
     'telefono' : '',
     'email' : '',
     'docente_referente' : '',
-    'docente_tutor' : '',
-    'super_user' : ''
+    'docente_tutor' : ''
 }
 
 function openEdit (id, iddocente)
@@ -32,7 +31,6 @@ function openEdit (id, iddocente)
                         </div>\n\
                         <div class=\"col col-sm-6\"><div class=\"form-group\"><label id=\"docref\"> Docente Referente </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentereferente"+numberId+"\"></div>\n\
                         <div class=\"form-group\"><label id=\"doctut\"> Docente Tutor </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentetutor"+numberId+"\"></div>\n\
-                        <div class=\"form-group\"><label id=\"supus\"> Super User </label> <input type=\"checkbox\" class=\"form-control\" id=\"superuser"+numberId+"\"> </div>\n\
                     </form>\n\
                     </div>\n\
                 </div>\n\
@@ -58,7 +56,6 @@ function openEdit (id, iddocente)
                 $("#telefono"+numberId).val($(this).find("telefono").text());
                 $("#email"+numberId).val($(this).find("email").text());     
                 if ($(this).find("docente_tutor").text() === "1") $("#docentetutor"+numberId).attr('checked',true);
-                if ($(this).find("super_user").text() === "1") $("#superuser"+numberId).attr('checked',true);
                 if ($(this).find("docente_referente").text() === "1") $("#docentereferente"+numberId).attr('checked',true);
                 $("#username"+numberId).on("input", function (){
                     $.ajax({
@@ -116,7 +113,6 @@ function sendData(iddocente, numberId)
     docente.email = $("#email"+numberId).val();
     docente.docente_referente = ($("#docentereferente"+numberId).prop('checked') === true) ? "1" : "0";
     docente.docente_tutor = ($("#docentetutor"+numberId).prop('checked') === true) ? "1" : "0";
-    docente.super_user = ($("#superuser"+numberId).prop('checked') === true) ? "1" : "0";
     
     $.ajax({
         type : 'POST',
@@ -171,7 +167,6 @@ function setOnChangeEvents(numberId)
     $("#email"+numberId).on('input',((function (e){ $("#email"+numberId).css('color','red'); })));
     $("#docentereferente"+numberId).change(((function (e){ $("#docref").css("color","red"); })));
     $("#docentetutor"+numberId).change(((function (e){ $("#doctut").css("color","red"); })));
-    $("#superuser"+numberId).change(((function (e){ $("#supus").css("color","red"); })));
 }
 
 function resetColors(numberId)
@@ -184,5 +179,4 @@ function resetColors(numberId)
     $("#email"+numberId).css('color','#555');
     $("#docref").css("color","#555");
     $("#doctut").css("color","#555");
-    $("#supus").css("color","#555");
 }

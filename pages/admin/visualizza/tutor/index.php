@@ -75,7 +75,7 @@
                                       <?php }
                                           
                                             $conn = dbConnection("../../../../");
-                                            $query = "SELECT * FROM tutor ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
+                                            $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;

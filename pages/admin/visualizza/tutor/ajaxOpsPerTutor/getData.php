@@ -11,7 +11,7 @@ XML;
     $conn = dbConnection("../../../../../");
     $idtutor = $_POST['idtutor'];
     
-    $query = "SELECT * FROM tutor WHERE id_tutor = $idtutor ";
+    $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor AND id_tutor = $idtutor ";
     $result = $conn->query($query);
     
     $tutors = $xml->addChild('tutors');
