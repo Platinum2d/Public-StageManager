@@ -18,7 +18,6 @@ function check_login(){
             'password':password
         },
         success: function(xml){
-            alert(xml)
             var tipo = $(xml).find("tipo").text(); //tipo contiene il tipo di utente loggato, è uguale a 0 se non loggato
             if(tipo==='-1')
             {

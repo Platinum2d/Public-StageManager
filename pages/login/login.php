@@ -1,7 +1,6 @@
    <?php
 include '../functions.php';
 function sessionInformation($usr, $userId, $type, $table) {
-    session_start ();
     $_SESSION ['user'] = $usr;
     $_SESSION ['userId'] = $userId;
     $_SESSION ['type'] = $type;
