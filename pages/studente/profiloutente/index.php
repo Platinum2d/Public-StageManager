@@ -6,7 +6,7 @@
     $id_stud = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT * FROM studente WHERE id_studente=$id_stud";
+    $sql = "SELECT * FROM studente, utente WHERE id_studente=$id_stud AND id_utente=$id_stud";
     $result = $connessione->query ( $sql );
     while ( $row = $result->fetch_assoc () ) {
         $nome = $row ['nome'];
@@ -15,7 +15,6 @@
         $email = $row ['email'];
         $telefono = $row ['telefono'];
         $username = $row ['username'];
-		//$preferenza = $row ['preferenza'];
     }
 	$result = $connessione->query($sql);
 ?>
@@ -90,10 +89,12 @@
                                         <th class="col-sm-5">Preferenze</th>
                                         <td class="col-sm-5" id="preference" contenteditable='false' class="minw"> 
                                         <?php 
-                                            $Query = "SELECT preferenza.nome FROM `preferenza`,`studente`,`studente_has_preferenza`"
-                                                    . " WHERE id_studente = studente_id_studente"
-                                                    . " AND id_preferenza = preferenza_id_preferenza"
-                                                    . " AND id_studente = ".$_SESSION['userId']." ORDER BY preferenza.nome ASC";
+                                            $Query = "SELECT figura_professionale.nome ".
+                                            		"FROM `figura_professionale`,`studente`,`studente_whises_figura_professionale` ".
+                                            		"WHERE studente.id_studente = studente_whises_figura_professionale.studente_id_studente ".
+                                            		"AND figura_professionale.id_figura_professionale = studente_whises_figura_professionale.figura_professionale_id_figura_professionale ".
+                                            		"AND studente.id_studente = " . $_SESSION['userId'] . " ".
+                                            		"ORDER BY figura_professionale.nome ASC";
                                                         
                                             $result = $connessione->query($Query);
                                             $value = "";
@@ -103,10 +104,17 @@
                                             }
                                             echo " <input id=\"preferenceslist\" disabled=\"true\" type=\"text\" value=\"$value\" data-role=\"tagsinput\" /> <br><br><div id=\"HiddenAddBox\"><label name=\"addpr\">Aggiungi una preferenza:</label>";
                                                 
-                                            $query = "SELECT * FROM preferenza ORDER BY nome ASC";
+                                            $query = "SELECT * FROM figura_professionale ORDER BY nome ASC";
                                             $result = $connessione->query($query);
                                             echo "<select id=\"addpreference\" class=\"form-control\" style=\"max-width : 350px\">";
-                                            while ($row = $result->fetch_assoc()){ echo "<option value=\"".$row['id_preferenza']."\"> ".$row['nome']." </option>"; }
+                                            if ($connessione->affected_rows) {
+                                            	while ($row = $result->fetch_assoc()){
+                                            		echo "<option value=\"".$row['id_figura_professionale']."\"> ".$row['nome']." </option>";
+                                            	}
+                                            }
+                                            else {
+                                            	echo "<option disabled>Figure professionali non presenti.</option>";
+                                            }
                                             echo "</select> <input id=\"btnaddpref\"  type=\"button\" class=\"btn btn-primary\" value=\"Aggiungi\" style=\"margin-top : 5px\"> </div>";
                                         ?>
                                         </td>
@@ -126,45 +134,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $('#preferenza').prop('disabled', true);
-        $('#preferenza').css('color', '#828282');
-        $('#preferenceslist').on('itemRemoved', function (event){
-            $.ajax({
-                type : 'POST',
-                url : 'ajaxOps/ajaxRemovePreference.php',
-                data : { 'preferenza' : event.item },
-                cache : false,
-                success : function (msg)
-                {
-                    if (msg !== "ok")
-                        alert("Eliminazione della preferenza non riuscita!");
-                }
-            });
-        });
-        
-        $("#btnaddpref").click(function () {
-            var toadd = $( "#addpreference option:selected" ).text();
-            var current = $( "#preferenceslist" ).val();
-            
-            if (current.indexOf(toadd.trim()) === -1)
-            {
-                $('#preferenceslist').tagsinput('add', $( "#addpreference option:selected" ).text());                                        
-                $.ajax({
-                    type : 'POST',
-                    url : 'ajaxOps/ajaxAddPreference.php',
-                    data : { 'preferenza' : $( "#addpreference" ).val() },
-                    cache : false,
-                    success : function (msg)
-                    {
-                        if (msg !== "ok")
-                            alert("Inserimento della preferenza non riuscita!");
-                    }
-                });
-            }
-        });
-        $("#HiddenAddBox").hide();
-    </script>
 </body>
 <?php
     close_html ();

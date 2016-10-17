@@ -100,6 +100,44 @@ $(document).ready(function(){
 //        $("input[type=\"text\"]").keydown(function (){ return false; });
 
     }
+
+    $('#preferenza').prop('disabled', true);
+    $('#preferenza').css('color', '#828282');
+    $('#preferenceslist').on('itemRemoved', function (event){
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxRemovePreference.php',
+            data : { 'preferenza' : event.item },
+            cache : false,
+            success : function (msg)
+            {
+                if (msg !== "ok")
+                    alert("Eliminazione della preferenza non riuscita!");
+            }
+        });
+    });
+    
+    $("#btnaddpref").click(function () {
+        var toadd = $( "#addpreference option:selected" ).text();
+        var current = $( "#preferenceslist" ).val();
+        
+        if (current.indexOf(toadd.trim()) === -1)
+        {
+            $('#preferenceslist').tagsinput('add', $( "#addpreference option:selected" ).text());                                        
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOps/ajaxAddPreference.php',
+                data : { 'preferenza' : $( "#addpreference" ).val() },
+                cache : false,
+                success : function (msg)
+                {
+                    if (msg !== "ok")
+                        alert("Inserimento della preferenza non riuscita!");
+                }
+            });
+        }
+    });
+    $("#HiddenAddBox").hide();
 });
 
 function openPreferenceEdit(){
