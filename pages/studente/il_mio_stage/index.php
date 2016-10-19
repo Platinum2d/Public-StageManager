@@ -104,7 +104,18 @@
                                             $nome_tutor_sc = null;
                                     }
                                     // ouput periodo stage
-                                    $result = $conn->query ( "SELECT `inizio_stage`, `durata_stage` FROM `studente` WHERE id_studente=$idstud" );
+                                    $query_stage = "SELECT stage.inizio_stage, stage.durata_stage ".
+													"FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe ".
+													"WHERE studente.id_studente = $idstud ".
+													"AND anno_scolastico.corrente = 1 ".
+													"AND studente.scuola_id_scuola = classe.scuola_id_scuola ".
+													"AND studente_attends_classe.studente_id_studente = studente.id_studente ".
+													"AND studente_attends_classe.classe_id_classe  = classe.id_classe ".
+													"AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico ".
+													"AND classe_has_stage.classe_id_classe = classe.id_classe ".
+													"AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico ".
+													"AND classe_has_stage.stage_id_stage = stage.id_stage;";
+                                    $result = $conn->query ($query_stage);
                                         
                                     $inizio_stage = "SCONOSCIUTO";
                                     $fine_stage = "SCONOSCIUTO";
