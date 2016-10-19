@@ -20,47 +20,49 @@
         echo "invio della valutazione NON riuscito";
     }
         
-      $QueryNull = "SELECT valutazione_stage_id_valutazione_stage FROM studente WHERE valutazione_stage_id_valutazione_stage IS NULL AND id_studente = ".$_SESSION['userId'];
-      $result = $MySQLConnection->query($QueryNull);
-      if ($result->num_rows > 0)
+      $queryStageId = "SELECT classe_has_stage.stage_id_stage 
+						FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, classe 
+						WHERE studente.id_studente = " . $_SESSION['userId'] . " 
+						AND anno_scolastico.corrente = 1 
+						AND studente.scuola_id_scuola = classe.scuola_id_scuola 
+						AND studente_attends_classe.studente_id_studente = studente.id_studente 
+						AND studente_attends_classe.classe_id_classe  = classe.id_classe 
+						AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
+						AND classe_has_stage.classe_id_classe = classe.id_classe 
+						AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico;";
+      $result = $MySQLConnection->query($queryStageId);
+      $idStage = $result->fetch_assoc ();
+      $idStage = $idStage ["stage_id_stage"];
+      
+      $queryValutazioneId = "SELECT id_valutazione_stage 
+								FROM valutazione_stage 
+								WHERE stage_id_stage = $idStage 
+								AND studente_id_studente = " . $_SESSION['userId'] . ";";
+      $result = $MySQLConnection->query($queryValutazioneId);
+      if ($result->num_rows <= 0)
       {
-        $Query = "INSERT INTO valutazione_stage (voto, descrizione) VALUES ('$Voto', '$Descrizione')";
+        $Query = "INSERT INTO valutazione_stage (descrizione, voto, stage_id_stage, studente_id_studente) VALUES ('$Descrizione', '$Voto', '$idStage', '" . $_SESSION['userId'] . "')";
             
-            
-        if ($MySQLConnection->query ( $Query ) == TRUE) {
-//            $_SESSION ['grade_sent'] = 2; // voto inviato correttamente
-//                                         // echo "Dati inseriti correttamente.";
-            echo "invio della valutazione riuscito";
-            //header ( "location: " . prj_root . "/index.php" );
-            $Query = "UPDATE studente SET valutazione_stage_id_valutazione_stage = 
-                (SELECT MAX(id_valutazione_stage) FROM valutazione_stage) WHERE id_studente 
-                = ".$_SESSION['userId'];
-            $MySQLConnection->query ( $Query );
-                
-        }
-        else
-        {
-//            $_SESSION ['grade_sent'] = 3; // errore invio query
-//                                             // echo "Errore nell'invio della query: ". $Query . "<br>". $MySQLConnection->error;
-            echo "invio della valutazione NON riuscito";
+        if (!$MySQLConnection->query ( $Query )) {
+			echo "invio della valutazione NON riuscito";                
         }
       }
       else
       {
-          $IdStudQuery = "SELECT valutazione_stage_id_valutazione_stage FROM studente WHERE id_studente = ".$_SESSION['userId'];
-          $ris = $MySQLConnection->query($IdStudQuery);
-          $row = $ris->fetch_assoc();
-          $IdVal = $row['valutazione_stage_id_valutazione_stage'];
+	      $idValutazione = $result->fetch_assoc ();
+	      $idValutazione = $idValutazione ['id_valutazione_stage'];
               
-          $UpdateQuery = "UPDATE  `valutazione_stage` SET  `descrizione` =  '$Descrizione',
-          `voto` =  '$Voto' WHERE  `valutazione_stage`.`id_valutazione_stage` = $IdVal;";
+          $UpdateQuery = "UPDATE  `valutazione_stage` 
+          					SET  `descrizione` =  '$Descrizione', 
+          					`voto` =  '$Voto' 
+          					WHERE  `valutazione_stage`.`id_valutazione_stage` = $idValutazione;";
           if ($MySQLConnection->query($UpdateQuery))
           {
               echo "invio della valutazione riuscito";
           }
           else
           {
-               echo $UpdateQuery;
+                echo "Modifica della valutazione non riuscito";
           }
       }
     $MySQLConnection->close ();

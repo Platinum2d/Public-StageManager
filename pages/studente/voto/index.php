@@ -25,11 +25,23 @@
             
         if ($result->num_rows > 0)
         {
-            $Query = "SELECT valutazione_stage_id_valutazione_stage FROM studente WHERE id_studente = ".$_SESSION['userId']." AND valutazione_stage_id_valutazione_stage IS NULL";
+            $Query = "SELECT valutazione_stage.voto, valutazione_stage.descrizione 
+						FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe, valutazione_stage 
+						WHERE studente.id_studente =  ".$_SESSION['userId']." 
+						AND anno_scolastico.corrente = 1 
+						AND studente.scuola_id_scuola = classe.scuola_id_scuola 
+						AND studente_attends_classe.studente_id_studente = studente.id_studente 
+						AND studente_attends_classe.classe_id_classe  = classe.id_classe 
+						AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
+						AND classe_has_stage.classe_id_classe = classe.id_classe 
+						AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
+						AND classe_has_stage.stage_id_stage = stage.id_stage 
+						AND valutazione_stage.stage_id_stage = stage.id_stage 
+						AND valutazione_stage.studente_id_studente = studente.id_studente;";
             $result = $connection->query($Query);
-            if ($result->num_rows > 0)
+            if ($result->num_rows <= 0)
             {
-    ?>
+    ?>				
                     <!-- Begin Body -->                    
                     <br>
                     <div class="row">
@@ -53,7 +65,7 @@
                                     </div>
                                     <br>
                                     <h2>Dai una descrizione del tuo lavoro svolto:</h2>                     
-                                    <textarea style="resize:none;" rows="7" cols="70" name="descrizione" id="styled" class="form-control"></textarea>
+                                    <textarea cols="70" name="descrizione" id="styled" class="form-control"></textarea>
                                     <br>
                                     <br>
                                     <input type= "button" value="Invia" class="btn btn-primary" onclick="sendGrade()">
@@ -65,13 +77,7 @@
             }
             else
             {
-                $Query = "SELECT valutazione_stage_id_valutazione_stage FROM studente WHERE id_studente = ".$_SESSION['userId']." AND valutazione_stage_id_valutazione_stage IS NOT NULL";
-                $result = $connection->query($Query);
-                $row = $result->fetch_assoc(); 
-                $idValutazione = $row['valutazione_stage_id_valutazione_stage'];
-                    
-                $Query = "SELECT voto,descrizione FROM valutazione_stage WHERE id_valutazione_stage = $idValutazione";
-                $result = $connection->query($Query); $row = $result->fetch_assoc();
+            	$row = $result->fetch_assoc();
                 $voto = $row['voto'];
                 $descrizione = $row['descrizione'];                
                     
