@@ -43,17 +43,15 @@
                                             $email = $row ['email'];
                                             $telefono = $row ['telefono'];
                                             echo <<<HTML
-                                            <form id="registroform$I" method="POST" action="registro.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
-                                            <form id="valutazioneform$I" method="POST" action="valuta_studente.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
                                                 <tr id="$id_tutor">
                                                     <td id="first">$nome</td>
                                                     <td id="last">$cognome</td>
                                                     <td id="mail">$email</td>
                                                     <td id="phone">$telefono</td>
-                                                    <td>
+                                                    <td><form id="registroform$I" method="POST" action="registro.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
                                                         <input type="button" name="registro_studente" value="Registro" onclick="redirectToRegistro($I)"></td>
-                                                    <td>
-                                                        <input type="button" name="valuta_studente" value="Valuta" onclick="redirectToValutazione($I)"></td>
+                                                    <td><form id="valutazioneform$I" method="POST" action="valuta_studente.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
+                                                        <input type="submit" name="valuta_studente" value="Valuta" onclick="redirectToValutazione($I)"></td>
                                                 </tr>
 HTML;
                                             $I++;

@@ -70,11 +70,11 @@ HTML;
                                         ?>
                                         <tr>
                                             <td><?php echo $work_line['data']; ?></td>
-                                            <td class="regDesc" style="width: 70%"><?php echo $work_line['descrizione']; ?></td>
+                                            <td class="regDesc"><?php echo $work_line['descrizione']; ?></td>
                             				<?php
-                                                echo "<td class='regOpt'> <div align=\"center\"> <button class='regEdit'>Modifica</button>";
-                                                echo "<button class='regDelete'>Elimina</button> </div></td>";
-                                                echo "<input type='hidden' class='descId' value='".$work_line['id_lavoro_giornaliero']."' />";
+                                                echo "<td class='regOpt'><button class='regEdit'>Modifica</button>";
+                                                echo "<button class='regDelete'>Elimina</button></td>";
+                                                echo "<input type='hidden' class='descId' value='$work_line[id_lavoro_giornaliero]' />";
                                             ?>
                                         </tr>
                             			<?php
