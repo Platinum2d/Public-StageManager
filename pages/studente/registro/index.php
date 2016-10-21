@@ -21,8 +21,21 @@
                                     <?php
                                     $uid = $_SESSION ['userId'];
                                         
-                                    $db = dbConnection("../../../");
-                                    $query_line = $db->query ( "SELECT * FROM `lavoro_giornaliero` WHERE `studente_id_studente`=$uid ORDER BY `data` DESC" );
+                                    $db = dbConnection("../../../");                                    
+                                    $query_line = $db->query ( "SELECT lavoro_giornaliero.id_lavoro_giornaliero, lavoro_giornaliero.data, lavoro_giornaliero.descrizione
+																FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe, lavoro_giornaliero 
+																WHERE studente.id_studente =  $uid
+																AND anno_scolastico.corrente = 1 
+																AND studente.scuola_id_scuola = classe.scuola_id_scuola 
+																AND studente_attends_classe.studente_id_studente = studente.id_studente 
+																AND studente_attends_classe.classe_id_classe  = classe.id_classe 
+																AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
+																AND classe_has_stage.classe_id_classe = classe.id_classe 
+																AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
+																AND classe_has_stage.stage_id_stage = stage.id_stage 
+																AND lavoro_giornaliero.studente_id_studente = studente.id_studente 
+																AND lavoro_giornaliero.stage_id_stage = stage.id_stage 
+																ORDER BY data DESC;");
                                         
                                     $Query = "SELECT AutorizzazioneRegistro FROM studente WHERE id_studente = $uid";
                                     $result = $db->query($Query);

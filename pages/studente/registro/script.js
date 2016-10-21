@@ -15,7 +15,7 @@ function openEdit(progressiv)
     $("#conferma"+progressiv).removeClass("btn-info");
     $("#conferma"+progressiv).addClass("btn-success");
     $("#data"+progressiv).html("<input class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
-    $("#descrizione"+progressiv).html("<textarea id=\"textareadescrizione"+progressiv+"\" style=\"resize:vertical\"  class = \"form-control\" type=\"text\"> "+descrizione+" </textarea>");
+    $("#descrizione"+progressiv).html("<textarea id=\"textareadescrizione"+progressiv+"\" style=\"resize:vertical\"  class = \"form-control\" type=\"text\">"+descrizione+"</textarea>");
     $("#textboxdata"+progressiv).datepicker({ dateFormat : 'yy-mm-dd' });
     $("#textboxdata"+progressiv).hide(); $("#textboxdata"+progressiv).hide().fadeIn("slow");
     $("#textareadescrizione"+progressiv).hide(); $("#textareadescrizione"+progressiv).hide().fadeIn("slow");
@@ -83,7 +83,8 @@ function sendData(progressiv, idDescrizione)
             success : function (msg)
             {
                 if (msg === "ok")
-                    resetColors(progressiv)
+                    resetColors(progressiv);
+                    closeEdit (progressiv);
             },
             error : function ()
             {
@@ -109,17 +110,6 @@ function resetColors(progressiv)
     $("#textareadescrizione"+progressiv).css("color","#555");
     $("#textboxdata"+progressiv).css("color","#555");
 }
-
-
-
-
-
-
-
-
-
-
-
 
 function appendAddingBox()
 {
