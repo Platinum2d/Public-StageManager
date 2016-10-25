@@ -6,7 +6,11 @@
     $id_tutor = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT nome, cognome, nome_aziendale, tutor.email, tutor.telefono, tutor.username FROM tutor, azienda WHERE id_tutor = $id_tutor AND id_azienda = azienda_id_azienda";
+    $sql = "SELECT nome, cognome, nome_aziendale, tutor.email, tutor.telefono, utente.username 
+			FROM tutor, azienda, utente 
+			WHERE id_utente = id_tutor 
+			AND id_tutor = $id_tutor 
+			AND id_azienda = azienda_id_azienda;";
     $result = $connessione->query ( $sql );
         
     while ( $row = $result->fetch_assoc () ) {
@@ -29,7 +33,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>IL MIO PROFILO</h1>
+                    <h1>Il mio profilo</h1>
                     <br>
                     <div class="row">
                         <div class="col col-sm-12">
