@@ -26,7 +26,6 @@
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
-        printChat("../../../../");
     ?>
     <link rel="stylesheet" href="../InsertStyle.css">
     <div class="container">

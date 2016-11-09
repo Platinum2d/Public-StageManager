@@ -20,7 +20,6 @@
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
-        printChat("../../../../");
     ?>
             
     <script>
@@ -65,50 +64,9 @@
                     <br>
                     <ul id="classes" class="nav nav-tabs">
      							<?php
-                                                        $conn = dbConnection("../../../../");
-                                    $ScuolaSelezionata = (isset($_POST['idscuola'])) ? $_POST['idscuola'] : null;
-                                    $query = "SELECT  `nome`, `id_scuola` FROM  `scuola` ";
-                                    $result1 = $conn->query ( $query );
-                                    $I=0;
-                                    while ( $row = $result1->fetch_assoc () ) 
-                                    {
-                                        $nome = $row ['nome'];
-                                        $idscuola = $row ['id_scuola'];
-                                        echo "<form action=\"index.php\" method=\"POST\" id=\"classform$I\"> <input type=\"hidden\" name=\"idscuola\" value=\"$idscuola\">  </form>";
-                                        echo "<li>
-                                                <a class='navbar-brand' href='javascript:redirectForClass($I)'>
-                                                    <input type='hidden' value='$idscuola' class='scuola_id'/>
-                                                    $nome
-                                                </a>
-                                            </li>";
-                                        $I++;
-                                    }
+                                                        
                                 ?>
-                    </ul>
-                    <?php 
-                    if (isset($_POST['idclasse']))
-                    {
-                            echo "<br><div align=\"right\"> <form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customnstud\"> <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"> </form> "
-                                . "<form style=\"display:inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"nstud\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> studenti per pagina <input type=\"hidden\" name=\"idclasse\" value=\"".$_POST['idclasse']."\"></form></div><br> ";
-                            if (isset($_POST['nstud']))
-                            {
-                    ?>
-                    <script>
-                        var rightindex = 1;
-                        $("#slc > option").each(function() {
-                            if (this.text === '<?php echo intval($_POST['nstud']); ?>')
-                            rightindex = this.index;
-                            
-                            $("#slc").prop('selectedIndex', rightindex);
-                        });
-                    </script>      
-                    <?php }
-                            else 
-                            { ?> 
-                    <script> $("#slc").prop('selectedIndex', 1); </script> 
-                      <?php }
-                    }?>
-                        
+                    </ul>                        
                     <?php
                         $connessione = dbConnection("../../../../");
                         $Query = (!isset($_POST['idclasse'])) ? null : "SELECT * FROM studente WHERE classe_id_classe = $ClasseSelezionata ORDER BY cognome LIMIT $recordperpagina OFFSET 0";

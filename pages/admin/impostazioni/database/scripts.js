@@ -112,7 +112,14 @@ function editAccess(){
         cache : false,
         data : data,
         success : function (msg){
-            alert(msg);
+            if (msg === "ok")
+            {
+                closeEdit();
+            }
+            else
+            {
+                alert("Errore nell'aggiornamento dei dati");
+            }
         }
     });
 }

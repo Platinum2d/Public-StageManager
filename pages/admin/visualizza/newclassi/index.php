@@ -12,7 +12,6 @@
    // printBadge("../../../");
         topNavbar ("../../../../");
         titleImg ("../../../../");
-        printChat ("../../../../");
             
     ?>
     <div class="container">
