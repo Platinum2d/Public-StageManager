@@ -6,7 +6,7 @@
     $id_stud = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT * FROM studente, utente WHERE id_studente=$id_stud AND id_utente=$id_stud";
+    $sql = "SELECT * FROM studente, utente WHERE id_studente=$id_stud AND id_utente=id_studente";
     $result = $connessione->query ( $sql );
     while ( $row = $result->fetch_assoc () ) {
         $nome = $row ['nome'];
