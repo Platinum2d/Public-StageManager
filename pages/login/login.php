@@ -54,13 +54,29 @@ if ($tipo == -1) {
 }
 
 if ($tipo == -1) {
-    $query = "SELECT id_utente, username, password FROM utente WHERE tipo_utente = 6 AND username = '$usr' AND password = '$psw'";
+    $query = "SELECT utente.id_utente, utente.username, utente.password FROM utente WHERE tipo_utente = 6 AND username = '$usr' AND password = '$psw'";
     $result = $connessione->query ( $query );
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc ();
         $tipo = 6;
         $userId = $row ['id_utente'];
         $table = "studente";
+    }
+    $query_stage = "SELECT stage.id_stage 
+                    FROM studente, stage, studente_has_stage, classe_has_stage, anno_scolastico, studente_attends_classe 
+                    WHERE studente.id_studente = $userId 
+                    AND studente.id_studente=studente_has_stage.studente_id_studente 
+                    AND studente_has_stage.stage_id_stage=stage.id_stage 
+                    AND classe_has_stage.stage_id_stage=stage.id_stage 
+                    AND classe_has_stage.anno_scolastico_id_anno_scolastico=anno_scolastico.id_anno_scolastico 
+                    AND anno_scolastico.corrente=1 
+                    AND studente_attends_classe.anno_scolastico_id_anno_scolastico=anno_scolastico.id_anno_scolastico 
+                    AND studente_attends_classe.classe_id_classe=classe_has_stage.classe_id_classe 
+                    AND studente_attends_classe.studente_id_studente=studente.id_studente;";
+    $result_stage = $connessione->query ( $query_stage );
+    if ($result_stage && $result_stage->num_rows > 0) {
+        $row_stage = $result_stage->fetch_assoc ();
+        $_SESSION ['stageId'] = $row_stage ['id_stage'];
     }
 }
 

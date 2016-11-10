@@ -48,7 +48,7 @@
                                     
                                     <tr>
                                         <th class="col-sm-5">Nome</th>
-                                        <td id="first" class="col-sm-5"><?php echo $nome; ?></td>
+                                        <td id="first" class="col-sm-5"><?php echo $nome;?></td>
                                     </tr>
                                     <tr>
                                         <th>Cognome</th>
