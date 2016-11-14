@@ -26,9 +26,12 @@
                                 }
                                     
                                 $idstud = $_SESSION ['userId'];
+                                $idStudtudenteHasStage = $_SESSION ['studenteHasStageId'];
                                 $conn = dbConnection("../../../");
                                     
-                                $idazst = $conn->query ("SELECT `azienda_id_azienda` FROM `studente` WHERE id_studente= $idstud");
+                                $idazst = $conn->query ("SELECT `azienda_id_azienda` 
+                                                        FROM `studente_has_stage` 
+                                                        WHERE id_studente_has_stage = $idStudtudenteHasStage;");
                                 $idazst = $idazst->fetch_assoc ();
                                 $idazst = $idazst ["azienda_id_azienda"];
                                     
@@ -49,7 +52,9 @@
                                     $email_responsabile = (isset($azienda ['email_responsabile'])) ? $azienda ['email_responsabile'] : ''; 
                                     $email = (isset($azienda['email_aziendale'])) ? $azienda['email_aziendale'] : '';
                                     // output del tutor a cui si è assegnati
-                                    $idtust = $conn->query ( "SELECT `tutor_id_tutor` FROM `studente` WHERE id_studente=$idstud" );
+                                    $idtust = $conn->query ("SELECT `tutor_id_tutor` 
+                                                            FROM `studente_has_stage` 
+                                                            WHERE id_studente_has_stage = $idStudtudenteHasStage;");
                                     if ($idtust->num_rows > 0)
                                     {
                                         $idtust = $idtust->fetch_assoc ();
@@ -77,7 +82,9 @@
                                         $nome_tutor_az = null;
                                     }
                                     //tutor scolastico
-                                    $iddost = $conn->query ( "SELECT `docente_id_docente` FROM `studente` WHERE id_studente=$idstud" );
+                                    $iddost = $conn->query ("SELECT `docente_id_docente` 
+                                                            FROM `studente_has_stage` 
+                                                            WHERE id_studente_has_stage = $idStudtudenteHasStage;");
                                     if ($iddost->num_rows > 0)
                                     {
                                         $iddost = $iddost->fetch_assoc ();
@@ -104,17 +111,11 @@
                                             $nome_tutor_sc = null;
                                     }
                                     // ouput periodo stage
-                                    $query_stage = "SELECT stage.inizio_stage, stage.durata_stage ".
-													"FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe ".
-													"WHERE studente.id_studente = $idstud ".
-													"AND anno_scolastico.corrente = 1 ".
-													"AND studente.scuola_id_scuola = classe.scuola_id_scuola ".
-													"AND studente_attends_classe.studente_id_studente = studente.id_studente ".
-													"AND studente_attends_classe.classe_id_classe  = classe.id_classe ".
-													"AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico ".
-													"AND classe_has_stage.classe_id_classe = classe.id_classe ".
-													"AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico ".
-													"AND classe_has_stage.stage_id_stage = stage.id_stage;";
+                                    $query_stage = "SELECT stage.inizio_stage, stage.durata_stage 
+                                                    FROM studente_has_stage, classe_has_stage, stage 
+                                                    WHERE studente_has_stage.id_studente_has_stage = $idStudtudenteHasStage 
+                                                    AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage 
+                                                    AND classe_has_stage.stage_id_stage = stage.id_stage;";
                                     $result = $conn->query ($query_stage);
                                         
                                     $inizio_stage = "SCONOSCIUTO";
