@@ -62,12 +62,11 @@ if ($tipo == -1) {
         $userId = $row ['id_utente'];
         $table = "studente";
     }
-    $query_stage = "SELECT stage.id_stage 
-                    FROM studente, stage, studente_has_stage, classe_has_stage, anno_scolastico, studente_attends_classe 
+    $query_stage = "SELECT studente_has_stage.id_studente_has_stage
+                    FROM studente, studente_has_stage, classe_has_stage, anno_scolastico, studente_attends_classe 
                     WHERE studente.id_studente = $userId 
                     AND studente.id_studente=studente_has_stage.studente_id_studente 
-                    AND studente_has_stage.stage_id_stage=stage.id_stage 
-                    AND classe_has_stage.stage_id_stage=stage.id_stage 
+                    AND studente_has_stage.classe_has_stage_id_classe_has_stage=classe_has_stage.id_classe_has_stage 
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico=anno_scolastico.id_anno_scolastico 
                     AND anno_scolastico.corrente=1 
                     AND studente_attends_classe.anno_scolastico_id_anno_scolastico=anno_scolastico.id_anno_scolastico 
@@ -76,7 +75,7 @@ if ($tipo == -1) {
     $result_stage = $connessione->query ( $query_stage );
     if ($result_stage && $result_stage->num_rows > 0) {
         $row_stage = $result_stage->fetch_assoc ();
-        $_SESSION ['stageId'] = $row_stage ['id_stage'];
+        $_SESSION ['studenteHasStageId'] = $row_stage ['id_studente_has_stage'];
     }
 }
 
