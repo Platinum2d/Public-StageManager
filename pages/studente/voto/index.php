@@ -19,25 +19,20 @@
                 <div class="panel">
                     <h1>Voto azienda</h1>
     <?php
+    	$idStudenteHasStage = $_SESSION ['studenteHasStageId'];
         $connection = dbConnection("../../../");
-        $Query = "SELECT azienda_id_azienda FROM studente WHERE id_studente = ".$_SESSION['userId']." AND azienda_id_azienda IS NOT NULL";
+        $Query = "SELECT studente_has_stage.azienda_id_azienda  
+					FROM studente_has_stage 
+					WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
+					AND studente_has_stage.azienda_id_azienda IS NOT NULL";
         $result = $connection->query($Query);
             
         if ($result->num_rows > 0)
         {
-            $Query = "SELECT valutazione_stage.voto, valutazione_stage.descrizione 
-						FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe, valutazione_stage 
-						WHERE studente.id_studente =  ".$_SESSION['userId']." 
-						AND anno_scolastico.corrente = 1 
-						AND studente.scuola_id_scuola = classe.scuola_id_scuola 
-						AND studente_attends_classe.studente_id_studente = studente.id_studente 
-						AND studente_attends_classe.classe_id_classe  = classe.id_classe 
-						AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
-						AND classe_has_stage.classe_id_classe = classe.id_classe 
-						AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
-						AND classe_has_stage.stage_id_stage = stage.id_stage 
-						AND valutazione_stage.stage_id_stage = stage.id_stage 
-						AND valutazione_stage.studente_id_studente = studente.id_studente;";
+            $Query = "SELECT valutazione_stage.voto, valutazione_stage.descrizione  
+						FROM studente_has_stage, valutazione_stage 
+						WHERE studente_has_stage.id_studente_has_stage =  $idStudenteHasStage 
+						AND valutazione_stage.id_valutazione_stage = studente_has_stage.valutazione_stage_id_valutazione_stage;";
             $result = $connection->query($Query);
             if ($result->num_rows <= 0)
             {
