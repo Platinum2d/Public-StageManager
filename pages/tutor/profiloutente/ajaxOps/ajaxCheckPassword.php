@@ -6,9 +6,10 @@
     $idtutor = $_SESSION['userId'];
     $password = md5($_POST['password']);
     
-    $query = "SELECT `id_utente` 
-    			FROM `utente` 
-    			WHERE `id_utente` = $idtutor 
+    $query = "SELECT tutor.id_tutor 
+    			FROM tutor, utente 
+    			WHERE utente.id_utente = $idtutor 
+    			AND utente.id_utente = tutor.id_tutor 
     			AND `password` = '$password'";
     $result = $conn->query($query);
     if (!$result || $result->num_rows === 0)
