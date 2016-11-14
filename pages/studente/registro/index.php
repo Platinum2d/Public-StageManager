@@ -19,28 +19,20 @@
                     <div class="row">
                         <div class="col col-sm-12">
                                     <?php
-                                    $uid = $_SESSION ['userId'];
+                                    $idStudtudenteHasStage = $_SESSION ['studenteHasStageId'];
                                         
                                     $db = dbConnection("../../../");                                    
-                                    $query_line = $db->query ( "SELECT lavoro_giornaliero.id_lavoro_giornaliero, lavoro_giornaliero.data, lavoro_giornaliero.descrizione
-																FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, stage, classe, lavoro_giornaliero 
-																WHERE studente.id_studente =  $uid
-																AND anno_scolastico.corrente = 1 
-																AND studente.scuola_id_scuola = classe.scuola_id_scuola 
-																AND studente_attends_classe.studente_id_studente = studente.id_studente 
-																AND studente_attends_classe.classe_id_classe  = classe.id_classe 
-																AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
-																AND classe_has_stage.classe_id_classe = classe.id_classe 
-																AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
-																AND classe_has_stage.stage_id_stage = stage.id_stage 
-																AND lavoro_giornaliero.studente_id_studente = studente.id_studente 
-																AND lavoro_giornaliero.stage_id_stage = stage.id_stage 
-																ORDER BY data DESC;");
+                                    $query_line = $db->query ( "SELECT lavoro_giornaliero.id_lavoro_giornaliero, lavoro_giornaliero.data, lavoro_giornaliero.descrizione 
+																FROM lavoro_giornaliero 
+																WHERE lavoro_giornaliero.studente_has_stage_id_studente_has_stage = $idStudtudenteHasStage 
+																ORDER BY data ASC;");
                                         
-                                    $Query = "SELECT AutorizzazioneRegistro FROM studente WHERE id_studente = $uid";
+                                    $Query = "SELECT autorizzazione_registro 
+                                                FROM studente_has_stage 
+                                                WHERE id_studente_has_stage = $idStudtudenteHasStage;";
                                     $result = $db->query($Query);
                                     $row = $result->fetch_assoc();
-                                    $autorizzazione = $row['AutorizzazioneRegistro'];
+                                    $autorizzazione = $row['autorizzazione_registro'];
                                 ?>
                                     
                             <input type="hidden" id="contatoreaggiungi" value="0">
