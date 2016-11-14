@@ -1,13 +1,15 @@
-    lavoro = {
-        'id' : '',
-        'data' : '',
-        'descrizione' : ''
-    }
+lavoro = {
+    'id' : '',
+    'data' : '',
+    'descrizione' : ''
+}
+var data = "";
+var descrizione = "";
 
 function openEdit(progressiv)
 {
-    var data = $("#data"+progressiv).html().trim();
-    var descrizione = $("#descrizione"+progressiv).html().trim();
+    data = $("#data"+progressiv).html().trim();
+    descrizione = $("#descrizione"+progressiv).html().trim();
     $("riga"+progressiv).css("background","yellow")
     $("#modifica"+progressiv).val('Conferma');
     $("#modifica"+progressiv).attr("id","conferma"+progressiv);
@@ -19,7 +21,7 @@ function openEdit(progressiv)
     $("#textboxdata"+progressiv).datepicker({ dateFormat : 'yy-mm-dd' });
     $("#textboxdata"+progressiv).hide(); $("#textboxdata"+progressiv).hide().fadeIn("slow");
     $("#textareadescrizione"+progressiv).hide(); $("#textareadescrizione"+progressiv).hide().fadeIn("slow");
-    $("#elimina"+progressiv).val("Chiudi");
+    $("#elimina"+progressiv).val("Annulla");
     $("#elimina"+progressiv).attr("id","annulla"+progressiv);
     $("#annulla"+progressiv).attr("onclick","closeEdit("+progressiv+")");
     setOnChangeEvents(progressiv);
@@ -27,8 +29,6 @@ function openEdit(progressiv)
 
 function closeEdit(progressiv)
 {
-        var data = $("#textboxdata"+progressiv).val();
-        var descrizione = $("#textareadescrizione"+progressiv).val();
         $("#textboxdata"+progressiv).remove();
         $("#textareadescrizione"+progressiv).remove();
         $("#data"+progressiv).html(data)
@@ -41,6 +41,8 @@ function closeEdit(progressiv)
         $("#modifica"+progressiv).addClass("btn-info");
         $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+")")
         $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+"),this.name");
+        data = "";
+        descrizione = "";
 }
 
 function deleteDescrizione(progressiv, idDescrizione)
@@ -84,6 +86,8 @@ function sendData(progressiv, idDescrizione)
             {
                 if (msg === "ok")
                     resetColors(progressiv);
+	                data = $("#textboxdata"+progressiv).val();
+	                descrizione = $("#textareadescrizione"+progressiv).val();
                     closeEdit (progressiv);
             },
             error : function ()
