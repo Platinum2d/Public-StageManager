@@ -4,16 +4,14 @@
     checkEmail();
     open_html ( "Contatta" );
     import("../../../");
-    $id_tutor = $_SESSION ['userId'];
+    $idStudenteHasStage = $_SESSION ['studenteHasStageId'];
 ?>
 <body>
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-    ?>
-    
-    <script src="script.js"></script>
-    
+    ?>    
+    <script src="script.js"></script>    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -28,7 +26,10 @@
                                 <select name="email" id="destinatario" class="form-control" style="width: 400px">
                                     <option value="0" selected>Seleziona</option>
                                     <?php 
-                                        $Query = "SELECT tutor.cognome, tutor.nome, tutor.email FROM studente, tutor WHERE id_studente = ".$_SESSION['userId']." AND id_tutor = tutor_id_tutor";
+                                        $Query = "SELECT tutor.cognome, tutor.nome, tutor.email 
+                                                    FROM studente_has_stage, tutor 
+                                                    WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
+                                                    AND studente_has_stage.tutor_id_tutor = tutor.id_tutor;";
                                         $connessione = dbConnection("../../../");
                                         $result = $connessione->query($Query);
                                         if ($result->num_rows > 0)
@@ -39,7 +40,10 @@
                                             }
                                         }
                                         
-                                        $Query = "SELECT docente.nome, docente.cognome, docente.email FROM docente, studente WHERE id_studente = ".$_SESSION['userId']." AND id_docente = docente_id_docente";
+                                        $Query = "SELECT docente.nome, docente.cognome, docente.email 
+                                                    FROM studente_has_stage, docente 
+                                                    WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
+                                                    AND studente_has_stage.docente_id_docente = docente.id_docente;";
                                         $result = $connessione->query($Query);
                                         if ($result->num_rows > 0)
                                         {
@@ -49,33 +53,27 @@
                                             }
                                         }
                                     ?>
-                                    
-                                    
                                 </select>
-                                <br><br>
-                            <div class="form-group">
-                                <label for="obj">Oggetto:</label>
-                                <input type="text" name="object" class="form-control" id="obj">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment">Messaggio:</label>
-                                <textarea name="message" class="form-control" rows="5" id="comment"></textarea>
                                 <br>
-                                <input class="btn btn-primary" type="button" name="send" value="Invia" onclick="sendMail()">
+                                <br>
+                                <div class="form-group">
+                                    <label for="obj">Oggetto:</label>
+                                    <input type="text" name="object" class="form-control" id="obj">
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment">Messaggio:</label>
+                                    <textarea name="message" class="form-control" rows="5" id="comment"></textarea>
+                                    <br>
+                                    <input class="btn btn-primary" type="button" name="send" value="Invia" onclick="sendMail()">
+                                </div>
                             </div>
                         </div>
-                            
                     </div>
-                        
-                </div>
-                    
-            </div>
-                
+            	</div>
+        	</div>
         </div>
-            
     </div>
-</body>
-    
+</body>    
 <?php
     close_html ();
 ?>

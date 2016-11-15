@@ -71,7 +71,7 @@ $(document).ready(function(){
 	});
 	
 	function exitEdit(){
-                $("#password").html("");
+        $("#password").html("");
 		//blocco la tabella
 		$("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
 		
