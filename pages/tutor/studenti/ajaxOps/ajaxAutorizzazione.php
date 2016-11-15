@@ -7,7 +7,7 @@
     $permesso = $_POST['permesso'];
     $idstudente = $_POST['studente'];
     
-    $query = "UPDATE  `studente` SET  `AutorizzazioneRegistro` =  '$permesso' WHERE  `studente`.`id_studente` =$idstudente;";
+    $query = "UPDATE  `studente_has_stage` SET  `autorizzazione_registro` =  '$permesso' WHERE  `studente_has_stage`.`id_studente_has_stage` = $idstudente;";
     
     if($conn->query($query))
         echo "ok";

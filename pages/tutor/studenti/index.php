@@ -33,11 +33,15 @@
                                     </thead>
                                     <tbody>
                                     <?php
-                                        $sql = "SELECT  `nome` ,  `cognome`, `id_studente`,`telefono`, `email`   FROM  `studente` where tutor_id_tutor=$id_tutor";
+                                        $sql = "SELECT studente.nome, studente.cognome, studente.id_studente, studente.telefono, studente.email, studente_has_stage.id_studente_has_stage 
+												FROM studente, studente_has_stage 
+												WHERE studente_has_stage.tutor_id_tutor = $id_tutor 
+												AND studente_has_stage.studente_id_studente = studente.id_studente;";
                                         $Result = $conn->query ( $sql );
                                         $I=0;
                                         while ( $row = $Result->fetch_assoc () ) {
-                                            $id_studente = $row ['id_studente'];
+                                            //$id_studente = $row ['id_studente'];
+                                            $id_studente_has_stage = $row ['id_studente_has_stage'];
                                             $nome = $row ['nome'];
                                             $cognome = $row ['cognome'];
                                             $email = $row ['email'];
@@ -48,9 +52,9 @@
                                                     <td id="last">$cognome</td>
                                                     <td id="mail">$email</td>
                                                     <td id="phone">$telefono</td>
-                                                    <td><form id="registroform$I" method="POST" action="registro.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
+                                                    <td><form id="registroform$I" method="GET" action="registro.php"><input type="hidden" name="shs" value="$id_studente_has_stage"> </form>
                                                         <input type="button" name="registro_studente" value="Registro" onclick="redirectToRegistro($I)"></td>
-                                                    <td><form id="valutazioneform$I" method="POST" action="valuta_studente.php"><input type="hidden" name="idstudente" value="$id_studente"> </form>
+                                                    <td><form id="valutazioneform$I" method="GET" action="valuta_studente.php"><input type="hidden" name="shs" value="$id_studente_has_stage"> </form>
                                                         <input type="submit" name="valuta_studente" value="Valuta" onclick="redirectToValutazione($I)"></td>
                                                 </tr>
 HTML;

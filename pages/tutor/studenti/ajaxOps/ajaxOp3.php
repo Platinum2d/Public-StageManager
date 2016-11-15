@@ -16,7 +16,7 @@ XML;
     $year = $_POST ['year'];
     $desc = $db->escape_string ( $_POST ['desc'] );
     
-    if ($db->query ( "INSERT INTO `lavoro_giornaliero` (`data`,`descrizione`,`studente_id_studente`) VALUES ('$year-$month-$day','$desc',$id)" )) {
+    if ($db->query ( "INSERT INTO `lavoro_giornaliero` (`data`,`descrizione`,`studente_has_stage_id_studente_has_stage`) VALUES ('$year-$month-$day','$desc',$id)" )) {
         $xml->addChild ( "status", 0 );
     } else {
         $xml->addChild ( "status", 1 );

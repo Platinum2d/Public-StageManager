@@ -9,7 +9,4 @@
     } else {
          echo "1";
     }
-        
-   
-   //AND `studente_id_studente` IN (SELECT `id_studente` FROM `studente` WHERE `tutor_id_tutor`=$uid )
 ?>

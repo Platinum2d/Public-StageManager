@@ -12,14 +12,15 @@
     $ee = $_POST ['efficacia_esposizone'];
     $qp = $_POST ['qualita_processo'];
     $ef = $_POST ['efficacia_prodotto'];
-    $id_studente = $_POST ['id_studente'];
+    $id_studente_has_stage = $_POST ['id_studente_has_stage'];
     
     $conn = dbConnection("../../../../");
     $query = "INSERT INTO `valutazione_studente` (`gestione_ambiente_spazio_lavoro`, `collaborazione_comunicazione`, `uso_strumenti`, `rispetta_norme_vigenti`, `rispetto_ambiente`, `puntualita` ,`collaborazione_tutor`, `lavoro_requisiti`, `conoscenze_tecniche`, `acquisire_nuove_conoscenze`,  `commento`) "
             . "VALUES ('$gasl', '$cc', '$us', '$cca', '$vgs', '$cl', '$ccap', '$ee', '$qp', '$ef', NULL);";
     if ($conn->query($query))
-    {          
-        $query = "UPDATE  `studente` SET  `valutazione_studente_id_valutazione_studente` =  (SELECT MAX(id_valutazione_studente) FROM valutazione_studente) WHERE id_studente = $id_studente";
+    {
+    	$id_valutazione = $conn->insert_id;
+        $query = "UPDATE  `studente_has_stage` SET  `valutazione_studente_id_valutazione_studente` =  $id_valutazione WHERE id_studente_has_stage = $id_studente_has_stage";
         $conn->query($query);
         echo "ok";  
     }

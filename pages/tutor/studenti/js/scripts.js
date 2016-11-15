@@ -9,7 +9,7 @@ valutazione = {
     'efficacia_esposizone':'',
     'qualita_processo':'',
     'efficacia_prodotto':'',
-    'id_studente':''
+    'id_studente_has_stage':''
 };
 
 function getUrlVars() {
@@ -32,7 +32,7 @@ function insertGrades()
     valutazione.efficacia_esposizone = $("[name='efficacia_esposizone']").val();
     valutazione.qualita_processo = $("[name='qualita_processo']").val();
     valutazione.efficacia_prodotto = $("[name='efficacia_prodotto']").val();
-    valutazione.id_studente = $("[name='id_studente']").val();
+    valutazione.id_studente_has_stage = $("[name='id_studente_has_stage']").val();
     
     $.ajax({
         type : 'POST',
@@ -62,23 +62,23 @@ function updateGrades()
     valutazione.efficacia_esposizone = $("[name='efficacia_esposizone']").val();
     valutazione.qualita_processo = $("[name='qualita_processo']").val();
     valutazione.efficacia_prodotto = $("[name='efficacia_prodotto']").val();
-    valutazione.id_studente = $("[name='id_studente']").val();
+    valutazione.id_studente_has_stage = $("[name='id_studente_has_stage']").val();
     
     $.ajax({
        type : 'POST',
-       url : 'aggiornamento_valutazione.php',
+       url : 'ajaxOps/aggiornamentoValutazione.php',
        data : valutazione,
        cache : false,
        success : function (msg)
        {
            if (msg === "ok")
-               alert("Valutazione aggiornata con successo !")
+               alert("Valutazione aggiornata con successo !");
            else
-               alert(msg)
+               alert(msg);
        },
-       error : function()
+       error : function(msg)
        {
-           alert("errore");
+           //alert(msg);
        }
     });
 }
@@ -130,9 +130,9 @@ $(document).ready(function() {
     	content.find("thead tr").append("<td>Data</td>")
     	content.find("thead tr").append("<td>Descrizione delle attivit&agrave lavorative</td>")
     	content.find("thead tr").append("<td>Opzioni</td>")
-        var idstud= getUrlVars()["id_studente"]
+        var idstudHasStage= getUrlVars()["shs"]
     	data = {
-            "idstud":idstud
+            "idStudenteHasStage":idstudHasStage
     	}
     	$.ajax({
     		url: "ajaxOps/ajaxOp0.php", //Pagina a quale invio la richiesta
@@ -250,7 +250,7 @@ $(document).ready(function() {
     	$("#DescAddSave").click(function(){
     		try{
     			data = {
-    				"sid": getUrlVars()["id_studente"],
+    				"sid": getUrlVars()["shs"],
     				"day": $("#DescAddDate").datepicker( "getDate" ).getDate(),
     				"month":  $("#DescAddDate").datepicker( "getDate" ).getMonth() + 1,
     				"year":  $("#DescAddDate").datepicker( "getDate" ).getFullYear(),
@@ -279,37 +279,35 @@ $(document).ready(function() {
     	
     			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
     				if($(xml).find("status").text() == 0){
-    					$("#DescAddTR").remove()
-    					alert("Relazione salvata con successo")
-    					DescInit()
+    					$("#DescAddTR").remove();
+    					//alert("Relazione salvata con successo")
+    					DescInit();
     				}
     				else{
-    					alert("Salvataggio della relazione non riuscita")
+    					alert("Salvataggio della relazione non riuscita");
     				}
     			}
     			
     		});
 
-    	})
+    	});
+        $("#DescAddDelete").click(function() {
+    		$("#DescAddTR").remove();
+    		$("#DescAddButton").attr("disabled", false);
+    	});
     }
-    
-    $("#DescAddDelete").click(function(){
-		$("#DescAddTR").remove();
-		$("#DescAddButton").attr("disabled", false);
-	})
-    
-    $(".regEdit").click(DescEdit)
-	$("#DescAddButton").click(DescAdd)
-	$(".regDelete").click(DescDelete)
+    $(".regEdit").click(DescEdit);
+	$("#DescAddButton").click(DescAdd);
+	$(".regDelete").click(DescDelete);
 });
 
-function grantOrRevokeRegisterPermisson(privilege, idStudente)
+function grantOrRevokeRegisterPermisson(privilege, idStudenteHasStage)
 {
     $.ajax({
         type : 'POST',
         url : 'ajaxOps/ajaxAutorizzazione.php',
         cache : false,
-        data : { 'permesso' : privilege, 'studente' : idStudente },
+        data : { 'permesso' : privilege, 'studente' : idStudenteHasStage },
         success : function (msg)
         {
             if (msg === "ok")

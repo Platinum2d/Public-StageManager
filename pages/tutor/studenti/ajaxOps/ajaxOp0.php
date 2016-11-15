@@ -7,10 +7,11 @@ XML;
     $xml = new SimpleXMLElement ( $xmlstr );
     $db = dbConnection("../../../../");
 
-    $idstud=$_POST["idstud"];
-    $query_line = $db->query (  "SELECT * FROM `lavoro_giornaliero` 
-                                    WHERE `lavoro_giornaliero`.`studente_id_studente`=$idstud 
-                                    ORDER BY `data` DESC;" );
+    $idStudenteHasStage=$_POST["idStudenteHasStage"];
+    $query_line = $db->query ("SELECT * 
+                               FROM `lavoro_giornaliero` 
+                               WHERE `lavoro_giornaliero`.`studente_has_stage_id_studente_has_stage` = $idStudenteHasStage  
+                               ORDER BY `data` ASC;");
     while ( $work_line = $query_line->fetch_assoc () ) {
         $line = $xml->addChild ( "line" );
         $line->addChild ( "id", $work_line ['id_lavoro_giornaliero'] );

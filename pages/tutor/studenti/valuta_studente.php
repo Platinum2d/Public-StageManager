@@ -1,10 +1,10 @@
 <?php
     include '../../functions.php';
     checkLogin ( aztutType , "../../../" );
-    open_html ( "Home" );
+    open_html ( "Valutazione studente" );
     import("../../../");
     $conn = dbConnection ("../../../");
-    $id = $_POST ['idstudente']; // id studente
+    $idStudenteHasStage = $_GET ['shs']; // id studente
         
     /*
      * echo<<<HTML
@@ -26,7 +26,7 @@
                 <div class="panel">                    
                     <h1 id = "valuta">VALUTA</h1>
                         <?php
-                            $sql = "select `visita_azienda` from `studente`  where `id_studente`=$id";
+                        	$sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
                             $Result = $conn->query ( $sql );
                             $row = $Result->fetch_assoc ();
                             $visita = $row ['visita_azienda'];
@@ -42,7 +42,7 @@ echo <<<HTML
                                             <div id="prima" align="center">
                                                <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="1"> Si</label>
                                                <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="0">  No</label> <br>
-                                                <input type="hidden" name="id_studente" value=$id>
+                                                <input type="hidden" name="id_studente_has_stage" value=$idStudenteHasStage>
                                                 <input type="hidden" name="page" value="1">
                                             </div>
                                         </div>
@@ -54,7 +54,10 @@ HTML;
                                 echo <<<HTML
                                     <!-- <form id="form_studente" action="aggiornamento_valutazione.php" method="post"> -->
 HTML;
-                                $sql = "select `nome`,`cognome` from `studente` where `id_studente`='$id'";
+                                $sql = "SELECT studente.nome, studente.cognome 
+                                		FROM studente, studente_has_stage 
+                                		WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
+                                		AND studente_has_stage.studente_id_studente = studente.id_studente;";
                                 $Result = $conn->query ( $sql );
                                 while ( $row = $Result->fetch_assoc () ) {
                                     $nome = $row ['nome'];
@@ -71,7 +74,7 @@ HTML;
                         $('#valuta').append(' <i>'+$('#cognomestud').val()+' '+$('#nomestud').val()+'<i>');
                     </script>
  <?php
-                                    $sql = "select `valutazione_studente_id_valutazione_studente` from studente where `id_studente`=  $id";
+                                    $sql = "select `valutazione_studente_id_valutazione_studente` from studente_has_stage where `id_studente_has_stage`=  $idStudenteHasStage";
                                     echo <<<HTML
                                         <!-- <form id="form_studente" action="aggiornamento_valutazione.php" method="post"> -->
 HTML;
@@ -80,10 +83,10 @@ HTML;
                                         //while ( $row = $Result->fetch_assoc () ) {
                                     $row = $Result->fetch_assoc ();
                                             if (isset($row ['valutazione_studente_id_valutazione_studente'])) {
-                                                $valutazione_studente_id_valutazione_studente = $row ['valutazione_studente_id_valutazione_studente'];
+                                                $id_valutazione_studente = $row ['valutazione_studente_id_valutazione_studente'];
                                                 $sql = "SELECT `gestione_ambiente_spazio_lavoro`, `collaborazione_comunicazione`, `uso_strumenti`, `rispetta_norme_vigenti`, `rispetto_ambiente`, `puntualita`"
                                                         . ", `collaborazione_tutor`, `lavoro_requisiti`, `conoscenze_tecniche`, `acquisire_nuove_conoscenze` FROM `valutazione_studente` "
-                                                        . "WHERE `id_valutazione_studente` =$valutazione_studente_id_valutazione_studente";
+                                                        . "WHERE `id_valutazione_studente` =$id_valutazione_studente";
                                                 $Result1 = $conn->query ( $sql );
                                                 if ($Result1) {
                                                     while ( $row = $Result1->fetch_assoc () ) {
@@ -148,11 +151,10 @@ HTML;
                                     }
                                 }
                                 echo <<<HTML
-                                <input type="hidden" name="id_studente" value="$id">
+                                <input type="hidden" name="id_studente_has_stage" value="$idStudenteHasStage">
                                     <br>
                                 <!-- </form> -->
 HTML;
-                            
                     ?>
                 </div>
             </div>

@@ -4,11 +4,11 @@
     open_html ( "Registro" );    
     import("../../../");
     $conn = dbConnection ("../../../");
-    $id = $_POST ['idstudente']; // id studente
+    $idStudenteHasStage = $_GET ['shs'];
     
     echo "<script src='js/scripts.js'></script>";
     
-    $sql = "select `visita_azienda` from `studente` where `id_studente`=$id";
+    $sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
     $Result = $conn->query ( $sql );
     $row = $Result->fetch_assoc ();
     $visita = $row ['visita_azienda'];
@@ -41,7 +41,7 @@
                                             <div id="prima" align="center">
                                                <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="1"> Si</label>
                                                <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="0">  No</label> <br>
-                                                <input type="hidden" name="id_studente" value=$id>
+                                                <input type="hidden" name="id_studente_has_stage" value=$idStudenteHasStage>
                                                 <input type="hidden" name="page" value="1">
                                             </div>
                                         </div>
@@ -51,9 +51,10 @@
 HTML;
                                 }
                                 if ($visita >= 1) {
-                                    $query_line = $conn->query ( "SELECT * FROM `lavoro_giornaliero`
-                                                                    WHERE `lavoro_giornaliero`.`studente_id_studente`=$id 
-                                                                    ORDER BY `data` DESC;" );
+                                    $query_line = $conn->query ( "SELECT * 
+                                    								FROM `lavoro_giornaliero` 
+                                                                    WHERE `lavoro_giornaliero`.`studente_has_stage_id_studente_has_stage` = $idStudenteHasStage  
+                                                                    ORDER BY `data` ASC;" );
                             ?>
                             <div id="DescMain">
                                 <div class="table-responsive"><table id="DescTable" class="table table-striped table-bordered">
@@ -74,7 +75,7 @@ HTML;
                             				<?php
                                                 echo "<td class='regOpt'><button class='regEdit'>Modifica</button>";
                                                 echo "<button class='regDelete'>Elimina</button></td>";
-                                                echo "<input type='hidden' class='descId' value='$work_line[id_lavoro_giornaliero]' />";
+                                                echo "<input type='hidden' class='descId' value='".$work_line['id_lavoro_giornaliero']."' />";
                                             ?>
                                         </tr>
                             			<?php
@@ -84,16 +85,16 @@ HTML;
                                 </table></div>
                                 <button id="DescAddButton">Aggiungi</button> <br><br>
                                 <?php 
-                                    $query = "SELECT `AutorizzazioneRegistro` FROM `studente` WHERE `id_studente` = $id";
+                                    $query = "SELECT `autorizzazione_registro` FROM `studente_has_stage` WHERE `id_studente_has_stage` = $idStudenteHasStage;";
                                     $result = $conn->query($query);
                                     $row = $result->fetch_assoc();
-                                    if ($row['AutorizzazioneRegistro'] === "0")
+                                    if ($row['autorizzazione_registro'] === "0")
                                     {
-                                        echo "Stanco di compilare il registro? <a href=\"javascript:grantOrRevokeRegisterPermisson('1',$id)\"> Delega lo studente a farlo </a>";
+                                        echo "Stanco di compilare il registro? <a href=\"javascript:grantOrRevokeRegisterPermisson('1',$idStudenteHasStage)\"> Delega lo studente a farlo </a>";
                                     }
                                     else
                                     {
-                                        echo "Questo studente e' delegato alla compilazione del registro. Non sei soddisfatto? <a href=\"javascript:grantOrRevokeRegisterPermisson('0',$id)\"> Ritira la delega </a>";
+                                        echo "Questo studente e' delegato alla compilazione del registro. Non sei soddisfatto? <a href=\"javascript:grantOrRevokeRegisterPermisson('0',$idStudenteHasStage)\"> Ritira la delega </a>";
                                     }
                                 ?>
                             </div>
