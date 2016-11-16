@@ -10,8 +10,9 @@ XML;
     $xml = new SimpleXMLElement ( $xmlstr );
     
     $connection = dbConnection("../../../../../");    
+    $classe = $_POST['classe'];
     
-    $Query = "SELECT * FROM classe ORDER BY nome ASC";
+    $Query = "SELECT * FROM classe WHERE scuola_id_scuola IN (SELECT scuola_id_scuola FROM classe WHERE id_classe = $classe) ORDER BY nome ASC";
     
     if (!$result = $connection->query($Query))
     {

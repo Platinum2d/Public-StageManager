@@ -19,25 +19,17 @@ $cognome = $connessione->escape_string($_POST['cognome']);
 $citta = $connessione->escape_string($_POST['citta']);
 $mail = $connessione->escape_string($_POST['mail']);
 $telefono = $connessione->escape_string($_POST['telefono']);
-$iniziostage = (isset($_POST['iniziostage'])) ? $_POST['iniziostage'] : 'NULL';
-$duratastage = (isset($_POST['duratastage'])) ? $_POST['duratastage'] : 'NULL';
-$visitaazienda = $_POST['visitaazienda'];
 
 $idclasse = $_POST['classe'];
-$idazienda = ($_POST['azienda'] !== 'disassegna') ? $_POST['azienda'] : 'NULL';
-$iddocente = ($_POST['docente'] !== 'disassegna') ? $_POST['docente'] : 'NULL';
-$idtutor = ($_POST['tutor'] !== 'disassegna') ? $_POST['tutor'] : 'NULL';
 
-$Query = "UPDATE `studente` SET `username` = '$username', ";
-if ($password !== "immutato") $Query .= "`password` = '".md5($password)."', ";
-$Query .= "`nome` = '$nome', `cognome` = '$cognome', `citta` = '$citta', `email` = '$mail', `telefono` = '$telefono'";
+$userquery = "UPDATE utente SET username = '$username' ";
+if ($password !== "immutato") $userquery .= "`password` = '".md5($password)."' ";
+$userquery .= "WHERE id_utente = $id";
 
-if ($iniziostage !== 'NULL') { $Query = $Query . ",`inizio_stage` = '$iniziostage',"; } else { $Query = $Query . ",`inizio_stage` = $iniziostage,"; }
-if ($duratastage !== 'NULL') { $Query = $Query . "`durata_stage` = '$duratastage',"; } else { $Query = $Query . "`durata_stage` = $duratastage,"; }
-$Query = $Query . "`visita_azienda` = $visitaazienda, `classe_id_classe` = $idclasse, `azienda_id_azienda` = $idazienda , `docente_id_docente` = $iddocente, `tutor_id_tutor` = $idtutor WHERE `studente`.`id_studente` = $id";
+$Query = "UPDATE `studente` SET `nome` = '$nome', `cognome` = '$cognome', `citta` = '$citta', `email` = '$mail', `telefono` = '$telefono' WHERE `id_studente` = $id";
 
 $connessione->query("SET FOREIGN_KEY_CONTROLS = 0");
-if ($connessione->query($Query))
+if ($connessione->query($userquery) && $connessione->query($Query))
 {
     $xml->addChild('user',$username);
     $xml->addChild('nome',$nome);
