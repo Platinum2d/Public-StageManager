@@ -5,7 +5,7 @@
     $voto = intval($_POST['voto']);
     $descrizione = $connessione->escape_string($_POST['descrizione']);
     
-    $query = "INSERT INTO `valutazione_applicazione` (`voto`, `descrizione`, `id_utente`, `tipo_utente`) VALUES ($voto,'".trim($descrizione)."', '".$_SESSION['userId']."', '".$_SESSION['nameTable']."')";
+    $query = "INSERT INTO `valutazione_applicazione` (`voto`, `descrizione`, `utente_id_utente`) VALUES ($voto,'".trim($descrizione)."', '".$_SESSION['userId']."')";
     if($connessione->query($query))
         echo "ok";
     else

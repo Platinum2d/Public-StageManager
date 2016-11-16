@@ -1,14 +1,14 @@
-<?php
-    
+<?php    
     include "../functions.php";
     if (!isset($_SESSION ['type'])){
         header ("Location:../../index.php");
     }
-        
-    import("../../");
     open_html ( "Valutaci!" );
+    import("../../");
     $connessione = dbConnection("../../");
-    $result = $connessione->query("SELECT `voto`, `descrizione` FROM `valutazione_applicazione` WHERE `id_utente` = ".$_SESSION['userId']." AND `tipo_utente` = '".$_SESSION['nameTable']."'");
+    $result = $connessione->query("SELECT `voto`, `descrizione` 
+									FROM `valutazione_applicazione` 
+									WHERE `utente_id_utente` = ".$_SESSION['userId'].";");
     echo "<body>";
     if ($result->num_rows === 0)
     {        
@@ -17,13 +17,22 @@
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     }; 
-        
-    var timer = setInterval(function (){
-        if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
-            $("input[value=\"Invia\"]").prop("disabled",true)
-        else
-            $("input[value=\"Invia\"]").prop("disabled",false)
-    },1)
+
+    $(document).ready(function(){
+    	$("input[value=\"Invia\"]").prop("disabled",true);
+	    $("textarea[placeholder=\"Descrizione\"]").keyup (function () {
+	    	if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
+	            $("input[value=\"Invia\"]").prop("disabled",true)
+	        else
+	            $("input[value=\"Invia\"]").prop("disabled",false)
+	    });
+    });
+//     var timer = setInterval(function (){
+//         if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
+//             $("input[value=\"Invia\"]").prop("disabled",true)
+//         else
+//             $("input[value=\"Invia\"]").prop("disabled",false)
+//    },1)
         
     function changeStars(progressiv)
     {
@@ -106,42 +115,26 @@
      $descrizione = $row['descrizione'];
      $voto = intval($row['voto']);
      ?>
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
 <script>        
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     }; 
+
+    $(document).ready(function(){
+	    $("textarea[placeholder=\"Descrizione\"]").keyup (function () {
+	    	if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
+	            $("input[value=\"Invia\"]").prop("disabled",true)
+	        else
+	            $("input[value=\"Invia\"]").prop("disabled",false)
+	    });
+    });
         
-    var timer = setInterval(function (){
-        if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
-            $("input[value=\"Invia\"]").prop("disabled",true)
-        else
-            $("input[value=\"Invia\"]").prop("disabled",false)
-    },1)
+//     var timer = setInterval(function (){
+//         if ($("textarea[placeholder=\"Descrizione\"]").val().isEmpty() || $("#overall").val() === '0')
+//             $("input[value=\"Invia\"]").prop("disabled",true)
+//         else
+//             $("input[value=\"Invia\"]").prop("disabled",false)
+//     },1)
         
     function changeStars(progressiv)
     {
@@ -192,8 +185,6 @@
                 <h1> Valutaci! </h1><br>
                 La tua opinione è molto importante per noi. Grazie ad essa, riusciremo ad offrirti un gestionale sempre più efficiente.
                 <br><br>
-                        
-                
                 <div>
                         <?php 
                         echo "<input type=\"hidden\" value=\"$voto\" id=\"overall\">";
@@ -208,7 +199,6 @@
                         }
                             
                         ?>
-                            
 <!--                        <img id="star1" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(1)">
                     <img id="star2" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(2)">
                     <img id="star3" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(3)">
@@ -219,7 +209,7 @@
                 <div class="row">
                     <div class="col col-sm-9">
                         <div >
-                            <textarea class="form-control" style='margin-left:auto; margin-right:auto; text-align: left;' rows='10' cols='60' placeholder="Considerazioni, critiche, consigli...."><?php echo trim($descrizione); ?></textarea>
+                            <textarea class="form-control" style='margin-left:auto; margin-right:auto; text-align: left;' rows='10' cols='60' placeholder="Descrizione"><?php echo trim($descrizione); ?></textarea>
                         </div>
                     </div>
                 </div> <br>
