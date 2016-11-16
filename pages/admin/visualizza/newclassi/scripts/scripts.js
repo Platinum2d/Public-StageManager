@@ -1,4 +1,6 @@
 $(document).ready(function (){
+    $("#actionwrapper").hide();
+    
     $.ajax({
         url : 'ajaxOpsPerClasse/ajaxScuola.php',
         cache : false,
@@ -17,7 +19,17 @@ $(document).ready(function (){
             type : 'POST',
             data : { 'idscuola' : $("#classes").val() },
             success : function (xml)
-            {        
+            {
+                if ($("#classes").val() !== "-1")
+                {
+                    $("#actionwrapper").show();
+                    $("#actionwrapper").hide();
+                    $("#actionwrapper").fadeIn();
+                }
+                else
+                {
+                    $("#actionwrapper").fadeOut();
+                }
                 var newtable = "<table id=\"current\" class=\"table table-bordered\"> \n\
                     <thead style=\"background : #eee\"> <th style=\"text-align : center\"> Nome </th> <th style=\"text-align : center\"> Azioni </th> <th style=\"text-align : center\"> Anno Scolastico </th> </thead> <tbody> </tbody>   \n\
                     </table>";
@@ -30,7 +42,13 @@ $(document).ready(function (){
                         <td style=\"width : 33%\"> <div align=\"center\" id=\"ButtonBox"+I+"\"> \n\
                             <input type=\"button\" class=\"btn btn-success\" value=\"Modifica\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\">\n\
                             <input type=\"button\" class=\"btn btn-danger\" value=\"Elimina\" id=\"elimina"+I+"\"> </div> </td>\n\
-                        <td style=\"width : 33%\"> <select name=\"years\" class=\"form-control\"> <option> </option>  </select> </td>\n\
+                        <td style=\"width : 33%\"> \n\
+                            <form style=\"height:0px\" action=\"\" method=\"POST\"> \n\
+                                    <input type=\"hidden\" value=\""+$(this).find("id").text()+"\" name=\"id_classe\"> \n\
+                                    <select name=\"years\" class=\"form-control\"> <option> </option>\n\
+                                    </select> \n\
+                            </form> \n\
+                        </td>\n\
                     </tr>";
                     $("#current").find("tbody").append(newline);
                     I++;
@@ -46,7 +64,20 @@ $(document).ready(function (){
             success : function (xml)
             {
                 $(xml).find("anni").find("anno").each(function (){
-                    $("select[name=\"years\"]").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>")
+                    $("select[name=\"years\"]").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
+                    $("select[name=\"years\"]").change(function (){
+                        switch ($("#action").val())
+                        {
+                            case 'studenti':
+                                $(this).closest("form").attr("action", "../studenti/index.php");
+                                break;
+                                
+                            case 'stage':
+                                $(this).closest("form").attr("action", "../esperienzestage/index.php");
+                                break;
+                        }
+                        $(this).closest("form").submit();
+                    });
                 });
             }
         });

@@ -26,6 +26,13 @@
                                 <option value="-1"> </option>
                             </select>
                         </div>
+                        <div class="col col-sm-4">
+                            <div id="actionwrapper">Desidero visualizzare<select class="form-control" id="action">
+                                    <option value="studenti"> Studenti </option>
+                                    <option value="stage"> Periodi di stage </option>                                    
+                                </select>     
+                            </div>
+                        </div>
                     </div>
                     <br>
                     <div id="table">
