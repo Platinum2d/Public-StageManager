@@ -38,18 +38,19 @@ studente = {
     'telefono':'',
     'scuola' : '',
     'classe':'',
-    'annoclasse':'',
-    'azienda':'',
-    'docente':'',
-    'tutor':''
+    'stage':'',
+    'annoclasse':''
+    //    'azienda':'',
+    //    'docente':'',
+    //    'tutor':''
 };
 
 classe = {
     'nome' : '',
     'scuola' : '',
-//    'stage' : '',
+    //    'stage' : '',
     'settore' : '',
-//    'anno' : ''
+    //    'anno' : ''
 }
 
 specializzazione = {
@@ -165,9 +166,9 @@ function freeFieldsFor(userType)
             $("#telefonoStudente").val('');
             $("#inizioStageStudente").val('');
             $("#durataStageStudente").val('');       
-            $("#aziendaStudente").val('');
-            $("#docenteStudente").val('');
-            $("#tutorStudente").val('');            
+//            $("#aziendaStudente").val('');
+//            $("#docenteStudente").val('');
+//            $("#tutorStudente").val('');            
             break;
         
         case 'tutor':
@@ -257,21 +258,21 @@ function addSelectionsFor(page, field)
                     break;
                 
                 case 'classe':
-                        $.ajax({
-                            type : 'POST',
-                            url : '../studenti/ajaxOpsPerStudente/ajaxClasse.php',
-                            cache : false,
-                            data : { 'scuola' : $('#scuolaStudente').val() },
-                            success : function (xml)
+                    $.ajax({
+                        type : 'POST',
+                        url : '../studenti/ajaxOpsPerStudente/ajaxClasse.php',
+                        cache : false,
+                        data : { 'scuola' : $('#scuolaStudente').val() },
+                        success : function (xml)
+                        {
+                            var selectedindex = 0+$("#classeStudente").prop('selectedIndex');
+                            $('#classeStudente').html('');
+                            $(xml).find('classi').find("classe").each(function()
                             {
-                                var selectedindex = 0+$("#classeStudente").prop('selectedIndex');
-                                $('#classeStudente').html('');
-                                $(xml).find('classi').find("classe").each(function()
-                                {
-                                    $('#classeStudente').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+"</option>");
-                                });
-                            }
-                        });
+                                $('#classeStudente').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+"</option>");
+                            });
+                        }
+                    });
                     break;
                 
                 case 'azienda':
@@ -282,46 +283,47 @@ function addSelectionsFor(page, field)
                             cache : false,
                             success : function (xml)
                             {
-                                $('#aziendaStudente').html('<option> </option>');
+                                $('#aziendaStudente').html('<option value="-1"> </option>');
                                 $('#keepIdAzienda').html('');
                                 $(xml).find('aziende').find('azienda').each(function()
                                 {
                                     currentid = $(this).find('id').text(); 
                                     $('#keepIdAzienda').append('<option> '+currentid+'</option>');                                    
                                     currentAzienda = $(this).find('nome').text();
-                                    $('#aziendaStudente').append('<option> '+currentAzienda+'</option>');
+                                    $('#aziendaStudente').append('<option value="'+currentid+'"> '+currentAzienda+'</option>');
                                 });
                             }
                         });
                     }
-                    else
-                    { 
-                        $('#tutorStudente').css('color','black');
-                        index = parseInt($("#aziendaStudente").prop('selectedIndex'),10);
-                        var list = document.getElementById("keepIdAzienda");
-                        id = list.options[index-1].text;
-                        miaazienda = {'idAzienda' : id};                        
-                        
+                    break;
+                
+                case 'tutor':
+                    miaazienda = {'idAzienda' : $("#aziendaStudente").val()};
+                    if ($("#aziendaStudente").val() !== "-1")
+                    {
                         $.ajax({
                             type : 'POST',
                             data : miaazienda,
                             url : '../studenti/ajaxOpsPerStudente/ajaxTutor.php',
                             cache : false,
                             success : function (xml)
-                            {
-                                //alert(xml);
-                                $('#tutorStudente').html('<option> </option>');
+                            {                                
+                                $('#tutorStudente').html('<option value="-1"> </option>');
+                                $('#tutorStudente').css("color", "#555");
                                 $(xml).find('tutors').find('tutor').each(function()
                                 {
+                                    currentid = $(this).find('id').text(); 
                                     currentnome = $(this).find('nome').text(); 
                                     currentcognome = $(this).find('cognome').text();
-                                    $('#tutorStudente').append('<option> '+currentcognome+' '+currentnome+'</option>');
-                                    //                                        $('#tutorStudente').append('<option> '+currentcognome+'</option>');
-                                    //                                    if ($("#aziendaStudente").prop('selectedIndex') !== '-1')
-                                    //                                        alert($("#aziendaStudente").prop('selectedIndex'));
+                                    $('#tutorStudente').append('<option value="'+currentid+'"> '+currentcognome+' '+currentnome+'</option>');                                
                                 });
                             }
                         });
+                    }
+                    else
+                    {
+                        $('#tutorStudente').html('<option value="-1"> Selezionare una azienda.... </option>');
+                        $('#tutorStudente').css("color", "#D3D3D3");
                     }
                     break;
                 
@@ -333,17 +335,14 @@ function addSelectionsFor(page, field)
                         {
                             if(!$('#docenteStudente').is(':focus'))
                             {
-                                //                            alert(xml);
-                                $('#docenteStudente').html('<option> </option>');
+                                $('#docenteStudente').html('<option value="-1"> </option>');
                                 $(xml).find('docenti').find('docente').each(function()
                                 {
-                                    //currentUsername = $(this).find("username").text();
+                                    currentid = $(this).find("id").text();
                                     currentUsername = $(this).find("username").text();
                                     currentNome = $(this).find("nome").text();
-                                    // alert(currentNome);
                                     currentCognome = $(this).find("cognome").text();
-                                    //alert(currentCognome);
-                                    $('#docenteStudente').append('<option> '+currentCognome+' '+currentNome+'</option>'); 
+                                    $('#docenteStudente').append('<option value="'+currentid+'"> '+currentCognome+' '+currentNome+'</option>'); 
                                 });
                             }
                         }
@@ -398,20 +397,7 @@ function addSelectionsFor(page, field)
                         }
                     });
                     break;
-                
-                //                case 'stage':
-                    //                    $.ajax({
-                //                        url : "ajaxOpsPerClasse/ajaxStage.php",
-            //                        cache : false,
-        //                        success : function(xml)
-        //                        {
-        //                            $(xml).find("stages").find("stage").each(function (){
-        //                                $("#stageClasse").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("inizio").text()+" - "+$(this).find("durata").text()+" giorni </option>");
-        //                            });
-        //                        }
-        //                    });
-        //                    break;
-                    }
+            }
             break;
         
         case 'tutor':
@@ -572,10 +558,7 @@ function sendSingleData(userType)
             {
                 alert("errore nell'inserimento della password");
                 return;
-            }  
-            studente.azienda = $('#aziendaStudente').val().trim();
-            studente.docente = $('#docenteStudente').val().trim();
-            studente.tutor = $('#tutorStudente').val().trim();
+            }
             
             $.ajax({
                 type : "POST",
@@ -584,6 +567,7 @@ function sendSingleData(userType)
                 cache : false,
                 success : function(msg)
                 {
+                    alert(msg)
                     if (msg === "ok")
                         freeFieldsFor('studente');
                 }                
@@ -595,10 +579,8 @@ function sendSingleData(userType)
                 return (this.length === 0 || !this.trim());
             };   
             classe.nome = $("#nomeClasse").val().trim();
-//            classe.anno = $("#annoscolasticoClasse").val();
             classe.scuola = $("#scuolaClasse").val();
             classe.settore = $("#settoreClasse").val();
-//            classe.stage = ($("#stageClasse").val() === "-1") ? "NULL" : $("#stageClasse").val();
             
             if (classe.nome.isEmpty())
             {

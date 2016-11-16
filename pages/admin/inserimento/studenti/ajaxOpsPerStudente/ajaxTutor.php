@@ -12,7 +12,7 @@ XML;
     $idAzienda = $_POST['idAzienda'];
     
     
-    $Query = "SELECT nome, cognome FROM utente, tutor WHERE id_utente = id_tutor AND azienda_id_azienda = $idAzienda ORDER BY cognome";
+    $Query = "SELECT id_tutor, nome, cognome FROM utente, tutor WHERE id_utente = id_tutor AND azienda_id_azienda = $idAzienda ORDER BY cognome";
     
     if (!$result = $connection->query($Query))
     {
@@ -24,6 +24,7 @@ XML;
         while ($row = $result->fetch_assoc())
         {
             $tutor = $tutors->addChild("tutor");
+            $tutor->addChild("id", $row['id_tutor']);
             $tutor->addChild("nome", $row['nome']);
             $tutor->addChild("cognome", $row['cognome']);
         }

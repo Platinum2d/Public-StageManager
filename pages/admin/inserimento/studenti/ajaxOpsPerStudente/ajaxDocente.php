@@ -11,7 +11,7 @@ XML;
     
     $connection = dbConnection("../../../../../");    
     
-    $Query = "SELECT username, nome, cognome FROM utente, docente WHERE id_docente = id_utente ORDER BY cognome";
+    $Query = "SELECT id_docente, username, nome, cognome FROM utente, docente WHERE id_docente = id_utente ORDER BY cognome";
     
     if (!$result = $connection->query($Query))
     {
@@ -23,6 +23,7 @@ XML;
         while ($row = $result->fetch_assoc())
         {
             $docente = $docenti->addChild("docente");
+            $docente->addChild("id", $row['id_docente']);
             $docente->addChild("username", $row['username']);
             $docente->addChild("nome", $row['nome']);
             $docente->addChild("cognome", $row['cognome']);

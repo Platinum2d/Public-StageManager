@@ -7,18 +7,18 @@
 ?>
 <script>
     addSelectionsFor('studente','scuola');
-    addSelectionsFor('studente','azienda');
-    addSelectionsFor('studente','docente');
+//    addSelectionsFor('studente','azienda');
+//    addSelectionsFor('studente','docente');
     addSelectionsFor('studente','anno_scolastico');
 </script>
-
+    
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
     <link rel="stylesheet" href="../InsertStyle.css">
-    
+        
     <script> 
         String.prototype.isEmpty = function() {
             return (this.length === 0 || !this.trim());
@@ -73,23 +73,23 @@
                                 <br>
                                 <br>
                                 <input class="btn btn-primary" value="Invia" onclick="sendSingleData('studente');">
-                                    
-                                    
-                            </div>
                                 
+                                
+                            </div>
+                            
                             <div class="col col-sm-6">
                                 <b>Scuola* </b> <div class="form-group"><select class="form-control"  id="scuolaStudente">  </select> </div>
                                 <b>Classe* </b> <div class="form-group"><select class="form-control"  id="classeStudente">  </select> </div>
                                 <b>Anno Scolastico* </b> <div class="form-group"><select class="form-control"  id="annoclasseStudente">  </select> </div>
-                                Azienda <div class="form-group"><select class="form-control"  id="aziendaStudente" > </select>  </div>
+<!--                                Azienda <div class="form-group"><select class="form-control"  id="aziendaStudente" > </select>  </div>
                                 Docente <div class="form-group"><select class="form-control"  id="docenteStudente"> </select> </div>
                                 Tutor <div class="form-group"><select class="form-control"  id="tutorStudente" style="color:#D3D3D3"> <option> selezionare una azienda.... </option> </select> </div>
-                                <select id="keepIdAzienda" style="visibility: hidden"></select><br>
+                                <select id="keepIdAzienda" style="visibility: hidden"></select><br>-->
                             </div>
                         </form>
                     </div>
                 </div>
-                    
+                
                 <div class="panel">
                     <div class="row">
                         <div class="col-sm-6">
@@ -105,6 +105,11 @@
                                 $("#scuolaStudente").change(function (){
                                     addSelectionsFor("studente", "classe");
                                 });
+                                
+//                                $("#aziendaStudente").change(function (){
+//                                    addSelectionsFor("studente", "tutor");
+//                                });
+                                
                                 $("#usernameStudente").on('input',function (){
                                     $.ajax({
                                         type : 'POST',
@@ -182,7 +187,7 @@
             </div>
         </div>
     </div>
-    
+        
 </body>
 <?php
     close_html ();
