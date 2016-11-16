@@ -27,10 +27,10 @@
                                         <option value="0" selected>Seleziona</option>
                                  		<?php
                                             $connessione = dbConnection ("../../../");
-                                            $sql1 = "select distinct studente.nome as nome_studente, studente.cognome as cognome_studente, studente.email as email_studente
-                                                        from studente, tutor
-                                                        where tutor.id_tutor = $id_tutor
-                                                        AND tutor.id_tutor = studente.tutor_id_tutor;";
+                                            $sql1 = "select studente.nome as nome_studente, studente.cognome as cognome_studente, studente.email as email_studente 
+                                                        from studente, studente_has_stage 
+                                                        where studente_has_stage.tutor_id_tutor = $id_tutor 
+                                                        AND studente_has_stage.studente_id_studente = studente.id_studente;";
                                             $result1 = $connessione->query ( $sql1 );
                                             while ( $row = $result1->fetch_assoc () ) {
                                                 $nome_studente = $row ['nome_studente'];
@@ -38,11 +38,10 @@
                                                 $email_studente = $row ['email_studente'];
                                                 echo "<option value='$email_studente'>Studente - $cognome_studente $nome_studente</option>";
                                             }
-                                            $sql2 = "select distinct docente.nome as nome_docente, docente.cognome as cognome_docente, docente.email as email_docente
-                                                        from studente, docente, tutor
-                                                        where tutor.id_tutor = $id_tutor
-                                                        AND tutor.id_tutor = studente.tutor_id_tutor
-                                                        AND studente.docente_id_docente = docente.id_docente;";
+                                            $sql2 = "SELECT docente.nome as nome_docente, docente.cognome as cognome_docente, docente.email as email_docente 
+                                                        FROM docente, studente_has_stage 
+                                                        WHERE studente_has_stage.tutor_id_tutor = $id_tutor 
+														AND studente_has_stage.docente_id_docente = docente.id_docente;";
                                             $result2 = $connessione->query ( $sql2 );
                                             while ( $row = $result2->fetch_assoc () ) {
                                                 $nome_docente = $row ['nome_docente'];
