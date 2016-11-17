@@ -12,7 +12,7 @@ function sendMail()
     mail.messaggio = $('#comment').val();
     
     $.ajax({
-       url : 'ajaxSendMail.php',
+       url : 'ajaxOps/ajaxSendMail.php',
        type: 'POST',
        data : mail,
        cache : false,
