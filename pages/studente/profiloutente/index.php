@@ -3,9 +3,12 @@
     checkLogin ( studType,"../../../" );
     open_html ( "Profilo" );
     import("../../../");
+    echo "<link href='css/profiloutente.css' rel='stylesheet' type='text/css'>";
+    echo "<script src='js/profiloutente.js'></script>";
+    
     $id_stud = $_SESSION ['userId'];
-    echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
+    
     $sql = "SELECT * FROM studente, utente WHERE id_studente=$id_stud AND id_utente=id_studente";
     $result = $connessione->query ( $sql );
     while ( $row = $result->fetch_assoc () ) {
@@ -19,11 +22,6 @@
 	$result = $connessione->query($sql);
 ?>
 <body>
-    <style>
-        .minw{
-            width: 65%;
-        }
-    </style>
        	<?php
         topNavbar ("../../../");
         titleImg ("../../../");
@@ -95,7 +93,6 @@
                                             		"AND figura_professionale.id_figura_professionale = studente_whises_figura_professionale.figura_professionale_id_figura_professionale ".
                                             		"AND studente.id_studente = " . $_SESSION['userId'] . " ".
                                             		"ORDER BY figura_professionale.nome ASC";
-                                                        
                                             $result = $connessione->query($Query);
                                             $value = "";
                                             while ($row = $result->fetch_assoc())

@@ -15,7 +15,7 @@ $(document).ready(function(){
     contact.city=$("#city").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
-    //contact.preference=$("#preference").html();
+
     $("span[data-role=\"remove\"]").hide();
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
@@ -25,7 +25,6 @@ $(document).ready(function(){
     $("#editButton").click(function(){
         
         //faccio sparire il bottone edit
-        //$('#preferenza').prop('disabled', false);
         $("#editButton").hide();
         $("#saveButton").show();
         $("#cancelButton").show();
@@ -37,26 +36,23 @@ $(document).ready(function(){
     $("#saveButton").click(function(){
         
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
-        
-        //$('#preferenza').prop('disabled', true);
-        //$('#preferenza').css('color', '#828282');
-        //$("#addpreference").prop("disabled",true);        
+          
         contact.first=$("#first").html();
         contact.last=$("#last").html();
         contact.city=$("#city").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
-        
+
         //eseguo query
         if(contact.first.length>0 && contact.last.length>0 && contact.city.length>0 && contact.mail.length>0 && contact.phone.length>0){
             $.ajax({
                 type: "POST",
-                url: "ajax.php",
+                url: "ajaxOps/save.php",
                 data: contact,
                 cache: false,
                 success : function(msg)
                 {
-                    //alert(msg);
+//                    alert(msg);
                 }
             });
         }
@@ -73,8 +69,7 @@ $(document).ready(function(){
         $("#last").html(contact.last);
         $("#city").html(contact.city);
         $("#mail").html(contact.mail);
-        $("#phone").html(contact.phone);
-        //$("#preference").html(contact.preference);        
+        $("#phone").html(contact.phone);      
         //esco dalla modalità edit
         exitEdit();
     });
@@ -84,6 +79,7 @@ $(document).ready(function(){
         $("#preference").animate({
             height : $("#preference").height() - $("#HiddenAddBox").height()
         }, 500);
+        
         //blocco la tabella
         $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
         
@@ -93,12 +89,6 @@ $(document).ready(function(){
         
         //compare bottone edit
         $("#editButton").show();
-//        $("span[data-role=\"remove\"]").hide();
-//        $("input[type=\"text\"]").prop("disabled",true);
-//        $("#btnaddpref").prop("disabled",true);
-//        $("#HiddenAddBox").hide();
-//        $("input[type=\"text\"]").keydown(function (){ return false; });
-
     }
 
     $('#preferenza').prop('disabled', true);
@@ -262,4 +252,3 @@ function updatePassword()
         }
     })
 }
-

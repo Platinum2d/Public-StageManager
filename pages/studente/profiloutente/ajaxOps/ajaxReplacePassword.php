@@ -1,5 +1,4 @@
 <?php
-
     include "../../../functions.php";
     $conn = dbConnection("../../../../");
     
@@ -11,3 +10,4 @@
         echo "ok";
     else
         echo "non ok";
+?>
