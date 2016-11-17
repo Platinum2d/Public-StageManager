@@ -5,7 +5,7 @@ function sendGrade()
     
     $.ajax({
         type : 'POST',
-        url : 'Invia.php',
+        url : 'ajaxOps/invia.php',
         cache : false,
         data : 
         {
@@ -18,4 +18,3 @@ function sendGrade()
         }
     });
 }
-

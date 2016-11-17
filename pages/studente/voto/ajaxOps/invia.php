@@ -2,6 +2,7 @@
     include '../../functions.php';
     checkLogin ( studType,"../../../" );
     $MySQLConnection = dbConnection("../../../");
+    
     $Voto = htmlspecialchars ( $_POST ['voto'] );
     $Descrizione = htmlspecialchars ( $_POST ['descrizione'] );
     $idStudenteHasStage = $_SESSION ['studenteHasStageId'];
@@ -10,30 +11,14 @@
     $Descrizione = stripslashes ( $Descrizione );
         
     $Voto = $MySQLConnection->escape_string ( $Voto );
-    $Descrizione = $MySQLConnection->escape_string ( $Descrizione );
-    // MySQL parameters, temporanei, cambiare con le apposite credenziali
-        
+    $Descrizione = $MySQLConnection->escape_string ( $Descrizione );        
         
     if ($MySQLConnection->connect_error) 
     {
 //        $_SESSION ['grade_sent'] = 1; // connessione al database fallita
-//                                         // die("Errore di connessione: ".$MySQLConnection->connect_error);
+//        die("Errore di connessione: ".$MySQLConnection->connect_error);
         echo "invio della valutazione NON riuscito";
     }
-        
-      /*$queryStageId = "SELECT classe_has_stage.stage_id_stage 
-						FROM studente, studente_attends_classe, anno_scolastico, classe_has_stage, classe 
-						WHERE studente.id_studente = " . $_SESSION['userId'] . " 
-						AND anno_scolastico.corrente = 1 
-						AND studente.scuola_id_scuola = classe.scuola_id_scuola 
-						AND studente_attends_classe.studente_id_studente = studente.id_studente 
-						AND studente_attends_classe.classe_id_classe  = classe.id_classe 
-						AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico 
-						AND classe_has_stage.classe_id_classe = classe.id_classe 
-						AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico;";
-      $result = $MySQLConnection->query($queryStageId);
-      $idStage = $result->fetch_assoc ();
-      $idStage = $idStage ["stage_id_stage"];*/
       
       $queryValutazioneId = "SELECT studente_has_stage.valutazione_stage_id_valutazione_stage 
 								FROM studente_has_stage 
