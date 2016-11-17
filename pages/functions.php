@@ -452,8 +452,7 @@ Classe 5^B 2014/2015: Scheri Alessio(Gestore Incaricato),Chitoroaga Constantin, 
                 </div>
             </footer>
 HTML;
-    }
-        
+    }        
         
     function printChat($goback){
         echo" 
@@ -464,5 +463,13 @@ HTML;
                 </div>
             </div>
         </div>";
+    }
+    
+    function studentNoStageWarning () {
+        echo <<<HTML
+            <div align="center">
+                <h1 class="alert-warning"> Non sei pronto per andare in stage. </h1>
+            </div>
+HTML;
     }
 ?>
