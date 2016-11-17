@@ -1,5 +1,5 @@
 <?php
-    include '../../functions.php';
+    include '../../../functions.php';
     checkLogin ( studType,"../../../" );
     $MySQLConnection = dbConnection("../../../");
     
