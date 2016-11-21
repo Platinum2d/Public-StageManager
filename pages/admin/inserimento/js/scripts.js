@@ -86,7 +86,8 @@ scuola = {
 }
 
 annoscolastico = {
-    'nome' : ''
+    'nome' : '',
+    'corrente' : 'false'
 }
 
 figuraprofessionale = {
@@ -95,7 +96,7 @@ figuraprofessionale = {
 
 stage = {
     'inizio' : '',
-    'durata' : 0
+    'durata' : '0'
 }
 
 settore = {
@@ -201,6 +202,7 @@ function freeFieldsFor(userType)
         
         case 'annoscolastico':
             $("#nomeAnno").val('');
+            $("#currentyear").prop("checked", false);
             break;
         
         case 'figuraprofessionale':
@@ -567,7 +569,6 @@ function sendSingleData(userType)
                 cache : false,
                 success : function(msg)
                 {
-                    alert(msg)
                     if (msg === "ok")
                         freeFieldsFor('studente');
                 }                
@@ -594,7 +595,6 @@ function sendSingleData(userType)
                 data : classe,
                 success : function(msg)
                 {
-                    alert(msg)
                     if (msg === "Inserimento dei dati riuscito!")
                         freeFieldsFor('classe');
                 }
@@ -722,6 +722,7 @@ function sendSingleData(userType)
         
         case 'annoscolastico':
             annoscolastico.nome = $("#nomeAnno").val();
+            annoscolastico.corrente = $("#currentyear").prop("checked");            
             $.ajax({
                 type : 'POST',
                 url : 'ajaxOpsPerAnnoScolastico/ajaxInvia.php',
@@ -742,7 +743,6 @@ function sendSingleData(userType)
                 cache : false,
                 data : figuraprofessionale,
                 success : function (msg){
-                    alert(msg)
                     if (msg === "ok")
                         freeFieldsFor ("figuraprofessionale");
                 }
