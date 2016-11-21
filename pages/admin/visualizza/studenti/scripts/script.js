@@ -29,7 +29,7 @@ function openEdit(id, idStudente, classe, anno)
                 <div ><label>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
 \n\</div>\n\
 <div class=\"col col-sm-6\">\n\
-\n\<div class=\"form-group\"><label>password</label> <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
+\n\<div><label>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
                 <div ><label>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
                 <div ><label>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
                 <div ><label>preferenze</label> <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div>\n\

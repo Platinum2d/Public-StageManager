@@ -37,8 +37,10 @@ function openInfo(numberId, id_classe_has_stage, id_studente)
         cache : false,
         success : function (xml){
             var authorised = $(xml).find("autorizzazione").text();
-            
             var visited = $(xml).find("azienda").find("visitata").text();
+            var studente_has_stage = ($(xml).find("studente_has_stage").text().length > 0) ? $(xml).find("studente_has_stage").text() : "-1";
+            
+            $("#confirm"+progressiv).attr('onclick',"sendData("+progressiv+", "+id_classe_has_stage+", "+id_studente+", "+studente_has_stage+")");            
             
             if (visited === "1")
                 $("#editinfovisita"+progressiv).prop("checked", true);
@@ -105,32 +107,74 @@ function openInfo(numberId, id_classe_has_stage, id_studente)
                     }
                 });
             }
-            else
-            {
-                $("#editinfotutor"+progressiv).html("<option value=\"-1\"> </option>");
-                
-                $("#editinfoazienda"+progressiv).change(function (){
+            $("#editinfoazienda"+progressiv).change(function (){
+                $(this).css("color", "red");
+                if ($(this).val() !== "-1")                    
+                {
                     $.ajax({
                         url : 'ajaxOpsPerDettaglioStage/ajaxTutor.php',
                         type : 'POST',
                         data : {azienda : $("#editinfoazienda"+progressiv).val(), exclusion: null},
                         success : function (tut){
-                            alert(tut);
                             $(tut).find("tutors").find("tutor").each(function (){
                                 $("#editinfotutor"+progressiv).append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" "+$(this).find("cognome").text()+"</option>")
                             });
                         }
                     });
-                });
-            }
+                }
+                else
+                {
+                    $("#editinfotutor"+progressiv).html("<option value=\"-1\"> </option>");
+                }
+            });
         }
     });
     
     $("#dettagli"+numberId).prop("disabled", true);
+    setOnChangeEvents(progressiv);
 }
 
 function closeEdit(progressiv)
 {
     $("#editinfo"+progressiv).closest("tr").remove();
     $("#dettagli"+(progressiv - 1)).prop("disabled", false);
+}
+
+function sendData(progressiv, id_classe_has_stage, id_studente, id_studente_has_stage){    
+    tosend = {
+        'azienda' : $("#editinfoazienda"+progressiv).val(),
+        'tutor' : $("#editinfotutor"+progressiv).val(),
+        'docente' : $("#editinfodocente"+progressiv).val(),
+        'studente' : id_studente,
+        'classe_has_stage' : id_classe_has_stage,
+        'studente_has_stage' : id_studente_has_stage,
+        'autorizzazione' : $("#editinfoautorizzazione"+progressiv).prop("checked"),
+        'visita' : $("#editinfovisita"+progressiv).prop("checked")
+    }
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerDettaglioStage/ajaxInvia.php',
+        cache : false,
+        data : tosend,
+        success : function (msg)
+        {
+            if (msg === "ok")
+                resetColors(progressiv);
+        }
+    })
+}
+
+function setOnChangeEvents(progressiv){
+    $("#editinfotutor"+progressiv).change(function (){ $(this).css("color", "red"); });
+    $("#editinfodocente"+progressiv).change(function (){ $(this).css("color", "red"); });
+    $("#editinfovisita"+progressiv).change(function (){ $(this).closest("label").css("color", "red"); });
+    $("#editinfoautorizzazione"+progressiv).change(function (){ $(this).closest("label").css("color", "red"); })
+}
+
+function resetColors(progressiv){
+    $("#editinfotutor"+progressiv).css("color", "#555");
+    $("#editinfodocente"+progressiv).css("color", "#555");
+    $("#editinfoazienda"+progressiv).css("color", "#555");
+    $("#editinfovisita"+progressiv).closest("label").css("color", "#828282");
+    $("#editinfoautorizzazione"+progressiv).closest("label").css("color", "#828282");
 }

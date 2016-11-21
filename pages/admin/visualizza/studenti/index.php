@@ -89,7 +89,7 @@
                             echo "<div class = \"col col-sm-12\">";
                             $I=0;
                             echo "<div class=\"table-responsive\"><table class=\"table table-bordered\" id=\"tablestudenti\" style=\"\">"
-                            . "<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Registro </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
+                            . "<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
                             while ($row = $result->fetch_assoc ())
                             {
                                 echo "<tr><td class=\"minw\">";
@@ -100,9 +100,6 @@
                                 echo "<td align=\"center\">";
                                     echo "<div id=\"ButtonBox".$I."\" align=\"center\">";
                                          echo "<input class = \"btn btn-success \" name=\"".$row['id_studente']."\"  type=\"button\" value=\"Modifica\" id = \"modifica".$I."\" onclick = \"openEdit('VisibleBox".$I."',$(this).closest('input').attr('name'), $idclasse, $idanno)\"></td> "
-                                                 . "<td align=\"center\"><form target=\"_blank\" method=\"POST\" action=\"registro/index.php\"> <input type=\"hidden\" name=\"idstudente\" value=\"".$row['id_studente']."\">  <input type=\"hidden\" name=\"nome\" value=\"".$row['nome']."\">"
-                                                 . "<input type=\"hidden\" name=\"cognome\" value=\"".$row['cognome']."\">"
-                                                 . "<input class=\"btn btn-info\" type=\"submit\" value=\"Registro\"  id=\"registro".$I."\"> </form></td>"
                                                  . "<td align=\"center\"><input class = \"btn btn-danger\" type=\"button\" value=\"Elimina\" id = \"elimina".$I."\" onclick=\"deleteData(".$row['classe_id_classe'].",$('#modifica".$I."').closest('input').attr('name'))\"> </td>";
                                     echo "</div>";
                                 echo "</tr>";
