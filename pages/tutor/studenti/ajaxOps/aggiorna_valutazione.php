@@ -1,6 +1,6 @@
 <?php
 	include '../../../functions.php';
-	$conn = dbConnection ();
+	$conn = dbConnection ("../../../../");
 	
 	$gasl = $_POST ['gestione_ambiente_spazio_lavoro'];
 	$cc = $_POST ['collaborazione_comunicazione'];

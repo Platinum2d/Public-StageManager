@@ -4,17 +4,10 @@
     open_html ( "Valutazione studente" );
     import("../../../");
     $conn = dbConnection ("../../../");
-    $idStudenteHasStage = $_GET ['shs']; // id studente
-        
-    /*
-     * echo<<<HTML
-     * <link href="includes/stile.css" rel="stylesheet" type="text/css">
-     * <script src="script/js.js"></script>
-     * HTML;
-     */
+    $idStudenteHasStage = $_POST ['shs'];
 ?>
 <body>
-    <script src="js/scripts.js"> </script>
+    <script src="js/scripts_valuta.js"> </script>
         
 	<?php
         topNavbar ("../../../");
@@ -24,35 +17,19 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">                    
-                    <h1 id = "valuta">VALUTA</h1>
+                    <h1 id = "valuta">Valuta</h1>
                         <?php
                         	$sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
                             $Result = $conn->query ( $sql );
                             $row = $Result->fetch_assoc ();
                             $visita = $row ['visita_azienda'];
                             if ($visita == 0) {
-echo <<<HTML
-                                    <form method="POST" action="visita_ajax.php">                       
-                                    <h3>Lo studente si e presentatato in azienda per un colloquio?</h3>
-                                    <div class="row">
-                                        <div class="col col-sm-4">
-                                        </div>
-                                            
-                                             <div class="col col-sm-4">
-                                            <div id="prima" align="center">
-                                               <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="1"> Si</label>
-                                               <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="0">  No</label> <br>
-                                                <input type="hidden" name="id_studente_has_stage" value=$idStudenteHasStage>
-                                                <input type="hidden" name="page" value="1">
-                                            </div>
-                                        </div>
-                                    </div>    
-                                            <input type="submit" name="conferma_scelta" value="conferma" id="conferma_scelta" ><br>
-                                        </form>
-HTML;
-                            } elseif ($visita == 1) {
+                        ?>
+                                <script>window.location.replace("index.php");</script>
+                        <?php 
+                            } 
+                            elseif ($visita == 1) {
                                 echo <<<HTML
-                                    <!-- <form id="form_studente" action="aggiornamento_valutazione.php" method="post"> -->
 HTML;
                                 $sql = "SELECT studente.nome, studente.cognome 
                                 		FROM studente, studente_has_stage 
@@ -70,17 +47,14 @@ HTML;
                                             
 HTML;
                                     ?>
-                    <script>
-                        $('#valuta').append(' <i>'+$('#cognomestud').val()+' '+$('#nomestud').val()+'<i>');
-                    </script>
- <?php
+					                    <script>
+					                        $('#valuta').append(' <i>'+$('#cognomestud').val()+' '+$('#nomestud').val()+'<i>');
+					                    </script>
+ 									<?php
                                     $sql = "select `valutazione_studente_id_valutazione_studente` from studente_has_stage where `id_studente_has_stage`=  $idStudenteHasStage";
                                     echo <<<HTML
-                                        <!-- <form id="form_studente" action="aggiornamento_valutazione.php" method="post"> -->
 HTML;
                                     $Result = $conn->query ( $sql );
-//                                    if ($Result) {
-                                        //while ( $row = $Result->fetch_assoc () ) {
                                     $row = $Result->fetch_assoc ();
                                             if (isset($row ['valutazione_studente_id_valutazione_studente'])) {
                                                 $id_valutazione_studente = $row ['valutazione_studente_id_valutazione_studente'];
@@ -145,15 +119,11 @@ HTML;
                                         </div>";
                                             
                                             }
-                                        //}
-//                                    } else {
-//                                        echo ("Errore!! istruzione SQL");
                                     }
                                 }
                                 echo <<<HTML
                                 <input type="hidden" name="id_studente_has_stage" value="$idStudenteHasStage">
                                     <br>
-                                <!-- </form> -->
 HTML;
                     ?>
                 </div>

@@ -4,9 +4,9 @@
     open_html ( "Registro" );    
     import("../../../");
     $conn = dbConnection ("../../../");
-    $idStudenteHasStage = $_GET ['shs'];
+    $idStudenteHasStage = $_POST ['shs'];
     
-    echo "<script src='js/scripts.js'></script>";
+    echo "<script src='js/scripts_registro.js'></script>";
     
     $sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
     $Result = $conn->query ( $sql );
@@ -14,6 +14,7 @@
     $visita = $row ['visita_azienda'];
     
 ?>
+<script>var shs = <?php echo $_POST['shs'] ?>;</script>
 <body>
 	<?php
         topNavbar ("../../../");
@@ -29,26 +30,9 @@
                         <div class="col col-sm-12">
                             <?php
                                 if ($visita == 0) {
-                                    
-                                    echo <<<HTML
-                                    <form method="POST" action="visita_ajax.php">                       
-                                    <h3>Lo studente si e presentatato in azienda per un colloquio?</h3>
-                                    <div class="row">
-                                        <div class="col col-sm-4">
-                                        </div>
-                                            
-                                             <div class="col col-sm-4">
-                                            <div id="prima" align="center">
-                                               <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="1"> Si</label>
-                                               <label style="height:35px; width:35px; vertical-align: middle;"><input style="height:35px; width:35px; vertical-align: middle;" type="radio" name="scelta" value="0">  No</label> <br>
-                                                <input type="hidden" name="id_studente_has_stage" value=$idStudenteHasStage>
-                                                <input type="hidden" name="page" value="1">
-                                            </div>
-                                        </div>
-                                    </div>    
-                                            <input type="submit" name="conferma_scelta" value="conferma" id="conferma_scelta" ><br>
-                                        </form>
-HTML;
+                            ?>
+                                <script>window.location.replace("index.php");</script>
+                            <?php 
                                 }
                                 if ($visita >= 1) {
                                     $query_line = $conn->query ( "SELECT * 
@@ -83,7 +67,9 @@ HTML;
                                         ?>
                                     </tbody>
                                 </table></div>
-                                <button id="DescAddButton">Aggiungi</button> <br><br>
+                                <button id="DescAddButton">Aggiungi</button>
+                            </div>
+                            <div style="margin-top: 20px;">
                                 <?php 
                                     $query = "SELECT `autorizzazione_registro` FROM `studente_has_stage` WHERE `id_studente_has_stage` = $idStudenteHasStage;";
                                     $result = $conn->query($query);
@@ -96,11 +82,9 @@ HTML;
                                     {
                                         echo "Questo studente e' delegato alla compilazione del registro. Non sei soddisfatto? <a href=\"javascript:grantOrRevokeRegisterPermisson('0',$idStudenteHasStage)\"> Ritira la delega </a>";
                                     }
-                                ?>
-                            </div>
-                            <?php
                                 }
                             ?>
+                            </div>
                         </div>
                     </div>
                 </div>
