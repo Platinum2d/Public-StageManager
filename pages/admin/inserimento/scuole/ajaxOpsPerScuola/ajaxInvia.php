@@ -1,5 +1,4 @@
 <?php
-
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
 
@@ -29,3 +28,4 @@
     $ok = ($connection->query($usersquery)) ? true : false;
     $ok = ($connection->query($query)) ? true : false;
     if ($ok) echo "ok"; else echo $connection->error;
+?>

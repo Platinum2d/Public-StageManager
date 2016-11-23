@@ -1,5 +1,4 @@
-<?php
-    
+<?php    
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
         
@@ -80,3 +79,4 @@
         $connection->query("SET FOREIGN_KEY_CHECKS = 0");
         if ($connection->query($userquery) && $connection->query($Query) && $connection->query($classquery))
             echo "ok";
+?>

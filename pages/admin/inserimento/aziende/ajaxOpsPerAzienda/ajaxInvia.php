@@ -1,5 +1,4 @@
 <?php
-
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
     
@@ -30,3 +29,4 @@
     
     if ($ok) echo "Inserimento dei dati riuscito!"; else echo "non ok";
     $connection->query("SET FOREIGN_KEY_CHECKS = 1");
+?>

@@ -1,5 +1,4 @@
-<?php
-    
+<?php    
     $user = $_POST['user'];
     $host = $_POST['host'];
     $name = $_POST['name'];
@@ -30,3 +29,4 @@
         $_SESSION['dbname'] = $name;
         echo "ok";
     }
+?>

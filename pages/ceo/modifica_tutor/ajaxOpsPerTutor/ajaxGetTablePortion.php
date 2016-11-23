@@ -29,3 +29,4 @@ $connessione = dbConnection("../../../../");
     }
     
     echo $html;
+?>

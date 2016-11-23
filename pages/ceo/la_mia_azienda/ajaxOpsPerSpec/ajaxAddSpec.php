@@ -14,5 +14,4 @@
     {
         echo $conn->error;
     }
-    
-    
+?>

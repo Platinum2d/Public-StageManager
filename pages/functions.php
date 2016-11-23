@@ -347,8 +347,8 @@ HTML;
     }
         
         
-    function close_html() { //chiude la pagina
-        footer();
+    function close_html($goBack) { //chiude la pagina
+        footer($goBack);
         echo <<<HTML
          </html>
 HTML;
@@ -432,27 +432,100 @@ HTML;
 //    }
     
     
-    function footer (){
+    function footer ($goBack) {
         echo <<<HTML
             <footer>
                 <div class="container">
             		<div class="row">
-            			<div class="col col-sm-12">
-				            <div class="panel">
-                                <p class="text-center">
-Classe 5^B 2014/2015: Scheri Alessio(Gestore Incaricato),Chitoroaga Constantin, Cois Alessio, Corradi Federico, D'Alcamo Kael, Emini Damiano, Kapelyukh Mirko, Liso Emanuele, Mastrangelo Salvatore, Menabue Matteo, Orlandi Mattia, Passuti Roberto, Pevarello Marco, Pizzirani Federico, Rapini Fabio, Sargenti Mattia, Scheri Alessio, Sgarzi Mattia, Singh Rupinder, Vaccari Nicola, Veronesi Matteo, Zambardi Alessio.
-<br> <br> Classe 5^B 2015/2016: Manicardi Daniele(Gestore Incaricato),Borelli Fabio, Cafagna Michele, Calaiò Salvatore, Calzone Davide,Casini Simone, Enache Alexandru, Faedda Veronica, Fedele Davide , Fernando Pasan,Fossali Ludovico,  Leuzzi  Alessio, Maini Fabio, Manicardi Daniele, Manni Filippo, Minelli Andrea , Odorici Paolo, Pedroni Nicolò, Pizzirani Paolo, Ternelli Mirco.
-                                </p>
-                                <p class="leviFooter text-center">
-                                    Istituto Primo Levi, Vignola
-                                </p>
-                            </div>
-                        </div>
+        				<div class="col col-sm-12">
+					        <div class="panel">
+	            				<div class="col col-sm-6">
+        							<a href='http://www.istitutolevi.it/' target='_blank' title='Istituto Primo Levi'>
+HTML;
+		        						echo "<img id='levi-logo' class='img-rounded' src='".$goBack."src/img/levi_logo.png' alt=''>";
+		        					echo <<<HTML
+			        				</a>
+	        						<p class="levi-text">
+	        							Con il patrocinio dell'istituto Primo Levi di Vignola.
+	        						</p>
+	                            </div>
+		            			<div id="footer-contact" class="col col-sm-4 col-sm-offset-2">
+	        						<p>
+	        							<h4>Contatti:</h4>
+		        						<ul>
+		        							<li>
+        										Daniele Manicardi:
+		        								<ul>
+		        									<li>
+		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+			        									<a href="tel:+39 334 9056026" class="footer-link">+39 334 905 6026</a>
+		        									</li>
+		        									<li>
+		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		        										<a href="mailto:manicardi215@gmail.com" class="footer-link">manicardi215@gmail.com</a>
+		        									</li>
+		        								</ul>
+        									</li>
+		        							<li>
+		        								Alessio Scheri:
+		        								<ul>
+		        									<li>
+		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+			        									<a href="tel:+39 333 2810581" class="footer-link">+39 333 281 0581</a>
+		        									</li>
+		        									<li>
+		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		        										<a href="mailto:alessio.scheri@gmail.com" class="footer-link">alessio.scheri@gmail.com</a>
+		        									</li>
+		        								</ul>
+		        							</li>
+		        						</ul>
+	        						</p>
+		                        </div>
+        						<div class="col col-sm-12 final">
+		        					<hr>
+			        				<div class="row">
+			            				<div class="col col-sm-9">
+				        					<p id="copyright">
+				        						&copy; Copyright
+				        					</p>
+				        				</div>
+			            				<div class="col col-sm-3 text-right">
+				        					<a id="privacy-policy">
+				        						privacy policy
+				        					</a>
+				        				</div>
+			        				</div>
+		        				</div>
+	                        </div>
+	        			</div>
                     </div>
                 </div>
             </footer>
 HTML;
-    }        
+    }
+    
+//     function footer (){
+//         echo <<<HTML
+//             <footer>
+//                 <div class="container">
+//             		<div class="row">
+//             			<div class="col col-sm-12">
+// 				            <div class="panel">
+//                                 <p class="text-center">
+// Classe 5^B 2014/2015: Scheri Alessio(Gestore Incaricato),Chitoroaga Constantin, Cois Alessio, Corradi Federico, D'Alcamo Kael, Emini Damiano, Kapelyukh Mirko, Liso Emanuele, Mastrangelo Salvatore, Menabue Matteo, Orlandi Mattia, Passuti Roberto, Pevarello Marco, Pizzirani Federico, Rapini Fabio, Sargenti Mattia, Scheri Alessio, Sgarzi Mattia, Singh Rupinder, Vaccari Nicola, Veronesi Matteo, Zambardi Alessio.
+// <br> <br> Classe 5^B 2015/2016: Manicardi Daniele(Gestore Incaricato),Borelli Fabio, Cafagna Michele, Calaiò Salvatore, Calzone Davide,Casini Simone, Enache Alexandru, Faedda Veronica, Fedele Davide , Fernando Pasan,Fossali Ludovico,  Leuzzi  Alessio, Maini Fabio, Manicardi Daniele, Manni Filippo, Minelli Andrea , Odorici Paolo, Pedroni Nicolò, Pizzirani Paolo, Ternelli Mirco.
+//                                 </p>
+//                                 <p class="leviFooter text-center">
+//                                     Istituto Primo Levi, Vignola
+//                                 </p>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </footer>
+// HTML;
+//     }
         
     function printChat($goback){
         echo" 

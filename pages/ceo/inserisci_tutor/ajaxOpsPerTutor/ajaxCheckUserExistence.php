@@ -1,5 +1,4 @@
-<?php
-    
+<?php    
     include "../../../functions.php";
     $conn = dbConnection("../../../../");
     $username = $conn->escape_string($_POST['user']);
@@ -41,4 +40,4 @@
     {
         echo "trovato";
     }
-    
+?>

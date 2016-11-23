@@ -23,3 +23,4 @@ XML;
     }
     
     echo $xml->asXML();
+?>

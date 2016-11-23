@@ -1,5 +1,4 @@
 <?php
-
         include '../../../../functions.php';
     //header ( "Content-Type: application/xml" );
     $xmlstr = <<<XML
@@ -30,3 +29,4 @@ XML;
         
         echo $xml->asXML();
     }
+?>

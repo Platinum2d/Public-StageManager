@@ -48,3 +48,4 @@ if ($connessione->query($Query))
 else
     echo $connessione->error;
 $connessione->query("SET FOREIGN_KEY_CONTROLS = 1");
+?>

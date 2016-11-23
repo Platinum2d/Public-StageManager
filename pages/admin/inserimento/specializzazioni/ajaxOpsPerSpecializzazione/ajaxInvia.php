@@ -1,7 +1,5 @@
-<?php
- 
+<?php 
     include '../../../../functions.php';
-    
     $connection = dbConnection("../../../../../");
     
     $specializzazione = $connection->escape_string($_POST['nome']);
@@ -16,4 +14,4 @@
     {
         echo "Inserimento dei dati riuscito!";
     }
-
+?>

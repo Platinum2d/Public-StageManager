@@ -172,9 +172,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>    
 </body>
 <?php
-    close_html ();
+    close_html ("../../../../");
 ?>

@@ -20,3 +20,4 @@ XML;
     }
     
     echo $xml->asXML();
+?>

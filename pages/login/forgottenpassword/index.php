@@ -1,7 +1,7 @@
 <?php
 	include "../../functions.php";
 	open_html ( "Password Dimenticata" );
-        import("../../../");
+    import("../../../");
 ?>
 
 <body>
@@ -44,5 +44,5 @@
     </div>
 </body>
 <?php
-	close_html ();
+	close_html ("../../../");
 ?>

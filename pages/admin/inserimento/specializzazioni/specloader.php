@@ -1,5 +1,4 @@
-<?php
-    
+<?php    
     require '../../../../src/lib/PHPReader/Classes/PHPExcel.php';
     include "../../../../pages/functions.php";
     checkLogin(superUserType, "../../../../");
@@ -92,3 +91,4 @@
         echo "<br><br>$reporterrori";
         echo "</body>";
     echo "</html>";
+?>

@@ -27,5 +27,5 @@ $connessione = dbConnection("../../../../../");
             $I++;            
         }
     }
-    
     echo $html;
+?>

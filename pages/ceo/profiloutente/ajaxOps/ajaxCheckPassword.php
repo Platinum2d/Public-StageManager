@@ -1,5 +1,4 @@
 <?php
-
     include "../../../functions.php";
     $conn = dbConnection("../../../../");
     
@@ -12,3 +11,4 @@
         echo "non esiste";
     else
         echo "esiste";
+?>

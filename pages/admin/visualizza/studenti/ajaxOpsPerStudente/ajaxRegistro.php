@@ -29,3 +29,4 @@ XML;
     }
     
     echo $xml->asXML();
+?>

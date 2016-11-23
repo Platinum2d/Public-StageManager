@@ -11,7 +11,8 @@ div .panel{
 footer div.panel{
 	padding-top: 15px;
 	padding-bottom: 15px;
-	min-height: 50px;
+	min-height: 50px;display:block;
+	overflow:auto;
 }
 
 .vcenter {
@@ -62,5 +63,56 @@ hr.soften {
 
 p.leviFooter{
 	color: black;
-	
+}
+
+img#levi-logo {
+	margin-top: 20px;
+	height: 100px;
+	border: solid 1px #EFEFEF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+div#footer-contact > ul {
+ 	padding-left: 0;
+}
+
+div#footer-contact ul {
+ 	list-style-type: none;
+}
+
+div#footer-contact ul > li {
+ 	margin-top: 5px;
+}
+
+div#footer-contact ul > li > span.glyphicon {
+ 	margin-right: 7px;
+}
+
+.footer-link, .footer-link:focus {
+    color: #828282;
+//    text-decoration: underline;
+}
+
+.footer-link:hover {
+    color: #FF0000;
+//    text-decoration: underline;	
+}
+
+p.levi-text {
+	margin-top: 15px;
+}
+
+div.final {
+	font-size: 12px;
+}
+
+#privacy-policy {	
+    color: #828282;
+}
+
+#privacy-policy:hover {
+    color: #FF0000;
 }

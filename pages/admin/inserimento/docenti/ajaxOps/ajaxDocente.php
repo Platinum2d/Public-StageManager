@@ -27,5 +27,4 @@
         echo $connection->error;
     else
         echo "Inserimento dei dati riuscito!";
-    
-
+?>

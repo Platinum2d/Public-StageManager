@@ -1,9 +1,7 @@
-<?php
- 
+<?php 
     include '../../../../functions.php';
     
-    $connection = dbConnection("../../../../../");
-    
+    $connection = dbConnection("../../../../../");    
     $preferenza = $connection->escape_string($_POST['nome']);
     
     $Query = "INSERT INTO `preferenza` (`nome`) VALUES ('$preferenza')";
@@ -16,4 +14,4 @@
     {
         echo "invio dei dati riuscito!";
     }
-
+?>

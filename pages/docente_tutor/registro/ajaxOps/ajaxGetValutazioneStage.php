@@ -1,5 +1,4 @@
 <?php
-
     $xml = new SimpleXMLElement ("<?xml version=\"1.0\" encoding=\"utf-8\" ?> <data> </data> ");
     include "../../../functions.php";    
     
@@ -14,4 +13,4 @@
     $valutazione->addChild("descrizione", $row['descrizione']);
     
     echo $xml->asXML();
-    
+?>

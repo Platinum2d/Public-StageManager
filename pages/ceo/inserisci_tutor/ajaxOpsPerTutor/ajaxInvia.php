@@ -1,5 +1,4 @@
 <?php
-
     include '../../../functions.php';
     $connection = dbConnection("../../../../");
     
@@ -19,6 +18,4 @@
         echo "Inserimento dati NON riuscito";
     else
         echo "Inserimento dei dati riuscito!";
-    
-    
-
+?>

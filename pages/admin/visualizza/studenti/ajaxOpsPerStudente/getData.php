@@ -65,3 +65,4 @@ if($result = $connessione->query("SELECT * FROM studente WHERE id_studente = $id
     
     echo $xml->asXML();
 }
+?>

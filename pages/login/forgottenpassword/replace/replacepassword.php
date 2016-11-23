@@ -45,7 +45,7 @@
                 <div class="panel">
                     <div class="row">
                         <div class="alert alert-danger">
-                            Qualcosa è andato storto. Si prega di ritentare
+                            Qualcosa ï¿½ andato storto. Si prega di ritentare
                         </div>
                     </div>
                 </div>
@@ -54,6 +54,6 @@
 </body>
         <?php        
     }            
-    close_html();
+    close_html("../../../../");
         
         

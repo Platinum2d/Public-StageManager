@@ -12,3 +12,4 @@
         echo "non esiste";
     else
         echo "esiste";
+?>

@@ -8,6 +8,4 @@
     $conn->query("SET FOREIGN_KEY_CHECKS = 0");
     if ($conn->query($query)) echo "ok"; else echo $conn->error;
     $conn->query("SET FOREIGN_KEY_CHECKS = 1");
-    
-    
-    
+?>

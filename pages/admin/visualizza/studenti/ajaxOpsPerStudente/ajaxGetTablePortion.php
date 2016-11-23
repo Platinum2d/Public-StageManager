@@ -33,3 +33,4 @@ $connessione = dbConnection("../../../../../");
     }
     
     echo $html;
+?>

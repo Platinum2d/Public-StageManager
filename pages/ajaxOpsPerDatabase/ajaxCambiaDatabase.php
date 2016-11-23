@@ -6,3 +6,4 @@
     $_SESSION['database'] = $database;
     
     echo $_SESSION['database'];
+?>

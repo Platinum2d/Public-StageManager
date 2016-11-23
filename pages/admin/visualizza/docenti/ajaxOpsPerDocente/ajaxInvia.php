@@ -28,8 +28,4 @@
         echo "ok";
     else 
         echo "non ok";
-    
-    
-    
-    
-    
+?>

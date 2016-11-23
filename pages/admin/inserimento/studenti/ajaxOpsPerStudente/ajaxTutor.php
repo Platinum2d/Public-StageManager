@@ -30,3 +30,4 @@ XML;
         
         echo $xml->asXML();
     }
+?>

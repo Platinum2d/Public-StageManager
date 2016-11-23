@@ -1,5 +1,4 @@
 <?php
-    
     $psw = $_POST['password'];
     $recoveredData = file_get_contents("../../../../../db.txt");
     $database = unserialize($recoveredData);
@@ -8,3 +7,4 @@
         echo "ok";
     else
         echo "non ok";
+?>

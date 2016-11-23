@@ -18,4 +18,4 @@
         echo "Inserimento dei dati riuscito!";
     else
         echo "Inserimento dei dati non riuscito!";
-    
+?>

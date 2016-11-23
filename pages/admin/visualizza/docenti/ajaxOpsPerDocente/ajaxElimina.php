@@ -10,3 +10,4 @@
     $query = "DELETE FROM docente WHERE id_docente = $iddocente";
     $conn->query($query);
     $conn->query("SET FOREIGN_KEY_CHECKS = 1");
+?>

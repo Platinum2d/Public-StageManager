@@ -33,4 +33,4 @@
         echo "Inserimento dei dati riuscito!";
     else
         echo $conn->error;
-    
+?>

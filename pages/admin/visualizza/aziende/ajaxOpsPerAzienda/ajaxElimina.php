@@ -24,3 +24,4 @@
         echo "non ok";
     else
         echo "ok";
+?>

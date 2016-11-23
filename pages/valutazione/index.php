@@ -107,7 +107,7 @@
 </div>
 </body>
 <?php
-    close_html ();
+    close_html ("../../");
     }
  else 
      {
@@ -221,6 +221,6 @@
 </div>
 </body>
 <?php
-     close_html();
+     close_html("../../");
     }
 ?>

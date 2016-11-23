@@ -135,5 +135,5 @@
 </body>
     
 <?php
-    close_html ();
+    close_html ("../../../../");
 ?>
