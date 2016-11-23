@@ -7,16 +7,10 @@ studente = {
     'citta'         : '',
     'mail'          : '',
     'telefono'      : '',
-    'iniziostage'   : '',
-    'duratastage   ': '0',
-    'visitaazienda' : false,
-    'classe'        : '',
-    'azienda'       : '',
-    'docente'       : '',
-    'tutor'         : ''
+    'classe'        : ''
 };
 
-function openEdit(id, idStudente)
+function openEdit(id, idStudente, classe, anno)
 {
     id = id+'';
     var numberId = id.replace('VisibleBox','');
@@ -25,40 +19,47 @@ function openEdit(id, idStudente)
     $("#modifica"+numberId).prop("disabled",true);
     $("#registro"+numberId).prop("disabled",true);
     $('#'+id).append("<div id=\"HiddenBox"+numberId+"\">\n\
-<form class=\"form-vertical\">\n\
 <div class=\"row\">\n\
  <div class=\"col col-sm-12\">\n\
  <div class=\"row\"> \n\
 <div class=\"col col-sm-6\"> \n\
-                <div class=\"form-group\"><label id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
-                <div class=\"form-group\">nome <input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
-                <div class=\"form-group\">cognome <input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
-                <div class=\"form-group\">citta <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
-                <div class=\"form-group\">e-mail <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
-                <div class=\"form-group\">telefono <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
-                <div class=\"form-group\">inizio stage <input placeholder=\"Data di inizio stage\" data-provide=\"datepicker\" class=\"form-control\" type=\"text\" id=\"iniziostage"+numberId+"\"></div>\n\
-                <div class=\"form-group\">durata stage <input placeholder=\"Data di fine stage\" class=\"form-control\" type=\"number\" min=\"1\" id=\"duratastage"+numberId+"\"></div>\n\
-                <div class=\"form-group\"><div align=\"center\" style=\"padding-top:5px\"><input type=\"checkbox\" id=\"visitaazienda"+numberId+"\"> <label id=\"visitalabel"+numberId+"\"> azienda visitata </label></div></div></div>\n\
+                <div ><label id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
+                <div ><label> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
+                <div ><label>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
+                <div ><label>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
+\n\</div>\n\
 <div class=\"col col-sm-6\">\n\
-                <div class=\"form-group\">password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                <div class=\"form-group\">classe <select placeholder=\"Classe\" class=\"form-control\" id=\"classe"+numberId+"\"> </select></div>\n\
-                <div class=\"form-group\">preferenze <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div> \n\
-                <div class=\"form-group\">azienda <select placeholder=\"Azienda\" class=\"form-control\" id=\"azienda"+numberId+"\"> </select></div>\n\
-                <div class=\"form-group\">docente <select class=\"form-control\" id=\"docente"+numberId+"\"> </select></div>\n\
-                <div class=\"form-group\">tutor <select class=\"form-control\" id=\"tutor"+numberId+"\"></select></div></form></div>");
+\n\<div><label>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
+                <div ><label>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
+                <div ><label>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
+                <div ><label>preferenze</label> <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div>\n\
+                <div > <br>  \n\
+                    <form method=\"POST\" action=\"dettagliostage/index.php\">\n\
+                        <div align=\"center\"><input type=\"submit\" class=\"btn btn-info\" value=\"Vai al dettaglio delle esperienze\" /></div> \n\
+                        <input type=\"hidden\" value=\""+idStudente+"\" name=\"studente\">\n\
+                        <input type=\"hidden\" value=\""+classe+"\" name=\"classe\">\n\
+                        <input type=\"hidden\" value=\""+anno+"\" name=\"anno_scolastico\">\n\
+                    </form>\n\
+                </div>");
     
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
     $("#iniziostage"+numberId).datepicker({ dateFormat: 'yy-mm-dd' });    
     setOnChangeEvents(numberId);    
     
+    toget = {
+        'id' : idStudente,
+        'idanno' : anno,
+        'idclasse' : classe
+    };
+    
     $.ajax(
             {
                 type : 'POST',
         url : 'ajaxOpsPerStudente/getData.php',
-        data : { 'id' : idStudente},
+        data : toget,
         success : function (xml)
-        {            
+        {
             $("#username"+numberId).attr('value',$(xml).find('username').text());
             $("#username"+numberId).attr('name',$(xml).find('username').text());
             $("#nome"+numberId).attr('value',$(xml).find('nome').text());
@@ -66,9 +67,7 @@ function openEdit(id, idStudente)
             $("#citta"+numberId).attr('value',$(xml).find('citta').text());
             $("#email"+numberId).attr('value',$(xml).find('email').text());
             $("#telefono"+numberId).attr('value',$(xml).find('telefono').text());
-            $("#iniziostage"+numberId).attr('value',$(xml).find('inizio_stage').text());
-            $("#duratastage"+numberId).attr('value',$(xml).find('durata_stage').text());
-            var idazienda = $(xml).find('id_azienda').text() + '';
+            var idazienda = $(xml).find("azienda").find('id').text() + '';
             
             if ($(xml).find('visita_azienda').text() === "0") $("#visitaazienda"+numberId).attr('checked',false); else $("#visitaazienda"+numberId).attr('checked',true);
             
@@ -76,6 +75,8 @@ function openEdit(id, idStudente)
                 return (this.length === 0 || !this.trim());
             }; 
             $.ajax({
+                type : 'POST',
+                data : { 'classe' : classe },
                 url : 'ajaxOpsPerStudente/ajaxClasse.php',
                 success : function (classi)
                 {
@@ -83,106 +84,15 @@ function openEdit(id, idStudente)
                         $("#classe"+numberId).append("<option value = \""+ $(this).find('id').text()+"\"> "+ $(this).find('nome').text() +" </option>");
                     });
                     
-                    var classe = $(xml).find('classe').text() + '';
-                    if (!classe.isEmpty())
-                    {
-                        var rightindex = 1;
-                        $("#classe"+numberId+" > option").each(function() {
-                            if (this.text === $(xml).find('classe').text()) 
-                                rightindex = this.index;
-                            
-                            $("#classe"+numberId).prop('selectedIndex', rightindex);
-                        });
-                    }
-                }
-            });
-            
-            
-            $.ajax({
-                url : 'ajaxOpsPerStudente/ajaxAzienda.php',
-                success : function (aziende)
-                {
-                    $("#azienda"+numberId).append("<option value=\"-1\"> </option>");
-                    $(aziende).find('aziende').find('azienda').each(function (){
-                        $("#azienda"+numberId).append("<option value=\""+$(this).find('id').text()+"\"> "+ $(this).find('nome').text() +" </option>");
-                    });
-                    
-                    var azienda = $(xml).find('azienda').text() + '';
-                    var rightindex = 1;
-                    if (!azienda.isEmpty())
-                    {                            
-                        $("#azienda"+numberId+" > option").each(function() {
-                            if (this.text === $(xml).find('azienda').text()) 
-                            {
-                                rightindex = this.index;
-                                $("#azienda"+numberId).attr('name',$(this).attr('value'));
-                                $("#azienda"+numberId).prop('selectedIndex', rightindex);
-                            }
-                        });
-                    }
-                }
-            });
-            
-            $.ajax({
-                url : 'ajaxOpsPerStudente/ajaxDocente.php',
-                
-                success : function (docenti)
-                {
-                    $("#docente"+numberId).append("<option value=\"-1\"> </option>");
-                    $(docenti).find('docenti').find('docente').each(function (){
-                        $("#docente"+numberId).append("<option value=\""+$(this).find('id').text()+"\"> "+ $(this).find('cognome').text() +" "+ $(this).find('nome').text()+" </option>");
-                    });
-                    
-                    var docente = $(xml).find('docente').text() + '';
-                    if (!docente.isEmpty())
-                    {
-                        var rightindex = 1;
-                        $("#docente"+numberId+" > option").each(function() {
-                            if (this.text === $(xml).find('docente').text()) 
-                                rightindex = this.index;
-                            
-                            $("#docente"+numberId).prop('selectedIndex', rightindex);
-                        });
-                    }
-                }
-            });    
-            
-            if (!idazienda.isEmpty())
-            {
-                az = {
-                    'idazienda' : idazienda
-                };
-                
-                $.ajax({
-                    type : 'POST',
-                    data : az,
-                    url : 'ajaxOpsPerStudente/ajaxTutorPerAzienda.php',
-                    cache : false,
-                    success : function (tut)
-                    {
-                        $("#tutor"+numberId).append("<option value=\"-1\"> </option>");
-                        $(tut).find('tutors').find('tutor').each(function (){
-                            $("#tutor"+numberId).append("<option value=\""+$(this).find('id').text()+"\"> "+ $(this).find('cognome').text() +" "+$(this).find('nome').text()+" </option>");
-                        });
+                    var rightindex = 0;
+                    $("#classe"+numberId+" > option").each(function() {
+                        if (this.value === classe) 
+                            rightindex = this.index;
                         
-                        var tutor = $(tut).find('tutor').text() + '';
-                        if (!tutor.isEmpty())
-                        {
-                            var rightindex = 1;
-                            
-                            $("#tutor"+numberId+" > option").each(function() {
-                                if (this.text === $(xml).find('tutor').text())
-                                {
-                                    rightindex = this.index;
-                                }                            
-                            });
-                            $("#tutor"+numberId).prop('selectedIndex', rightindex);
-                        }
-                    }
-                });
-            }
-            else
-                $("#tutor"+numberId).append("<option value=\"-1\"> </option>");
+                        $("#classe"+numberId).prop('selectedIndex', rightindex);
+                    });
+                }
+            });
             
             var first = true;
             $(xml).find("preferenze").find("preferenza").each(function (){
@@ -219,10 +129,7 @@ function openEdit(id, idStudente)
     });
     
     $("#HiddenBox"+numberId).fadeIn("slow")
-    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height())
-    //        $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()
-    //    }, 500)
+    $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
 }
 
 function sendData(idStudente, numberId)
@@ -237,21 +144,9 @@ function sendData(idStudente, numberId)
     studente.citta = $("#citta"+numberId+"").val();
     studente.mail = $("#email"+numberId+"").val();
     studente.telefono = $("#telefono"+numberId+"").val();
-    studente.iniziostage = $("#iniziostage"+numberId+"").val();
-    studente.duratastage = $("#duratastage"+numberId+"").val();
-    studente.visitaazienda = $("#visitaazienda"+numberId).prop('checked');
     
     var appoggio = $("#classe"+numberId+"").find(':selected').attr('value') + '';
     studente.classe = (!appoggio.isEmpty()) ? $("#classe"+numberId+"").find(':selected').attr('value') : '';
-    
-    appoggio = $("#azienda"+numberId+"").find(':selected').attr('value');
-    studente.azienda = (!appoggio.isEmpty() && appoggio !== "-1") ? $("#azienda"+numberId+"").find(':selected').attr('value') : 'disassegna';
-    
-    appoggio = $("#docente"+numberId+"").find(':selected').attr('value');
-    studente.docente = (!appoggio.isEmpty() && appoggio !== "-1") ? $("#docente"+numberId+"").find(':selected').attr('value') : 'disassegna';
-    
-    appoggio = $("#tutor"+numberId+"").find(':selected').attr('value');
-    studente.tutor = (!appoggio.isEmpty() && appoggio !== "-1") ? $("#tutor"+numberId+"").find(':selected').attr('value') : 'disassegna';
     
     studente.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
     
@@ -264,9 +159,6 @@ function sendData(idStudente, numberId)
             data : studente,
             success : function (xml)
             {      
-                //                var nome     = $(xml).find("nome").text();
-                //                var cognome  = $(xml).find("cognome").text();
-                //                var username = $(xml).find("user").text();
                 var query    = $(xml).find("query").text();
                 $("#label"+numberId).html(studente.cognome + " " + studente.nome + " ("+studente.username+")");
                 resetColors(numberId);
@@ -298,22 +190,12 @@ function deleteData(idClasse, idStudente)
 
 function closeEdit(numberId)
 {
-    //    $("#ButtonBox"+numberId).animate({
-    //        height : $("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height() 
-    //    }, 500);
     $("#ButtonBox"+numberId).height($("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height());
-    
     $( "#HiddenBox"+numberId ).remove("br");
     $( "#HiddenBox"+numberId ).remove();
-    
-    //$( "#VisibleBox"+numberId).append('<br><br>');
-    //$( "#HiddenBox"+numberId ).remove();
-    
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);
-    
-    //$("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
 }
 
 function setOnChangeEvents(numberId)
@@ -325,34 +207,7 @@ function setOnChangeEvents(numberId)
     $("#citta"+numberId).on('input',((function (e){ $("#citta"+numberId).css('color','red'); })));
     $("#email"+numberId).on('input',((function (e){ $("#email"+numberId).css('color','red'); })));
     $("#telefono"+numberId).on('input',((function (e){ $("#telefono"+numberId).css('color','red'); })));
-    $("#iniziostage"+numberId).change((function (e){ $("#iniziostage"+numberId).css('color','red'); }));
-    $("#duratastage"+numberId).on('input',((function (e){ $("#duratastage"+numberId).css('color','red'); })));
-    $("#visitaazienda"+numberId).click(((function (e){ $("#visitalabel"+numberId).css('color','red'); })));
     $("#classe"+numberId).change('input',((function (e){ $("#classe"+numberId).css('color','red'); })));
-    $("#azienda"+numberId).change('input',((function (e){ $("#azienda"+numberId).css('color','red'); 
-        idazienda = {
-            'idazienda' : ''+$("#azienda"+numberId).find(":selected").attr('value')
-        };
-        $("#tutor"+numberId).html('<option value = "-1"></option>');
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerStudente/ajaxTutorPerAzienda.php',
-            data : idazienda,
-            cache : false,
-            success : function (xml)
-            {
-                
-                $(xml).find('tutors').find('tutor').each(function () {
-                    var nome = $(this).find('nome').text();
-                    var cognome = $(this).find('cognome').text();
-                    var id = $(this).find('id').text();
-                    $("#tutor"+numberId).append("<option value="+id+"> "+cognome+" "+nome+" </option>");
-                });
-            }
-        })
-    })));
-    $("#docente"+numberId).change(((function (e){ $("#docente"+numberId).css('color','red'); })));
-    $("#tutor"+numberId).change(((function (e){ $("#tutor"+numberId).css('color','red'); })));
 }
 
 function resetColors(numberId)
@@ -364,13 +219,7 @@ function resetColors(numberId)
     $("#citta"+numberId).css('color','#555');
     $("#telefono"+numberId).css('color','#555');
     $("#email"+numberId).css('color','#555');
-    $("#iniziostage"+numberId).css('color','#555');
-    $("#duratastage"+numberId).css('color','#555');
-    $("#visitaazienda"+numberId).css('color','#555');
     $("#classe"+numberId).css('color','#555');
-    $("#azienda"+numberId).css('color','#555');
-    $("#docente"+numberId).css('color','#555');
-    $("#tutor"+numberId).css('color','#555');
     $("#username"+numberId).css('color','#555');
 }
 
@@ -385,9 +234,7 @@ function openRegistro(id, idStudente)
     
     idstudente = {
         'studente' : idStudente
-    }
-    
-    //$("#RegistroBox"+numberId).append("Loading... <br><br>");
+    };
     
     $.ajax({
         url : 'ajaxOpsPerStudente/ajaxRegistro.php',
@@ -407,28 +254,20 @@ function openRegistro(id, idStudente)
             $("#table"+numberId).fadeIn("slow")
             $("#RegistroBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeRegistro("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <br><br><br>")            
             $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#RegistroBox"+numberId).height());
-            
-            //            $("#ButtonBox"+numberId).animate({
-            //                height : ($("#ButtonBox"+numberId).height() + $("#RegistroBox"+numberId).height())
-            //            }, 500)
         }
     });
 }
 
 function closeRegistro (numberId)
 {
-    //    $("#ButtonBox"+numberId).animate({
-    //        height : $("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height()
-    //    }, 500)
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height())
-    $( "#RegistroBox"+numberId ).remove();
-    
-    //$( "#VisibleBox"+numberId).append('<br><br>');
-    //$( "#HiddenBox"+numberId ).remove();
-    
+    $( "#RegistroBox"+numberId ).remove();    
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);
+}
+
+function openInfo()
+{
     
-    //$("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#HiddenBox"+numberId).height());
 }

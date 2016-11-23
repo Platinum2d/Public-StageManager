@@ -9,7 +9,6 @@
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
-        printChat("../../../../");
     ?>
     <link rel="stylesheet" href="../InsertStyle.css">
         

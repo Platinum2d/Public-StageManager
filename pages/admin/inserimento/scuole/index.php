@@ -26,7 +26,6 @@
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
-        printChat("../../../../");
     ?>
     <input type="hidden" id="userexists" value="0">
     <input type="hidden" id="passworderror" value="0">

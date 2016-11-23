@@ -21,8 +21,7 @@
     <?php    
    // printBadge("../../../");
         topNavbar ("../../../");
-        titleImg ("../../../");
-        printChat("../../../");            
+        titleImg ("../../../");          
     ?>
     <div class="container">
         <div class="row">

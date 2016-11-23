@@ -1,8 +1,3 @@
-function addEmailBox()
-{
-    alert("prova")
-}
-
 function check_login(){    
     var user= $("#username").val();
     var password=$("#password").val();

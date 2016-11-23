@@ -58,7 +58,6 @@
             echo <<<HTML
                     <ul class="nav navbar-nav"> 
 HTML;
-            // echo "<li> <a> <span class=\"glyphicon glyphicon-question-sign\" aria-hidden=\"true\"></span> </a></li>";
             echo "<li><a href='".$goBack."index.php'>Home</a></li>";
             echo <<<HTML
                     </ul>      
@@ -79,7 +78,6 @@ HTML;
                 echo " <li><a href='".$goBack."pages/admin/inserimento/classi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/inserimento/docenti/index.php'>Docenti</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/inserimento/figureprofessionali/index.php'>Figure Professionali</a></li>";
-                //echo " <li><a href='".$goBack."pages/admin/inserimento/specializzazioni/index.php'>Specializzazioni</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/inserimento/scuole/index.php'>Scuole</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/inserimento/settori/index.php'>Settori</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/inserimento/stage/index.php'>Stage</a></li>";  
@@ -90,12 +88,9 @@ HTML;
                 echo "<a href=\"".$goBack."pages/admin/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/aziende/index.php'>Aziende</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/classi/index.php'>Classi</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/newclassi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/docenti/index.php'>Docenti</a></li>";
-                //echo " <li><a href='".$goBack."pages/admin/visualizza/specializzazioni/index.php'>Specializzazioni</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/studenti/index.php'>Studenti</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/tutor/index.php'>Tutor</a></li>";
-                //echo " <li><a href='".$goBack."pages/admin/visualizza/preferenze/index.php'>Preferenze</a></li>";
                 echo "</ul></li>";
 //                                echo <<<HTML
 //                        <li class="dropdown dropdown-hover">
@@ -124,7 +119,7 @@ HTML;
 HTML;
                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_tutor/profiloutente/index.php'>Profilo</a></li>";
-                echo "<li><a href='".$goBack."pages/docente_tutor/registro/index.php'>Studenti</a></li>";
+                echo "<li><a href='".$goBack."pages/docente_tutor/gestione_studenti/index.php'>Le mie classi</a></li>";
 		echo "<li><a href='".$goBack."pages/docente_tutor/contatta/index.php'>Contatta</a></li>";		
                 echo <<<HTML
                     </ul>      
@@ -168,7 +163,6 @@ HTML;
                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/studente/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/il_mio_stage/index.php'>Il mio stage</a></li>";
-                //echo "<li><a href='" . prj_pages . "/studente/azienda/index.php'>Elenco aziende</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/registro/index.php'>Registro</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/voto/index.php'>Voto</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/contatta/index.php'>Contatta</a></li>";
@@ -429,8 +423,7 @@ HTML;
 //                }
 //            }
 //        }
-//    }
-    
+//    }    
     
     function footer ($goBack) {
         echo <<<HTML

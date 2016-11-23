@@ -11,7 +11,7 @@ XML;
     
     $connection = dbConnection("../../../../../");    
     
-    $Query = "SELECT * FROM docente WHERE super_user = 0 ORDER BY cognome";
+    $Query = "SELECT * FROM docente ORDER BY cognome";
     
     if (!$result = $connection->query($Query))
     {
@@ -24,7 +24,6 @@ XML;
         {
             $docente = $docenti->addChild("docente");
             $docente->addChild("id", $row['id_docente']);
-            $docente->addChild("username", $row['username']);
             $docente->addChild("nome", $row['nome']);
             $docente->addChild("cognome", $row['cognome']);
         }
