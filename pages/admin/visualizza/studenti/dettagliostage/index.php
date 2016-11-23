@@ -55,11 +55,13 @@
                                 {
                                     $resultstage = $connessione->query("SELECT id_classe_has_stage FROM classe_has_stage WHERE stage_id_stage = ".$row['id_stage']." AND classe_id_classe = $idclasse AND anno_scolastico_id_anno_scolastico = $idanno");
                                     $idclassestage = $resultstage->fetch_assoc()["id_classe_has_stage"];
+                                    $id_studente_has_stage = $connessione->query("SELECT id_studente_has_stage FROM studente_has_stage WHERE studente_id_studente = $idstudente AND classe_has_stage_id_classe_has_stage = $idclassestage;")->fetch_assoc()['id_studente_has_stage'];
+                                    $id_studente_has_stage = (isset($id_studente_has_stage) && !empty($id_studente_has_stage)) ? $id_studente_has_stage : "-1";
                                     
                                     echo "<tr id=\"riga$I\" style=\"text-align : center\"> <td> ".$row['inizio_stage']." </td> <td> ".$row['durata_stage']." giorni </td>"
                                          . " <td>"
-                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclassestage, $idstudente)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
-                                         . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-remove\"></span> Rimuovi </button> </td> </tr>";
+                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclassestage, $idstudente, $id_studente_has_stage)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
+                                         . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"deleteExperience($id_studente_has_stage)\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-remove\"></span> Rimuovi </button> </td> </tr>";
                                     
                                     $I++;
                                 }

@@ -1,4 +1,4 @@
-function openInfo(numberId, id_classe_has_stage, id_studente)
+function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_stage)
 {
     var progressiv = numberId + 1;
     $("<tr> \n\
@@ -38,9 +38,9 @@ function openInfo(numberId, id_classe_has_stage, id_studente)
         success : function (xml){
             var authorised = $(xml).find("autorizzazione").text();
             var visited = $(xml).find("azienda").find("visitata").text();
-            var studente_has_stage = ($(xml).find("studente_has_stage").text().length > 0) ? $(xml).find("studente_has_stage").text() : "-1";
+            var studente_has_stage = id_studente_has_stage;
             
-            $("#confirm"+progressiv).attr('onclick',"sendData("+progressiv+", "+id_classe_has_stage+", "+id_studente+", "+studente_has_stage+")");            
+            $("#confirm"+progressiv).attr('onclick',"sendData("+progressiv+", "+id_classe_has_stage+", "+id_studente+", "+studente_has_stage+")");
             
             if (visited === "1")
                 $("#editinfovisita"+progressiv).prop("checked", true);
@@ -162,6 +162,28 @@ function sendData(progressiv, id_classe_has_stage, id_studente, id_studente_has_
                 resetColors(progressiv);
         }
     })
+}
+
+function deleteExperience(studente_has_stage){
+    if (studente_has_stage !== -1)
+    {
+        if (confirm("---ATTENZIONE---\nTutte le valutazioni e i registri dell'esperienza di stage verranno eliminati.\n NON C'E' MODO DI ANNULLARE L'AZIONE.\nProcedere?"))
+        {
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOpsPerDettaglioStage/ajaxDeleteExperience.php',
+                data : { 'studente_has_stage' :  studente_has_stage},
+                cache : false,
+                success : function (msg){
+                    location.reload();
+                }
+            });
+        }
+    }
+    else
+    {
+        alert("Stage non impostato: impossibile procedere");
+    }
 }
 
 function setOnChangeEvents(progressiv){
