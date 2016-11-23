@@ -1,5 +1,4 @@
-$(document).ready(function() {
-	
+$(document).ready(function() {	
     function DescEdit(event){
     	var regtr = $(event.target).closest("tr")
     	var desc = regtr.find(".regDesc").html()
@@ -9,7 +8,7 @@ $(document).ready(function() {
     	regDesc.find("textarea").jqte()
     	regDesc.append("<textarea class='descBackup' style='display: none;'>" + desc + "</textarea>")
     	regtr.find("td.regOpt").empty()
-    	regtr.find("td.regOpt").append('<button class="descSave">Salva</button><button class="descDiscard">Annulla</button>')
+    	regtr.find("td.regOpt").append('<button class="descSave btn btn-primary">Salva</button> <button class="descDiscard btn btn-primary">Annulla</button>')
     	regtr.find(".descDiscard").click(DescDiscard)
     	regtr.find(".descSave").click(DescSave)
     }
@@ -20,9 +19,9 @@ $(document).ready(function() {
     	regtr.find("td.regDesc").empty()
     	regtr.find("td.regDesc").append(desc)
     	regtr.find("td.regOpt").empty()
-    	regtr.find("td.regOpt").append("<button class='regEdit'>Modifica</button>")
+    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-primary'>Modifica</button> ")
     	regtr.find(".regEdit").click(DescEdit)
-    	regtr.find("td.regOpt").append("<button class='regDelete'>Elimina</button>")
+    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-primary'>Elimina</button>")
     	regtr.find(".regDelete").click(DescDelete)
     }
 
@@ -56,12 +55,12 @@ $(document).ready(function() {
     				line.append("<td>"+ $(element).find("date").text() +"</td>")
     				line.append("<td class='regDesc'></td>")
     				line.find("td.regDesc").append(desc)
-    				line.append("<td class='regOpt'><button class='regEdit'>Modifica</button><button class='regDelete'>Elimina</button></td>")
+    				line.append("<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> <button class='regDelete btn btn-primary'>Elimina</button></td>")
     				line.append("<input type='hidden' class='descId' value='" +  $(element).find("id").text() + "' />")
     			})
     			$("#DescMain").empty();
     			$("#DescMain").append(content)
-    			$("#DescMain").append("<button id='DescAddButton'>Aggiungi</button>")
+    			$("#DescMain").append("<button id='DescAddButton' class='btn btn-primary'>Aggiungi</button>")
     			$("input").unbind()
     			
     			$(".regEdit").click(DescEdit)
@@ -142,7 +141,7 @@ $(document).ready(function() {
     	////init tr e  td
     	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
     	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
-    	$("#DescAddTR").append("<td><button id='DescAddSave'>Salva</button><button id='DescAddDelete'>Elimina</button></td>");
+    	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Elimina</button></td>");
     	
     	////init componente
     	//init 

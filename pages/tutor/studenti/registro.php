@@ -57,8 +57,8 @@
                                             <td><?php echo $work_line['data']; ?></td>
                                             <td class="regDesc"><?php echo $work_line['descrizione']; ?></td>
                             				<?php
-                                                echo "<td class='regOpt'><button class='regEdit'>Modifica</button>";
-                                                echo "<button class='regDelete'>Elimina</button></td>";
+                                                echo "<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> ";
+                                                echo "<button class='regDelete btn btn-primary'>Elimina</button></td>";
                                                 echo "<input type='hidden' class='descId' value='".$work_line['id_lavoro_giornaliero']."' />";
                                             ?>
                                         </tr>
@@ -67,7 +67,7 @@
                                         ?>
                                     </tbody>
                                 </table></div>
-                                <button id="DescAddButton">Aggiungi</button>
+                                <button id="DescAddButton" class="btn btn-primary">Aggiungi</button>
                             </div>
                             <div style="margin-top: 20px;">
                                 <?php 

@@ -86,11 +86,10 @@ HTML;
                                                         outputSelect ( "Il lavoro svolto ha i requisiti richiesti", "qualita_processo", $qualita_processo );
                                                         outputSelect ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto", $efficacia_prodotto );
                                                         
-                                                        echo "</div>";
-                                                            
-                                                                                                        echo "<div class=\"col col-sm-4\">   
+                                                        echo "</div>";                                                            
+                                                        echo "<div class=\"col col-sm-4\">   
                                     <div id=\"div\" align=\"center\">
-                                        <input class=\"btn btn-default\" type=\"button\" value=\"Aggiorna valutazione\" id=\"SalvaValutazione\" onclick=\"updateGrades()\">
+                                        <input class=\"btn btn-primary\" type=\"button\" value=\"Aggiorna valutazione\" id=\"SalvaValutazione\" onclick=\"updateGrades()\">
                                     </div>
                                         </div>
                                         </div>";
@@ -113,7 +112,7 @@ HTML;
                                                     
                                                 echo "<div class=\"col col-sm-4\">   
                                     <div id=\"div\" align=\"center\">
-                                        <input class=\"btn btn-default\" type=\"button\" value=\"Inserisci valutazione\" id=\"SalvaValutazione\" onclick=\"insertGrades()\">
+                                        <input class=\"btn btn-primary\" type=\"button\" value=\"Inserisci valutazione\" id=\"SalvaValutazione\" onclick=\"insertGrades()\">
                                     </div>
                                         </div>
                                         </div>";

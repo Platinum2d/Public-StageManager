@@ -1,5 +1,4 @@
-<?php
-    
+<?php    
     require '../../../../src/lib/PHPReader/Classes/PHPExcel.php';
     include "../../../../pages/functions.php";
     checkLogin(superUserType, "../../../../");
@@ -41,16 +40,6 @@
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     echo "<html>";
         echo "<head>";
         
