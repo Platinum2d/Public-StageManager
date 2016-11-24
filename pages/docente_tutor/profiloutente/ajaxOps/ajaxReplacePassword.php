@@ -6,7 +6,7 @@
     $iddocente = $_SESSION['userId'];
     $password = md5($_POST['password']);
     
-    $query = "UPDATE `docente` SET `password` = '$password' WHERE `id_docente` = $iddocente";
+    $query = "UPDATE `utente` SET `password` = '$password' WHERE `id_utente` = $iddocente";
     if($conn->query($query))
         echo "ok";
     else

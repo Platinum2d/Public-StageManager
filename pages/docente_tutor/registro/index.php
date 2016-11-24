@@ -34,7 +34,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $sql = "SELECT  `nome` ,  `cognome`, `id_studente`,`telefono`, `email`,`azienda_id_azienda`,`valutazione_stage_id_valutazione_stage`,`valutazione_studente_id_valutazione_studente`  FROM  `studente` where docente_id_docente=$id_doc";
+                                        $sql = "SELECT  `nome` ,  `cognome`, `id_studente`,`telefono`, `email`,`azienda_id_azienda`,`valutazione_stage_id_valutazione_stage`,`valutazione_studente_id_valutazione_studente`  FROM  `studente` WHERE docente_id_docente=$id_doc";
                                         $Result = $conn->query ( $sql );
                                         $I=0;
                                         while ( $row = $Result->fetch_assoc () ) {
