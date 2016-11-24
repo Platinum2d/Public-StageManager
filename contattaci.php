@@ -10,8 +10,7 @@
     <?php
         topNavbar("");    
         titleImg("");     
-        if (isset($_SESSION['user']))  
-        printChat("");
+        if (isset($_SESSION['user']))
     ?>
     <div class="container">
         <div class="row">
@@ -58,8 +57,6 @@
             </div>
         </div>
     </div>
-    <!-- </div>
-</div>-->
 </body>
 <?php
 	close_html("");
