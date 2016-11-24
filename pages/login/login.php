@@ -36,8 +36,9 @@ if ($tipo === -1)
     
     $result = $connessione->query($query);    
     if ($result && $result->num_rows > 0)
-    {
+    {        
         $row = $result->fetch_assoc();
+        $userId = $row ['id_utente'];
         $tipo = ($row['docente_tutor'] === "1") ? $tipo = 3 : $tipo = 2;
         $table = "docente";
     }    
