@@ -11,7 +11,7 @@
     $result = $conn->query($query);
     $row = $result->fetch_assoc();
     $id_anno_corrente = $row["id_anno_scolastico"];
-    $nome_anno_corrente = $row["nome_anno"];
+    $nome_anno_corrente = $row["nome_anno"]; //prova
         
         
 ?>
