@@ -237,7 +237,7 @@ HTML;
             {
                 if ($_SESSION['type'] !== superUserType)
                 {
-                    echo "<a href=\"".$goBack."helpme.php\" > Serve Aiuto ?</a>";
+                    echo "<a href=\"".$goBack."helpme.php\" > Contattaci</a>";
                     if (isset($_SESSION ['type'])) 
                     echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci! </a> </li>";
                 }
@@ -451,11 +451,11 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-			        									<a href="tel:+39 334 9056026" class="footer-link">+39 334 905 6026</a>
+			        									<a href="tel:+39 334 9056026" class="contact-link">+39 334 905 6026</a>
 		        									</li>
 		        									<li>
 		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-		        										<a href="mailto:manicardi215@gmail.com" class="footer-link">manicardi215@gmail.com</a>
+		        										<a href="mailto:manicardi215@gmail.com" class="contact-link">manicardi215@gmail.com</a>
 		        									</li>
 		        								</ul>
         									</li>
@@ -464,11 +464,11 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-			        									<a href="tel:+39 333 2810581" class="footer-link">+39 333 281 0581</a>
+			        									<a href="tel:+39 333 2810581" class="contact-link">+39 333 281 0581</a>
 		        									</li>
 		        									<li>
 		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-		        										<a href="mailto:alessio.scheri@gmail.com" class="footer-link">alessio.scheri@gmail.com</a>
+		        										<a href="mailto:alessio.scheri@gmail.com" class="contact-link">alessio.scheri@gmail.com</a>
 		        									</li>
 		        								</ul>
 		        							</li>

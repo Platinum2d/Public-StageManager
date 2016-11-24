@@ -5,7 +5,7 @@
 div .panel{
 	padding-top: 30px;
 	padding-bottom: 30px;
-	min-height: 400px;
+	min-height: 380px;
 }
 
 footer div.panel{
@@ -79,24 +79,24 @@ div#footer-contact > ul {
  	padding-left: 0;
 }
 
-div#footer-contact ul {
+div#footer-contact ul, div#contact ul {
  	list-style-type: none;
 }
 
-div#footer-contact ul > li {
- 	margin-top: 5px;
+div#footer-contact ul > li, div#contact ul > li {
+ 	margin-top: 7px;
 }
 
-div#footer-contact ul > li > span.glyphicon {
+div#footer-contact ul > li > span.glyphicon, div#contact ul > li > span.glyphicon {
  	margin-right: 7px;
 }
 
-.footer-link, .footer-link:focus {
+.contact-link, .contact-link:focus {
     color: #828282;
 //    text-decoration: underline;
 }
 
-.footer-link:hover {
+.contact-link:hover {
     color: #FF0000;
 //    text-decoration: underline;	
 }
@@ -115,4 +115,8 @@ div.final {
 
 #privacy-policy:hover {
     color: #FF0000;
+}
+
+div#contact {
+	font-size: 17px;	
 }
