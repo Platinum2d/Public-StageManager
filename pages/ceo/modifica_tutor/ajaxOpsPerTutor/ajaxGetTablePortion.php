@@ -1,18 +1,18 @@
 <?php
 
-    include '../../../functions.php';
+    include '../../../../functions.php';
 $xmlstr = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 </data>
 XML;
 $xml = new SimpleXMLElement ( $xmlstr );
-$connessione = dbConnection("../../../../");
+$connessione = dbConnection("../../../../../");
 
     $offset = $_POST['offset'];
     $tupledastampare = $_POST['tuple'];
     
-    $query = "SELECT * FROM tutor WHERE azienda_id_azienda = ".$_SESSION['userId']." ORDER BY username LIMIT $tupledastampare OFFSET $offset";
+    $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor ORDER BY username LIMIT $tupledastampare OFFSET $offset";
     
     if ($result = $connessione->query($query))
     {
