@@ -314,7 +314,7 @@ HTML;
         echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/index.js'></script>";
         echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/src/Scripts/jquery.fileDownload.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
-        echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.ico'>";
+        echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
         echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/js/bootstrap-select.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
