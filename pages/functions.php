@@ -196,21 +196,18 @@ HTML;
     }
         
     function title($goBack) { //imposta il titolo della pagina        
-        echo <<<HTML
-           <div class="col col-sm-8">
+//         echo <<<HTML
+//            <div class="col col-sm-8">
+// HTML;
+//         echo "<h1><a href='".$goBack."index.php' title='Alternanza Scuola-lavoro'> Piattaforma Alternanza Scuola-Lavoro</a></h1>";
+//         echo <<<HTML
+//               </div>
+    	echo <<<HTML
+              <div class="col col-sm-12">
+                <div id="logo">
 HTML;
-    
-    
-    
-        echo "<h1><a href='".$goBack."index.php' title='Alternanza Scuola-lavoro'> Piattaforma Alternanza Scuola-Lavoro</a></h1>"; 
-        //echo "<h1><p class='lead'>Avviato dalla classe 5^B 2014/2015, Istituto Primo Levi.</p></h1>";
-        echo <<<HTML
-              </div>
-              <div class="col col-sm-4">
-                <div class="well pull-right">
-HTML;
-        echo "<a href='http://www.istitutolevi.it/' target='_blank' title='Istituto Primo Levi'>";
-        echo "<img src='".$goBack."src/img/levi_logo.png' alt='' width='Istituto Primo Levi' height='85'></a>";
+        echo "<a href='".$goBack."' title='Stage Manager'>";
+        echo "<img src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager' height='85'></a>";
         echo <<<HTML
               </div>
               </div>
