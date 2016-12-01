@@ -53,12 +53,12 @@
     }
         
     function horizontalNavbar($goBack) { // aggiunge la barra di navigazione in base all'utente loggato
-        
-        if (! isset ( $_SESSION ['type'] )) {
-            echo <<<HTML
-                    <ul class="nav navbar-nav"> 
+
+        echo <<<HTML
+                    <ul class="nav navbar-nav">
 HTML;
             echo "<li><a href='".$goBack."index.php'>Home</a></li>";
+        if (! isset ( $_SESSION ['type'] )) {
             echo <<<HTML
                     </ul>      
 HTML;
@@ -66,9 +66,9 @@ HTML;
             
             if ($_SESSION ['type'] == superUserType) { // se e' loggato amministratore
                 echo "<script> $(\".dropdown-toggle .dropdown .dropdown-hover .open\").click(function (){ location.href = \"".$goBack."pages/admin/inserimento/index.php\" }) </script>";
-                echo "<ul class=\"nav navbar-nav\"> ";
-                //echo "<li> <span class=\"glyphicon glyphicon-question-sign\" aria-hidden=\"true\"></span> </li>";
-                echo "<li><a href='".$goBack."index.php'>Home</a></li>";
+//                 echo "<ul class=\"nav navbar-nav\"> ";
+//                 //echo "<li> <span class=\"glyphicon glyphicon-question-sign\" aria-hidden=\"true\"></span> </li>";
+//                 echo "<li><a href='".$goBack."index.php'>Home</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li class=\"dropdown dropdown-hover\">";
                 echo "<a href=\"".$goBack."pages/admin/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserimento<span class=\"caret\"></span></a><ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
@@ -104,20 +104,20 @@ HTML;
                 echo "</ul>"; 
                     
             } elseif ($_SESSION ['type'] == docrefType) { // se e' loggato docente referente
-                echo <<<HTML
-                    <ul class="nav navbar-nav">  
-HTML;
-                //echo "<li> <a> <span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\">guida</span> </a></li>";
-               echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
+//                 echo <<<HTML
+//                     <ul class="nav navbar-nav">  
+// HTML;
+//                 //echo "<li> <a> <span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\">guida</span> </a></li>";
+//                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_referente/profiloutente/index.php'>Profilo</a></li>";
                 echo <<<HTML
                     </ul>      
 HTML;
             } elseif ($_SESSION ['type'] == doctutType) { // se è loggato docente tutor
-                echo <<<HTML
-                    <ul class="nav navbar-nav">  
-HTML;
-               echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
+//                 echo <<<HTML
+//                     <ul class="nav navbar-nav">  
+// HTML;
+//                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_tutor/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_tutor/gestione_studenti/index.php'>Le mie classi</a></li>";
 		echo "<li><a href='".$goBack."pages/docente_tutor/contatta/index.php'>Contatta</a></li>";		
@@ -125,10 +125,10 @@ HTML;
                     </ul>      
 HTML;
             } elseif ($_SESSION ['type'] == ceoType) { // se è loggato responsabile impresa
-                echo <<<HTML
-                    <ul class="nav navbar-nav">  
-HTML;
-                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
+//                 echo <<<HTML
+//                     <ul class="nav navbar-nav">  
+// HTML;
+//                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
                                                 echo <<<HTML
@@ -146,10 +146,10 @@ HTML;
                     </ul>      
 HTML;
             } elseif ($_SESSION ['type'] == aztutType) { // se è loggato tutor aziendale
-                echo <<<HTML
-                    <ul class="nav navbar-nav">  
-HTML;
-                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
+//                 echo <<<HTML
+//                     <ul class="nav navbar-nav">  
+// HTML;
+//                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/tutor/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/tutor/studenti/index.php'>Studenti</a></li>";
                 echo "<li><a href='".$goBack."pages/tutor/contatta/index.php'>Contatta</a></li>";
@@ -157,10 +157,10 @@ HTML;
                     </ul>      
 HTML;
             } elseif ($_SESSION ['type'] == studType) { // se è loggato studente
-                echo <<<HTML
-                    <ul class="nav navbar-nav">  
-HTML;
-                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
+//                 echo <<<HTML
+//                     <ul class="nav navbar-nav">  
+// HTML;
+//                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/studente/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/il_mio_stage/index.php'>Il mio stage</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/registro/index.php'>Registro</a></li>";
@@ -202,16 +202,16 @@ HTML;
 //         echo "<h1><a href='".$goBack."index.php' title='Alternanza Scuola-lavoro'> Piattaforma Alternanza Scuola-Lavoro</a></h1>";
 //         echo <<<HTML
 //               </div>
-    	echo <<<HTML
-              <div class="col col-sm-12">
-                <div id="logo">
-HTML;
-        echo "<a href='".$goBack."' title='Stage Manager'>";
-        echo "<img src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager' height='85'></a>";
-        echo <<<HTML
-              </div>
-              </div>
-HTML;
+//     	echo <<<HTML
+//               <div class="col col-sm-12">
+//                 <div id="logo">
+// HTML;
+//         echo "<a href='".$goBack."' title='Stage Manager'>";
+//         echo "<img src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a>";
+//         echo <<<HTML
+//               </div>
+//               </div>
+// HTML;
     }
         
     function immagineLevi($goBack) { // inserisce l'immagine di header del sito
@@ -256,6 +256,9 @@ HTML;
             echo $goBack."install/index.php";
             header ( "Location: ".$goBack."install/index.php" );
         }
+
+        echo "<div class='container'><div class='row'><div class='col col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a></div>";
+        echo "<div id='title' class='col col-sm-9 pull-right pull-down'><h1>Stage Manager</h1></div></div></div>";
         echo <<<HTML
         <nav class="navbar navbar-static">
             <div class="container">

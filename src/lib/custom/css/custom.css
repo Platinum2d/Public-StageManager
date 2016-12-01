@@ -124,3 +124,29 @@ div#contact {
 #logo {
 	margin: 20px;
 }
+
+img.logo {
+	height: 110px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+@font-face {
+	font-family: "OCR A Extended";
+	src: url('../font/OCRAEXT.TTF');
+}
+
+#title h1 {
+	font-size: 50px;
+	text-align: right;
+	font-family: "OCR A Extended";
+	color: #ff3333;
+}
+
+.pull-down {
+	bottom: 0px;
+}
+
+/*h2 {
+	font-family: "OCR A Extended";	
+}*/
