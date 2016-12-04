@@ -137,12 +137,10 @@ img.logo {
 
 #title h1 {
 	font-size: 55px;
-	text-align: right;
 	font-family: "OCR A Extended";
-	color: #ff3333;position: absolute;
-    bottom: 0;
-    right: 15;
+	color: #ff3333;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 div.parent-max-height {
@@ -163,6 +161,12 @@ div#logo-row {
 header {
 	margin-top: 25px;
 	margin-bottom: 25px;
+}
+
+#title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 /*h2 {
