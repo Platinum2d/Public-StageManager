@@ -3,7 +3,7 @@
     checkLogin ( superUserType , "../../../../");
     import("../../../../");
     echo "<script src=\"scripts/scripts.js\"> </script>";
-    open_html ( "Visualizza classi" ); //prova
+    open_html ( "Visualizza classi" );
     $connessione = dbConnection ("../../../../");
         
 ?>

@@ -68,27 +68,10 @@
                             <br>
                             <div class="table-responsive"><table class="table table-striped" style="table-layout: fixed">
                                     <tr>
-                                        <td class="col-sm-5"><b>Specializzazioni</b></td>
+                                        <td class="col-sm-5"><b>Figure professionali richieste</b></td>
                                         <td class="col-sm-5">
                                         <?php
-                                            $Query = "SELECT specializzazione.nome FROM `specializzazione`,`azienda_has_specializzazione`,`azienda`"
-                                            . " WHERE id_azienda = azienda_id_azienda"
-                                            . " AND id_specializzazione = specializzazione_id_specializzazione"
-                                            . " AND id_azienda = ".$_SESSION['userId']." ORDER BY specializzazione.nome ASC";
-                                                
-                                            $result = $connessione->query($Query);
-                                            $value = "";
-                                            while ($row = $result->fetch_assoc())
-                                            {
-                                                $value .= $row['nome'] . ",";
-                                            }
-                                            echo " <input id=\"speclist\" disabled=\"true\" type=\"text\" value=\"$value\" data-role=\"tagsinput\" /> <br><br><div id=\"HiddenAddBox\">";
-                                                
-                                            $query = "SELECT * FROM specializzazione WHERE nome != 'sconosciuta' AND  nome != 'Sconosciuta' ORDER BY nome ASC";
-                                            $result = $connessione->query($query);
-                                            echo "<select id=\"addspec\" class=\"form-control\" style=\"max-width : 350px\">";
-                                            while ($row = $result->fetch_assoc()){ echo "<option value=\"".$row['id_specializzazione']."\"> ".$row['nome']." </option>"; }
-                                            echo "</select> <input id=\"btnaddspec\"  type=\"button\" class=\"btn btn-primary\" value=\"Aggiungi\" style=\"margin-top : 5px\"> </div>";
+                                            
                                         ?>
                                         </td>
                                     </tr>
@@ -108,43 +91,6 @@
         </div>
     </div>
     
-    <script>
-        $("input[type=\"text\"]").keydown(function (){ return false; });
-        $('#speclist').on('itemRemoved', function (event){
-            $.ajax({
-                type : 'POST',
-                url : 'ajaxOpsPerSpec/ajaxRemoveSpec.php',
-                data : { 'specializzazione' : event.item },
-                cache : false,
-                success : function (msg)
-                {
-                    if (msg !== "ok")
-                        alert("Eliminazione della specializzazione non riuscita!");
-                }
-            });
-        });
-        
-        $("#btnaddspec").click(function (){
-            var toadd = $( "#addspec option:selected" ).text();
-            var current = $( "#speclist" ).val();
-
-            if (current.indexOf(toadd.trim()) === -1)
-            {
-                $('#speclist').tagsinput('add', $( "#addspec option:selected" ).text());                                        
-                $.ajax({
-                    type : 'POST',
-                    url : 'ajaxOpsPerSpec/ajaxAddSpec.php',
-                    data : { 'id' : $( "#addspec" ).val() },
-                    cache : false,
-                    success : function (msg)
-                    {
-                        if (msg !== "ok")
-                            alert("Inserimento della specializzazione non riuscito!");
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 <?php
     close_html ("../../../");

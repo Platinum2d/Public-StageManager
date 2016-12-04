@@ -5,71 +5,103 @@
     import("../../../");
     echo "<script src=\"scripts/script.js\"></script>";
     $conn = dbConnection ("../../../");
-        
+    $query = "SELECT id_anno_scolastico, nome_anno FROM anno_scolastico WHERE corrente = 1";
+    $resultanno = $conn->query($query)->fetch_assoc();
+    $id_anno = $resultanno['id_anno_scolastico'];
+    $nome_anno = $resultanno['nome_anno'];
+    $id_azienda = $_SESSION['userId'];
 ?>
+<style>
+    .glyphicon-pencil:hover{
+        cursor: pointer
+    }
+    
+    .glyphicon-ok:hover{
+        cursor: pointer;
+    }
+    
+    .glyphicon-remove:hover{
+        cursor: pointer;
+    }
+    
+    .glyphicon-ok{
+        font-weight: 14px;
+    }
+    
+    .glyphicon-remove{
+        font-weight: 14px;
+    }
+</style>
+
 <body>
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
     ?>
-        
+    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>Assegnazione tutor</h1>
-                    <div id="report"> <p id="reportmessage" class="bg-success" style="text-align: center; font-size: 20px">Operazione eseguita con successo</p> </div>
-                    <div class="row">
-                        <?php
-                        $query = "SELECT id_studente, cognome, nome, tutor_id_tutor FROM studente WHERE azienda_id_azienda = ".$_SESSION['userId']." ORDER BY cognome";
-                        $result = $conn->query($query);
-                        $Query = "SELECT id_tutor, cognome, nome FROM tutor WHERE azienda_id_azienda = ".$_SESSION['userId']." ORDER BY cognome";
-                        $resulttutor = $conn->query($Query);
-                        $I=0;
-                        echo "<div class=\"table-responsive\"><table class=\"table table-hover\"> <thead> <th style=\"width : 33.3%\"> Studente </th> "
-                        . "<th style=\"width : 33.3%\"> Tutor assegnato </th> "
-                        . "<th style=\"width : 33.3%; text-align : center\"> Azioni </th> </thead> <tbody>";
-                        while ($row = $result->fetch_assoc())
-                        {
-                            $cognome = $row['cognome'];
-                            $nome = $row['nome'];
-                            $idtutorassegnato = $row['tutor_id_tutor'];
-                            echo "<tr id=\"riga$I\">"
-                            . "<td>"
-                                        . "<h3 id=\"studente$I\" name=\"".$row["id_studente"]."\">" . $cognome . " " . $nome . "</h3>"
-                            . "</td>";                            
-                            
-                            echo "<td><div id=\"actionsbox$I\">"
-                            . "<select id=\"tutor$I\" class=\"form-control\" onchange=\"javascript:changeTutor($('#studente".$I."').attr('name'), $(this).find(':selected').val())\"> ";
-                            if (!isset($idtutorassegnato)) echo "<option value=\"-1\"> </option>"; 
-                            while ($rowtutor = $resulttutor->fetch_assoc())
-                            {
-                                $selected = ($idtutorassegnato === $rowtutor['id_tutor']) ? "selected = \"selected\"" : "";
-                                echo "<option $selected value=\"".$rowtutor['id_tutor']."\"> ".$rowtutor['cognome']." ".$rowtutor['nome']." </option>";
-                            }                            
-                            echo "</select></td>";
-                            echo "<td>";
-                            echo "<div align=\"center\"> <button id=\"disassegna$I\" class=\"btn btn-danger\" type=\"button\" onclick=\"freeStudent($('#studente".$I."').attr('name'), $I)\" > Disassegna </button> </div>";
-                            $resulttutor->data_seek(0);
-                            echo "</div></td></tr>";
-                            $I++;
-                        }
-                        echo "</tbody></table></div>";                        
-                        ?>
-                    </div>
+                    <h1>Assegnazione tutor (Anno scolastico <?php echo $nome_anno; ?>)</h1>
+                    <table class="table table-hover" id="maintable">
+                        <thead >
+                        <th style="text-align: center; width: 30%">
+                            Studente
+                        </th>
+                        <th style="text-align: center; width: 20%">
+                            Inizio
+                        </th>
+                        <th style="text-align: center; width: 20%">
+                            Fine
+                        </th>
+                        <th style="text-align: center">
+                            Tutor
+                        </th>
+                        </thead>
+                        <tbody style="text-align: center">
+                            <?php
+                                $query =    "SELECT shs.id_studente_has_stage, stud.cognome, stud.nome, stud.id_studente, shs.tutor_id_tutor, inizio_stage, durata_stage FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud, stage 
+                                            WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage AND 
+                                            stud.id_studente = shs.studente_id_studente AND 
+                                            chs.stage_id_stage = stage.id_stage AND
+                                            chs.anno_scolastico_id_anno_scolastico = $id_anno AND 
+                                            shs.azienda_id_azienda = $id_azienda ORDER BY  inizio_stage DESC;
+                                            ";
+                                $result = $conn->query($query);
+                                $I=0;
+                                while ($row = $result->fetch_assoc())
+                                {
+                                    $startdate = date('d/m/Y', strtotime($row['inizio_stage']));
+                                    $enddate = date('d/m/Y', strtotime("+".$row['durata_stage']." days"));
+                                    if (isset($row['tutor_id_tutor']) && !empty($row['tutor_id_tutor']))
+                                    {
+                                        $rowtutor = $conn->query("SELECT id_tutor, nome, cognome FROM tutor WHERE id_tutor = ".$row['tutor_id_tutor'])->fetch_assoc();
+                                        $cognometutor = $rowtutor['cognome'];
+                                        $nometutor = $rowtutor['nome'];
+                                        $id_tutor = $row['tutor_id_tutor'];
+                                            
+                                    }
+                                    else
+                                    {
+                                        $cognometutor = null;
+                                        $nometutor = null;
+                                        $id_tutor = -1;
+                                    }
+                                        
+                                    $studente_has_stage = $row["id_studente_has_stage"];
+                                        
+                                    echo "<tr name=\"$studente_has_stage\"> <td> ".$row['cognome']." ".$row['nome']." </td> <td> $startdate </td> <td> $enddate </td> <td><div id=\"edit$I\" class=\"tutorwrapper\"> <span name=\"tutordata\">$cognometutor $nometutor </span> <span  style=\"color : orange\" class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" onclick=\"editTutor(this, $I, $id_tutor, $studente_has_stage)\"></span></div></td></tr>";
+                                        
+                                    $I++;
+                                }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        var count = parseInt(<?php echo ($I) ?>);
-        for (var I=0 ; I< count ; I++)
-        {
-            $("#tutor"+I).css("margin-top", parseInt($("#riga"+I).css("height")) / 8);
-            $("#disassegna"+I).css("margin-top", parseInt($("#riga"+I).css("height")) / 8);
-            $("#studente"+I).css("margin-top", parseInt($("#riga"+I).css("height")) / 8);
-        }
-    </script>
 </body>
 <?php
     close_html ("../../../");

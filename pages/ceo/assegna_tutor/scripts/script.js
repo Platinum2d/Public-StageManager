@@ -1,131 +1,67 @@
-var FadeInDuration = "fast";
-var FadeOutDuration = "fast";
+var block = false;
 
-$(function() {
-    $("#report").css("visibility", "hidden");
+$(document).ready(function (){
+    $(".glyphicon-pencil").hide();
+    $("#maintable").find("tr").each(function (){
+        $(this).mouseover(function (){
+            $(this).find(".glyphicon-pencil").show(); 
+        });
+        
+        $(this).mouseout(function (){
+             $(this).find(".glyphicon-pencil").hide();
+        });
+    });
 });
 
-function changeTutor(idstudente, idnuovotutor)
-{
-    if (parseInt(idnuovotutor) !== -1)
-    {
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOps/ajaxChangeTutor.php',
-            cache : false,
-            data : 
-                    { 
-                        'idstudente' : idstudente,
-                'idtutor' : idnuovotutor
-            },
-            success : function (msg)
-            {
-                if (msg === "ok")
-                {
-                    $("#report").css("visibility", "visible");
-                    $("#report").hide();
-                    $("#reportmessage").html("Operazione esguita con successo");
-                    $("#reportmessage").addClass("bg-success");
-                    $("#reportmessage").removeClass("bg-danger");
-                    $("#report").fadeIn({
-                        duration : FadeInDuration,
-                        complete : function(){
-                            setTimeout(function() {
-                                $("#report").fadeOut({
-                                    duration : FadeOutDuration,
-                                    complete : function (){
-                                        $("#report").show();
-                                        $("#report").css("visibility", "hidden");
-                                    }
-                                });
-                            }, 1000);
-                        }
-                    });
-                }
-                else
-                {
-                    $("#report").css("visibility", "visible");
-                    $("#report").hide();
-                    $("#reportmessage").html("Operazione fallita");
-                    $("#reportmessage").addClass("bg-danger");
-                    $("#reportmessage").removeClass("bg-success");
-                    $("#report").fadeIn({
-                        duration : FadeInDuration,
-                        complete : function(){
-                            setTimeout(function() {
-                                $("#report").fadeOut({
-                                    duration : FadeOutDuration,
-                                    complete : function (){
-                                        $("#report").show();
-                                        $("#report").css("visibility", "hidden");
-                                    }
-                                });
-                            }, 1000);
-                        }
-                    }); 
-                }
-            }
-        });
-    }
-}
-
-function freeStudent(idstudente, progressiv)
-{
+function editTutor(span, progressiv, id_tutor, studente_has_stage_id)
+{ 
+    var newhtml = 
+            "<div id=\"editthistutor"+progressiv+"\" align=\"center\">\n\
+            <select class=\"form-control\" style=\"width : 75%\"> \n\
+                <option value=\""+id_tutor+"\"> "+$("#edit"+progressiv).find("span[name='tutordata']").text()+" </option>\n\
+            </select></div>\n\
+            <span style=\"color : green; font-size: 1.2em\" class=\"glyphicon glyphicon-ok leftAlignment\" aria-hidden=\"true\" onclick=\"sendData('edit"+progressiv+"', "+progressiv+", "+studente_has_stage_id+")\" ></span>\n\
+            <span style=\"color : red; font-size: 1.2em\" class=\"glyphicon glyphicon-remove leftAlignment\" aria-hidden=\"true\" onclick=\"closeEdit('edit"+progressiv+"', "+progressiv+")\"></span>";
+    
+    $("#edit"+progressiv).hide();
+    $(span).closest("td").append(newhtml);
+    
     $.ajax({
         type : 'POST',
-        url : 'ajaxOps/ajaxFreeStudent.php',
+        url : 'ajaxOps/ajaxTutors.php',
+        data : { 'exclusion' : id_tutor },
         cache : false,
-        data : 
-                { 
-                    'idstudente' : idstudente,
-        },
+        success : function (xml){
+            $(xml).find("tutors").find("tutor").each(function (){
+                $("#editthistutor"+progressiv).find("select").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("cognome").text()+" "+$(this).find("nome").text()+" </option>");
+            });
+        }
+    });
+}
+
+function closeEdit(spanid, progressiv)
+{
+    $("#"+spanid).show();
+    $("#"+spanid).find(".glyphicon-pencil").hide();
+    $("#editthistutor"+progressiv).nextAll("span").remove();
+    $("#editthistutor"+progressiv).remove();
+}
+
+function sendData(spanid, progressiv, studente_has_stage_id)
+{    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOps/ajaxInvia.php',
+        cache : false,
+        data : { 'studente_has_stage' : studente_has_stage_id, 'id_tutor' : $("#editthistutor"+progressiv).find("select").val() },
         success : function (msg)
         {
-            if (msg === "ok")
-            {
-                $("#tutor"+progressiv).val("");
-                $("#report").css("visibility", "visible");
-                $("#report").hide();
-                $("#reportmessage").html("Operazione esguita con successo");
-                $("#reportmessage").addClass("bg-success");
-                $("#reportmessage").removeClass("bg-danger");
-                $("#report").fadeIn({
-                    duration : FadeInDuration,
-                    complete : function(){
-                        setTimeout(function() {
-                            $("#report").fadeOut({
-                                duration : FadeOutDuration,
-                                complete : function (){
-                                    $("#report").show();
-                                    $("#report").css("visibility", "hidden");
-                                }
-                            });
-                        }, 1000);
-                    }
-                });
-            }
-            else
-            {
-                $("#report").css("visibility", "visible");
-                $("#report").hide();
-                $("#reportmessage").html("Operazione fallita");
-                $("#reportmessage").addClass("bg-danger");
-                $("#reportmessage").removeClass("bg-success");
-                $("#report").fadeIn({
-                    duration : FadeInDuration,
-                    complete : function(){
-                        setTimeout(function() {
-                            $("#report").fadeOut({
-                                duration : FadeOutDuration,
-                                complete : function (){
-                                    $("#report").show();
-                                    $("#report").css("visibility", "hidden");
-                                }
-                            });
-                        }, 1000);
-                    }
-                }); 
-            }
+            var studente_has_stage = $("#edit"+progressiv).parent().parent().attr("name");
+            
+            
+            $("#edit"+progressiv).find("span[name='tutordata']").html($("#editthistutor"+progressiv).find("select option:selected").text());
+            $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", "+$("#editthistutor"+progressiv).find("select").val()+", "+studente_has_stage+")")
+            closeEdit(spanid, progressiv);            
         }
     });
 }

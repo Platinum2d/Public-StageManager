@@ -22,7 +22,6 @@ function sendSingleData()
     tutor.cognome = $("#cognomeTutor").val().trim();
     tutor.telefono = $("#telefonoTutor").val().trim();
     tutor.email = $("#emailTutor").val().trim();
-    tutor.azienda = $("#aziendaTutor").val().trim();
             
     if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || tutor.telefono.isEmpty() || tutor.email.isEmpty())
     {
@@ -42,7 +41,6 @@ function sendSingleData()
         data : tutor,
         success : function(msg)
         {
-            alert(msg);
             if (msg === "Inserimento dei dati riuscito!")
                 freeFields();
         }

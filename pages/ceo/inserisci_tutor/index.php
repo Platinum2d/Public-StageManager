@@ -17,18 +17,18 @@
             return (this.length === 0 || !this.trim());
         };      
         
-        var check = setInterval(function(){
-            if ($("#usernameTutor").val().isEmpty() || $("#passwordTutor").val().isEmpty() || $("#confermaPasswordTutor").val().isEmpty() || $("#nomeTutor").val().isEmpty()
-                    || $("#cognomeTutor").val().isEmpty() || $("#telefonoTutor").val().isEmpty() || $("#emailTutor").val().isEmpty() || $("#aziendaTutor").val().isEmpty() 
-                    || $("#userexists").val() === "1")
-            {
-                $("input[value=\"Invia\"]").prop("disabled",true);
-            }
-            else
-            {
-                $("input[value=\"Invia\"]").prop("disabled",false);
-            }
-        },1);
+//        var check = setInterval(function(){
+//            if ($("#usernameTutor").val().isEmpty() || $("#passwordTutor").val().isEmpty() || $("#confermaPasswordTutor").val().isEmpty() || $("#nomeTutor").val().isEmpty()
+//                    || $("#cognomeTutor").val().isEmpty() || $("#telefonoTutor").val().isEmpty() || $("#emailTutor").val().isEmpty() || $("#aziendaTutor").val().isEmpty() 
+//                    || $("#userexists").val() === "1")
+//            {
+//                $("input[value=\"Invia\"]").prop("disabled",true);
+//            }
+//            else
+//            {
+//                $("input[value=\"Invia\"]").prop("disabled",false);
+//            }
+//        },1);
     </script>
     <input type="hidden" id="userexists" value="0">
     <div class="container">
