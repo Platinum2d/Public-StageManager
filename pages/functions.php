@@ -426,6 +426,7 @@ HTML;
 //    }    
     
     function footer ($goBack) {
+        $anno_attuale = date("Y");
         echo <<<HTML
             <footer>
                 <div class="container">
@@ -439,7 +440,7 @@ HTML;
 		        					echo <<<HTML
 			        				</a>
 	        						<p class="levi-text">
-	        							Con il patrocinio dell'istituto Primo Levi di Vignola.
+	        							<i>Con il patrocinio dell'istituto Primo Levi di Vignola.</i>
 	        						</p>
 	                            </div>
 		            			<div id="footer-contact" class="col col-sm-4 col-sm-offset-2">
@@ -450,11 +451,11 @@ HTML;
         										Daniele Manicardi:
 		        								<ul>
 		        									<li>
-		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
 			        									<a href="tel:+39 334 9056026" class="contact-link">+39 334 905 6026</a>
 		        									</li>
 		        									<li>
-		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
 		        										<a href="mailto:manicardi215@gmail.com" class="contact-link">manicardi215@gmail.com</a>
 		        									</li>
 		        								</ul>
@@ -463,11 +464,11 @@ HTML;
 		        								Alessio Scheri:
 		        								<ul>
 		        									<li>
-		        										<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
 			        									<a href="tel:+39 333 2810581" class="contact-link">+39 333 281 0581</a>
 		        									</li>
 		        									<li>
-		        										<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
 		        										<a href="mailto:alessio.scheri@gmail.com" class="contact-link">alessio.scheri@gmail.com</a>
 		        									</li>
 		        								</ul>
@@ -480,7 +481,7 @@ HTML;
 			        				<div class="row">
 			            				<div class="col col-sm-9">
 				        					<p id="copyright">
-				        						&copy; Copyright
+				        						Stage Manager  &copy; $anno_attuale
 				        					</p>
 				        				</div>
 			            				<div class="col col-sm-3 text-right">
