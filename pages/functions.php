@@ -57,7 +57,7 @@
         echo <<<HTML
                     <ul class="nav navbar-nav">
 HTML;
-            echo "<li><a href='".$goBack."index.php'>Home</a></li>";
+            echo "<li><a href='".$goBack."index.php'><i class='glyphicon glyphicon-home'> </i> Home</a></li>";
         if (! isset ( $_SESSION ['type'] )) {
             echo <<<HTML
                     </ul>      
@@ -240,12 +240,12 @@ HTML;
                 }
                 else
                 {
-                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/admin/impostazioni/index.php\"><i class=\"glyphicon glyphicon-cog\"></i>  Impostazioni </a></li>";
+                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/admin/impostazioni/index.php\"><i class=\"glyphicon glyphicon-cog\"> </i> Impostazioni </a></li>";
                 }
             }                   
             
             echo "</li>";
-            echo "<li class=\"button\"> <a href=\"".$goBack."manuale.pdf\"> Manuale </a></li>";
+            echo "<li class=\"button\"> <a href=\"".$goBack."manuale.pdf\"><i class=\"glyphicon glyphicon-book\"> </i> Manuale </a></li>";
             loginButton ($goBack);
             echo"</li></ul>";
     }
