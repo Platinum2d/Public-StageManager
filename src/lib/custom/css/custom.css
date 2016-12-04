@@ -143,6 +143,16 @@ img.logo {
     margin-top: 5px;
 }
 
+@media(max-width:767px){
+	img.logo {
+		height: 90px;
+	}
+
+	#title h1 {
+		font-size: 32px;
+	}
+}
+
 div.parent-max-height {
 	overflow: hidden;
     position: relative;
