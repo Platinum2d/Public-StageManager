@@ -179,7 +179,7 @@ header {
     justify-content: flex-end;
 }
 
-h2, h1, ul.navbar-nav > li > a {
+h2, h1, h4, ul.navbar-nav > li > a {
 	font-family: "OCR A Extended";	
 }
 
