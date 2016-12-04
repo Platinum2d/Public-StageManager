@@ -257,8 +257,8 @@ HTML;
             header ( "Location: ".$goBack."install/index.php" );
         }
 
-        echo "<div class='container'><div class='row'><div class='col col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a></div>";
-        echo "<div id='title' class='col col-sm-9 pull-right pull-down'><h1>Stage Manager</h1></div></div></div>";
+        echo "<div class='container'><div id='logo-row' class='row parent-max-height'><div class='col col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a></div>";
+        echo "<div id='title' class='col col-sm-9 pull-right child-max-height'><h1>Stage Manager</h1></div></div></div>";
         echo <<<HTML
         <nav class="navbar navbar-static">
             <div class="container">

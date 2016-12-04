@@ -126,9 +126,8 @@ div#contact {
 }
 
 img.logo {
-	height: 110px;
+	height: 120px;
 	margin-top: 5px;
-	margin-bottom: 5px;
 }
 
 @font-face {
@@ -137,14 +136,32 @@ img.logo {
 }
 
 #title h1 {
-	font-size: 50px;
+	font-size: 55px;
 	text-align: right;
 	font-family: "OCR A Extended";
-	color: #ff3333;
+	color: #ff3333;position: absolute;
+    bottom: 0;
+    right: 15;
+    margin-bottom: 5px;
 }
 
-.pull-down {
-	bottom: 0px;
+div.parent-max-height {
+	overflow: hidden;
+    position: relative;
+}
+
+div.child-max-height {
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+div#logo-row {	
+	margin-bottom: 10px;
+}
+
+header {
+	margin-top: 25px;
 }
 
 /*h2 {
