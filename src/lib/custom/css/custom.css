@@ -179,6 +179,12 @@ header {
     justify-content: flex-end;
 }
 
-/*h2 {
+h2, h1, ul.navbar-nav > li > a {
 	font-family: "OCR A Extended";	
-}*/
+}
+
+ul.navbar-nav > li > a {
+	padding-left: 15px;
+	padding-right: 15px;
+	letter-spacing: -1.5px;
+}
