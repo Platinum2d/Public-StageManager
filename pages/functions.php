@@ -234,9 +234,9 @@ HTML;
             {
                 if ($_SESSION['type'] !== superUserType)
                 {
-                    echo "<a href=\"".$goBack."contattaci.php\" > Contattaci</a>";
+                    echo "<a href=\"".$goBack."contattaci.php\" > Contattaci </a>";
                     if (isset($_SESSION ['type'])) 
-                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci! </a> </li>";
+                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci </a> </li>";
                 }
                 else
                 {
@@ -245,13 +245,13 @@ HTML;
             }                   
             
             echo "</li>";
-                
+            echo "<li class=\"button\"> <a href=\"".$goBack."manuale.pdf\"> Manuale </a></li>";
             loginButton ($goBack);
             echo"</li></ul>";
     }
         
     function topNavbar($goBack) {  // barra di navigazione che contiene sia la barra orizzontale che i bottoni
-        printBadge($goBack);
+//         printBadge($goBack);
         if (!file_exists($goBack."db.txt") || !file_exists($goBack."okuser.txt")) { 
             echo $goBack."install/index.php";
             header ( "Location: ".$goBack."install/index.php" );
@@ -386,25 +386,25 @@ HTML;
         }
     }
         
-    function printBadge($goBack)
-    {
-        echo "<a href = \"".$goBack."help.pdf\" target=\"_blank\">";
+//     function printBadge($goBack)
+//     {
+//         echo "<a href = \"".$goBack."help.pdf\" target=\"_blank\">";
             
-        echo <<<HTML
+//         echo <<<HTML
             
-        <div style="position : absolute; margin-left : 40px; margin-top : 24px">
-        <div class="badger-outter">
-        <div class="badger-inner">
-            <p class="badger-badge badger-text" id="guida" > ? </p>
-        </div>
-    </div>
-        </div>
-        </a>
-<script>
-    $('guida').badger('?');
-</script>
-HTML;
-    }
+//         <div style="position : absolute; margin-left : 40px; margin-top : 24px">
+//         <div class="badger-outter">
+//         <div class="badger-inner">
+//             <p class="badger-badge badger-text" id="guida" > ? </p>
+//         </div>
+//     </div>
+//         </div>
+//         </a>
+// <script>
+//     $('guida').badger('?');
+// </script>
+// HTML;
+//     }
         
 //    function checkVoto() { //controllo del voto e stampa un messaggio in caso di successo o di errore
 //        if (isset ( $_SESSION ['grade_sent'] )) {
