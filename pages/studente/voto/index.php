@@ -19,8 +19,9 @@
                     <h1>Voto azienda</h1>
                         <?php
                             if (isset($_SESSION ['studenteHasStageId'])) {
+                                $idStudenteHasStage = $_SESSION ['studenteHasStageId'];
                                 $connection = dbConnection("../../../");
-                                $Query = "SELECT studente_has_stage.azienda_id_azienda  
+                                $Query = "SELECT studente_has_stage.azienda_id_azienda 
                         					FROM studente_has_stage 
                         					WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
                         					AND studente_has_stage.azienda_id_azienda IS NOT NULL";
@@ -128,5 +129,5 @@
     </div>
 </body>
 <?php
-    close_html();
+    close_html("../../../");
 ?>
