@@ -30,7 +30,7 @@
                                 <table class="table table-hover">
                                     <tr> <td align="center"><h1> <a href="anniscolastici/index.php">Anni scolastici</a>  </h1></td> </tr>
                                     <tr> <td align="center"><h1> <a href="aziende/index.php">Aziende</a>  </h1></td> </tr>
-                                    <tr> <td align="center"><h1> <a href="newclassi/index.php">Classi</a> </h1> </td> </tr>
+                                    <tr> <td align="center"><h1> <a href="classi/index.php">Classi</a> </h1> </td> </tr>
                                     <tr> <td align="center"><h1> <a href="docenti/index.php">Docenti</a> </h1> </td> </tr>
                                     <tr> <td align="center"><h1> <a href="figureprofessionali/index.php">Figure professionali</a>  </h1></td> </tr>
                                     <tr> <td align="center"><h1> <a href="tutor/index.php">Tutor</a> </h1> </td> </tr>
