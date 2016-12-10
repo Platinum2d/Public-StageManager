@@ -87,9 +87,11 @@ HTML;
                 echo "<li class=\"dropdown dropdown-hover\">";                
                 echo "<a href=\"".$goBack."pages/admin/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/aziende/index.php'>Aziende</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/newclassi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/docenti/index.php'>Docenti</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
 //                                echo <<<HTML
