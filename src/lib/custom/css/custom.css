@@ -34,7 +34,6 @@ button.margin{
 }
 
 td.editCell{
-	//background-color: #eeeeee;
 	color: #DB2525;
 }
 
@@ -93,12 +92,10 @@ div#footer-contact ul > li > span.glyphicon, div#contact ul > li > span.glyphico
 
 .contact-link, .contact-link:focus {
     color: #828282;
-//    text-decoration: underline;
 }
 
 .contact-link:hover {
     color: #FF0000;
-//    text-decoration: underline;	
 }
 
 p.levi-text {
@@ -187,4 +184,8 @@ ul.navbar-nav > li > a {
 	padding-left: 15px;
 	padding-right: 15px;
 	letter-spacing: -1.5px;
+}
+
+a, p, label, b, i, span, div{
+    font-family: "OCR A Extended";
 }
