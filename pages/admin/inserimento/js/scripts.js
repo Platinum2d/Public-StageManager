@@ -40,9 +40,6 @@ studente = {
     'classe':'',
     'stage':'',
     'annoclasse':''
-    //    'azienda':'',
-    //    'docente':'',
-    //    'tutor':''
 };
 
 classe = {
