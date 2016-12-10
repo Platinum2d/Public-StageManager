@@ -89,9 +89,10 @@ HTML;
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/aziende/index.php'>Aziende</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/newclassi/index.php'>Classi</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/classi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/docenti/index.php'>Docenti</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/scuole/index.php'>Scuole</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
 //                                echo <<<HTML
