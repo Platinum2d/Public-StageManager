@@ -487,7 +487,7 @@ function sendSingleData(userType)
             azienda.citta = ''+$('#CittaAzienda').val().trim();
             azienda.CAP = ''+$('#CAPAzienda').val().trim();
             azienda.indirizzo = ''+$('#IndirizzoAzienda').val().trim();
-            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.CAP.isEmpty() || azienda.indirizzo.isEmpty())
+            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.indirizzo.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;

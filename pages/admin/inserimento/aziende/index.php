@@ -19,7 +19,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
-                    || $("#CittaAzienda").val().isEmpty() || $("#CAPAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
+                    || $("#CittaAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -56,8 +56,7 @@
                                 </div> 
                                 <b>Conferma Password*</b><div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordAzienda"></div> 
                                 <b>Nome Azienda*</b> <div class="form-group"><input class="form-control" id="NomeAzienda"></div> 
-                                <b>Citta'*</b><div class="form-group"> <input class="form-control" id="CittaAzienda"></div> 
-                                <b>CAP*</b><div class="form-group"> <input type="number" min="1" class="form-control" id="CAPAzienda"></div> 
+                                <b>Citta'*</b><div class="form-group"> <input class="form-control" id="CittaAzienda"></div>
                                 <b>Indirizzo*</b><div class="form-group"> <input class="form-control" id="IndirizzoAzienda"></div> 
                                 <br>
                                 * Campo Obbligatorio
@@ -66,7 +65,8 @@
                                 <input class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                 
                             </div>
-                            <div class="col col-sm-6">
+                            <div class="col col-sm-6">                                
+                                CAP<div class="form-group"> <input type="number" min="1" class="form-control" id="CAPAzienda"></div> 
                                 Telefono <div class="form-group"><input class="form-control" id="TelefonoAzienda"> </div>
                                 Indirizzo E-Mail <div class="form-group"><input class="form-control" id="MailAzienda"> </div>
                                 Sito <div class="form-group"><input class="form-control" id="SitoAzienda"> </div> 
