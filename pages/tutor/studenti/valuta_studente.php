@@ -20,6 +20,9 @@
             <div class="col col-sm-12">
                 <div class="panel">                    
                     <h1 id = "valuta">Valuta</h1>
+                    <br>
+                    <div class="row">
+                        <div class="col col-sm-12">
                         <?php
                         	$sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
                             $Result = $conn->query ( $sql );
@@ -31,8 +34,6 @@
                         <?php 
                             } 
                             elseif ($visita == 1) {
-                                echo <<<HTML
-HTML;
                                 $sql = "SELECT studente.nome, studente.cognome 
                                 		FROM studente, studente_has_stage 
                                 		WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
@@ -41,24 +42,14 @@ HTML;
                                 while ( $row = $Result->fetch_assoc () ) {
                                     $nome = $row ['nome'];
                                     $cognome = $row ['cognome'];
-                                        
-                                    echo "<input type=\"hidden\" value = \"$nome\" id = \"nomestud\">";
-                                    echo "<input type=\"hidden\" value = \"$cognome\" id = \"cognomestud\">";
-                                    echo <<<HTML
-                                        <h3></h3>
-                                            
-HTML;
-                                    ?>
-					                    <script>
-					                        $('#valuta').append(' <i>'+$('#cognomestud').val()+' '+$('#nomestud').val()+'<i>');
-					                    </script>
- 									<?php
+					                echo "<script>$('#valuta').append(' <i>$cognome $nome<i>');</script>";
+                                    echo "<div class=\"row\"><div class=\"col col-sm-8\">";
+                                    
                                     $sql = "select `valutazione_studente_id_valutazione_studente` from studente_has_stage where `id_studente_has_stage`=  $idStudenteHasStage";
-                                    echo <<<HTML
-HTML;
                                     $Result = $conn->query ( $sql );
                                     $row = $Result->fetch_assoc ();
-                                            if (isset($row ['valutazione_studente_id_valutazione_studente'])) {
+                                            if (isset($row ['valutazione_studente_id_valutazione_studente'])) {                                      	
+                                            	
                                                 $id_valutazione_studente = $row ['valutazione_studente_id_valutazione_studente'];
                                                 $sql = "SELECT `gestione_ambiente_spazio_lavoro`, `collaborazione_comunicazione`, `uso_strumenti`, `rispetta_norme_vigenti`, `rispetto_ambiente`, `puntualita`"
                                                         . ", `collaborazione_tutor`, `lavoro_requisiti`, `conoscenze_tecniche`, `acquisire_nuove_conoscenze` FROM `valutazione_studente` "
@@ -76,7 +67,6 @@ HTML;
                                                         $efficacia_esposizone = $row ['lavoro_requisiti'];
                                                         $qualita_processo = $row ['conoscenze_tecniche'];
                                                         $efficacia_prodotto = $row ['acquisire_nuove_conoscenze'];
-                                                        echo "<div class=\"row\"><div class=\"col col-sm-8\">";
                                                         outputSelect ( "Capacita' di mantenere in ordine la postazione di lavoro", "gestione_ambiente_spazio_lavoro", $gestione_ambiente_spazio_lavoro );
                                                         outputSelect ( "Capacita' di collaborare e comunicare correttamente", "collaborazione_comunicazione", $collaborazione_comunicazione );
                                                         outputSelect ( "Capacita' di usare gli strumenti Harware e Software", "uso_strumenti", $uso_strumenti );
@@ -87,24 +77,9 @@ HTML;
                                                         outputSelect ( "Collaborazione con il tutor aziendale", "efficacia_esposizone", $efficacia_esposizone );
                                                         outputSelect ( "Rispetto dei requisiti richiesti nel lavoro svolto", "qualita_processo", $qualita_processo );
                                                         outputSelect ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto", $efficacia_prodotto );
-                                                        
-                                                        echo "</div>";
-                                                echo <<<HTML
-                                                	<div class="col col-sm-4">   
-		                                    			<div align="center">
-		                                        			<input class="btn btn-primary" type="button" value="Inserisci valutazione" id="SalvaValutazione" onclick="insertGrades()">
-	                                    				</div>
-			                                            <div align="center">
-					                                        <p id='media'> </p>
-					                                    </div>
-			                                        </div>
-												</div>
-HTML;
                                                     }
                                                 }
                                             } else {
-                                            
-                                                echo "<div class=\"row\"><div class=\"col col-sm-8\">";
                                                     outputSelectNoValue ( "Capacita' di mantenere in ordine la postazione di lavoro", "gestione_ambiente_spazio_lavoro" );
                                                     outputSelectNoValue ( "Capacita' di collaborare e comunicare correttamente", "collaborazione_comunicazione" );
                                                     outputSelectNoValue ( "Capacita' di usare gli strumenti Harware e Software", "uso_strumenti" );
@@ -115,8 +90,9 @@ HTML;
                                                     outputSelectNoValue ( "Collaborazione con il tutor aziendale", "efficacia_esposizone" );
                                                     outputSelectNoValue ( "Rispetto dei requisiti richiesti nel lavoro svolto", "qualita_processo" );
                                                     outputSelectNoValue ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto" );
-                                                echo "</div>";                                                    
+										}
                                                 echo <<<HTML
+                                                	</div>
                                                 	<div class="col col-sm-4">   
 		                                    			<div align="center">
 		                                        			<input class="btn btn-primary" type="button" value="Inserisci valutazione" id="SalvaValutazione" onclick="insertGrades()">
@@ -127,7 +103,6 @@ HTML;
 			                                        </div>
 												</div>
 HTML;
-										}
                                     }
                                 }
                                 echo <<<HTML
@@ -135,6 +110,8 @@ HTML;
                                     <br>
 HTML;
                     ?>
+                    	</div>
+                    </div>
                 </div>
             </div>
         </div>
