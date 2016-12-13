@@ -12,6 +12,9 @@ valutazione = {
     'id_studente_has_stage':''
 };
 
+var media = 0;
+var n_select = 0;
+
 function insertGrades ()
 {
     valutazione.gestione_ambiente_spazio_lavoro = $("[name='gestione_ambiente_spazio_lavoro']").val();
@@ -78,3 +81,23 @@ function updateGrades()
        }
     });
 }
+
+function aggiornaMedia () {
+	media = 0;
+	$("select").each (function () {
+		media += parseInt($(this).val ());
+	});
+	media = media / n_select;
+	$('#media').text("Media attuale = " + media + "\\" + n_select);
+}
+
+$(document).ready(function() {
+	$("select").each (function () {
+		n_select += 1;
+	});
+	aggiornaMedia ();
+	
+	$("select").change (function () {
+		aggiornaMedia ();
+	});
+});
