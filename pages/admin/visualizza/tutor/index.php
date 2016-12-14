@@ -20,32 +20,32 @@
         titleImg ("../../../../");
     ?>
     <script src="scripts/scripts.js"> </script>
-        
-<!--    <script>
     
-    function changePage(tupledastampare, offset, pagetounderline)
-    {
-        
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerTutor/ajaxGetTablePortion.php',
-            data : { 'offset' : offset, 'tuple' : tupledastampare },
-            cache : false,
-            success : function (html)
-            {
-                $("#tabletutor").html("Caricamento....");
-                $("#tabletutor").html("<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>");
-                $("#tabletutor").append(html);                   
-                $("#tabletutor").hide();
-                $("#tabletutor").fadeIn();
-                $("#pages").find("ul").find("li").each(function (){
-                    $(this).removeClass("active");
-                });
-                $("#"+pagetounderline).parent().addClass("active");
-                $("form[target=\"_blank\"]").height($("#modifica0").height())
-            }
-        })
-    }
+<!--    <script>
+
+function changePage(tupledastampare, offset, pagetounderline)
+{
+    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerTutor/ajaxGetTablePortion.php',
+        data : { 'offset' : offset, 'tuple' : tupledastampare },
+        cache : false,
+        success : function (html)
+        {
+            $("#tabletutor").html("Caricamento....");
+            $("#tabletutor").html("<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>");
+            $("#tabletutor").append(html);                   
+            $("#tabletutor").hide();
+            $("#tabletutor").fadeIn();
+            $("#pages").find("ul").find("li").each(function (){
+                $(this).removeClass("active");
+            });
+            $("#"+pagetounderline).parent().addClass("active");
+            $("form[target=\"_blank\"]").height($("#modifica0").height())
+        }
+    })
+}
 </script>-->
     <div class="container">
         <div class="row">
@@ -69,7 +69,7 @@
                                 </select>
                             </div>
                         </div>
-                            
+                        
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
                                 <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
@@ -77,7 +77,7 @@
                         </div>
                     </div>    
                     <br>
-                    
+                        
                                         <?php
                                             /*  echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
                                             if (isset($_POST['ntutor']))
@@ -105,10 +105,11 @@
                                             $I=0;
                                             if($result->num_rows > 0)
                                             {
-                                                echo "<div class=\"table-responsive\"><table id=\"tabletutor\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
+                                                echo "<div class=\"table-responsive\">"
+                                                . "<table id=\"tabletutor\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
                                                 while ($row = $result->fetch_assoc())
                                                 {
-                                                    echo "<tr><td class=\"minw\">";
+                                                    echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td class=\"minw\">";
                                                     echo "<div id=\"VisibleBox$I\">";
                                                         echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label> <input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                                     echo "</div>";

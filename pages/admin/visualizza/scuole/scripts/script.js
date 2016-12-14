@@ -1,3 +1,12 @@
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
+
 function openEdit(numberId, id_scuola)
 {
     $.ajax({

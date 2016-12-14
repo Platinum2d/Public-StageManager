@@ -10,6 +10,15 @@ studente = {
     'classe'        : ''
 };
 
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
+
 function openEdit(id, idStudente, classe, anno)
 {
     id = id+'';

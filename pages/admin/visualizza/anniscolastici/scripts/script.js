@@ -1,7 +1,10 @@
-firstlyselected = null;
-
 $(document).ready(function (){
-    
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
 });
 
 function sendData(numberId, id_anno)

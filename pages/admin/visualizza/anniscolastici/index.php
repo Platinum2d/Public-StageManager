@@ -38,7 +38,7 @@
                             
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="">
                             </div>
                         </div>
                     </div>    
@@ -46,6 +46,7 @@
                         
                     <table id="annitable" class="table table-bordered">
                         <thead style="background : #eee; font-color : white">
+                        <th style="text-align : center"> <input type="checkbox" id="checkall"> </th>    
                         <th style="text-align : center"> Nome dell'anno scolastico </th>
                         <th style="text-align : center"> Corrente </th>
                         <th style="text-align : center; width: 25%"> Azioni </th>
@@ -64,7 +65,7 @@
                                     $corrente = (intval($row['corrente']) === 1) ? "true" : "false";
                                     $id = $row['id_anno_scolastico'];
                                         
-                                    echo "<tr id=\"anno$I\"><td contenteditable=\"true\" oninput=\"$(this).css('color', 'red')\"> $nome </td> <td> <input class=\"currentcheckbox\" type=\"checkbox\" ";
+                                    echo "<tr id=\"anno$I\"><td> <input class=\"singlecheck\" type=\"checkbox\"> </td><td contenteditable=\"true\" oninput=\"$(this).css('color', 'red')\"> $nome </td> <td> <input class=\"currentcheckbox\" type=\"checkbox\" ";
                                     if ($corrente === "true") {$firstIndex = $I; echo "checked=\"$corrente\" onchange=\"checkInput(this, $firstIndex)\"> </td>";}
                                     else echo "onchange=\"checkInput(this, $firstIndex)\" ></td>";
                                         

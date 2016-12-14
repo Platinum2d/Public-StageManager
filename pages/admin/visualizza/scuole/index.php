@@ -10,9 +10,9 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    
+        
     <script src="scripts/script.js"></script>
-    
+        
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -35,7 +35,7 @@
                                 </select>
                             </div>
                         </div>
-                            
+                        
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
                                 <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
@@ -43,13 +43,14 @@
                         </div>
                     </div>    
                     <br>
-                        
+                    
                     <table id="annitable" class="table table-bordered">
                         <thead style="background : #eee; font-color : white">
+                        <th style="text-align : center"> <input type="checkbox" id="checkall"> </th>
                         <th style="text-align : center"> Nome della scuola </th>
                         <th style="text-align : center; width: 35%"> Azioni </th>
                         </thead>
-                            
+                        
                         <tbody>
                             <?php
                                 $query = "SELECT id_scuola, nome FROM scuola ORDER BY nome";
@@ -62,7 +63,7 @@
                                     $nome = $row['nome'];
                                         
                                     echo "<tr id=\"scuola$I\">";
-                                        echo "<td style=\"text-align : center\"> $nome </td> <td style=\"text-align : center\"> <button id=\"modifica$I\" class=\"btn btn-success\" value=\"Modifica\" onclick=\"openEdit($I, $id)\">Modifica</button>   <button class=\"btn btn-danger\" value=\"Elimina\" onclick=\"deleteSchool($I, $id)\">Elimina</button></td>";
+                                        echo "<td align=\"center\"><input class=\"singlecheck\" type=\"checkbox\"></td><td style=\"text-align : center\"> $nome </td> <td style=\"text-align : center\"> <button id=\"modifica$I\" class=\"btn btn-success\" value=\"Modifica\" onclick=\"openEdit($I, $id)\">Modifica</button>   <button class=\"btn btn-danger\" value=\"Elimina\" onclick=\"deleteSchool($I, $id)\">Elimina</button></td>";
                                     echo "</tr>";
                                         
                                     $I++;
@@ -75,7 +76,7 @@
         </div>
     </div>
 </body>
-    
+
 <?php
     close_html ("../../../../");
 ?>
