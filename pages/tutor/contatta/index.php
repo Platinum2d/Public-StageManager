@@ -60,7 +60,7 @@
                                     <label for="comment">Messaggio:</label>
                                     <textarea name="message" class="form-control" rows="5" id="comment"></textarea>
                                     <br>
-                                    <input class="btn btn-default" type="submit" name="send" value="Invia"></input>
+                                    <input class="btn btn-primary" type="submit" name="send" value="Invia"></input>
                                 </div>
                             </form>
                         </div>
