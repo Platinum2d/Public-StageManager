@@ -7,7 +7,7 @@ XML;
     $xml = new SimpleXMLElement ( $xmlstr );
     $db = dbConnection("../../../../");
 
-    $uid = $_SESSION ['userId'];
+    $uid = intval ($_SESSION ['userId']);
     $nm = $db->escape_string ( $_POST ['newdesc'] );
     $id = intval ( $_POST ['id'] );
     $day = intval ($_POST ['day']);

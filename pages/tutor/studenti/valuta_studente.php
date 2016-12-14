@@ -40,6 +40,19 @@
                                 		AND studente_has_stage.studente_id_studente = studente.id_studente;";
                                 $Result = $conn->query ( $sql );
                                 while ( $row = $Result->fetch_assoc () ) {
+                                    $gestione_ambiente_spazio_lavoro = "";
+                                    $collaborazione_comunicazione = "";
+                                    $uso_strumenti = "";
+                                    $complessita_compito_atteggiamento = "";
+                                    $valutazione_gestione_sicurezza = "";
+                                    $competenze_linguistiche = "";
+                                    $conoscenza_coerenza_approfondimento = "";
+                                    $efficacia_esposizone = "";
+                                    $qualita_processo = "";
+                                    $efficacia_prodotto = "";
+                                    $commento = "";
+                                    $button_value = "Inserisci valutazione";
+                                    $button_onClick = "insertGrades();";
                                     $nome = $row ['nome'];
                                     $cognome = $row ['cognome'];
 					                echo "<script>$('#valuta').append(' <i>$cognome $nome<i>');</script>";
@@ -48,12 +61,13 @@
                                     $sql = "select `valutazione_studente_id_valutazione_studente` from studente_has_stage where `id_studente_has_stage`=  $idStudenteHasStage";
                                     $Result = $conn->query ( $sql );
                                     $row = $Result->fetch_assoc ();
-                                            if (isset($row ['valutazione_studente_id_valutazione_studente'])) {                                      	
-                                            	
+                                            if (isset($row ['valutazione_studente_id_valutazione_studente'])) {
+                                                $button_value = "Aggiorna valutazione";
+                                                $button_onClick = "updateGrades ();";
                                                 $id_valutazione_studente = $row ['valutazione_studente_id_valutazione_studente'];
                                                 $sql = "SELECT `gestione_ambiente_spazio_lavoro`, `collaborazione_comunicazione`, `uso_strumenti`, `rispetta_norme_vigenti`, `rispetto_ambiente`, `puntualita`"
-                                                        . ", `collaborazione_tutor`, `lavoro_requisiti`, `conoscenze_tecniche`, `acquisire_nuove_conoscenze` FROM `valutazione_studente` "
-                                                        . "WHERE `id_valutazione_studente` =$id_valutazione_studente";
+                                                        . ", `collaborazione_tutor`, `lavoro_requisiti`, `conoscenze_tecniche`, `acquisire_nuove_conoscenze`, `commento` FROM `valutazione_studente` "
+                                                        . "WHERE `id_valutazione_studente` = $id_valutazione_studente";
                                                 $Result1 = $conn->query ( $sql );
                                                 if ($Result1) {
                                                     while ( $row = $Result1->fetch_assoc () ) {
@@ -67,41 +81,39 @@
                                                         $efficacia_esposizone = $row ['lavoro_requisiti'];
                                                         $qualita_processo = $row ['conoscenze_tecniche'];
                                                         $efficacia_prodotto = $row ['acquisire_nuove_conoscenze'];
-                                                        outputSelect ( "Capacita' di mantenere in ordine la postazione di lavoro", "gestione_ambiente_spazio_lavoro", $gestione_ambiente_spazio_lavoro );
-                                                        outputSelect ( "Capacita' di collaborare e comunicare correttamente", "collaborazione_comunicazione", $collaborazione_comunicazione );
-                                                        outputSelect ( "Capacita' di usare gli strumenti Harware e Software", "uso_strumenti", $uso_strumenti );
-                                                        outputSelect ( "Rispetto delle norme vigenti per la sicurezza nei luoghi di lavoro", "complessita_compito_atteggiamento", $complessita_compito_atteggiamento );
-                                                        outputSelect ( "Rispetto dell'ambiente e dei colleghi di lavoro","rispetto_ambiente", $valutazione_gestione_sicurezza );
-                                                        outputSelect ( "Puntualità e presenza sul lavoro", "competenze_linguistiche", $competenze_linguistiche );
-                                                        outputSelect ( "Capacita' di comunicare e di relazionarsi", "conoscenza_coerenza_approfondimento", $conoscenza_coerenza_approfondimento );
-                                                        outputSelect ( "Collaborazione con il tutor aziendale", "efficacia_esposizone", $efficacia_esposizone );
-                                                        outputSelect ( "Rispetto dei requisiti richiesti nel lavoro svolto", "qualita_processo", $qualita_processo );
-                                                        outputSelect ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto", $efficacia_prodotto );
+                                                        $commento = $row ['commento'];
                                                     }
                                                 }
-                                            } else {
-                                                    outputSelectNoValue ( "Capacita' di mantenere in ordine la postazione di lavoro", "gestione_ambiente_spazio_lavoro" );
-                                                    outputSelectNoValue ( "Capacita' di collaborare e comunicare correttamente", "collaborazione_comunicazione" );
-                                                    outputSelectNoValue ( "Capacita' di usare gli strumenti Harware e Software", "uso_strumenti" );
-                                                    outputSelectNoValue ( "Rispetto delle norme vigenti per la sicurezza nei luoghi di lavoro", "complessita_compito_atteggiamento" );
-                                                    outputSelectNoValue ( "Rispetto dell'ambiente e dei colleghi di lavoro","rispetto_ambiente","rispetto_ambiente" );
-                                                    outputSelectNoValue ( "Puntualità e presenza sul lavoro", "competenze_linguistiche", "competenze_linguistiche" );
-                                                    outputSelectNoValue ( "Capacita' di comunicare e di relazionarsi", "conoscenza_coerenza_approfondimento" );
-                                                    outputSelectNoValue ( "Collaborazione con il tutor aziendale", "efficacia_esposizone" );
-                                                    outputSelectNoValue ( "Rispetto dei requisiti richiesti nel lavoro svolto", "qualita_processo" );
-                                                    outputSelectNoValue ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto" );
-										}
-                                                echo <<<HTML
-                                                	</div>
-                                                	<div class="col col-sm-4">   
-		                                    			<div align="center">
-		                                        			<input class="btn btn-primary" type="button" value="Inserisci valutazione" id="SalvaValutazione" onclick="insertGrades()">
-	                                    				</div>
-			                                            <div align="center">
-					                                        <p id='media'> </p>
-					                                    </div>
-			                                        </div>
-												</div>
+                                            }
+                                            outputSelect ( "Capacita' di mantenere in ordine la postazione di lavoro", "gestione_ambiente_spazio_lavoro", $gestione_ambiente_spazio_lavoro );
+                                            outputSelect ( "Capacita' di collaborare e comunicare correttamente", "collaborazione_comunicazione", $collaborazione_comunicazione );
+                                            outputSelect ( "Capacita' di usare gli strumenti Harware e Software", "uso_strumenti", $uso_strumenti );
+                                            outputSelect ( "Rispetto delle norme vigenti per la sicurezza nei luoghi di lavoro", "complessita_compito_atteggiamento", $complessita_compito_atteggiamento );
+                                            outputSelect ( "Rispetto dell'ambiente e dei colleghi di lavoro","rispetto_ambiente", $valutazione_gestione_sicurezza );
+                                            outputSelect ( "Puntualità e presenza sul lavoro", "competenze_linguistiche", $competenze_linguistiche );
+                                            outputSelect ( "Capacita' di comunicare e di relazionarsi", "conoscenza_coerenza_approfondimento", $conoscenza_coerenza_approfondimento );
+                                            outputSelect ( "Collaborazione con il tutor aziendale", "efficacia_esposizone", $efficacia_esposizone );
+                                            outputSelect ( "Rispetto dei requisiti richiesti nel lavoro svolto", "qualita_processo", $qualita_processo );
+                                            outputSelect ( "Dimostra di avere idonee conoscenze tecniche", "efficacia_prodotto", $efficacia_prodotto );
+                                            echo <<<HTML
+                                                <div class='row parametro-valutazione'>
+                                                    <div class='col col-md-2 col-sm-4'>
+                                                    	<label>Commento</label>
+                                                    </div>
+                                                    <div class='col col-md-10 col-sm-8'>
+                                                    <textarea class = "form-control" name = "commento" maxlength = "250" rows = "7" placeholder = "Facoltativo">$commento</textarea>
+                                                    </div>
+                                                </div>
+                                        	</div>
+                                        	<div class="col col-sm-4">   
+                                    			<div align="center">
+                                        			<input class="btn btn-primary" type="button" value="$button_value" id="SalvaValutazione" onclick="$button_onClick">
+                                				</div>
+	                                            <div align="center">
+			                                        <p id='media'> </p>
+			                                    </div>
+	                                        </div>
+										</div>
 HTML;
                                     }
                                 }
@@ -140,8 +152,5 @@ HTML;
             echo $output;
         }            
         echo "</select></div></div>";
-    }
-    function outputSelectNoValue($selectTitle, $selectName) {
-        outputSelect($selectTitle, $selectName, 1);
     }
 ?>

@@ -9,6 +9,7 @@ valutazione = {
     'efficacia_esposizone':'',
     'qualita_processo':'',
     'efficacia_prodotto':'',
+    'commento':'',
     'id_studente_has_stage':''
 };
 
@@ -27,6 +28,7 @@ function insertGrades ()
     valutazione.efficacia_esposizone = $("[name='efficacia_esposizone']").val();
     valutazione.qualita_processo = $("[name='qualita_processo']").val();
     valutazione.efficacia_prodotto = $("[name='efficacia_prodotto']").val();
+    valutazione.commento = $("[name='commento']").val();
     valutazione.id_studente_has_stage = $("[name='id_studente_has_stage']").val();
     
     $.ajax({
@@ -39,7 +41,7 @@ function insertGrades ()
             if (msg === "ok") {
                 alert("Valutazione inserita con successo !");
                 $("input#SalvaValutazione").attr ("value", "Aggiorna valutazione");
-                $("input#SalvaValutazione").attr ("onclick", "updateGrades()");
+                $("input#SalvaValutazione").attr ("onclick", "updateGrades();");
             }
             else {
                 alert(msg);
@@ -61,6 +63,7 @@ function updateGrades()
     valutazione.efficacia_esposizone = $("[name='efficacia_esposizone']").val();
     valutazione.qualita_processo = $("[name='qualita_processo']").val();
     valutazione.efficacia_prodotto = $("[name='efficacia_prodotto']").val();
+    valutazione.commento = $("[name='commento']").val();
     valutazione.id_studente_has_stage = $("[name='id_studente_has_stage']").val();
     
     $.ajax({
