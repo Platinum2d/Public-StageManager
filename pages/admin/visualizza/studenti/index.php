@@ -3,14 +3,15 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Studenti" );
     import("../../../../");
-    $recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
+    
     $idclasse = $_POST['id_classe'];
     $idanno = $_POST['years'];
     
+    /*$recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['nstud'])) ? 10 : $_POST['nstud'];
     }
-    if ($recordperpagina <= 0) $recordperpagina = 1;
+    if ($recordperpagina <= 0) $recordperpagina = 1;*/
 ?>
 <body>
         
@@ -24,14 +25,8 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-            
-    <script>
-        if (typeof(localStorage.chatCode) !== "undefined"){
-            $("#wholechat").html(localStorage.chatCode);
-        }
-    </script>
     <script src="scripts/script.js"> </script>
-    <script>
+<!--    <script>
         
         function changePage(tupledastampare, offset, classe, pagetounderline)
         {
@@ -57,7 +52,7 @@
                 }
             })
         }
-    </script>    
+    </script>    -->
     <div class="container">
         
         <div class="row">
@@ -79,10 +74,9 @@
                                                              . "AND s.id_studente = sac.studente_id_studente "
                                                              . "AND u.id_utente = sac.studente_id_studente "
                                                              . "ORDER BY cognome "
-                                                             . "LIMIT $recordperpagina "
-                                                             . "OFFSET 0" 
                                 : null;
                             
+                        
                         if (null !== $Query  && $result = $connessione->query ($Query))
                         {
                             echo "<div class=\"row\">";
@@ -106,7 +100,7 @@
                                 $I++;
                             }  
                             echo "</tbody></table></div>";
-                            if (isset($idclasse))
+                            /*if (isset($idclasse))
                             {
                                 $tuple = $result->num_rows;
                                 $npagine = intval($tuple / $recordperpagina);
@@ -118,14 +112,14 @@
                                     echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idclasse, $idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                 }
                                 echo "</ul></div>";
-                            }
+                            }*/
                         }
                     ?>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+<!--    <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
         if ($(".active").length === 0)
             $("#pages").find("ul").children().first().addClass("active");
@@ -146,7 +140,7 @@
             $("#classform"+progressiv).submit();
         }
     </script>
-        
+        -->
 </body>
     
 <?php

@@ -3,11 +3,11 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Docenti" );
     import("../../../../");
-    $recordperpagina = (isset($_POST['customdocente'])) ? $_POST['customdocente'] : null;
+    /*$recordperpagina = (isset($_POST['customdocente'])) ? $_POST['customdocente'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['ndocenti'])) ? 10 : $_POST['ndocenti'];
     }
-    if ($recordperpagina <= 0) $recordperpagina = 1;
+    if ($recordperpagina <= 0) $recordperpagina = 1;*/
 ?>
 <body>
     <style>
@@ -21,8 +21,7 @@
     ?>
     <script src="scripts/scripts.js"></script>
         
-    <!-- Begin Body -->
-    <script>            
+<!--    <script>            
         function changePage(tupledastampare, offset, pagetounderline)
         {
             
@@ -46,13 +45,13 @@
                 }
             })
         }
-    </script>
+    </script>-->
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id="mainPanel" style="min-height: 0px">
                     <h1>Visualizza Docenti</h1>                                             
-                                        <?php
+                                        <?php   /*
                                         echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customdocente\"> </form>  <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"> <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
                                             if (isset($_POST['ndocenti']))
                                             {
@@ -70,9 +69,9 @@
                                             else 
                                             { ?> 
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
-                                      <?php }
+                                      <?php }   */
                                             $conn = dbConnection("../../../../");
-                                            $query = "SELECT * FROM utente, docente WHERE id_docente = id_utente AND id_docente != ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
+                                            $query = "SELECT * FROM utente, docente WHERE id_docente = id_utente AND id_docente != ".$_SESSION['userId']." ORDER BY cognome";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;
@@ -95,7 +94,7 @@
                                                     
                                             }
                                             echo "</tbody></table></div>";
-                                            $querycount = "SELECT COUNT(*) FROM docente";
+                                            /*$querycount = "SELECT COUNT(*) FROM docente";
                                             $resultcount = $conn->query($querycount);
                                             $rowcount = $resultcount->fetch_assoc();
                                             $tuple = intval($rowcount['COUNT(*)']);
@@ -107,14 +106,14 @@
                                                 $idtoprint = $I * $recordperpagina;
                                                 echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                             }
-                                            echo "</ul></div>";
+                                            echo "</ul></div>";*/
                                                 
                                         ?>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+<!--    <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
         if ($(".active").length === 0)
             $("#pages").find("ul").children().first().addClass("active");
@@ -130,7 +129,7 @@
         });
         
         $("form[target=\"_blank\"]").height($("#modifica0").height());
-    </script>
+    </script>-->
 </body>
 <?php
     close_html ("../../../../");
