@@ -1,5 +1,6 @@
 $(document).ready(function (){
     $("#actionwrapper").hide();
+    $("#viewoptions").hide();
     
     $.ajax({
         url : 'ajaxOpsPerClasse/ajaxScuola.php',
@@ -22,9 +23,8 @@ $(document).ready(function (){
             {
                 if ($("#classes").val() !== "-1")
                 {
-                    $("#actionwrapper").show();
-                    $("#actionwrapper").hide();
                     $("#actionwrapper").fadeIn();
+                    $("#viewoptions").fadeIn();
                 }
                 else
                 {
