@@ -59,12 +59,7 @@
             <div class="col col-sm-12">
                 <div class="panel" id = "mainPanel">
                     <h1>Visualizza Studenti</h1>    
-                    <br>
-                    <ul id="classes" class="nav nav-tabs">
-     							<?php
-                                                        
-                                ?>
-                    </ul>                        
+                    <br>                      
                     <?php
                         $connessione = dbConnection("../../../../");
                         $Query = (isset($idclasse)) ? "SELECT * "
