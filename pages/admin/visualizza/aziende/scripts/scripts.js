@@ -280,7 +280,7 @@ function sendData(idazienda, numberId)
             url  : 'ajaxOpsPerAzienda/ajaxInvia.php',
             data : azienda,
             success : function (msg)
-            {                
+            {      
                 if (msg === "Inserimento dei dati riuscito!")
                 {
                     $("#label"+numberId).html($("#nomeazienda"+numberId).val() + " ("+$("#username"+numberId).val()+")");

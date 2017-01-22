@@ -18,9 +18,9 @@
     $emailresponsabile = $conn->escape_string($_POST['emailresponsabile']);
         
     $userquery = "UPDATE  `utente` SET  `username` =  '$username' ";
-    if ($password !== "immutato") $userquery .= "`, password` =  '".md5($password)."' ";
+    if ($password !== "immutato") $userquery .= ", `password` =  '".md5($password)."' ";
     
-    $userquery .= "WHERE id_utente = $idazienda";
+    $userquery .= "WHERE `id_utente` = $idazienda";
     
     $ok = ($conn->query($userquery)) ? true : false;    
     $Query = " UPDATE `azienda` SET `nome_aziendale` =  '$nomeazienda', `citta_aziendale` =  '$cittaazienda', `CAP` =  '$capazienda', `indirizzo` =  '$indirizzoazienda', `telefono_aziendale` =  '$telefonoazienda',"
