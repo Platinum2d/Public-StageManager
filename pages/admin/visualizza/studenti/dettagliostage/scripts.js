@@ -9,13 +9,19 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                              <label>Azienda</label><select class=\"form-control\" id=\"editinfoazienda"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <label>Tutor</label><select class=\"form-control\" id=\"editinfotutor"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <label>Docente</label><select class=\"form-control\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
-                       </div> \n\
+                       </div> <br>\n\
                        <div class=\"col col-sm-6\"> \n\
-                            <br><div align=\"center\"><input type=\"button\" class=\"btn btn-info\" value=\"Vai alla valutazione dello studente\" /></div> \n\
-                            <br><br><div align=\"center\"><input type=\"button\" class=\"btn btn-info\" value=\"Vai alla valutazione dell'azienda\" /></div> \n\
+                            <div class=\"list-group\">\n\
+                                <a href=\"#\" class=\"list-group-item\">Valutazione dell'azienda</a>\n\
+                                <a href=\"#\" class=\"list-group-item\">Valutazione dello studente</a>\n\
+                            </div>\n\
                             \n\
-                            <br><div align=\"center\"><label> <input type=\"checkbox\" id=\"editinfovisita"+progressiv+"\"/> Azienda visitata </label></div>\n\
-                            <br><div align=\"center\"><label> <input type=\"checkbox\" id=\"editinfoautorizzazione"+progressiv+"\"/> Autorizzazione registro </label></div>\n\
+                            <div class=\"checkbox\">\n\
+                              <label><input id=\"editinfovisita"+progressiv+"\" type=\"checkbox\">Azienda visitata</label>\n\
+                            </div>\n\
+                            <div class=\"checkbox\">\n\
+                              <label><input id=\"editinfoautorizzazione"+progressiv+"\" type=\"checkbox\">Autorizzazione alla compilazione del registro</label>\n\
+                            </div>\n\
                             <button id=\"confirm"+progressiv+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"\">\n\
                                 <span class=\"glyphicon glyphicon-ok\"></span>\n\
                             </button>\n\
