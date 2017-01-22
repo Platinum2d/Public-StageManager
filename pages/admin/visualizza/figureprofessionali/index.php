@@ -28,9 +28,7 @@
                         <div class="col col-sm-4">
                             Azione<div align="center">
                                 <select class="form-control" id="actions">
-                                    <option>  </option>                                    
-                                    <option value="1"> Espandi </option>
-                                    <option value="2"> Riduci </option>
+                                    <option>  </option>
                                     <option value="3"> Elimina </option>
                                 </select>
                             </div>
