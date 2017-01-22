@@ -26,7 +26,7 @@ function openEdit(numberId, id_scuola)
             var sitoweb = $(xml).find("scuola").find("sito_web").text();
             
             $("<tr id=\"edit"+numberId+"\"> \n\
-                    <td>\n\
+                    <td></td><td>\n\
                         <div class=\"row\">\n\
                             <div class=\"col col-sm-12\">\n\
                                 <div class=\"row\">\n\
