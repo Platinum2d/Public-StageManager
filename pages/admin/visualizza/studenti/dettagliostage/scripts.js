@@ -12,8 +12,8 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                        </div> <br>\n\
                        <div class=\"col col-sm-6\"> \n\
                             <div class=\"list-group\">\n\
-                                <a href=\"#\" class=\"list-group-item\">Valutazione dell'azienda</a>\n\
-                                <a href=\"#\" class=\"list-group-item\">Valutazione dello studente</a>\n\
+                                <a id=\"editvalutazioneazienda"+progressiv+"\" class=\"list-group-item\">Valutazione dello stage</a>\n\
+                                <a id=\"editvalutazionestudente"+progressiv+"\" class=\"list-group-item\">Valutazione dello studente</a>\n\
                             </div>\n\
                             \n\
                             <div class=\"checkbox\">\n\
@@ -39,7 +39,7 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
     $.ajax({
         type : 'POST',
         url : 'ajaxOpsPerDettaglioStage/getData.php',
-        data : { 'studente' : id_studente, 'classe_stage' : id_classe_has_stage },
+        data : { 'studente' : id_studente, 'classe_stage' : id_classe_has_stage, 'studente_has_stage' : id_studente_has_stage },
         cache : false,
         success : function (xml){
             var authorised = $(xml).find("autorizzazione").text();
@@ -57,6 +57,16 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                 $("#editinfoautorizzazione"+progressiv).prop("checked", true);
             else
                 $("#editinfoautorizzazione"+progressiv).prop("checked", false);
+            
+            if ($(xml).find("valutazione_stage").text() === "-1") 
+                $("#editvalutazioneazienda"+progressiv).addClass("disabled");
+            else
+                $("#editvalutazioneazienda"+progressiv).attr("href", "javascript:goToValutazioneAzienda("+$(xml).find("valutazione_stage").text()+", "+progressiv+")");
+            
+            if ($(xml).find("valutazione_studente").text() === "-1") 
+                $("#editvalutazionestudente"+progressiv).addClass("disabled");
+            else
+                $("#editvalutazionestudente"+progressiv).attr("href", "javascript:goToValutazioneStudente("+$(xml).find("valutazione_studente").text()+", "+progressiv+")");
             
             if ($(xml).find("azienda").find("id").text().length > 0)
             {
@@ -190,6 +200,85 @@ function deleteExperience(studente_has_stage){
     {
         alert("Stage non impostato: impossibile procedere");
     }
+}
+
+function goToValutazioneAzienda(id_valutazione_azienda, progressiv)
+{
+    if (id_valutazione_azienda === "-1") return;
+    
+    $("#MostraValutazione").modal("show");
+
+}
+function goToValutazioneStudente(id_valutazione_studente, progressiv)
+{
+    if (id_valutazione_studente === "-1") return;
+    
+    $("#MostraValutazione").modal("show");
+    $("#MostraValutazione").find(".modal-title").html("Valutazione dello studente");
+    
+        $.ajax({
+            url : 'ajaxOpsPerDettaglioStage/ajaxGetValutazioneStudente.php',
+            type : 'POST',
+            cache : false,
+            data : {'valutazione_studente' : id_valutazione_studente},
+            success : function (xml)
+            {
+                var modal = $("#MostraValutazione").find(".modal-body");
+                
+                modal.html("<table id=\"valtable\" class=\"table table-bordered\"> <thead> <th>Campo di valutazione</th> <th style=\"text-align : center\">Voto</th> </thead> <tbody> </tbody></table>");
+                if ($(xml).find("valutazione").find("gasl").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Gestione dell'ambiente </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("gasl").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Gestione dell'ambiente </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("gasl").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("cc").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Collaborazione e comunicazione</td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("cc").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Collaborazione e comunicazione </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("cc").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("us").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Utilizzo degli strumenti </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("us").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Utilizzo degli strumenti </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("us").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("rnv").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Rispetta le norme vigenti </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("rnv").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Rispetta le norme vigenti </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("rnv").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("ra").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Rispetta l'ambiente di lavoro </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ra").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Rispetta l'ambiente di lavoro </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ra").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("p").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Puntualità </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("p").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Puntualità </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("p").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("ct").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Collaborazione con il tutor </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ct").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Collaborazione con il tutor </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ct").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("lr").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Possiede i requisiti lavororativi </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("lr").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Possiede i requisiti lavorativi </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("lr").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("ctec").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Conoscenze tecniche </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ctec").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Conoscenze tecniche </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("ctec").text()+" </td> </tr>");
+                
+                if ($(xml).find("valutazione").find("anc").text() >= 6)
+                    $("#valtable").find("tbody").append("<tr style=\"background-color : #B7F4B7\"> <td> Acquisisce nuove conoscenze </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("anc").text()+" </td> </tr>");
+                else
+                    $("#valtable").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Acquisisce nuove conoscenze </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione").find("anc").text()+" </td> </tr>");                
+                
+                modal.append("<b>Commento</b> <textarea class=\"form-control\">"+$(xml).find("valutazione").find("c").text()+"</textarea>");
+            }
+    });
 }
 
 function setOnChangeEvents(progressiv){
