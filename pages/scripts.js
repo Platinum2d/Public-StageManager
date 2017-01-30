@@ -1,3 +1,27 @@
+function printError(title, message)
+{
+    $("#SuperAlert").modal("show");
+    if (typeof(title) !== "undefined")
+        $("#SuperAlert").find(".modal-title").html(title);
+    else
+        $("#SuperAlert").find(".modal-title").html("Errore");
+    
+    $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
+    $("#SuperAlert").find(".modal-body").css("background-color", "rgba(255, 0, 0, 0.3)");
+}
+
+function printSuccess(title, message)
+{
+    $("#SuperAlert").modal("show");
+    if (typeof(title) !== "undefined")
+        $("#SuperAlert").find(".modal-title").html(title);
+    else
+        $("#SuperAlert").find(".modal-title").html("Errore");
+    
+    $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
+    $("#SuperAlert").find(".modal-body").css("background-color", "#B7F4B7");
+}
+
 function changeDatabase(database)
 {
     $.ajax({
@@ -10,20 +34,4 @@ function changeDatabase(database)
             location.reload();
         }
     })
-}
-
-function Download() {
-    var newA = document.createElement('a');
-    newA.id = "aDownload";
-    newA.href = "/help.pdf";
-    newA.download = "helpme.pdf";
-    $('#aDownload').trigger('click');
-};
-
-function createIntervalToMoveHelpBadge()
-{
-    window.setInterval(function() {
-        //alert("ciao borel");
-    }, 1);
-    
 }
