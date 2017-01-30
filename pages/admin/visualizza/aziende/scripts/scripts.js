@@ -280,7 +280,7 @@ function sendData(idazienda, numberId)
             url  : 'ajaxOpsPerAzienda/ajaxInvia.php',
             data : azienda,
             success : function (msg)
-            {                
+            {      
                 if (msg === "Inserimento dei dati riuscito!")
                 {
                     $("#label"+numberId).html($("#nomeazienda"+numberId).val() + " ("+$("#username"+numberId).val()+")");
@@ -305,9 +305,12 @@ function deleteAzienda(idAzienda)
             type : 'POST',
             url : 'ajaxOpsPerAzienda/ajaxElimina.php',
             data : {'idazienda' : idAzienda},
-            success : function ()
+            success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    alert(msg);
             }
         });
     }

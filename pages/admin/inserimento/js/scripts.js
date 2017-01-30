@@ -40,9 +40,6 @@ studente = {
     'classe':'',
     'stage':'',
     'annoclasse':''
-    //    'azienda':'',
-    //    'docente':'',
-    //    'tutor':''
 };
 
 classe = {
@@ -412,11 +409,11 @@ function addSelectionsFor(page, field)
                         cache : false,
                         success : function (xml)
                         {
-                            $('#aziendaTutor').html('<option> </option>');
+                            $('#aziendaTutor').html('<option value="-1"></option>');
                             $(xml).find('aziende').find('azienda').each(function()
                             {                                
                                 currentAzienda = $(this).find('nome').text();
-                                $('#aziendaTutor').append('<option> '+currentAzienda+'</option>');
+                                $('#aziendaTutor').append("<option value="+$(this).find('id').text()+"> "+currentAzienda+" </option>");
                             });
                         }
                     });
@@ -487,7 +484,7 @@ function sendSingleData(userType)
             azienda.citta = ''+$('#CittaAzienda').val().trim();
             azienda.CAP = ''+$('#CAPAzienda').val().trim();
             azienda.indirizzo = ''+$('#IndirizzoAzienda').val().trim();
-            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.CAP.isEmpty() || azienda.indirizzo.isEmpty())
+            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.indirizzo.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;

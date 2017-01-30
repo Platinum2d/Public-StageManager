@@ -3,36 +3,31 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Studenti" );
     import("../../../../");
-    $recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
+        
     $idclasse = $_POST['id_classe'];
     $idanno = $_POST['years'];
-    
+        
+    /*$recordperpagina = (isset($_POST['customnstud'])) ? $_POST['customnstud'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['nstud'])) ? 10 : $_POST['nstud'];
     }
-    if ($recordperpagina <= 0) $recordperpagina = 1;
+    if ($recordperpagina <= 0) $recordperpagina = 1;*/
 ?>
 <body>
-        
+    
     <style>
         .minw{
             width: 65%;
         }
     </style>
-        
+    
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-            
-    <script>
-        if (typeof(localStorage.chatCode) !== "undefined"){
-            $("#wholechat").html(localStorage.chatCode);
-        }
-    </script>
     <script src="scripts/script.js"> </script>
-    <script>
-        
+<!--    <script>
+    
         function changePage(tupledastampare, offset, classe, pagetounderline)
         {
             $.ajax({
@@ -47,29 +42,48 @@
                     $("#tablestudenti").append(html);                   
                     $("#tablestudenti").hide();
                     $("#tablestudenti").fadeIn();
-                    
+                        
                     $("#pages").find("ul").find("li").each(function (){
                         $(this).removeClass("active");
                     });
                     $("#"+pagetounderline).parent().addClass("active");
-                    
+                        
                     $("form[target=\"_blank\"]").height($("#modifica0").height())
                 }
             })
         }
-    </script>    
+    </script>    -->
     <div class="container">
         
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id = "mainPanel">
                     <h1>Visualizza Studenti</h1>    
+                    <br>                      
+                    <div class="row">
+                        <div class="col col-sm-4">
+                            <div align="left">
+                                <p style="display: inline">Cerca</p> <input style="display: inline" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="col col-sm-4">
+                            Azione<div align="center">
+                                <select class="form-control" id="actions">
+                                    <option>  </option>                                    
+                                    <option value="1"> Espandi </option>
+                                    <option value="2"> Riduci </option>
+                                    <option value="3"> Elimina </option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col col-sm-4"> 
+                            Filtra righe<div align="right">
+                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                            </div>
+                        </div>
+                    </div>    
                     <br>
-                    <ul id="classes" class="nav nav-tabs">
-     							<?php
-                                                        
-                                ?>
-                    </ul>                        
                     <?php
                         $connessione = dbConnection("../../../../");
                         $Query = (isset($idclasse)) ? "SELECT * "
@@ -79,20 +93,19 @@
                                                              . "AND s.id_studente = sac.studente_id_studente "
                                                              . "AND u.id_utente = sac.studente_id_studente "
                                                              . "ORDER BY cognome "
-                                                             . "LIMIT $recordperpagina "
-                                                             . "OFFSET 0" 
                                 : null;
-                            
+                                    
+                                    
                         if (null !== $Query  && $result = $connessione->query ($Query))
                         {
                             echo "<div class=\"row\">";
                             echo "<div class = \"col col-sm-12\">";
                             $I=0;
                             echo "<div class=\"table-responsive\"><table class=\"table table-bordered\" id=\"tablestudenti\" style=\"\">"
-                            . "<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
+                            . "<thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
                             while ($row = $result->fetch_assoc ())
                             {
-                                echo "<tr><td class=\"minw\">";
+                                echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td class=\"minw\">";
                                 echo "<div id=\"VisibleBox".$I."\">";                                
                                     echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label><input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                 echo "</div>";
@@ -100,13 +113,13 @@
                                 echo "<td align=\"center\">";
                                     echo "<div id=\"ButtonBox".$I."\" align=\"center\">";
                                          echo "<input class = \"btn btn-success \" name=\"".$row['id_studente']."\"  type=\"button\" value=\"Modifica\" id = \"modifica".$I."\" onclick = \"openEdit('VisibleBox".$I."',$(this).closest('input').attr('name'), $idclasse, $idanno)\"></td> "
-                                                 . "<td align=\"center\"><input class = \"btn btn-danger\" type=\"button\" value=\"Elimina\" id = \"elimina".$I."\" onclick=\"deleteData(".$row['classe_id_classe'].",$('#modifica".$I."').closest('input').attr('name'))\"> </td>";
+                                                 . "<td align=\"center\"><input class = \"btn btn-danger\" type=\"button\" value=\"Elimina\" id = \"elimina".$I."\" onclick=\"deleteData(".$I.",$('#modifica".$I."').closest('input').attr('name'))\"> </td>";
                                     echo "</div>";
                                 echo "</tr>";
                                 $I++;
                             }  
                             echo "</tbody></table></div>";
-                            if (isset($idclasse))
+                            /*if (isset($idclasse))
                             {
                                 $tuple = $result->num_rows;
                                 $npagine = intval($tuple / $recordperpagina);
@@ -118,37 +131,37 @@
                                     echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idclasse, $idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                 }
                                 echo "</ul></div>";
-                            }
+                            }*/
                         }
                     ?>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+<!--    <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
         if ($(".active").length === 0)
             $("#pages").find("ul").children().first().addClass("active");
-        
+                
         $("select[name=\"nstud\"]").change(function (){
             $("#manualredirect").submit();
         });
-        
+            
         $("#customnum").keyup(function (e){
             if (e.which === 13){
                 $("#manualcustomredirect").submit();
             }
         });
-        
+            
         $("form[target=\"_blank\"]").height($("#modifica0").height());
-        
+            
         function redirectForClass(progressiv){
             $("#classform"+progressiv).submit();
         }
     </script>
-        
+    -->
 </body>
-    
+
 <?php
     close_html ("../../../../");
 ?>

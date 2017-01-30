@@ -5,7 +5,7 @@
     echo "<script src='../js/scripts.js'></script>";
     import("../../../../");
 ?>
-
+    
 <script>
     var check = setInterval(function(){
         if ($("#usernameScuola").val().isEmpty() || $("#passwordScuola").val().isEmpty() || $("#confermapasswordScuola").val().isEmpty() || $("#nomeScuola").val().isEmpty() || $("#userexists").val() === "1" || 
@@ -39,21 +39,7 @@
                     <br>
                     <div class="row">
                         <form class="form-vertical">
-                            <div class="col col-sm-6">
-                                <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeScuola"> </div>
-                                Citta'<div class="form-group"> <input class="form-control" id="cittaScuola"> </div>
-                                CAP<div class="form-group"> <input type="number" min='1' class="form-control" id="CAPScuola"> </div>
-                                Indirizzo<div class="form-group"> <input class="form-control" id="indirizzoScuola"> </div>
-                                Telefono<div class="form-group"> <input class="form-control" id="telefonoScuola"> </div>
-                                Email<div class="form-group"> <input class="form-control" id="emailScuola"> </div>
-                                Sito Web<div class="form-group"> <input class="form-control" id="sitoScuola"> </div>
-                                <br>
-                                * Campo Obbligatorio
-                                <br>
-                                <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('scuola')">
-                            </div>
-                            <div class="col col-sm-6">
+                                <div class="col col-sm-6">
                                 
                                 <b id='usr'>Username*</b> 
                                 <div class="form-group">
@@ -70,14 +56,31 @@
                                     </div>
                                 </div>
                                 <b>Conferma Password*</b> <div class="form-group"> <input  type="password" class="form-control" id="confermapasswordScuola"> </div>
+                                
+                                Telefono<div class="form-group"> <input class="form-control" id="telefonoScuola"> </div>
+                                Email<div class="form-group"> <input class="form-control" id="emailScuola"> </div>
+                                Sito Web<div class="form-group"> <input class="form-control" id="sitoScuola"> </div>
+                                <br>
+                                * Campo Obbligatorio                                
+                                <br>
+                                <br>
+                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('scuola')"> 
                             </div>
+                            <div class="col col-sm-6">
+                                <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeScuola"> </div>
+                                Citta'<div class="form-group"> <input class="form-control" id="cittaScuola"> </div>
+                                CAP<div class="form-group"> <input type="number" min='1' class="form-control" id="CAPScuola"> </div>
+                                Indirizzo<div class="form-group"> <input class="form-control" id="indirizzoScuola"> </div>
+                                
+                            </div>                           
                         </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
+    
     <script>
         $("#usernameScuola").on('input',function (){
             $.ajax({
@@ -124,7 +127,7 @@
                 }
             });
         });
-    
+        
         var checkpw = setInterval(function (){
             if ($("#passwordScuola").val() !== $("#confermapasswordScuola").val() || $("#passwordScuola").val().length < 8)
             {

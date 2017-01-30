@@ -25,6 +25,27 @@
         topNavbar("../../../../../");    
         titleImg("../../../../../");
     ?>
+        <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+<!--        <div id="MostraValutazione" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+              </div>
+            </div>
+
+          </div>
+        </div>-->
+    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -58,7 +79,7 @@
                                     $id_studente_has_stage = $connessione->query("SELECT id_studente_has_stage FROM studente_has_stage WHERE studente_id_studente = $idstudente AND classe_has_stage_id_classe_has_stage = $idclassestage;")->fetch_assoc()['id_studente_has_stage'];
                                     $id_studente_has_stage = (isset($id_studente_has_stage) && !empty($id_studente_has_stage)) ? $id_studente_has_stage : "-1";
                                     
-                                    echo "<tr id=\"riga$I\" style=\"text-align : center\"> <td> ".$row['inizio_stage']." </td> <td> ".$row['durata_stage']." giorni </td>"
+                                    echo "<tr id=\"riga$I\" style=\"text-align : center\"> <td> ".date("d-m-Y", strtotime($row['inizio_stage']))." </td> <td> ".$row['durata_stage']." giorni </td>"
                                          . " <td>"
                                          . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclassestage, $idstudente, $id_studente_has_stage)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
                                          . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"deleteExperience($id_studente_has_stage)\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-remove\"></span> Rimuovi </button> </td> </tr>";
