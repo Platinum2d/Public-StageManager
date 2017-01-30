@@ -169,7 +169,7 @@ function deleteTutor(idTutor)
                 if (msg === "ok")
                     location.reload();
                 else
-                    alert(msg);
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

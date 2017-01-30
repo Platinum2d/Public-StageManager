@@ -286,8 +286,6 @@ function sendData(idazienda, numberId)
                     $("#label"+numberId).html($("#nomeazienda"+numberId).val() + " ("+$("#username"+numberId).val()+")");
                     resetColors(numberId);
                 }
-                else
-                    alert(msg)
             },
             error : function () {
                 alert();
@@ -310,7 +308,7 @@ function deleteAzienda(idAzienda)
                 if (msg === "ok")
                     location.reload();
                 else
-                    alert(msg);
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

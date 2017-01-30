@@ -179,9 +179,7 @@ function sendData(numberId, idClasse){
             {
                 resetColors(numberId);
                 $("#VisibleBox"+numberId).html($("#nomeclasse"+numberId).val());
-            }                
-            else
-                alert(msg);
+            }
         }
     })
 }

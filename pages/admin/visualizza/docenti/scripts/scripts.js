@@ -135,10 +135,6 @@ function sendData(iddocente, numberId)
                 resetColors(numberId);
                 $("#label"+numberId).html($("#cognome"+numberId).val() + " " + $("#nome"+numberId).val() + " ("+$("#username"+numberId).val()+")");
             }
-        },
-        error : function ()
-        {
-            alert("errore")
         }
     })
     
@@ -163,7 +159,7 @@ function deleteDocente(idDocente)
                 if (msg === "ok")
                     location.reload();
                 else
-                    alert(msg);
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

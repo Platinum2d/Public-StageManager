@@ -21,7 +21,7 @@ function sendData(numberId, id_figura)
         cache : false,
         success : function (msg){
             if (msg === "ok")
-                resetColors(numberId)
+                resetColors(numberId);
         }
     });
 }
