@@ -180,18 +180,25 @@ function sendData(idStudente, numberId)
     }
 }
 
-function deleteData(idClasse, idStudente)
+function deleteData(numberId, idStudente)
 {
     var confirmed = confirm("Confermare l'eliminazione dello studente?");
     if (confirmed)
     {
         $.ajax({
             type : 'POST',
-            url : 'ajaxOpsPerStudente/ajaxCancella.php',
+            url : 'ajaxOpsPerStudente/ajaxElimina.php',
             data : {'id' : idStudente},
             success : function (msg)
             {
-                location.href = "index.php?idclasse="+idClasse;
+                if (msg === "ok")
+                {
+                    $("#VisibleBox"+numberId).parent("tr").fadeOut("slow");
+                }
+                else
+                {
+                    alert(msg);
+                }
             }
         });
     }

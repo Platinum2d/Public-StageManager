@@ -117,18 +117,9 @@ function deleteSchool(numberId, id_scuola)
             success : function (msg)
             {
                 if (msg === "ok")
-                {
-                    $("#scuola"+numberId).fadeOut();
-                }
+                    location.reload();
                 else
-                {
-                    if (msg === "1451")
-                    {
-                        alert("La scuola è ancora connessa ad altre entità all'interno del database");
-                    }
-                    else
-                        alert(msg);
-                }
+                    printError("Eliminazione non riuscita",msg);
             }
         }); 
     }

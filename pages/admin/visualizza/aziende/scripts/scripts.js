@@ -305,9 +305,12 @@ function deleteAzienda(idAzienda)
             type : 'POST',
             url : 'ajaxOpsPerAzienda/ajaxElimina.php',
             data : {'idazienda' : idAzienda},
-            success : function ()
+            success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    alert(msg);
             }
         });
     }

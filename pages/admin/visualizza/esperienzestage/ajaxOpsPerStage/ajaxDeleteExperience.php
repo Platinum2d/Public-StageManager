@@ -1,6 +1,6 @@
 <?php
 
-    include '../../../../functions.php';
+    include '../../../../functions.php'; //Qua che si fa? teniamo o mettiamo il vincolo sulle chiavi?
     $conn = dbConnection("../../../../../");
     
     $classe_has_stage_id = $_POST['id_classe_has_stage'];      

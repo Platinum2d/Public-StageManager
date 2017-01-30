@@ -113,7 +113,7 @@
                                 echo "<td align=\"center\">";
                                     echo "<div id=\"ButtonBox".$I."\" align=\"center\">";
                                          echo "<input class = \"btn btn-success \" name=\"".$row['id_studente']."\"  type=\"button\" value=\"Modifica\" id = \"modifica".$I."\" onclick = \"openEdit('VisibleBox".$I."',$(this).closest('input').attr('name'), $idclasse, $idanno)\"></td> "
-                                                 . "<td align=\"center\"><input class = \"btn btn-danger\" type=\"button\" value=\"Elimina\" id = \"elimina".$I."\" onclick=\"deleteData(".$row['classe_id_classe'].",$('#modifica".$I."').closest('input').attr('name'))\"> </td>";
+                                                 . "<td align=\"center\"><input class = \"btn btn-danger\" type=\"button\" value=\"Elimina\" id = \"elimina".$I."\" onclick=\"deleteData(".$I.",$('#modifica".$I."').closest('input').attr('name'))\"> </td>";
                                     echo "</div>";
                                 echo "</tr>";
                                 $I++;

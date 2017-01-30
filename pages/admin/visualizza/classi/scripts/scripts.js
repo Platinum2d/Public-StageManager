@@ -98,7 +98,7 @@ function openEdit(id, idClasse)
 {
     var numberId = id.replace("VisibleBox", "");
     var editline = "<tr id=\"HiddenBox"+numberId+"\">\n\
-                        <td colspan=\"2\">\n\
+                        <td colspan=\"3\">\n\
                             <div class=\"row\">\n\
                                 <div class=\"col col-sm-12\">\n\
                                     <div class=\"row\">\n\

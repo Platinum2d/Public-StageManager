@@ -160,7 +160,10 @@ function deleteDocente(idDocente)
             data : {'iddocente' : idDocente},
             success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    alert(msg);
             }
         });
     }

@@ -206,15 +206,15 @@ function goToValutazioneAzienda(id_valutazione_azienda, progressiv)
 {
     if (id_valutazione_azienda === "-1") return;
     
-    $("#MostraValutazione").modal("show");
+    $("#SuperAlert").modal("show");
 
 }
 function goToValutazioneStudente(id_valutazione_studente, progressiv)
 {
     if (id_valutazione_studente === "-1") return;
     
-    $("#MostraValutazione").modal("show");
-    $("#MostraValutazione").find(".modal-title").html("Valutazione dello studente");
+    $("#SuperAlert").modal("show");
+    $("#SuperAlert").find(".modal-title").html("Valutazione dello studente");
     
         $.ajax({
             url : 'ajaxOpsPerDettaglioStage/ajaxGetValutazioneStudente.php',
@@ -223,7 +223,7 @@ function goToValutazioneStudente(id_valutazione_studente, progressiv)
             data : {'valutazione_studente' : id_valutazione_studente},
             success : function (xml)
             {
-                var modal = $("#MostraValutazione").find(".modal-body");
+                var modal = $("#SuperAlert").find(".modal-body");
                 
                 modal.html("<table id=\"valtable\" class=\"table table-bordered\"> <thead> <th>Campo di valutazione</th> <th style=\"text-align : center\">Voto</th> </thead> <tbody> </tbody></table>");
                 if ($(xml).find("valutazione").find("gasl").text() >= 6)
