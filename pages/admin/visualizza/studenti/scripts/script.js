@@ -36,6 +36,7 @@ function openEdit(id, idStudente, classe, anno)
                 <div ><label> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
                 <div ><label>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
                 <div ><label>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
+                <br> <div align=\"center\"><input type=\"button\" class=\"btn btn-info\" value=\"Sposta in un'altra classe\" onclick=\"openMoveStudent($(this))\"></div>\n\
 \n\</div>\n\
 <div class=\"col col-sm-6\">\n\
 \n\<div><label>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
@@ -192,13 +193,9 @@ function deleteData(numberId, idStudente)
             success : function (msg)
             {
                 if (msg === "ok")
-                {
                     $("#VisibleBox"+numberId).parent("tr").fadeOut("slow");
-                }
                 else
-                {
-                    alert(msg);
-                }
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }
@@ -277,13 +274,69 @@ function openRegistro(id, idStudente)
 function closeRegistro (numberId)
 {
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() - $("#RegistroBox"+numberId).height())
-    $( "#RegistroBox"+numberId ).remove();    
+    $("#RegistroBox"+numberId ).remove();    
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);
 }
 
-function openInfo()
+function openMoveStudent(that)
 {
+    var studente = that.closest("td").attr('name');
+    localStorage.setItem('stdstd', studente);
+    var classe = localStorage.getItem("clstd"); 
+    var anno = localStorage.getItem("anstd");
     
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerStudente/ajaxOtherClasses.php',
+        cache : false,
+        data : 
+        {
+            'exception' : classe,
+            'id_anno' : anno
+        },
+        success : function (xml)
+        {
+            $("#SuperAlert").modal();
+            $("#SuperAlert").find(".modal-body").html("");
+            $("#SuperAlert").find(".modal-body").append("<br><b>ATTENZIONE: questa funzionalita' è stata pensata solo per studenti non associati ad alcuno stage.<br>TUTTI i dati relativi allo stage di questo studente con questa classe NON possono essere trasferiti nella nuova classe</b><br><br>");
+            var modal = $("#SuperAlert").find(".modal-body");
+            
+            $("#SuperAlert").find(".modal-title").html("Scegli la classe");
+            modal.append("<table class=\"table table-bordered\"> \n\
+                            <thead> <th style=\"text-align : center\">Nome della classe</th> <th style=\"text-align : center\">Azioni</th> </thead> \n\
+                          </table>");
+            
+            $(xml).find("classi").find("classe").each(function (){
+                modal.find("table").append("<tr><td><div align=\"center\"><label>"+$(this).find("nome").text()+"</label></div></td><td style='padding : 5px'> <div align='center'><input type=\"button\" class=\"btn btn-success\" value=\"Seleziona\" onclick=\"moveStudent("+$(this).find("id").text()+")\"></div> </td></tr>");
+            });
+            
+        }
+    });
+}
+
+function moveStudent(idclasse)
+{
+    $.ajax({
+        url : 'ajaxOpsPerStudente/ajaxMoveStudent.php',
+        type : 'POST',
+        cache : false,
+        data : 
+        {
+            classenuova : idclasse,
+            classevecchia : localStorage.getItem("clstd"),
+            anno : localStorage.getItem("anstd"),
+            studente : localStorage.getItem("stdstd")
+        },
+        success : function (msg)
+        {
+            if (msg === "ok")
+            {
+                $("#SuperAlert").modal("hide");
+                $("#SuperAlert").find(".modal-body").html("");
+                location.reload();
+            }
+        }
+    });
 }
