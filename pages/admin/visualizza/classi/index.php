@@ -22,8 +22,8 @@
                     <div class="row">
                         <div class="col col-sm-4"></div>
                         <div class="col col-sm-4">
-                            Scuola<select class="form-control" id="classes">
-                                <option value="-1"> </option>
+                            Scuola<select class="form-control selectpicker" data-live-search = "true"  id="classes">
+                                <option value="-1" selected disabled> Selezionare </option>
                             </select>
                         </div>
                         <div class="col col-sm-4">
