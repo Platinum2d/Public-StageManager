@@ -1,5 +1,5 @@
 <?php
-    include '../../functions.php'; //let's try
+    include '../../functions.php';
    checkLogin ( superUserType , "../../../");
     import("../../../");
     open_html ( "Profilo" );
@@ -17,9 +17,23 @@
         $username = $row ['username']; 
     }
 ?>
+    
+<style>
+    .kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+    .kv-avatar .file-input {
+        display: table-cell;
+        max-width: 220px;
+    }
+</style>
+    
 <body>
-    <?php    
-   // printBadge("../../../");
+    <?php
         topNavbar ("../../../");
         titleImg ("../../../");          
     ?>
@@ -37,17 +51,33 @@
                             $row = ($result && $result->num_rows > 0) ? $result->fetch_assoc() : null;
                             if (!isset($row['profile']) || $row['profile'] === "-1")
                             {
-                            ?>
-                            <form enctype="multipart/form-data" method="post" action="ajaxOps/profileimageloader.php" name="uploadform">
-                                Immagine del profilo
-                                <br>
-                                <br>
-                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="profileimage">
-                                <br>
-                                <input type="submit" class="btn btn-primary" value="invia" name="invio">                                    
-                            </form>
-                            
+                                echo <<<HTML
+                                    
+                                <form onsubmit = "return checkSubmit()" class="text-center" action="ajaxOps/avatar_uploader.php" method="post" enctype="multipart/form-data">
+                                    <div class="kv-avatar center-block" style="width:200px">
+                                        <input id="avatar-2" name="profileimage" type="file" class="file-loading">
+                                    </div>
+                                </form>
+HTML;
+                                ?>
+                            <script>                                
+                                $("#avatar-2").fileinput({
+                                    maxFileSize: 5000,
+                                    showClose: true,
+                                    showCaption: false,
+                                    showBrowse: false,
+                                    browseOnZoneClick: true,
+                                    removeLabel: 'Cancella',
+                                    uploadLabel: "Carica",
+                                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                                    msgErrorClass: 'alert alert-block alert-danger',
+                                    defaultPreviewContent: '<img src="../../../src/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
+                                    allowedFileExtensions: ["jpg", "png", "gif"]
+                                });
+                            </script>
+                                
                             <?php
+                                
                             }
                             else
                             {
@@ -57,19 +87,41 @@
                                 echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
                                 echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
                             ?>
-                            <form style="padding-top: 10px;" enctype="multipart/form-data" method="post" action="ajaxOps/ajaxReplaceProfileImage.php" name="uploadchangeform">
-                                <input style="padding-right: 5px;" type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File" name="profileimagechange">
-                                <input type="hidden" name="oldpictureid" value="<?php echo $row['id_immagine_profilo']?>">
-                                <input style="margin-top: 5px;" type="submit" class="btn btn-primary" value="invia" name="invio">
-                                <input style="margin-top: 5px;" class="btn btn-danger" type="button" value="chiudi" onclick="removeChangeForm()">
-                            </form>
-                            <script>$("form[name=\"uploadchangeform\"]").hide();</script>
+                            <script>
+                                $("#editspan").on("click", function (){
+                                    $("#SuperAlert").modal("show");
+                                    var modal = $("#SuperAlert").find(".modal-body");
+                                    
+                                    $("#SuperAlert").find(".modal-title").html("Cambia l'immagine del profilo");
+                                    modal.html('<form class="text-center" action="ajaxOps/replace_avatar.php" method="post" enctype="multipart/form-data">\n\
+                                                    <label class="control-label">Seleziona un\'immagine</label>\n\
+                                                    <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
+                                                </form>');
+                                    $("#input-file").fileinput({   
+                                        maxFileSize: 5000,
+                                        previewFileType: "image",
+                                        browseClass: "btn btn-success",
+                                        browseLabel: "Sfoglia...",
+                                        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                        removeClass: "btn btn-danger",
+                                        removeLabel: "Cancella",
+                                        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                        uploadClass: "btn btn-info",
+                                        uploadLabel: "Carica",
+                                        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
+                                        allowedFileExtensions: ["jpg", "png", "gif"]
+                                    });
+                                    $(".btn-primary > .hidden-xs").html("Seleziona...");
+                                    modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>")
+                                });
+                                
+                            </script>    
                             <?php
                             }
                             ?>
                         </div>
                         <div class="col col-sm-9">
-                            <div class="table-responsive">
+                            <div class="table-responsive" >
                                 <table id="myInformations" class="table table-striped">
                                     <tr>
                                         <th class="col-sm-3">Username</th>
@@ -125,10 +177,36 @@
             $("#editspan").css("visibility" , "hidden");              
             $("#profileimage").css("opacity", "1");
         });
+        $('#SuperAlert').on('hidden.bs.modal', function () {
+            $("#editspan").css("visibility" , "hidden");              
+            $("#profileimage").css("opacity", "1");
+        });
         $("#editspan").hover(function (){
             $("#editspan").css("visibility" , "visible");
             $("#profileimage").css("opacity", "0.2");
         });
+        
+        function resetAvatar()
+        {
+            $.ajax({
+                type : 'POST',
+                url : 'ajaxOps/ajaxResetAvatar.php',
+                cache : false,
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                    {
+                        $("#SuperAlert").modal("hide");
+                        location.reload();
+                    }
+                }
+            });
+        }
+        
+        function checkSubmit()
+        {
+            if ($(".file-default-preview").length > 0) return false;
+        }
     </script>
 </body>
 <?php
