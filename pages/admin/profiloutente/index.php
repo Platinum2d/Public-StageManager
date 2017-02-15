@@ -1,5 +1,5 @@
 <?php
-    include '../../functions.php';
+    include '../../functions.php'; //let's try
    checkLogin ( superUserType , "../../../");
     import("../../../");
     open_html ( "Profilo" );
