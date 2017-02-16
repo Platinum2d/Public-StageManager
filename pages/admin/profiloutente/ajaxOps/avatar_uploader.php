@@ -7,6 +7,9 @@
     {
         $fileName = $_FILES ['profileimage'] ['name'];
         $filepath = "../../../../src/loads/profimgs/superusers/";
+        if (!file_exists($filepath)) {
+            mkdir($filepath, 0777, true);
+        }
         if (move_uploaded_file ( $_FILES ['profileimage'] ['tmp_name'], $filepath . $fileName))
         {
             $query = "INSERT INTO immagine_profilo (URL, dimensione) VALUES ('superusers/$fileName', ".filesize($filepath . $fileName).")";
