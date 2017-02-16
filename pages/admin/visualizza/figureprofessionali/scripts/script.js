@@ -11,7 +11,7 @@ function sendData(numberId, id_figura)
 {
     tosend = {
         'id' : id_figura,
-        'nome' : $("#figura"+numberId).find("td").first().html()
+        'nome' : $("#figura"+numberId).find("td[contenteditable='true']").html()
     };
     
     $.ajax({
