@@ -324,9 +324,8 @@ HTML;
         echo "<script src='".$goBack."src/lib/bootstrap-select-1.12.2/dist/js/bootstrap-select.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
         echo "<link href='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/chat-0.0.1/chat.js'></script>";
-        echo "<link href='".$goBack."src/lib/chat-0.0.1/style.css' rel='stylesheet'>";
-        $uploaderpath = $goBack."src/lib/jQuery-File-Upload";
+        echo "<script src='".$goBack."src/lib/bootstrap-fileinput/js/fileinput.js'></script>";
+        echo "<link href='".$goBack."src/lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
@@ -357,7 +356,7 @@ HTML;
         if (isset ( $_SESSION ['access_denied'] )) {
             if ($_SESSION ['access_denied'] = err_noLog) {
                 echo <<<HTML
-                <script>alert("Loggati per poter accedere a questa pagina.");
+                <script>alert("Si prega di effettuare il login");
                 </script>
 HTML;
                 unset ( $_SESSION ['access_denied'] );
