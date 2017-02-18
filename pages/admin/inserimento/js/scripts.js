@@ -409,11 +409,11 @@ function addSelectionsFor(page, field)
                         cache : false,
                         success : function (xml)
                         {
-                            $('#aziendaTutor').html('<option> </option>');
+                            $('#aziendaTutor').html('<option value="-1"></option>');
                             $(xml).find('aziende').find('azienda').each(function()
                             {                                
                                 currentAzienda = $(this).find('nome').text();
-                                $('#aziendaTutor').append('<option> '+currentAzienda+'</option>');
+                                $('#aziendaTutor').append("<option value="+$(this).find('id').text()+"> "+currentAzienda+" </option>");
                             });
                         }
                     });

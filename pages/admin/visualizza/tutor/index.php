@@ -3,11 +3,11 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Tutor" );
     import("../../../../");
-    $recordperpagina = (isset($_POST['customtutor'])) ? $_POST['customtutor'] : null;
+    /*$recordperpagina = (isset($_POST['customtutor'])) ? $_POST['customtutor'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['ntutor'])) ? 10 : $_POST['ntutor'];
     }
-    if ($recordperpagina <= 0) $recordperpagina = 1;
+    if ($recordperpagina <= 0) $recordperpagina = 1;*/
 ?>
 <body>
     <style>
@@ -20,41 +20,66 @@
         titleImg ("../../../../");
     ?>
     <script src="scripts/scripts.js"> </script>
-        
-    <!-- Begin Body -->
-    <script>
-        
-        function changePage(tupledastampare, offset, pagetounderline)
+    
+<!--    <script>
+
+function changePage(tupledastampare, offset, pagetounderline)
+{
+    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerTutor/ajaxGetTablePortion.php',
+        data : { 'offset' : offset, 'tuple' : tupledastampare },
+        cache : false,
+        success : function (html)
         {
-            
-            $.ajax({
-                type : 'POST',
-                url : 'ajaxOpsPerTutor/ajaxGetTablePortion.php',
-                data : { 'offset' : offset, 'tuple' : tupledastampare },
-                cache : false,
-                success : function (html)
-                {
-                    $("#tabletutor").html("Caricamento....");
-                    $("#tabletutor").html("<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>");
-                    $("#tabletutor").append(html);                   
-                    $("#tabletutor").hide();
-                    $("#tabletutor").fadeIn();
-                    $("#pages").find("ul").find("li").each(function (){
-                        $(this).removeClass("active");
-                    });
-                    $("#"+pagetounderline).parent().addClass("active");
-                    $("form[target=\"_blank\"]").height($("#modifica0").height())
-                }
-            })
+            $("#tabletutor").html("Caricamento....");
+            $("#tabletutor").html("<thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>");
+            $("#tabletutor").append(html);                   
+            $("#tabletutor").hide();
+            $("#tabletutor").fadeIn();
+            $("#pages").find("ul").find("li").each(function (){
+                $(this).removeClass("active");
+            });
+            $("#"+pagetounderline).parent().addClass("active");
+            $("form[target=\"_blank\"]").height($("#modifica0").height())
         }
-    </script>
+    })
+}
+</script>-->
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id="mainPanel" style="min-height: 0px">
                     <h1>Visualizza Tutor</h1> 
+                    <br>                      
+                    <div class="row">
+                        <div class="col col-sm-4">
+                            <div align="left">
+                                <p style="display: inline">Cerca</p> <input style="display: inline" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="col col-sm-4">
+                            Azione<div align="center">
+                                <select class="form-control" id="actions">
+                                    <option>  </option>                                    
+                                    <option value="1"> Espandi </option>
+                                    <option value="2"> Riduci </option>
+                                    <option value="3"> Elimina </option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col col-sm-4"> 
+                            Filtra righe<div align="right">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                            </div>
+                        </div>
+                    </div>    
+                    <br>
+                        
                                         <?php
-                                            echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
+                                            /*  echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
                                             if (isset($_POST['ntutor']))
                                             {
                                         ?>
@@ -63,7 +88,7 @@
                         $("#slc > option").each(function() {
                             if (this.text === '<?php echo intval($_POST['ntutor']); ?>')
                             rightindex = this.index;
-                            
+                                
                             $("#slc").prop('selectedIndex', rightindex);
                         });
                     </script>      
@@ -71,19 +96,20 @@
                                             else 
                                             { ?> 
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
-                                      <?php }
+                                      <?php }   */
                                           
                                             $conn = dbConnection("../../../../");
-                                            $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
+                                            $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor ORDER BY cognome";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;
                                             if($result->num_rows > 0)
                                             {
-                                                echo "<br><div class=\"table-responsive\"><table id=\"tabletutor\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
+                                                echo "<div class=\"table-responsive\">"
+                                                . "<table id=\"tabletutor\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
                                                 while ($row = $result->fetch_assoc())
                                                 {
-                                                    echo "<tr><td class=\"minw\">";
+                                                    echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td class=\"minw\">";
                                                     echo "<div id=\"VisibleBox$I\">";
                                                         echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label> <input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                                     echo "</div>";
@@ -95,7 +121,7 @@
                                                     $I++;
                                                 }
                                                 echo "</tbody></table></div>";
-                                                $querycount = "SELECT COUNT(*) FROM tutor";
+                                                /*$querycount = "SELECT COUNT(*) FROM tutor";
                                                 $resultcount = $conn->query($querycount);
                                                 $rowcount = $resultcount->fetch_assoc();
                                                 $tuple = intval($rowcount['COUNT(*)']);
@@ -107,7 +133,7 @@
                                                     $idtoprint = $I * $recordperpagina;
                                                     echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
                                                 }
-                                                echo "</ul></div>";
+                                                echo "</ul></div>";*/
                                             }
                                             echo "</div>";
                                                 
@@ -117,23 +143,23 @@
             </div>
         </div>
     </div>
-    <script>
+<!--    <script>
         $("#customnum").css("height",parseInt($("#slc").height()));
         if ($(".active").length === 0)
             $("#pages").find("ul").children().first().addClass("active");
-        
+                
         $("select[name=\"ntutor\"]").change(function (){
             $("#manualredirect").submit();
         });
-        
+            
         $("#customnum").keyup(function (e){
             if (e.which === 13){
                 $("#manualcustomredirect").submit();
             }
         });
-        
+            
         $("form[target=\"_blank\"]").height($("#modifica0").height());
-    </script>
+    </script>-->
 </body>
 <?php
     close_html ("../../../../");

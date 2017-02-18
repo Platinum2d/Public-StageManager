@@ -3,11 +3,17 @@
     $conn = dbConnection("../../../../../");
         
     $iddocente = $_POST['iddocente'];
-        
-    $conn->query("SET FOREIGN_KEY_CHECKS = 0");
-    $query = "DELETE FROM utente WHERE id_utente = $iddocente";
-    $conn->query($query);
+    $error = false;
+    
     $query = "DELETE FROM docente WHERE id_docente = $iddocente";
-    $conn->query($query);
-    $conn->query("SET FOREIGN_KEY_CHECKS = 1");
-?>
+    if (!$conn->query($query)){ $error =  true; }
+    else
+    {
+        $query = "DELETE FROM utente WHERE id_utente = $iddocente";
+        if (!$conn->query($query)){ $error =  true; }
+    }
+    
+    if ($error)
+        echo "Errore: query non riuscita o dipendenze esterne non risolte.\nControllare che tutte le entità legate a questo docente siano state eliminate o modificate opportunamente";
+    else
+        echo "ok";

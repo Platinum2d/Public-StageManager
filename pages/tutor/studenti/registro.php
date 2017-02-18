@@ -25,7 +25,8 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>STUDENTI</h1>
+                    <h1>Studenti</h1>
+                    <br>
                     <div class="row">
                         <div class="col col-sm-12">
                             <?php
@@ -54,7 +55,7 @@
                                             while ( $work_line = $query_line->fetch_assoc () ) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $work_line['data']; ?></td>
+                                            <td class="regDate"><?php echo $work_line['data']; ?></td>
                                             <td class="regDesc"><?php echo $work_line['descrizione']; ?></td>
                             				<?php
                                                 echo "<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> ";

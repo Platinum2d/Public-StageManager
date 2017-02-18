@@ -10,6 +10,15 @@ docente = {
     'docente_tutor' : ''
 }
 
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
+
 function openEdit (id, iddocente)
 {
     var numberId = id;
@@ -126,10 +135,6 @@ function sendData(iddocente, numberId)
                 resetColors(numberId);
                 $("#label"+numberId).html($("#cognome"+numberId).val() + " " + $("#nome"+numberId).val() + " ("+$("#username"+numberId).val()+")");
             }
-        },
-        error : function ()
-        {
-            alert("errore")
         }
     })
     
@@ -151,7 +156,10 @@ function deleteDocente(idDocente)
             data : {'iddocente' : idDocente},
             success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

@@ -1,8 +1,17 @@
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
+
 function sendData(numberId, id_figura)
 {
     tosend = {
         'id' : id_figura,
-        'nome' : $("#figura"+numberId).find("td").first().html()
+        'nome' : $("#figura"+numberId).find("td[contenteditable='true']").html()
     };
     
     $.ajax({
@@ -12,7 +21,7 @@ function sendData(numberId, id_figura)
         cache : false,
         success : function (msg){
             if (msg === "ok")
-                resetColors(numberId)
+                resetColors(numberId);
         }
     });
 }

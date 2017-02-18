@@ -1,37 +1,50 @@
 $(document).ready(function() {	
     function DescEdit(event){
-    	var regtr = $(event.target).closest("tr")
-    	var desc = regtr.find(".regDesc").html()
-    	var regDesc = regtr.find(".regDesc")
-    	regDesc.empty()
-    	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>")
-    	regDesc.find("textarea").jqte()
-    	regDesc.append("<textarea class='descBackup' style='display: none;'>" + desc + "</textarea>")
-    	regtr.find("td.regOpt").empty()
-    	regtr.find("td.regOpt").append('<button class="descSave btn btn-primary">Salva</button> <button class="descDiscard btn btn-primary">Annulla</button>')
-    	regtr.find(".descDiscard").click(DescDiscard)
-    	regtr.find(".descSave").click(DescSave)
+    	var regtr = $(event.target).closest("tr");
+    	var regDesc = regtr.find(".regDesc");
+    	var desc = regDesc.html();
+    	var regDate = regtr.find(".regDate");
+    	var date = regDate.html();
+    	var dateSplitted = date.split("-");
+    	var year = dateSplitted [0];
+    	var month = parseInt (dateSplitted [1]) - 1;
+    	var day = dateSplitted [2];
+    	regDate.empty ();
+    	regDesc.empty();
+    	regDate.append ("<input class='datepicker'/>");
+    	regDate.find (".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+    	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
+    	regDate.data ("oldDate", date);
+    	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
+    	regDesc.find("textarea").jqte();
+    	regDesc.append("<textarea class='descBackup' style='display: none;'>" + desc + "</textarea>");
+    	regtr.find("td.regOpt").empty();
+    	regtr.find("td.regOpt").append('<button class="descSave btn btn-primary">Salva</button> <button class="descDiscard btn btn-primary">Annulla</button>');
+    	regtr.find(".descDiscard").click(DescDiscard);
+    	regtr.find(".descSave").click(DescSave);
     }
 
     function DescDiscard(event){
-    	var regtr = $(event.target).closest("tr")
-    	var desc = regtr.find(".descBackup").val()
-    	regtr.find("td.regDesc").empty()
-    	regtr.find("td.regDesc").append(desc)
-    	regtr.find("td.regOpt").empty()
-    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-primary'>Modifica</button> ")
-    	regtr.find(".regEdit").click(DescEdit)
-    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-primary'>Elimina</button>")
-    	regtr.find(".regDelete").click(DescDelete)
+    	var regtr = $(event.target).closest("tr");
+    	var desc = regtr.find(".descBackup").val();
+    	var date = regtr.find(".regDate").data ("oldDate");
+    	regtr.find("td.regDate").empty().html(date);
+    	regtr.find("td.regDesc").empty();
+    	regtr.find("td.regDesc").append(desc);
+    	regtr.find("td.regOpt").empty();
+    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-primary'>Modifica</button> ");
+    	regtr.find(".regEdit").click(DescEdit);
+    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-primary'>Elimina</button>");
+    	regtr.find(".regDelete").click(DescDelete);
     }
 
     function DescInit(){
     	$("#DescMain").empty();
-    	$("#DescMain").append("Loading...")
+    	$("#DescMain").append("Loading...");
     	var content = $("<div class='table-responsive'><table id='DescTable' class='table table-striped table-bordered'><thead><tr></tr></thead><tbody></tbody></table></div>");
-    	content.find("thead tr").append("<td>Data</td>")
-    	content.find("thead tr").append("<td>Descrizione delle attivit&agrave lavorative</td>")
-    	content.find("thead tr").append("<td>Opzioni</td>")
+    	content.find("thead tr").append("<td>Data</td>");
+    	content.find("thead tr").append("<td>Descrizione delle attivit&agrave lavorative</td>");
+    	content.find("thead tr").append("<td>Opzioni</td>");
         var idstudHasStage= shs;
     	data = {
             "idStudenteHasStage":idstudHasStage
@@ -98,12 +111,16 @@ $(document).ready(function() {
 
     function DescSave(event){
         
-    	var regtr = $(event.target).closest("tr")
-    	var desctd = regtr.find("td.regDesc")
-    	var nd = desctd.find(".newDesc").val()
+    	var regtr = $(event.target).closest("tr");
+    	var desctd = regtr.find("td.regDesc");
+    	var nd = desctd.find(".newDesc").val();
+    	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
     	data = {
     		"newdesc": nd,
-    		"id": regtr.find(".descId").val()
+    		"id": regtr.find(".descId").val(),
+			"day": date.getDate(),
+			"month": date.getMonth() + 1,
+			"year": date.getFullYear(),
     	}
     	$.ajax({
     		url: "ajaxOps/aggiorna_lavoro.php", //Pagina a quale invio la richiesta
@@ -118,17 +135,17 @@ $(document).ready(function() {
 
     		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
     			if($(xml).find("status").text() == 0){
-    				regtr.find("td.regDesc").empty()
-    				regtr.find("td.regDesc").append(nd)
-    				regtr.find("td.regOpt").empty()
-    				regtr.find("td.regOpt").append("<button class='regEdit'>Modifica</button>")
+    				regtr.find("td.regDesc").empty();
+    				regtr.find("td.regDesc").append(nd);
+    				regtr.find("td.regOpt").empty();
+    				regtr.find("td.regOpt").append("<button class='regEdit'>Modifica</button>");
     				//regtr.find(".regEdit").click(DescEdit)
-    				regtr.find("td.regOpt").append("<button class='regDelete'>Elimina</button>")
+    				regtr.find("td.regOpt").append("<button class='regDelete'>Elimina</button>");
     				//regtr.find(".regDelete").click(DescDelete)
     				DescInit()
     			}
     			else{
-    				alert("Errore durante l'invio, prego riprovare")
+    				alert("Errore durante l'invio, prego riprovare");
     			}
     		}
     	});

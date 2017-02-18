@@ -1,3 +1,12 @@
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
+
 function openEdit(numberId, id_scuola)
 {
     $.ajax({
@@ -17,7 +26,7 @@ function openEdit(numberId, id_scuola)
             var sitoweb = $(xml).find("scuola").find("sito_web").text();
             
             $("<tr id=\"edit"+numberId+"\"> \n\
-                    <td>\n\
+                    <td></td><td>\n\
                         <div class=\"row\">\n\
                             <div class=\"col col-sm-12\">\n\
                                 <div class=\"row\">\n\
@@ -108,18 +117,9 @@ function deleteSchool(numberId, id_scuola)
             success : function (msg)
             {
                 if (msg === "ok")
-                {
-                    $("#scuola"+numberId).fadeOut();
-                }
+                    location.reload();
                 else
-                {
-                    if (msg === "1451")
-                    {
-                        alert("La scuola è ancora connessa ad altre entità all'interno del database");
-                    }
-                    else
-                        alert(msg);
-                }
+                    printError("Eliminazione non riuscita",msg);
             }
         }); 
     }

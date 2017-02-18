@@ -1,5 +1,6 @@
 $(document).ready(function (){
     $("#actionwrapper").hide();
+    $("#viewoptions").hide();
     
     $.ajax({
         url : 'ajaxOpsPerClasse/ajaxScuola.php',
@@ -22,22 +23,23 @@ $(document).ready(function (){
             {
                 if ($("#classes").val() !== "-1")
                 {
-                    $("#actionwrapper").show();
-                    $("#actionwrapper").hide();
                     $("#actionwrapper").fadeIn();
+                    $("#viewoptions").fadeIn();
                 }
                 else
                 {
                     $("#actionwrapper").fadeOut();
+                    $("#viewoptions").fadeOut();
                 }
                 var newtable = "<table id=\"current\" class=\"table table-bordered\"> \n\
-                    <thead style=\"background : #eee\"> <th style=\"text-align : center\"> Nome </th> <th style=\"text-align : center\"> Azioni </th> <th style=\"text-align : center\"> Anno Scolastico </th> </thead> <tbody> </tbody>   \n\
+                    <thead style=\"background : #eee\"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Nome </th> <th style=\"text-align : center\"> Azioni </th> <th style=\"text-align : center\"> Anno Scolastico </th> </thead> <tbody> </tbody>   \n\
                     </table>";
                 $("#table").html(newtable);
                 var I=0;
                 $(xml).find("classi").find("classe").each(function (){
                     var newline = 
                             "<tr style=\"text-align : center\" id=\"riga"+I+"\"> \n\
+                        <td><input class=\"singlecheck\" type=\"checkbox\"></td>\n\
                         <td style=\"width: 33%\"> <div id=\"VisibleBox"+I+"\"> "+$(this).find("nome").text()+" </div> </td>\n\
                         <td style=\"width : 33%\"> <div align=\"center\" id=\"ButtonBox"+I+"\"> \n\
                             <input type=\"button\" class=\"btn btn-success\" value=\"Modifica\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\">\n\
@@ -53,6 +55,14 @@ $(document).ready(function (){
                     $("#current").find("tbody").append(newline);
                     I++;
                 });
+                
+                $("#checkall").change(function (){
+                    if ($(this).prop("checked"))
+                        $(".singlecheck").prop("checked", true);
+                    else
+                        $(".singlecheck").prop("checked", false);
+                });
+                
                 $("#table").hide();
                 $("#table").fadeIn();
             }
@@ -71,7 +81,7 @@ $(document).ready(function (){
                             case 'studenti':
                                 $(this).closest("form").attr("action", "../studenti/index.php");
                                 break;
-                                
+                            
                             case 'stage':
                                 $(this).closest("form").attr("action", "../esperienzestage/index.php");
                                 break;
@@ -88,7 +98,7 @@ function openEdit(id, idClasse)
 {
     var numberId = id.replace("VisibleBox", "");
     var editline = "<tr id=\"HiddenBox"+numberId+"\">\n\
-                        <td colspan=\"2\">\n\
+                        <td colspan=\"3\">\n\
                             <div class=\"row\">\n\
                                 <div class=\"col col-sm-12\">\n\
                                     <div class=\"row\">\n\
@@ -169,9 +179,7 @@ function sendData(numberId, idClasse){
             {
                 resetColors(numberId);
                 $("#VisibleBox"+numberId).html($("#nomeclasse"+numberId).val());
-            }                
-            else
-                alert(msg);
+            }
         }
     })
 }

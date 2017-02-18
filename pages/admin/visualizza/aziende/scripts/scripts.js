@@ -175,7 +175,7 @@ function openEdit (id, idazienda)
     $("#HiddenBox"+numberId).append(" <div class=\"row\"> <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"><label id=\"userlabel"+numberId+"\"> Username </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
         Citta <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> CAP <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
         Indirizzo <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
-        </div> <div class=\"col col-sm-6\"> Password <input type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">  Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
+        </div> <div class=\"col col-sm-6\"> Password <input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">  Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
         Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
         Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
         Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
@@ -280,17 +280,12 @@ function sendData(idazienda, numberId)
             url  : 'ajaxOpsPerAzienda/ajaxInvia.php',
             data : azienda,
             success : function (msg)
-            {                
+            {      
                 if (msg === "Inserimento dei dati riuscito!")
                 {
                     $("#label"+numberId).html($("#nomeazienda"+numberId).val() + " ("+$("#username"+numberId).val()+")");
                     resetColors(numberId);
                 }
-                else
-                    alert(msg)
-            },
-            error : function () {
-                alert();
             }
         });
     }
@@ -305,9 +300,12 @@ function deleteAzienda(idAzienda)
             type : 'POST',
             url : 'ajaxOpsPerAzienda/ajaxElimina.php',
             data : {'idazienda' : idAzienda},
-            success : function ()
+            success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

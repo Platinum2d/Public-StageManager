@@ -8,6 +8,14 @@ tutor = {
     'mail' :     '',
     'azienda' : ''
 }
+$(document).ready(function (){
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
+});
 
 function openEdit (id, idTutor)
 {
@@ -156,9 +164,12 @@ function deleteTutor(idTutor)
             type : 'POST',
             url : 'ajaxOpsPerTutor/ajaxElimina.php',
             data : {'idtutor' : idTutor},
-            success : function ()
+            success : function (msg)
             {
-                location.reload();
+                if (msg === "ok")
+                    location.reload();
+                else
+                    printError("Eliminazione non riuscita",msg);
             }
         });
     }

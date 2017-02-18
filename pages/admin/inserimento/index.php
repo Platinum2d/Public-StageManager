@@ -12,8 +12,7 @@
             color : #555
         }
     </style>
-    <?php    
-   // printBadge("../../../");
+    <?php
         topNavbar ("../../../");
         titleImg ("../../../");
     ?>

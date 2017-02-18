@@ -292,6 +292,8 @@ HTML;
               
         </header>
 HTML;
+        
+        printMainModel();
     }
         
     function import($goBack) { //importa librerie
@@ -317,12 +319,11 @@ HTML;
         echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
         echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/js/bootstrap-select.js'></script>";
+        echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
         echo "<link href='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/chat-0.0.1/chat.js'></script>";
-        echo "<link href='".$goBack."src/lib/chat-0.0.1/style.css' rel='stylesheet'>";
-        $uploaderpath = $goBack."src/lib/jQuery-File-Upload";
+        echo "<script src='".$goBack."src/lib/bootstrap-fileinput/js/fileinput.js'></script>";
+        echo "<link href='".$goBack."src/lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
@@ -353,7 +354,7 @@ HTML;
         if (isset ( $_SESSION ['access_denied'] )) {
             if ($_SESSION ['access_denied'] = err_noLog) {
                 echo <<<HTML
-                <script>alert("Loggati per poter accedere a questa pagina.");
+                <script>alert("Si prega di effettuare il login");
                 </script>
 HTML;
                 unset ( $_SESSION ['access_denied'] );
@@ -540,4 +541,26 @@ HTML;
             </div>
 HTML;
     }
-?>
+    
+    function printMainModel(){
+        echo <<<HTML
+        <div id="SuperAlert" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+HTML;
+    }
