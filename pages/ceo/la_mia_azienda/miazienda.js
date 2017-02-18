@@ -6,6 +6,8 @@ contact = {
     'phone': ''
 };
 
+var figuresSize = 12.5;
+
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
     $("#cancelButtonspec").hide();
@@ -14,7 +16,40 @@ $(document).ready(function(){
     contact.address=$("#address").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
-    $("span[data-role=\"remove\"]").hide();
+    $(".label-info").css("font-size", figuresSize);
+    $("#figurerichieste").on("itemAdded", function (event){  
+        $(".label-info").css("font-size", figuresSize);
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOpsPerFigureProfessionali/ajaxAddFigure.php',
+            cache : false,
+            data : { 'nome' : event.item },
+            success : function (msg)
+            {
+                if (msg !== "ok")
+                {
+                    //printError
+                }
+            }
+        });
+    });
+    
+    $("#figurerichieste").on("itemRemoved", function (event){
+        $(".label-info").css("font-size", figuresSize);
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOpsPerFigureProfessionali/ajaxRemoveCompanyNeed.php',
+            cache : false,
+            data : { 'figura' : event.item },
+            success : function (msg)
+            {
+                if (msg !== "ok")
+                {
+                    //printError
+                }
+            }
+        });
+    });
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
@@ -97,4 +132,9 @@ function closeSpecEdit(){
     $("#cancelButtonspec").hide();
     $("span[data-role=\"remove\"]").fadeOut("fast");
     $("#HiddenAddBox").hide();
+}
+
+function openGuide()
+{
+    $("#SuperAlert").modal();
 }
