@@ -67,10 +67,10 @@
                             <br>
                             <div class="table-responsive"><table class="table table-striped" style="table-layout: fixed">
                                     <tr>
-                                        <td class="col-sm-5"><b>Figure professionali richieste</b></td>
+                                        <td class="col-sm-5"><b>Figure professionali richieste <script>document.write("(massimo "+figuresLimit+")")</script></b></td>
                                         <td class="col-sm-5">
                                             <input class="form-control" data-role="tagsinput" id="figurerichieste">
-                                            <script>$("#figurerichieste").tagsinput({ maxTags: figureLimit });</script>
+                                            <script>$("#figurerichieste").tagsinput({ maxTags: figuresLimit });</script>
                                             <span class="glyphicon glyphicon-question-sign" style="cursor: pointer" onclick="openGuide()"></span>
                                         <?php
                                             $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "

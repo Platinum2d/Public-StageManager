@@ -7,7 +7,7 @@ contact = {
 };
 
 var figuresSize = 12.5;
-var figureLimit = 5;
+var figuresLimit = 5;
 
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
@@ -29,7 +29,7 @@ $(document).ready(function(){
             {
                 if (msg !== "ok")
                 {
-                    //printError
+                    printError("Errore durante l'inserimento", "Si prega di riprovare ad aggiungere la figura professionale. Ci scusiamo per il disagio");
                 }
             }
         });
@@ -44,10 +44,9 @@ $(document).ready(function(){
             data : { 'figura' : event.item },
             success : function (msg)
             {
-                alert(msg);
                 if (msg !== "ok")
                 {
-                    //printError
+                    printError("Errore durante la rimozione", "Si prega di riprovare a rimuovere la figura professionale. Ci scusiamo per il disagio");
                 }
             }
         });

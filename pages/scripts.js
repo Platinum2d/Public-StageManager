@@ -22,6 +22,51 @@ function printSuccess(title, message)
     $("#SuperAlert").find(".modal-body").css("background-color", "#B7F4B7");
 }
 
+function doSetupForProfileImage()
+{
+        $("#editspan").css("left", $("#profilewrapper").width() / 1.8);
+        $("#editspan").css("top", $("#profilewrapper").height() / 2);
+        $("#editspan").css("visibility" , "hidden");   
+        $("#profileimage").hover(function (){
+            $("#editspan").css("visibility" , "visible");
+            $("#profileimage").css("opacity", "0.2");
+        })
+        $("#profileimage").on("mouseout", function (){
+            $("#editspan").css("visibility" , "hidden");              
+            $("#profileimage").css("opacity", "1");
+        });
+        $('#SuperAlert').on('hidden.bs.modal', function () {
+            $("#editspan").css("visibility" , "hidden");              
+            $("#profileimage").css("opacity", "1");
+        });
+        $("#editspan").hover(function (){
+            $("#editspan").css("visibility" , "visible");
+            $("#profileimage").css("opacity", "0.2");
+        });
+}
+
+function resetAvatar()
+{
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOps/ajaxResetAvatar.php',
+        cache : false,
+        success : function (msg)
+        {
+            if (msg === "ok")
+            {
+                $("#SuperAlert").modal("hide");
+                location.reload();
+            }
+        }
+    });
+}
+
+function checkSubmitForProfileImage()
+{
+    if ($(".file-default-preview").length > 0) return false;
+}
+
 function changeDatabase(database)
 {
     $.ajax({
