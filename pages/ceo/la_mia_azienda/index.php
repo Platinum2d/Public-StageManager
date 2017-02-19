@@ -70,7 +70,7 @@
                                         <td class="col-sm-5"><b>Figure professionali richieste</b></td>
                                         <td class="col-sm-5">
                                             <input class="form-control" data-role="tagsinput" id="figurerichieste">
-                                            <script>$("#figurerichieste").tagsinput();</script>
+                                            <script>$("#figurerichieste").tagsinput({ maxTags: figureLimit });</script>
                                             <span class="glyphicon glyphicon-question-sign" style="cursor: pointer" onclick="openGuide()"></span>
                                         <?php
                                             $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "

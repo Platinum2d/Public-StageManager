@@ -7,6 +7,7 @@ contact = {
 };
 
 var figuresSize = 12.5;
+var figureLimit = 5;
 
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
@@ -43,6 +44,7 @@ $(document).ready(function(){
             data : { 'figura' : event.item },
             success : function (msg)
             {
+                alert(msg);
                 if (msg !== "ok")
                 {
                     //printError
@@ -137,4 +139,9 @@ function closeSpecEdit(){
 function openGuide()
 {
     $("#SuperAlert").modal();
+    var modal = $("#SuperAlert").find(".modal-body");
+    
+    $("#SuperAlert").find(".modal-title").html("Cosa devo fare?");
+    modal.html("Per aggiungere una qualsiasi figura professionale tra quelle desiderate, basta scriverla nella casella di testo (ad esempio \"Programmatore\") e premere Invio.<br>\n\
+                Per eliminarne una tra quelle correnti, cliccare sull'icona \"x\" situata sulla destra di ognuna.");
 }
