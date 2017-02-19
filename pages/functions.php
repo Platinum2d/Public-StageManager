@@ -134,12 +134,10 @@ HTML;
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
-                                                echo <<<HTML
-                        <li class="dropdown dropdown-hover">
-                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Tutor <span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-hover" role="menu">
-                                            
-HTML;
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/index_azioni_tutor.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
                 echo "<li><a href='".$goBack."pages/ceo/assegna_tutor/index.php'>Assegna Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
@@ -566,3 +564,79 @@ HTML;
         </div>
 HTML;
     }
+    
+function printProfileImageSection($connessione)
+{
+    $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM utente WHERE id_utente = ".$_SESSION['userId'];
+    $result = $connessione->query($query);
+    $row = ($result && $result->num_rows > 0) ? $result->fetch_assoc() : null;
+    if (!isset($row['profile']) || $row['profile'] === "-1")
+    {
+        echo <<<HTML
+
+                            <form onsubmit = "return checkSubmitForProfileImage()" class="text-center" action="ajaxOps/avatar_uploader.php" method="post" enctype="multipart/form-data">
+                                <div class="kv-avatar center-block" style="width:200px">
+                                    <input id="profileimage" name="profileimage" type="file" class="file-loading">
+                                </div>
+                            </form>
+HTML;
+        ?>
+        <script>                                
+            $("#profileimage").fileinput({
+                maxFileSize: 5000,
+                showClose: true,
+                showCaption: false,
+                showBrowse: false,
+                browseOnZoneClick: true,
+                removeLabel: 'Cancella',
+                uploadLabel: "Carica",
+                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                msgErrorClass: 'alert alert-block alert-danger',
+                defaultPreviewContent: '<img src="../../../src/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
+                allowedFileExtensions: ["jpg", "png", "gif"]
+            });
+        </script>
+
+        <?php
+
+        }
+        else
+        {
+            $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
+            $result = $connessione->query($query);
+            $row = $result->fetch_assoc();
+            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
+            echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
+        ?>
+        <script>
+            $("#editspan").on("click", function (){
+                $("#SuperAlert").modal("show");
+                var modal = $("#SuperAlert").find(".modal-body");
+
+                $("#SuperAlert").find(".modal-title").html("Cambia l'immagine del profilo");
+                modal.html('<form class="text-center" action="ajaxOps/replace_avatar.php" method="post" enctype="multipart/form-data">\n\
+                                <label class="control-label">Seleziona un\'immagine</label>\n\
+                                <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
+                            </form>');
+                                        $("#input-file").fileinput({   
+                                            maxFileSize: 5000,
+                                            previewFileType: "image",
+                                            browseClass: "btn btn-success",
+                                            browseLabel: "Sfoglia...",
+                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                            removeClass: "btn btn-danger",
+                                            removeLabel: "Cancella",
+                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                            uploadClass: "btn btn-info",
+                                            uploadLabel: "Carica",
+                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
+                                            allowedFileExtensions: ["jpg", "png", "gif"]
+                                        });
+                                        $(".btn-primary > .hidden-xs").html("Seleziona...");
+                                        modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>")
+                                    });
+
+        </script>    
+        <?php
+        }
+}
