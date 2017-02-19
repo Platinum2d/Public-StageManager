@@ -67,7 +67,7 @@
                             <br>
                             <div class="table-responsive"><table class="table table-striped" style="table-layout: fixed">
                                     <tr>
-                                        <td class="col-sm-5"><b>Figure professionali richieste</b></td>
+                                        <td class="col-sm-5"><b>Figure professionali richieste <script>document.write("(massimo "+figuresLimit+")")</script></b></td>
                                         <td class="col-sm-5">
                                             <input class="form-control" data-role="tagsinput" id="figurerichieste">
                                             <script>$("#figurerichieste").tagsinput({ maxTags: figuresLimit });</script>
