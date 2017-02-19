@@ -6,6 +6,9 @@ contact = {
     'phone': ''
 };
 
+var figuresSize = 12.5;
+var figureLimit = 5;
+
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
     $("#cancelButtonspec").hide();
@@ -14,7 +17,41 @@ $(document).ready(function(){
     contact.address=$("#address").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
-    $("span[data-role=\"remove\"]").hide();
+    $(".label-info").css("font-size", figuresSize);
+    $("#figurerichieste").on("itemAdded", function (event){  
+        $(".label-info").css("font-size", figuresSize);
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOpsPerFigureProfessionali/ajaxAddFigure.php',
+            cache : false,
+            data : { 'nome' : event.item },
+            success : function (msg)
+            {
+                if (msg !== "ok")
+                {
+                    //printError
+                }
+            }
+        });
+    });
+    
+    $("#figurerichieste").on("itemRemoved", function (event){
+        $(".label-info").css("font-size", figuresSize);
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOpsPerFigureProfessionali/ajaxRemoveCompanyNeed.php',
+            cache : false,
+            data : { 'figura' : event.item },
+            success : function (msg)
+            {
+                alert(msg);
+                if (msg !== "ok")
+                {
+                    //printError
+                }
+            }
+        });
+    });
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
@@ -97,4 +134,14 @@ function closeSpecEdit(){
     $("#cancelButtonspec").hide();
     $("span[data-role=\"remove\"]").fadeOut("fast");
     $("#HiddenAddBox").hide();
+}
+
+function openGuide()
+{
+    $("#SuperAlert").modal();
+    var modal = $("#SuperAlert").find(".modal-body");
+    
+    $("#SuperAlert").find(".modal-title").html("Cosa devo fare?");
+    modal.html("Per aggiungere una qualsiasi figura professionale tra quelle desiderate, basta scriverla nella casella di testo (ad esempio \"Programmatore\") e premere Invio.<br>\n\
+                Per eliminarne una tra quelle correnti, cliccare sull'icona \"x\" situata sulla destra di ognuna.");
 }

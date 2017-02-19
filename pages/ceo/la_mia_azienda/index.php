@@ -22,7 +22,6 @@
         topNavbar ("../../../");
         titleImg ("../../../");
     ?>
-    <!-- Begin Body -->
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -70,20 +69,26 @@
                                     <tr>
                                         <td class="col-sm-5"><b>Figure professionali richieste</b></td>
                                         <td class="col-sm-5">
+                                            <input class="form-control" data-role="tagsinput" id="figurerichieste">
+                                            <script>$("#figurerichieste").tagsinput({ maxTags: figureLimit });</script>
+                                            <span class="glyphicon glyphicon-question-sign" style="cursor: pointer" onclick="openGuide()"></span>
                                         <?php
-                                            
+                                            $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "
+                                                    . "WHERE anfp.figura_professionale_id_figura_professionale = fp.id_figura_professionale AND anfp.azienda_id_azienda = ".$_SESSION['userId'];
+                                            $result = $connessione->query($query);
+                                            while ($row = $result->fetch_assoc())
+                                            {
+                                                $nome = $row['nome'];
+                                                $id = $row['id_figura_professionale'];
+                                                ?>
+                                            <script> $("#figurerichieste").tagsinput('add', "<?php echo $nome; ?>"); </script>    
+                                                <?php
+                                            }
                                         ?>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <button id="editButtonspec" class="btn btn-warning btn-sm rightAlignment margin buttonfix" onclick="openSpecEdit()">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                                
-                            <button id="cancelButtonspec" class="btn btn-danger btn-sm rightAlignment margin buttonfix" onclick="closeSpecEdit()">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
                         </div>
                     </div>
                 </div>

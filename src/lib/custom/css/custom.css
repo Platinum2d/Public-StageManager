@@ -137,7 +137,12 @@ img.logo {
 	src: url('../font/OCRAEXT.TTF');
 }
 
-#title > h1{
+@font-face {
+	font-family: "RalewayRegular";
+	src: url('../font/Raleway-Regular.TTF');
+}
+
+#title h1 {
 	font-size: 55px;
 	font-family: "OCR A Extended";
 	color: #ff3333;
@@ -188,7 +193,6 @@ h2, h1, h4, ul.navbar-nav > li > a {
 ul.navbar-nav > li > a {
 	padding-left: 15px;
 	padding-right: 15px;
-	/*letter-spacing: -1.5px;*/
 }
 
 a, p, label, b, i, span, div{
