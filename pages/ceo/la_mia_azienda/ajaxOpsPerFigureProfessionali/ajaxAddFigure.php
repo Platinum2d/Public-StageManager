@@ -4,7 +4,7 @@
     $existsError = 1062;
     $errore = false;
     
-    $nome = strip_tags($connection->escape_string($_POST['nome']));
+    $nome = strip_tags($connection->escape_string(strtolower($_POST['nome'])));
     
     $query = "INSERT INTO figura_professionale (nome) VALUES ('$nome')";
     

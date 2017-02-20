@@ -20,6 +20,8 @@
     define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
+    define ( "maximumProfileImageSize", 50000); //50 Mb massima dimensione di un'immagine di profilo
+    
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     { 
         if (!file_exists($goBack."db.txt") || !file_exists($goBack."okuser.txt")) { 
@@ -583,7 +585,7 @@ HTML;
         ?>
         <script>                                
             $("#profileimage").fileinput({
-                maxFileSize: 5000,
+                maxFileSize: <?php echo maximumProfileImageSize; ?>,
                 showClose: true,
                 showCaption: false,
                 showBrowse: false,
@@ -619,7 +621,7 @@ HTML;
                                 <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
                             </form>');
                                         $("#input-file").fileinput({   
-                                            maxFileSize: 5000,
+                                            maxFileSize: <?php echo maximumProfileImageSize; ?>,
                                             previewFileType: "image",
                                             browseClass: "btn btn-success",
                                             browseLabel: "Sfoglia...",
@@ -633,10 +635,13 @@ HTML;
                                             allowedFileExtensions: ["jpg", "png", "gif"]
                                         });
                                         $(".btn-primary > .hidden-xs").html("Seleziona...");
-                                        modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>")
+                                        modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
+                                        <?php $urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
+                                        var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
+                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../src/loads/profimgs/<?php echo $urlattuale ?> \">");*/
                                     });
 
-        </script>    
+        </script>
         <?php
         }
 }
