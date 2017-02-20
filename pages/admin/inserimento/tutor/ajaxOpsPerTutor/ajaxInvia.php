@@ -14,7 +14,7 @@
     $ok = ($connection->query($userquery)) ? true : false;
     
     $Query = "INSERT INTO `tutor` (`id_tutor`, `nome`, `cognome`, `telefono`, `email`, `azienda_id_azienda`) "
-            . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE id_utente = 5), '$nome', '$cognome', '$telefono', '$email', (SELECT id_azienda FROM azienda WHERE nome_aziendale = '$azienda'))";   
+            . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 5), '$nome', '$cognome', '$telefono', '$email', $azienda)";
     
     $ok = ($connection->query($Query)) ? true : false;
     

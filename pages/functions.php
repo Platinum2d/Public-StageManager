@@ -20,6 +20,21 @@
     define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
+    define ( "maximumProfileImageSize", 50000); //50 Mb massima dimensione di un'immagine di profilo
+    
+    function resetDBconf($goBack)
+    {
+            $recoveredData = file_get_contents("".$goBack."db.txt");
+            $recoveredArray = unserialize($recoveredData);
+            $_SESSION['dbhost'] = $recoveredArray['host'];
+            $_SESSION['dbuser'] = $recoveredArray['user'];
+            $_SESSION['dbpassword'] = $recoveredArray['password'];
+            $_SESSION['dbname'] = $recoveredArray['name'];
+            
+            $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+            $connessioneforuse->query("USE ".$_SESSION['dbname']);
+    }
+    
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     { 
         if (!file_exists($goBack."db.txt") || !file_exists($goBack."okuser.txt")) { 
@@ -29,22 +44,16 @@
             
         if (!isset($_SESSION['dbhost']) || !isset($_SESSION['dbuser']) || !isset($_SESSION['dbpassword']) || !isset($_SESSION['dbname']))
         {
-            $recoveredData = file_get_contents("".$goBack."db.txt");
-            $recoveredArray = unserialize($recoveredData);
-            $_SESSION['dbhost'] = $recoveredArray['host'];
-            $_SESSION['dbuser'] = $recoveredArray['user'];
-            $_SESSION['dbpassword'] = $recoveredArray['password'];
-            $_SESSION['dbname'] = $recoveredArray['name'];
-            $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
-            $connessioneforuse->query("USE ".$_SESSION['dbname']);
+            resetDBconf($goBack);
         }
             
         $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
             
         if ($connessione->connect_error) 
         {
-            $message = $connessione->connect_errno;
-            echo "<script type='text/javascript'>alert('$message');</script>";
+            resetDBconf($goBack);
+            $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+            return ($connessione->connect_error) ? $connessione->connect_error : $connessione;
         } 
         else
         {
@@ -87,9 +96,12 @@ HTML;
                 echo "<li class=\"dropdown dropdown-hover\">";                
                 echo "<a href=\"".$goBack."pages/admin/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/aziende/index.php'>Aziende</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/newclassi/index.php'>Classi</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/classi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/docenti/index.php'>Docenti</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/admin/visualizza/scuole/index.php'>Scuole</a></li>";
                 echo " <li><a href='".$goBack."pages/admin/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
 //                                echo <<<HTML
@@ -131,12 +143,10 @@ HTML;
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
-                                                echo <<<HTML
-                        <li class="dropdown dropdown-hover">
-                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Tutor <span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-hover" role="menu">
-                                            
-HTML;
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/index_azioni_tutor.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
                 echo "<li><a href='".$goBack."pages/ceo/assegna_tutor/index.php'>Assegna Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
@@ -291,6 +301,8 @@ HTML;
               
         </header>
 HTML;
+        
+        printMainModel();
     }
         
     function import($goBack) { //importa librerie
@@ -316,12 +328,11 @@ HTML;
         echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
         echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/js/bootstrap-select.js'></script>";
+        echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
         echo "<link href='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/chat-0.0.1/chat.js'></script>";
-        echo "<link href='".$goBack."src/lib/chat-0.0.1/style.css' rel='stylesheet'>";
-        $uploaderpath = $goBack."src/lib/jQuery-File-Upload";
+        echo "<script src='".$goBack."src/lib/bootstrap-fileinput/js/fileinput.js'></script>";
+        echo "<link href='".$goBack."src/lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
@@ -352,7 +363,7 @@ HTML;
         if (isset ( $_SESSION ['access_denied'] )) {
             if ($_SESSION ['access_denied'] = err_noLog) {
                 echo <<<HTML
-                <script>alert("Loggati per poter accedere a questa pagina.");
+                <script>alert("Si prega di effettuare il login");
                 </script>
 HTML;
                 unset ( $_SESSION ['access_denied'] );
@@ -539,4 +550,105 @@ HTML;
             </div>
 HTML;
     }
-?>
+    
+    function printMainModel(){
+        echo <<<HTML
+        <div id="SuperAlert" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+              </div>
+              <div class="modal-body">
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+HTML;
+    }
+    
+function printProfileImageSection($connessione)
+{
+    $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM utente WHERE id_utente = ".$_SESSION['userId'];
+    $result = $connessione->query($query);
+    $row = ($result && $result->num_rows > 0) ? $result->fetch_assoc() : null;
+    if (!isset($row['profile']) || $row['profile'] === "-1")
+    {
+        echo <<<HTML
+
+                            <form onsubmit = "return checkSubmitForProfileImage()" class="text-center" action="ajaxOps/avatar_uploader.php" method="post" enctype="multipart/form-data">
+                                <div class="kv-avatar center-block" style="width:200px">
+                                    <input id="profileimage" name="profileimage" type="file" class="file-loading">
+                                </div>
+                            </form>
+HTML;
+        ?>
+        <script>                                
+            $("#profileimage").fileinput({
+                maxFileSize: <?php echo maximumProfileImageSize; ?>,
+                showClose: true,
+                showCaption: false,
+                showBrowse: false,
+                browseOnZoneClick: true,
+                removeLabel: 'Cancella',
+                uploadLabel: "Carica",
+                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                msgErrorClass: 'alert alert-block alert-danger',
+                defaultPreviewContent: '<img src="../../../src/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
+                allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
+            });
+        </script>
+
+        <?php
+
+        }
+        else
+        {
+            $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
+            $result = $connessione->query($query);
+            $row = $result->fetch_assoc();
+            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
+            echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
+        ?>
+        <script>
+            $("#editspan").on("click", function (){
+                $("#SuperAlert").modal("show");
+                var modal = $("#SuperAlert").find(".modal-body");
+
+                $("#SuperAlert").find(".modal-title").html("Cambia l'immagine del profilo");
+                modal.html('<form class="text-center" action="ajaxOps/replace_avatar.php" method="post" enctype="multipart/form-data">\n\
+                                <label class="control-label">Seleziona un\'immagine</label>\n\
+                                <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
+                            </form>');
+                                        $("#input-file").fileinput({   
+                                            maxFileSize: <?php echo maximumProfileImageSize; ?>,
+                                            previewFileType: "image",
+                                            browseClass: "btn btn-success",
+                                            browseLabel: "Sfoglia...",
+                                            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                            removeClass: "btn btn-danger",
+                                            removeLabel: "Cancella",
+                                            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                            uploadClass: "btn btn-info",
+                                            uploadLabel: "Carica",
+                                            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
+                                            allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
+                                        });
+                                        $(".btn-primary > .hidden-xs").html("Seleziona...");
+                                        modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
+                                        <?php $urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
+                                        var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
+                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../src/loads/profimgs/<?php echo $urlattuale ?> \">");*/
+                                    });
+
+        </script>
+        <?php
+        }
+}

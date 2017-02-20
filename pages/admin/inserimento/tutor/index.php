@@ -73,7 +73,7 @@
                             </div>
                                 
                             <div class="col col-sm-6">
-                                <b>Azienda*</b> <div class="form-group"> <select class="form-control" id="aziendaTutor"> </select> </div>
+                                <b>Azienda*</b> <div class="form-group"> <select class="form-control" id="aziendaTutor"></select> </div>
                             </div>
                         </form>
                     </div>

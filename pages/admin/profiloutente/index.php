@@ -1,5 +1,5 @@
 <?php
-    include '../../functions.php';
+    include '../../functions.php'; //let's try
    checkLogin ( superUserType , "../../../");
     import("../../../");
     open_html ( "Profilo" );
@@ -18,8 +18,7 @@
     }
 ?>
 <body>
-    <?php    
-   // printBadge("../../../");
+    <?php
         topNavbar ("../../../");
         titleImg ("../../../");          
     ?>
@@ -31,45 +30,10 @@
                     <br>
                     <div class="row">
                         <div class="col col-sm-3" id='profilewrapper'>
-                            <?php 
-                            $query = "SELECT immagine_profilo_id_immagine_profilo AS profile FROM utente WHERE id_utente = ".$_SESSION['userId'];
-                            $result = $connessione->query($query);
-                            $row = ($result && $result->num_rows > 0) ? $result->fetch_assoc() : null;
-                            if (!isset($row['profile']) || $row['profile'] === "-1")
-                            {
-                            ?>
-                            <form enctype="multipart/form-data" method="post" action="ajaxOps/profileimageloader.php" name="uploadform">
-                                Immagine del profilo
-                                <br>
-                                <br>
-                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="profileimage">
-                                <br>
-                                <input type="submit" class="btn btn-primary" value="invia" name="invio">                                    
-                            </form>
-                            
-                            <?php
-                            }
-                            else
-                            {
-                                $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
-                                $result = $connessione->query($query);
-                                $row = $result->fetch_assoc();
-                                echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
-                                echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
-                            ?>
-                            <form style="padding-top: 10px;" enctype="multipart/form-data" method="post" action="ajaxOps/ajaxReplaceProfileImage.php" name="uploadchangeform">
-                                <input style="padding-right: 5px;" type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File" name="profileimagechange">
-                                <input type="hidden" name="oldpictureid" value="<?php echo $row['id_immagine_profilo']?>">
-                                <input style="margin-top: 5px;" type="submit" class="btn btn-primary" value="invia" name="invio">
-                                <input style="margin-top: 5px;" class="btn btn-danger" type="button" value="chiudi" onclick="removeChangeForm()">
-                            </form>
-                            <script>$("form[name=\"uploadchangeform\"]").hide();</script>
-                            <?php
-                            }
-                            ?>
+                            <?php printProfileImageSection($connessione); ?>
                         </div>
                         <div class="col col-sm-9">
-                            <div class="table-responsive">
+                            <div class="table-responsive" >
                                 <table id="myInformations" class="table table-striped">
                                     <tr>
                                         <th class="col-sm-3">Username</th>
@@ -113,22 +77,7 @@
         </div>
     </div>
     <script>
-        $("#editspan").css("left", $("#profilewrapper").width() / 1.8);
-        $("#editspan").css("top", $("#profilewrapper").height() / 2);
-        $("#editspan").css("visibility" , "hidden");
-        $("form[name=\"uploadform\"]").css("margin-top", $("#myInformations").height() / 4);        
-        $("#profileimage").hover(function (){
-            $("#editspan").css("visibility" , "visible");
-            $("#profileimage").css("opacity", "0.2");
-        })
-        $("#profileimage").on("mouseout", function (){
-            $("#editspan").css("visibility" , "hidden");              
-            $("#profileimage").css("opacity", "1");
-        });
-        $("#editspan").hover(function (){
-            $("#editspan").css("visibility" , "visible");
-            $("#profileimage").css("opacity", "0.2");
-        });
+        doSetupForProfileImage();
     </script>
 </body>
 <?php

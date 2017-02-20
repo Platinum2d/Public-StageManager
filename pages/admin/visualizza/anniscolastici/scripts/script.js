@@ -1,14 +1,17 @@
-firstlyselected = null;
-
 $(document).ready(function (){
-    
+    $("#checkall").change(function (){
+        if ($(this).prop("checked"))
+            $(".singlecheck").prop("checked", true);
+        else
+            $(".singlecheck").prop("checked", false);
+    });
 });
 
 function sendData(numberId, id_anno)
 {
     tosend = {
         'id' : id_anno,
-        'nome' : $("#anno"+numberId).find("td").first().html(),
+        'nome' : $("#anno"+numberId).find("td[contenteditable='true']").html(),
         'corrente' : $("#anno"+numberId).find("input[type=\"checkbox\"]").prop("checked")
     };
     
@@ -25,7 +28,7 @@ function sendData(numberId, id_anno)
 }
 
 function resetColors(numberId){
-    $("#anno"+numberId).find("td").first().css("color", "#828282")
+    $("#anno"+numberId).find("td[contenteditable='true']").css("color", "#828282")
 }
 
 function checkInput(checkbox, firstindex){

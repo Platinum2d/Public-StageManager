@@ -1,18 +1,18 @@
 .breadcrumb {
-	background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 div .panel{
-	padding-top: 30px;
-	padding-bottom: 30px;
-	min-height: 380px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    min-height: 380px;
 }
 
 footer div.panel{
-	padding-top: 15px;
-	padding-bottom: 15px;
-	min-height: 50px;display:block;
-	overflow:auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-height: 50px;display:block;
+    overflow:auto;
 }
 
 .vcenter {
@@ -22,37 +22,37 @@ footer div.panel{
 }
 
 .centeredText{
-	text-align: center;
+    text-align: center;
 }
 
 .rightAlignment{
-	float: right;
+    float: right;
 }
 
 button.margin{
-	margin: 5px;
+    margin: 5px;
 }
 
 td.editCell{
-	color: #DB2525;
+    color: #DB2525;
 }
 
 hr.soften {
-  height: 1px;
-  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
-  border: 0;
-  margin:0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+    border: 0;
+    margin:0;
 }
 
 .coloredLink:link { 
-	color: #0645AD; 
+    color: #0645AD; 
 }
 
 .coloredLink:visited { 
-	color: #551A8B; 
+    color: #551A8B; 
 }
 
 .dropdown-hover:hover .dropdown-menu-hover{
@@ -61,33 +61,33 @@ hr.soften {
 }
 
 p.leviFooter{
-	color: black;
+    color: black;
 }
 
 img#levi-logo {
-	margin-top: 20px;
-	height: 100px;
-	border: solid 1px #EFEFEF;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 20px;
-	padding-right: 20px;
+    margin-top: 20px;
+    height: 100px;
+    border: solid 1px #EFEFEF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 div#footer-contact > ul {
- 	padding-left: 0;
+    padding-left: 0;
 }
 
 div#footer-contact ul, div#contact ul {
- 	list-style-type: none;
+    list-style-type: none;
 }
 
 div#footer-contact ul > li, div#contact ul > li {
- 	margin-top: 7px;
+    margin-top: 7px;
 }
 
 div#footer-contact ul > li > span.glyphicon, div#contact ul > li > span.glyphicon {
- 	margin-right: 7px;
+    margin-right: 7px;
 }
 
 .contact-link, .contact-link:focus {
@@ -99,11 +99,11 @@ div#footer-contact ul > li > span.glyphicon, div#contact ul > li > span.glyphico
 }
 
 p.levi-text {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 div.final {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 #privacy-policy {	
@@ -115,43 +115,53 @@ div.final {
 }
 
 div#contact {
-	font-size: 17px;	
+    font-size: 17px;	
 }
 
 #logo {
-	margin: 20px;
+    margin: 20px;
 }
 
 img.logo {
-	height: 120px;
-	margin-top: 5px;
+    height: 120px;
+    margin-top: 5px;
 }
 
 @font-face {
-	font-family: "OCR A Extended";
-	src: url('../font/OCRAEXT.TTF');
+    font-family: "RalewayRegular";
+    src: url('../font/Raleway-Regular.TTF');
+}
+
+@font-face {
+    font-family: "OCR A Extended";
+    src: url('../font/OCRAEXT.TTF');
+}
+
+@font-face {
+    font-family: "RalewayRegular";
+    src: url('../font/Raleway-Regular.TTF');
 }
 
 #title h1 {
-	font-size: 55px;
-	font-family: "OCR A Extended";
-	color: #ff3333;
+    font-size: 55px;
+    font-family: "OCR A Extended";
+    color: #ff3333;
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
 @media(max-width:767px){
-	img.logo {
-		height: 90px;
-	}
-
-	#title h1 {
-		font-size: 32px;
-	}
+    img.logo {
+        height: 90px;
+    }
+    
+    #title h1 {
+        font-size: 32px;
+    }
 }
 
 div.parent-max-height {
-	overflow: hidden;
+    overflow: hidden;
     position: relative;
 }
 
@@ -162,12 +172,12 @@ div.child-max-height {
 }
 
 div#logo-row {	
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 header {
-	margin-top: 25px;
-	margin-bottom: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 #title {
@@ -177,15 +187,26 @@ header {
 }
 
 h2, h1, h4, ul.navbar-nav > li > a {
-	font-family: "OCR A Extended";	
+    font-family: "RalewayRegular";	
 }
 
 ul.navbar-nav > li > a {
-	padding-left: 15px;
-	padding-right: 15px;
-	letter-spacing: -1.5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 a, p, label, b, i, span, div{
-    font-family: "OCR A Extended";
+    font-family: "RalewayRegular";
+}
+
+.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    text-align: center;
+}
+.kv-avatar .file-input {
+    display: table-cell;
+    max-width: 220px;
 }
