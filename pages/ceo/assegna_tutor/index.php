@@ -10,7 +10,6 @@
     $id_anno = $resultanno['id_anno_scolastico'];
     $nome_anno = $resultanno['nome_anno'];
     $id_azienda = $_SESSION['userId'];
-    echo $id_azienda;
 ?>
 <style>
     .glyphicon-pencil:hover{
