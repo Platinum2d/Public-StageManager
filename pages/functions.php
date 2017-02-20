@@ -20,7 +20,7 @@
     define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
-    define ( "maximumProfileImageSize", 50000); //50 Mb massima dimensione di un'immagine di profilo
+    define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
     function resetDBconf($goBack)
     {
