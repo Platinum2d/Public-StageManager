@@ -2,8 +2,7 @@
     include '../../functions.php';
     checkLogin ( doctutType , "../../../");
     open_html ( "Studenti" );
-    $conn = dbConnection ("../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    $conn = dbConnection ("../../../");    
     import("../../../");   
     $id_doc = $_SESSION ['userId'];
         
@@ -12,8 +11,15 @@
     $row = $result->fetch_assoc();
     $id_anno_corrente = $row["id_anno_scolastico"];
     $nome_anno_corrente = $row["nome_anno"]; //prova
+    echo '<script src="scripts.js"></script>';
 ?>
+    
 <body>
+    <style>
+        .tdlink{
+            cursor: pointer;
+        }
+    </style>
    	<?php
         topNavbar ("../../../");
         titleImg ("../../../");
@@ -47,9 +53,9 @@
                                 $I=0;
                                 while ($row = $result->fetch_assoc())
                                 {
-                                   echo "<tr id=\"riga$I\" onclick=\"redirectToDetails($I)\">  "
-                                        . "<td> <form method=\"POST\" action=\"dettaglioesperienze/index.php\"> <input type=\"hidden\" name=\"shs\" value=\"\"> <input type=\"hidden\" name=\"classe\" value=\"".$row["id_classe"]."\"> <input type=\"hidden\" name=\"nome_classe\" value=\"".$row["nomeclasse"]."\"> <input type=\"hidden\" name=\"anno\" value=\"".$id_anno_corrente."\"> <input type=\"hidden\" name=\"nome_anno\" value=\"".$nome_anno_corrente."\"></form> ".$row["nomeclasse"]." </td> "
-                                        . "<td> ".$row["nome_settore"]." </td> "
+                                   echo "<tr style=\"font-size : 20px\" id=\"riga$I\" onclick=\"redirectToDetails($I)\">  "
+                                        . "<td class=\"tdlink\"> <form method=\"POST\" action=\"dettaglioesperienze/index.php\"> <input type=\"hidden\" name=\"shs\" value=\"\"> <input type=\"hidden\" name=\"classe\" value=\"".$row["id_classe"]."\"> <input type=\"hidden\" name=\"nome_classe\" value=\"".$row["nomeclasse"]."\"> <input type=\"hidden\" name=\"anno\" value=\"".$id_anno_corrente."\"> <input type=\"hidden\" name=\"nome_anno\" value=\"".$nome_anno_corrente."\"></form> ".$row["nomeclasse"]." </td> "
+                                        . "<td class=\"tdlink\"> ".$row["nome_settore"]." </td> "
                                         . "</tr>";
                                             
                                    $I++;
