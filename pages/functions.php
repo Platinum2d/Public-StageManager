@@ -306,13 +306,13 @@ HTML;
     }
         
     function import($goBack) { //importa librerie
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap.min.css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
         echo <<<HTML
 HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
         echo "<script src='".$goBack."src/lib/jQuery/jquery-2.2.3.min.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-3.3.4-dist/js/bootstrap.min.js'></script>";
+        echo "<script src='".$goBack."src/lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/jquery-te/jquery-te-1.4.0.min.js'></script>";

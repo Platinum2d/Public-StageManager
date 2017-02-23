@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Operazioni sui tutor </h1><br>
+                    <h1> Gestione dei tutor </h1><br>
                     <div class="row">
                         <div class="col col-sm-6">
                             <div align="center">
