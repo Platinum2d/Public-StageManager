@@ -56,4 +56,4 @@ local.properties
 cgi-bin/
 .buildpath
 .project
-nbproject/*
+nbproject/
