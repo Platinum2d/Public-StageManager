@@ -30,7 +30,12 @@
                     <h1>Il mio profilo</h1>
                     <br>
                     <div class="row">
-                        <div class="col col-sm-12">
+                        
+                        <div class="col col-sm-3"> 
+                            <?php printProfileImageSection($connessione); ?>
+                        </div>
+                            
+                        <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped">
                                     <tr>
                                         <th class="col-sm-5">Username</th>
@@ -72,6 +77,9 @@
             </div>
         </div>
     </div>
+    <script>
+        doSetupForProfileImage();
+    </script>
 </body>
 <?php
     close_html ("../../../");

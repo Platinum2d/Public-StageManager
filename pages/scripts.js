@@ -24,8 +24,11 @@ function printSuccess(title, message)
 
 function doSetupForProfileImage()
 {
-    $("#editspan").css("left", $("#profilewrapper").width() / 1.8);
-    $("#editspan").css("top", $("#profilewrapper").height() / 2);
+    var containerwidth = $("#profileimage").parent("div[align=\"center\"]").width();
+    var containerheight = $("#profileimage").parent("div[align=\"center\"]").height();
+    
+    $("#editspan").css("left", containerwidth / 1.9);
+    $("#editspan").css("top", containerheight / 2);
     $("#editspan").css("visibility" , "hidden");   
     $("#profileimage").hover(function (){
         $("#editspan").css("visibility" , "visible");
@@ -44,9 +47,11 @@ function doSetupForProfileImage()
         $("#profileimage").css("opacity", "0.2");
     });
     window.onresize = function (){
-        $("#editspan").css("left", $("#profilewrapper").width() / 1.8);
-        $("#editspan").css("top", $("#profilewrapper").height() / 2);
-    }
+        var containerwidth = $("#profileimage").parent("div[align=\"center\"]").width();
+        var containerheight = $("#profileimage").parent("div[align=\"center\"]").height();
+        $("#editspan").css("left", containerwidth / 1.9);
+        $("#editspan").css("top", containerheight / 2);
+    };
 }
 
 function resetAvatar()
