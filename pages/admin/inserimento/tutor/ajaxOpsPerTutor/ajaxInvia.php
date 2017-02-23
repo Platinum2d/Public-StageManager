@@ -10,7 +10,7 @@
     $email = $connection->escape_string($_POST['email']);
     $azienda = $connection->escape_string($_POST['azienda']);
     
-    $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 5)";
+    $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".aztutType.")";
     $ok = ($connection->query($userquery)) ? true : false;
     
     $Query = "INSERT INTO `tutor` (`id_tutor`, `nome`, `cognome`, `telefono`, `email`, `azienda_id_azienda`) "
