@@ -7,7 +7,7 @@
 //    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
-    define ( "adminType", 1 ); //contiene il valore corrispondente all'utente admin
+    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente admin
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
@@ -614,7 +614,7 @@ HTML;
             $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
             $result = $connessione->query($query);
             $row = $result->fetch_assoc();
-            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
+            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
             echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
         ?>
         <script>
