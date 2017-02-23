@@ -9,7 +9,7 @@
     $telefono = $connection->escape_string($_POST['telefono']);
     $email = $connection->escape_string($_POST['email']);
     
-    $userquery = "INSERT INTO utente (`username`, `password`) VALUES ('$username', '$password')";
+    $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".aztutType.")";
     
     $Query = "INSERT INTO `tutor` (`id_tutor`, `nome`, `cognome`, `telefono`, `email`, `azienda_id_azienda`) "
             . "VALUES ((SELECT MAX(id_utente) FROM utente),'$nome', '$cognome', '$telefono', '$email', ".$_SESSION['userId'].")";
