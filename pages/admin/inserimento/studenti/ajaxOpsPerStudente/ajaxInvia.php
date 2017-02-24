@@ -15,7 +15,7 @@
     $annoscolastico = $_POST['annoclasse'];
         
     $connection->query("SET FOREIGN_KEY_CHECKS=0");
-    $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 6)";
+    $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".studType.")";
 
 
     $Query = "INSERT INTO `studente` (`id_studente`, `nome`, `cognome`, `citta`, `email`, `telefono`, `scuola_id_scuola`) "

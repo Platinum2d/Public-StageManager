@@ -15,7 +15,7 @@
     $sito = $connection->escape_string($_POST['sito']);
     
     $connection->query("SET FOREIGN_KEY_CHECKS = 0");    
-    $usersquery = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$psw', 1)";
+    $usersquery = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$psw', ".scuolaType.")";
     
     $query = "INSERT INTO `scuola` (`id_scuola`, `nome`, `citta`, `CAP`, `indirizzo`, `telefono`, `email`, `sito_web`) VALUES ((SELECT MAX(`id_utente`) FROM `utente` WHERE `tipo_utente` = 1), '$nome', ";
     $query .= ($citta === "NULL") ? "NULL, " : "'$citta', ";

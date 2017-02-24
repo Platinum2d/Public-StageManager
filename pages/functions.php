@@ -7,7 +7,7 @@
 //    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
-    define ( "adminType", 1 ); //contiene il valore corrispondente all'utente admin
+    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente admin
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
@@ -20,7 +20,20 @@
     define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
-    define ( "maximumProfileImageSize", 50000); //50 Mb massima dimensione di un'immagine di profilo
+    define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
+    
+    function resetDBconf($goBack)
+    {
+            $recoveredData = file_get_contents("".$goBack."db.txt");
+            $recoveredArray = unserialize($recoveredData);
+            $_SESSION['dbhost'] = $recoveredArray['host'];
+            $_SESSION['dbuser'] = $recoveredArray['user'];
+            $_SESSION['dbpassword'] = $recoveredArray['password'];
+            $_SESSION['dbname'] = $recoveredArray['name'];
+            
+            $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+            $connessioneforuse->query("USE ".$_SESSION['dbname']);
+    }
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     { 
@@ -31,22 +44,16 @@
             
         if (!isset($_SESSION['dbhost']) || !isset($_SESSION['dbuser']) || !isset($_SESSION['dbpassword']) || !isset($_SESSION['dbname']))
         {
-            $recoveredData = file_get_contents("".$goBack."db.txt");
-            $recoveredArray = unserialize($recoveredData);
-            $_SESSION['dbhost'] = $recoveredArray['host'];
-            $_SESSION['dbuser'] = $recoveredArray['user'];
-            $_SESSION['dbpassword'] = $recoveredArray['password'];
-            $_SESSION['dbname'] = $recoveredArray['name'];
-            $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
-            $connessioneforuse->query("USE ".$_SESSION['dbname']);
+            resetDBconf($goBack);
         }
             
         $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
             
         if ($connessione->connect_error) 
         {
-            $message = $connessione->connect_errno;
-            echo "<script type='text/javascript'>alert('$message');</script>";
+            resetDBconf($goBack);
+            $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+            return ($connessione->connect_error) ? $connessione->connect_error : $connessione;
         } 
         else
         {
@@ -299,13 +306,13 @@ HTML;
     }
         
     function import($goBack) { //importa librerie
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap.min.css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
         echo <<<HTML
 HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
         echo "<script src='".$goBack."src/lib/jQuery/jquery-2.2.3.min.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-3.3.4-dist/js/bootstrap.min.js'></script>";
+        echo "<script src='".$goBack."src/lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
@@ -316,8 +323,6 @@ HTML;
         echo "<link href='".$goBack."src/lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."src/lib/badger/badger.js'></script>";
-        echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/index.js'></script>";
-        echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/src/Scripts/jquery.fileDownload.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
         echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
@@ -595,7 +600,7 @@ HTML;
                 removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
                 msgErrorClass: 'alert alert-block alert-danger',
                 defaultPreviewContent: '<img src="../../../src/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
-                allowedFileExtensions: ["jpg", "png", "gif"]
+                allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
             });
         </script>
 
@@ -607,7 +612,7 @@ HTML;
             $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
             $result = $connessione->query($query);
             $row = $result->fetch_assoc();
-            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div>";
+            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
             echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
         ?>
         <script>
@@ -632,7 +637,7 @@ HTML;
                                             uploadClass: "btn btn-info",
                                             uploadLabel: "Carica",
                                             uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
-                                            allowedFileExtensions: ["jpg", "png", "gif"]
+                                            allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
                                         });
                                         $(".btn-primary > .hidden-xs").html("Seleziona...");
                                         modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
