@@ -1,7 +1,6 @@
 <?php
     include '../../functions.php';
     checkLogin(doctutType , "../../../");
-    checkEmail();
     open_html ( "Contatta" );
     import("../../../");
     $id_docente = $_SESSION ['userId'];
@@ -10,7 +9,6 @@
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-        printChat("../../..");
     ?>
     <div class="container">
 		<div class="row">

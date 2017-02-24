@@ -28,7 +28,7 @@
             <div class="col col-sm-12">
                 <div class="panel">
                     <br>
-                    <h1 style="display: inline">Il mio profilo </h1><h3 style="display: inline">(Informazioni personali del presidente)</h3>
+                    <h1 style="display: inline">Il mio profilo </h1><h3 style="display: inline">(Informazioni personali del responsabile)</h3>
                     <br>
                     <br>
                     <br>

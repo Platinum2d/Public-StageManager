@@ -14,7 +14,8 @@
     
     $connection->query("SET FOREIGN_KEY_CHECKS = 0");
     $ok = false;
-    $queryusers = ($isDocenteTutor) ? "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 3)" : "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 2)";
+    $queryusers = ($isDocenteTutor) ? "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".doctutType.")" 
+                                    : "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".docrefType.")";
     
     $Query = ($isDocenteTutor) ? "INSERT INTO `docente` (`id_docente`, `nome`, `cognome`, `telefono`, `email`, `docente_referente`, `docente_tutor`) "
         . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 3), '$nome', '$cognome', '$telefono', '$email', '$isDocenteReferente', '$isDocenteTutor');"
