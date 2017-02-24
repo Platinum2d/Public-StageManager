@@ -7,7 +7,7 @@
 //    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
-    define ( "adminType", 1 ); //contiene il valore corrispondente all'utente admin
+    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente admin
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
@@ -20,7 +20,7 @@
     define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
-    define ( "maximumProfileImageSize", 50000); //50 Mb massima dimensione di un'immagine di profilo
+    define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
     function resetDBconf($goBack)
     {
@@ -306,13 +306,13 @@ HTML;
     }
         
     function import($goBack) { //importa librerie
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap.min.css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
         echo <<<HTML
 HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
         echo "<script src='".$goBack."src/lib/jQuery/jquery-2.2.3.min.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-3.3.4-dist/js/bootstrap.min.js'></script>";
+        echo "<script src='".$goBack."src/lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."src/lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
@@ -323,8 +323,6 @@ HTML;
         echo "<link href='".$goBack."src/lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."src/lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."src/lib/badger/badger.js'></script>";
-        echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/index.js'></script>";
-        echo "<script src='".$goBack."src/lib/jquery.fileDownload-master/src/Scripts/jquery.fileDownload.js'></script>";
         echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
         echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
@@ -614,7 +612,7 @@ HTML;
             $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
             $result = $connessione->query($query);
             $row = $result->fetch_assoc();
-            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
+            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
             echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
         ?>
         <script>

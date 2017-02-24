@@ -139,7 +139,7 @@ img.logo {
 
 @font-face {
     font-family: "RalewayRegular";
-    src: url('../font/Raleway-Regular.TTF');
+    src: url('../font/Raleway-Regular.ttf');
 }
 
 #title h1 {
