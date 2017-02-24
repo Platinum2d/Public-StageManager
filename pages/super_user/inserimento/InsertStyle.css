@@ -1,0 +1,9 @@
+div[name=paddedDiv]
+{
+    padding-bottom: 5px;
+}
+
+div .panel
+{
+    min-height: 0px;
+}
