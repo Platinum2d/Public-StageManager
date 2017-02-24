@@ -19,7 +19,7 @@
     $connection->query("SET FOREIGN_KEY_CHECKS = 0");
     $ok = false;
     
-    $queryusers = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', 4)";
+    $queryusers = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".ceoType.")";
     $ok = (!$connection->query($queryusers)) ? false : true;
     
     $Query = "INSERT INTO `azienda` (`id_azienda`, `nome_aziendale`, `citta_aziendale`, `CAP`, `indirizzo`, `telefono_aziendale`, `email_aziendale`, `sito_web`, `nome_responsabile`, `cognome_responsabile`, `telefono_responsabile`, `email_responsabile`) "

@@ -20,12 +20,23 @@
 				<div class="panel">
 					<h2>Benvenuti!</h2>
 						<p>
-                                                        Questo è il sito che ospita la piattaforma che digitalizza e valorizza l'esperienza di stage all'interno del progetto di Alternanza Scuola-Lavoro. Essa è stata completamente ideata e sviulpapta dalle classi 5B dell’Istituto Primo Levi di Vignola negli anni scolastici 2014/2015 e 2015/2016. Siamo partiti con l’idea di agevolare e semplificare le procedure e le pratiche burocratiche attinenti al rapporto tra Scuola e Azienda per quello che riguarda il periodo di Stage. Precedentemente si utilizzavano moduli cartacei che comportavano tempi e costi superiori. Oltre a facilitare il rapporto tra Scuola e Azienda, la nostra idea per il futuro di questo sito è quella di rendere accessibili i dati relativi agli anni precedenti per eseguire confronti, miglioramenti ed ulteriori sviluppi al periodo di Stage. 
-							<br>
-							<br>
-							<br>
-          
-       						<?php
+							Stage Manager è una piattaforma che digitalizza e valorizza l'esperienza 
+							di stage all'interno dei progetti di Alternanza Scuola-Lavoro.
+                            <br>
+                            I primi passi sono stati percorsi all'interno dell’Istituto Primo Levi 
+                            di Vignola. Siamo partiti con l’idea di agevolare e semplificare le 
+                            procedure e le pratiche burocratiche attinenti al rapporto tra 
+                            Scuola e Azienda per ciò che riguarda gli Stage didattici.
+                            <br>
+                            La nostra idea di software, oltre a facilitare il rapporto tra Scuola 
+                            e Azienda, è una soluzione in grado di offrire la riduzione dello
+                            spreco di tempo e denaro, ma soprattutto di fornire uno strumento di 
+                            analisi in grado di migliorare le esperienze di Stage future.
+						</p> 
+						<br>
+						<br>
+						<br>
+   						<?php
                               if (!isset($_SESSION['user'])){
                                    echo <<<HTML
                                    <div class="row">

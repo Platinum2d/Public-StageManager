@@ -82,7 +82,7 @@ $(document).ready(function(){
         if(contact.first.length>0 && contact.city.length>0 && contact.address.length>0 && contact.mail.length>0 && contact.phone.length>0){
             $.ajax({
                 type: "POST",
-                url: "ajax.php",
+                url: "ajaxOps/ajax.php",
                 data: contact,
                 cache: false
             });
