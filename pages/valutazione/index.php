@@ -39,12 +39,12 @@
         var I=0;
         for (I=1;I<=progressiv;I++)
         {
-            $("#star"+I).attr("src","../../src/img/LightedStar.JPG");
+            $("#star"+I).attr("src","../../media/img/LightedStar.JPG");
         }
             
         for (I=progressiv+1;I<=5;I++)
         {
-            $("#star"+I).attr("src","../../src/img/TurnedDownStar.JPG");
+            $("#star"+I).attr("src","../../media/img/TurnedDownStar.JPG");
         }
         $("#overall").val(progressiv);
     }
@@ -84,11 +84,11 @@
                     <input type="hidden" value="0" id="overall">
                     
                     <div>
-                        <img id="star1" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(1)">
-                        <img id="star2" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(2)">
-                        <img id="star3" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(3)">
-                        <img id="star4" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(4)">
-                        <img id="star5" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(5)">
+                        <img id="star1" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(1)">
+                        <img id="star2" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(2)">
+                        <img id="star3" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(3)">
+                        <img id="star4" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(4)">
+                        <img id="star5" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(5)">
                     </div>
                     <br>
                     <div class="row">
@@ -140,12 +140,12 @@
         var I=0;
         for (I=1;I<=progressiv;I++)
         {
-            $("#star"+I).attr("src","../../src/img/LightedStar.JPG");
+            $("#star"+I).attr("src","../../media/img/LightedStar.JPG");
         }
             
         for (I=progressiv+1;I<=5;I++)
         {
-            $("#star"+I).attr("src","../../src/img/TurnedDownStar.JPG");
+            $("#star"+I).attr("src","../../media/img/TurnedDownStar.JPG");
         }
         $("#overall").val(progressiv);
     }
@@ -189,20 +189,20 @@
                         echo "<input type=\"hidden\" value=\"$voto\" id=\"overall\">";
                         for ($I=1;$I<=$voto;$I++)
                         {
-                            echo "<img id=\"star$I\" src=\"../../src/img/LightedStar.JPG\" onclick=\"changeStars($I)\">";
+                            echo "<img id=\"star$I\" src=\"../../media/img/LightedStar.JPG\" onclick=\"changeStars($I)\">";
                         }
                             
                         for ($I=$voto+1;$I<=5;$I++)
                         {
-                            echo "<img id=\"star$I\" src=\"../../src/img/TurnedDownStar.JPG\" onclick=\"changeStars($I)\">";
+                            echo "<img id=\"star$I\" src=\"../../media/img/TurnedDownStar.JPG\" onclick=\"changeStars($I)\">";
                         }
                             
                         ?>
-<!--                        <img id="star1" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(1)">
-                    <img id="star2" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(2)">
-                    <img id="star3" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(3)">
-                    <img id="star4" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(4)">
-                    <img id="star5" src="../../src/img/TurnedDownStar.JPG" onclick="changeStars(5)">-->
+<!--                        <img id="star1" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(1)">
+                    <img id="star2" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(2)">
+                    <img id="star3" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(3)">
+                    <img id="star4" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(4)">
+                    <img id="star5" src="../../media/img/TurnedDownStar.JPG" onclick="changeStars(5)">-->
                 </div>
                 <br>
                 <div class="row">

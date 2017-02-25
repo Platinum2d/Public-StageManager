@@ -1,5 +1,5 @@
 <?php    
-    require '../../../../src/lib/PHPReader/Classes/PHPExcel.php';
+    require '../../../../lib/PHPExcel.php';
     include "../../../../pages/functions.php";
     checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
@@ -50,13 +50,13 @@
         {
             $fileName = $_FILES ['studentfile'] ['name'];
             echo "<h3 style=\"color:green\"> ==== CARICAMENTO EFFETTUATO CON SUCCESSO ==== </h3>";
-            $filepath = "../../../../src/loads/";
+            $filepath = "../../../../media/loads/";
             if (move_uploaded_file ( $_FILES ['studentfile'] ['tmp_name'], $filepath . $fileName)) {
                 echo "<br><h3 style=\"color:green\"> ==== FILE SPOSTATO CON SUCCESSO ==== </h3><br><br><br>";
                 //analisi delle classi. Se non ne esiste una, creala.
                 echo "<b>Estraggo e inizializzo i parametri del file excel.....</b><br>";
-                        $reader = PHPExcel_IOFactory::createReaderForFile("../../../../src/loads/" . $fileName);
-                        $loadedfile = $reader->load("../../../../src/loads/" . $fileName);
+                        $reader = PHPExcel_IOFactory::createReaderForFile("../../../../media/loads/" . $fileName);
+                        $loadedfile = $reader->load("../../../../media/loads/" . $fileName);
                         $sheet = $loadedfile->getSheet(0);
                         $rows = $sheet->getHighestRow();
                         $cols = $sheet->getHighestColumn();
