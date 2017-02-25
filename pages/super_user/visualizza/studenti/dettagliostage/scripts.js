@@ -127,6 +127,7 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                 $(this).css("color", "red");
                 if ($(this).val() !== "-1")                    
                 {
+                    $("#editinfotutor"+progressiv).html("<option value=\"-1\"></option>");
                     $.ajax({
                         url : 'ajaxOpsPerDettaglioStage/ajaxTutor.php',
                         type : 'POST',
@@ -148,6 +149,7 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
     
     $("#dettagli"+numberId).prop("disabled", true);
     setOnChangeEvents(progressiv);
+    
 }
 
 function closeEdit(progressiv)
@@ -285,7 +287,7 @@ function setOnChangeEvents(progressiv){
     $("#editinfotutor"+progressiv).change(function (){ $(this).css("color", "red"); });
     $("#editinfodocente"+progressiv).change(function (){ $(this).css("color", "red"); });
     $("#editinfovisita"+progressiv).change(function (){ $(this).closest("label").css("color", "red"); });
-    $("#editinfoautorizzazione"+progressiv).change(function (){ $(this).closest("label").css("color", "red"); })
+    $("#editinfoautorizzazione"+progressiv).change(function (){ $(this).closest("label").css("color", "red"); });
 }
 
 function resetColors(progressiv){
