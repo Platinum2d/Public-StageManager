@@ -35,10 +35,10 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 date_default_timezone_set('Europe/London');
 
-include "05featuredemo.inc.php";
+include "../src/lib/PHPReader/Examples/05featuredemo.inc.php";
 
 /** PHPExcel_IOFactory */
-require_once '../Classes/PHPExcel/IOFactory.php';
+require_once '../src/lib/PHPReader/Classes/PHPExcel/IOFactory.php';
 
 
 echo date('H:i:s') , " Write to CSV format" , EOL;

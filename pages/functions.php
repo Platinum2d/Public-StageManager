@@ -217,7 +217,7 @@ HTML;
 //                 <div id="logo">
 // HTML;
 //         echo "<a href='".$goBack."' title='Stage Manager'>";
-//         echo "<img src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a>";
+//         echo "<img src='".$goBack."media/img/logo_stage_manager.png' alt='Stage Manager'></a>";
 //         echo <<<HTML
 //               </div>
 //               </div>
@@ -228,7 +228,7 @@ HTML;
         echo <<<HTML
          <div class="col col-sm-12">
 HTML;
-        echo "<img class='img-responsive' src='".$goBack."src/img/IMG_2455.jpg' alt=''' width='100%' height='326' />";
+        echo "<img class='img-responsive' src='".$goBack."media/img/IMG_2455.jpg' alt=''' width='100%' height='326' />";
         echo <<<HTML
               </div>
 HTML;
@@ -267,7 +267,7 @@ HTML;
             header ( "Location: ".$goBack."install/index.php" );
         }
 
-        echo "<div class='container'><div id='logo-row' class='row parent-max-height'><div class='col col-xs-4 col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."src/img/logo_stage_manager.png' alt='Stage Manager'></a></div>"; //menù giusto
+        echo "<div class='container'><div id='logo-row' class='row parent-max-height'><div class='col col-xs-4 col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."media/img/logo_stage_manager.png' alt='Stage Manager'></a></div>"; //menù giusto
         echo "<div id='title' class='col col-xs-8 col-sm-9 child-max-height'><h1>Stage Manager</h1></div></div></div>";
         echo <<<HTML
         <nav class="navbar navbar-static">
@@ -306,31 +306,31 @@ HTML;
     }
         
     function import($goBack) { //importa librerie
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
         echo <<<HTML
 HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
-        echo "<script src='".$goBack."src/lib/jQuery/jquery-2.2.3.min.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
-        echo "<link href='".$goBack."src/lib/custom/css/styles.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
-        echo "<link href='".$goBack."src/lib/jquery-te/jquery-te-1.4.0.css' type'text/css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
-        echo "<link href='".$goBack."src/lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/custom/css/custom.css' rel='stylesheet'>";
-        echo "<link href='".$goBack."src/lib/badger/badger.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/custom/js/scripts.js'></script>";
-        echo "<script src='".$goBack."src/lib/badger/badger.js'></script>";
-        echo "<link href='".$goBack."src/lib/custom/buttonfix.css' rel='stylesheet'>";
-        echo "<link rel='icon' type='image/png' href='".$goBack."src/img/favicon.png'>";
-        echo "<link href='".$goBack."src/lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
-        echo "<script src='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
-        echo "<link href='".$goBack."src/lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."src/lib/bootstrap-fileinput/js/fileinput.js'></script>";
-        echo "<link href='".$goBack."src/lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/jQuery/jquery-2.2.3.min.js'></script>";
+        echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
+        echo "<script src='".$goBack."lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
+        echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
+        echo "<link href='".$goBack."lib/jquery-te/jquery-te-1.4.0.css' type'text/css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
+        echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/custom/css/custom.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
+        echo "<script src='".$goBack."lib/badger/badger.js'></script>";
+        echo "<link href='".$goBack."lib/custom/buttonfix.css' rel='stylesheet'>";
+        echo "<link rel='icon' type='image/png' href='".$goBack."media/img/favicon.png'>";
+        echo "<link href='".$goBack."lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
+        echo "<script src='".$goBack."lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.js'></script>";
+        echo "<link href='".$goBack."lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/bootstrap-fileinput/js/fileinput.js'></script>";
+        echo "<link href='".$goBack."lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
@@ -445,7 +445,7 @@ HTML;
 	            				<div class="col col-sm-6">
         							<a href='http://www.istitutolevi.it/' target='_blank' title='Istituto Primo Levi'>
 HTML;
-		        						echo "<img id='levi-logo' class='img-rounded' src='".$goBack."src/img/levi_logo.png' alt=''>";
+		        						echo "<img id='levi-logo' class='img-rounded' src='".$goBack."media/img/levi_logo.png' alt=''>";
 		        					echo <<<HTML
 			        				</a>
 	        						<p class="levi-text">
@@ -599,7 +599,7 @@ HTML;
                 uploadLabel: "Carica",
                 removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
                 msgErrorClass: 'alert alert-block alert-danger',
-                defaultPreviewContent: '<img src="../../../src/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
+                defaultPreviewContent: '<img src="../../../media/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
                 allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
             });
         </script>
@@ -612,7 +612,7 @@ HTML;
             $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
             $result = $connessione->query($query);
             $row = $result->fetch_assoc();
-            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../src/loads/profimgs/".$row['URL']."\"></div><br>";
+            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../media/loads/profimgs/".$row['URL']."\"></div><br>";
             echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
         ?>
         <script>
@@ -643,7 +643,7 @@ HTML;
                                         modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
                                         <?php $urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
                                         var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
-                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../src/loads/profimgs/<?php echo $urlattuale ?> \">");*/
+                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php echo $urlattuale ?> \">");*/
                                     });
 
         </script>

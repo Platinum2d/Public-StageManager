@@ -6,7 +6,7 @@
     if (is_uploaded_file ( $_FILES ['profileimage'] ['tmp_name'] ))
     {
         $fileName = $_FILES ['profileimage'] ['name'];
-        $filepath = "../../../../src/loads/profimgs/superusers/";
+        $filepath = "../../../../media/loads/profimgs/superusers/";
         if (!file_exists($filepath)) {
             mkdir($filepath, 0777, true);
         }
