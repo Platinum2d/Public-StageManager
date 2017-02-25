@@ -7,7 +7,7 @@
 //    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
-    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente admin
+    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente super_user
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
@@ -74,35 +74,35 @@ HTML;
         } else {
             
             if ($_SESSION ['type'] == superUserType) { // se e' loggato amministratore
-                echo "<script> $(\".dropdown-toggle .dropdown .dropdown-hover .open\").click(function (){ location.href = \"".$goBack."pages/admin/inserimento/index.php\" }) </script>";
+                echo "<script> $(\".dropdown-toggle .dropdown .dropdown-hover .open\").click(function (){ location.href = \"".$goBack."pages/super_user/inserimento/index.php\" }) </script>";
 //                 echo "<ul class=\"nav navbar-nav\"> ";
 //                 //echo "<li> <span class=\"glyphicon glyphicon-question-sign\" aria-hidden=\"true\"></span> </li>";
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/profiloutente/index.php'>Profilo</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li class=\"dropdown dropdown-hover\">";
-                echo "<a href=\"".$goBack."pages/admin/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserimento<span class=\"caret\"></span></a><ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
+                echo "<a href=\"".$goBack."pages/super_user/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserimento<span class=\"caret\"></span></a><ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
                     
-                echo " <li><a href='".$goBack."pages/admin/inserimento/anniscolastici/index.php'>Anni Scolastici</a></li>";  
-                echo " <li><a href='".$goBack."pages/admin/inserimento/aziende/index.php'>Aziende</a></li>";  
-                echo " <li><a href='".$goBack."pages/admin/inserimento/classi/index.php'>Classi</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/inserimento/docenti/index.php'>Docenti</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/inserimento/figureprofessionali/index.php'>Figure Professionali</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/inserimento/scuole/index.php'>Scuole</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/inserimento/settori/index.php'>Settori</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/inserimento/stage/index.php'>Stage</a></li>";  
-                echo " <li><a href='".$goBack."pages/admin/inserimento/studenti/index.php'>Studenti</a></li>";                
-                echo " <li><a href='".$goBack."pages/admin/inserimento/tutor/index.php'>Tutor</a></li>";                
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/anniscolastici/index.php'>Anni Scolastici</a></li>";  
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/aziende/index.php'>Aziende</a></li>";  
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/classi/index.php'>Classi</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/docenti/index.php'>Docenti</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/figureprofessionali/index.php'>Figure Professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/scuole/index.php'>Scuole</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/settori/index.php'>Settori</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/stage/index.php'>Stage</a></li>";  
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/studenti/index.php'>Studenti</a></li>";                
+                echo " <li><a href='".$goBack."pages/super_user/inserimento/tutor/index.php'>Tutor</a></li>";                
                 echo "</ul></li>";
                 echo "<li class=\"dropdown dropdown-hover\">";                
-                echo "<a href=\"".$goBack."pages/admin/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
+                echo "<a href=\"".$goBack."pages/super_user/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/aziende/index.php'>Aziende</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/classi/index.php'>Classi</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/docenti/index.php'>Docenti</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/scuole/index.php'>Scuole</a></li>";
-                echo " <li><a href='".$goBack."pages/admin/visualizza/tutor/index.php'>Tutor</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/aziende/index.php'>Aziende</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/classi/index.php'>Classi</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
 //                                echo <<<HTML
 //                        <li class="dropdown dropdown-hover">
@@ -250,7 +250,7 @@ HTML;
                 }
                 else
                 {
-                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/admin/impostazioni/index.php\"><i class=\"glyphicon glyphicon-cog\"> </i> Impostazioni </a></li>";
+                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/super_user/impostazioni/index.php\"><i class=\"glyphicon glyphicon-cog\"> </i> Impostazioni </a></li>";
                 }
             }                   
             

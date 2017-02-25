@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Menù di visualizzazione </h1>
+                    <h1> Menù di visualizzazione </h1><br>
                     <div class="row">
                         <div class="col col-sm-12"> 
                             <div align="center">
