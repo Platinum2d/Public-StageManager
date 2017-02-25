@@ -9,7 +9,7 @@
     if (is_uploaded_file ( $_FILES ['profileimagechange'] ['tmp_name'] ))
     {
         $fileName = $_FILES ['profileimagechange'] ['name'];
-        $filepath = "../../../../src/loads/profimgs/ceos/";
+        $filepath = "../../../../media/loads/profimgs/ceos/";
         
         if (move_uploaded_file ( $_FILES ['profileimagechange'] ['tmp_name'], $filepath . $fileName))
         {
