@@ -224,11 +224,11 @@ HTML;
 // HTML;
     }
         
-    function immagineLevi($goBack) { // inserisce l'immagine di header del sito
+    function immagineHeader($goBack) { // inserisce l'immagine di header del sito
         echo <<<HTML
          <div class="col col-sm-12">
 HTML;
-        echo "<img class='img-responsive' src='".$goBack."media/img/IMG_2455.jpg' alt=''' width='100%' height='326' />";
+        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage.png' alt=''' width='100%' height='326' />";
         echo <<<HTML
               </div>
 HTML;
@@ -293,7 +293,7 @@ HTML;
             <div class="row">
 HTML;
         title ($goBack);
-        immagineLevi ($goBack);
+        immagineHeader ($goBack);
             
         echo <<<HTML
             </div>
