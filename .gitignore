@@ -57,3 +57,4 @@ cgi-bin/
 .buildpath
 .project
 nbproject/
+nbproject/*
