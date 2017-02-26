@@ -308,8 +308,6 @@ HTML;
     function import($goBack) { //importa librerie
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
-        echo <<<HTML
-HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
         echo "<script src='".$goBack."lib/jQuery/jquery-2.2.3.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
