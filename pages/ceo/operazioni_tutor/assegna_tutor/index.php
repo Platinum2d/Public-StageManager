@@ -1,10 +1,10 @@
 <?php
-    include "../../functions.php";
-    checkLogin ( ceoType , "../../../");
+    include "../../../functions.php";
+    checkLogin ( ceoType , "../../../../");
     open_html ( "Assegna tutor" );    
-    import("../../../");
+    import("../../../../");
     echo "<script src=\"scripts/script.js\"></script>";
-    $conn = dbConnection ("../../../");
+    $conn = dbConnection ("../../../../");
     $query = "SELECT id_anno_scolastico, nome_anno FROM anno_scolastico WHERE corrente = 1";
     $resultanno = $conn->query($query)->fetch_assoc();
     $id_anno = $resultanno['id_anno_scolastico'];
@@ -35,8 +35,8 @@
 
 <body>
     <?php
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
     ?>
     
     <div class="container">
@@ -105,5 +105,5 @@
     </div>
 </body>
 <?php
-    close_html ("../../../");
+    close_html ("../../../../");
 ?>
