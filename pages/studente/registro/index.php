@@ -55,7 +55,7 @@
                                                     ?>
                                                     <tr id="riga<?php echo $I; ?>">
                                                         <td id="data<?php echo $I; ?>">
-                                                    		<?php echo $work_line['data']; ?>
+                                                    		<?php echo date("d-m-Y", strtotime($work_line['data'])); ?>
                                                         </td >
                                                         <td class="regDesc" id="descrizione<?php echo $I; ?>">
                                                         	<?php echo $work_line['descrizione']; ?>

@@ -18,7 +18,7 @@ function openEdit(progressiv)
     $("#conferma"+progressiv).addClass("btn-success");
     $("#data"+progressiv).html("<input class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
     $("#descrizione"+progressiv).html("<textarea id=\"textareadescrizione"+progressiv+"\" style=\"resize:vertical\"  class = \"form-control\" type=\"text\">"+descrizione+"</textarea>");
-    $("#textboxdata"+progressiv).datepicker({ dateFormat : 'yy-mm-dd' });
+    $("#textboxdata"+progressiv).datepicker({ dateFormat : 'dd-mm-yy' });
     $("#textboxdata"+progressiv).hide(); $("#textboxdata"+progressiv).hide().fadeIn("slow");
     $("#textareadescrizione"+progressiv).hide(); $("#textareadescrizione"+progressiv).hide().fadeIn("slow");
     $("#elimina"+progressiv).val("Annulla");
@@ -124,7 +124,7 @@ function appendAddingBox()
     $("#aggiungidata"+progressiv+"").hide(); $("#aggiungidata"+progressiv+"").fadeIn("slow");
     $("#contatoreaggiungi").val(progressiv+1);
     $("#confirmadding"+progressiv+"").attr("onclick","insertActivity("+progressiv+")");
-    $("#aggiungidata"+progressiv+"").datepicker({ dateFormat : 'yy-mm-dd' })
+    $("#aggiungidata"+progressiv+"").datepicker({ dateFormat : 'dd-mm-yy' })
 }
 
 function insertActivity(progressiv)
