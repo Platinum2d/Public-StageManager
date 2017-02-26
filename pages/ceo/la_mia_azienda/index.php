@@ -76,13 +76,16 @@
                                             $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "
                                                     . "WHERE anfp.figura_professionale_id_figura_professionale = fp.id_figura_professionale AND anfp.azienda_id_azienda = ".$_SESSION['userId'];
                                             $result = $connessione->query($query);
-                                            while ($row = $result->fetch_assoc())
+                                            if ($result->num_rows > 0)
                                             {
-                                                $nome = $row['nome'];
-                                                $id = $row['id_figura_professionale'];
-                                                ?>
-                                            <script> $("#figurerichieste").tagsinput('add', "<?php echo $nome; ?>"); </script>    
-                                                <?php
+                                                while ($row = $result->fetch_assoc())
+                                                {
+                                                    $nome = $row['nome'];
+                                                    $id = $row['id_figura_professionale'];
+                                                    ?>
+                                                <script> $("#figurerichieste").tagsinput('add', "<?php echo $nome; ?>"); </script>    
+                                                    <?php
+                                                }
                                             }
                                         ?>
                                         </td>

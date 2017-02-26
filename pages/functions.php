@@ -144,12 +144,12 @@ HTML;
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
                 echo "<li class=\"dropdown dropdown-hover\">
-                               <a href=\"".$goBack."pages/ceo/index_azioni_tutor.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
+                               <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
                                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/ceo/assegna_tutor/index.php'>Assegna Tutor</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/assegna_tutor/index.php'>Assegna Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
                 echo "</ul></li>";
                 echo "<li><a href='".$goBack."pages/ceo/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
@@ -224,11 +224,11 @@ HTML;
 // HTML;
     }
         
-    function immagineLevi($goBack) { // inserisce l'immagine di header del sito
+    function immagineHeader($goBack) { // inserisce l'immagine di header del sito
         echo <<<HTML
          <div class="col col-sm-12">
 HTML;
-        echo "<img class='img-responsive' src='".$goBack."media/img/IMG_2455.jpg' alt=''' width='100%' height='326' />";
+        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage_iPear.png' alt=''' width='100%' height='326' />";
         echo <<<HTML
               </div>
 HTML;
@@ -293,7 +293,7 @@ HTML;
             <div class="row">
 HTML;
         title ($goBack);
-        immagineLevi ($goBack);
+        immagineHeader ($goBack);
             
         echo <<<HTML
             </div>
