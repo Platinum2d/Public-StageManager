@@ -1,7 +1,7 @@
 <?php
-    include "../../../functions.php";
+    include "../../../../functions.php";
     
-    $conn = dbConnection("../../../../");
+    $conn = dbConnection("../../../../../");
     $idtutor = $_POST['id'];
     $password = $_POST['password'];
     $username = $conn->escape_string($_POST['username']);

@@ -144,12 +144,12 @@ HTML;
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
                 echo "<li class=\"dropdown dropdown-hover\">
-                               <a href=\"".$goBack."pages/ceo/index_azioni_tutor.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
+                               <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
                                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/ceo/assegna_tutor/index.php'>Assegna Tutor</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/assegna_tutor/index.php'>Assegna Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
                 echo "</ul></li>";
                 echo "<li><a href='".$goBack."pages/ceo/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
