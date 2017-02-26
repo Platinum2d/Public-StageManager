@@ -1,15 +1,15 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( ceoType , "../../../");
+    include '../../../functions.php';
+    checkLogin ( ceoType , "../../../../");
     open_html ( "Inserisci tutor" );
     echo "<script src='scripts/script.js'></script>";
-    import("../../../");
+    import("../../../../");
 ?>
     
 <body>
     <?php
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
     ?>
         
     <script> 
@@ -144,5 +144,5 @@
     </div>    
 </body>
 <?php
-    close_html ("../../../");
+    close_html ("../../../../");
 ?>

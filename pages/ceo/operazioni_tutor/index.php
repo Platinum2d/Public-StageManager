@@ -1,9 +1,9 @@
 <?php
-    include '../functions.php';
-   checkLogin ( ceoType , "../../");
-    import("../../");
+    include '../../functions.php';
+   checkLogin ( ceoType , "../../../");
+    import("../../../");
     open_html ( "Tutor" );
-    $connessione = dbConnection ("../../");
+    $connessione = dbConnection ("../../../");
         
 ?>
 <body>
@@ -13,8 +13,8 @@
         }
     </style>
     <?php
-        topNavbar ("../../");
-        titleImg ("../../");
+        topNavbar ("../../../");
+        titleImg ("../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -50,5 +50,5 @@
     </div>
 </body>
 <?php
-    close_html ("../../");
+    close_html ("../../../");
 ?>
