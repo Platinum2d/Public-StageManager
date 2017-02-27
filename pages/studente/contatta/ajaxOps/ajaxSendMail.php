@@ -19,7 +19,7 @@
         $cognome = $row['cognome'];
     }
     
-    $headers .= "From: ".$mittente;
+    $headers = "From: ".$mittente;
     
     if (mail($destinatario, $oggetto, $messaggio,$headers))
     {
