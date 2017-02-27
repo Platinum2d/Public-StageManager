@@ -29,11 +29,11 @@
 		        					<ul>
 		        						<li>
 		        							<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        						<a href="tel:+39 334 9056026" class="contact-link">+39 334 905 6026</a>
+			        						<a href="tel:<?php echo TELEFONO_DANIELE?>" class="contact-link"><?php echo TELEFONO_DANIELE?></a>
 		        						</li>
 		        						<li>
 		        							<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-		        							<a href="mailto:manicardi215@gmail.com" class="contact-link">manicardi215@gmail.com</a>
+		        							<a href="mailto:<?php echo EMAIL_DANIELE?>" class="contact-link"><?php echo EMAIL_DANIELE?></a>
 		        						</li>
 		        					</ul>
 		                    	</div>
@@ -42,11 +42,11 @@
 		        					<ul>
 		        						<li>
 		        							<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        						<a href="tel:+39 333 2810581" class="contact-link">+39 333 281 0581</a>
+			        						<a href="tel:<?php echo TELEFONO_ALESSIO?>" class="contact-link"><?php echo TELEFONO_ALESSIO?></a>
 		        						</li>
 		        						<li>
 			        						<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-			        						<a href="mailto:alessio.scheri@gmail.com" class="contact-link">alessio.scheri@gmail.com</a>
+			        						<a href="mailto:<?php echo EMAIL_ALESSIO?>" class="contact-link"><?php echo EMAIL_ALESSIO?></a>
 		        						</li>
 		        					</ul>
 		                    	</div>
