@@ -244,7 +244,7 @@ HTML;
             {
                 if ($_SESSION['type'] !== superUserType)
                 {
-                    echo "<a href=\"".$goBack."contattaci.php\" > Contattaci </a>";
+                    echo "<a href=\"".$goBack."contattaci.php\" ><i class=\"glyphicon glyphicon-earphone\"> </i> Contattaci </a>";
                     if (isset($_SESSION ['type'])) 
                     echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci </a> </li>";
                 }
