@@ -1,10 +1,5 @@
 <?php
     session_start ();
-//    define ( "prj_root", "/" ); //contiene il percorso alla cartella root del progetto (/alternanza_scuola lavoro)
-//    define ( "prj_pages", prj_root . "pages" ); //contiene il percorso alla cartella pages
-//    define ( "prj_src", prj_root . "src" ); //contiene il percorso alla cartella src
-//    define ( "prj_img", prj_src . "/img" ); //contiene il percorso alla cartella img 
-//    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
     define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente super_user
@@ -21,6 +16,11 @@
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
+
+    define ( "EMAIL_ALESSIO", "alessio.scheri@gmail.com" ); //Indirizzo email di Alessio
+    define ( "EMAIL_DANIELE", "manicardi215@gmail.com" ); //Indirizzo email di Daniele
+    define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
+    define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
     function resetDBconf($goBack)
     {
@@ -246,7 +246,7 @@ HTML;
                 {
                     echo "<a href=\"".$goBack."contattaci.php\" > Contattaci </a>";
                     if (isset($_SESSION ['type'])) 
-                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci </a> </li>";
+                    echo "<li class=\"button\"> <a href=\"".$goBack."segnala-problema/index.php\"><i class=\"glyphicon glyphicon-exclamation-sign\"> </i> Segnala un problema </a> </li>";
                 }
                 else
                 {
@@ -461,11 +461,15 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        									<a href="tel:+39 334 9056026" class="contact-link">+39 334 905 6026</a>
+HTML;
+			        									echo "<a href='tel:".TELEFONO_DANIELE."' class='contact-link'> ".TELEFONO_DANIELE."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        									<li>
 		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-		        										<a href="mailto:manicardi215@gmail.com" class="contact-link">manicardi215@gmail.com</a>
+HTML;
+			        									echo "<a href='mailto:".EMAIL_DANIELE."' class='contact-link'> ".EMAIL_DANIELE."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        								</ul>
         									</li>
@@ -474,11 +478,15 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        									<a href="tel:+39 333 2810581" class="contact-link">+39 333 281 0581</a>
+HTML;
+			        									echo "<a href='tel:".TELEFONO_ALESSIO."' class='contact-link'> ".TELEFONO_ALESSIO."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        									<li>
 		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-		        										<a href="mailto:alessio.scheri@gmail.com" class="contact-link">alessio.scheri@gmail.com</a>
+HTML;
+			        									echo "<a href='mailto:".EMAIL_ALESSIO."' class='contact-link'> ".EMAIL_ALESSIO."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        								</ul>
 		        							</li>
