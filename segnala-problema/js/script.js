@@ -18,15 +18,21 @@ function sendAdvice()
        success : function (msg)
        {
            if (msg == 0) {
-               freeFields();
                $.ajax({
                    url : 'ajaxOps/ajaxSendMail.php',
                    type: 'POST',
                    data : consiglio,
                    cache : false
                 });
-               //modal
+               printSuccess("Segnalazione di un problema", "Segnalazione avvenuta con successo.");
+               freeFields();
            }
+           else  {
+        	   printError("Segnalazione di un problema", "Segnalazione non avvenuta con successo.");
+           }
+       },
+       error : function () {
+    	   printError("Segnalazione di un problema", "Segnalazione non avvenuta con successo.");
        }
     });
 }
