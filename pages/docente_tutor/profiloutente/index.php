@@ -1,14 +1,13 @@
 <?php
     include '../../functions.php';
-    checkLogin(doctutType , "../../../");
+    checkLogin(doctutType, "../../../");
     open_html ( "Profilo" );
     import("../../../");
     $id_doc = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
-    $sql = "SELECT * FROM docente WHERE id_docente=$id_doc";
-    $result = $connessione->query ( $sql );
-        
+    $sql = "SELECT * FROM utente, docente WHERE id_utente = id_docente AND id_docente = $id_doc";
+    $result = $connessione->query ( $sql );   
     while ( $row = $result->fetch_assoc () ) {
         $username = $row ['username'];
         $nome = $row ['nome'];
@@ -22,7 +21,6 @@
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-        printChat ("../../../");
     ?>
     <!-- Begin Body -->
     <div class="container">
@@ -32,7 +30,12 @@
                     <h1>Il mio profilo</h1>
                     <br>
                     <div class="row">
-                        <div class="col col-sm-12">
+                        
+                        <div class="col col-sm-3"> 
+                            <?php printProfileImageSection($connessione); ?>
+                        </div>
+                            
+                        <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped">
                                     <tr>
                                         <th class="col-sm-5">Username</th>
@@ -74,6 +77,9 @@
             </div>
         </div>
     </div>
+    <script>
+        doSetupForProfileImage();
+    </script>
 </body>
 <?php
     close_html ("../../../");

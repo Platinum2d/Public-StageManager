@@ -22,7 +22,6 @@
         topNavbar ("../../../");
         titleImg ("../../../");
     ?>
-    <!-- Begin Body -->
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -68,39 +67,31 @@
                             <br>
                             <div class="table-responsive"><table class="table table-striped" style="table-layout: fixed">
                                     <tr>
-                                        <td class="col-sm-5"><b>Specializzazioni</b></td>
+                                        <td class="col-sm-5"><b>Figure professionali richieste <script>document.write("(massimo "+figuresLimit+")")</script></b></td>
                                         <td class="col-sm-5">
+                                            <input class="form-control" data-role="tagsinput" id="figurerichieste">
+                                            <script>$("#figurerichieste").tagsinput({ maxTags: figuresLimit });</script>
+                                            <span class="glyphicon glyphicon-question-sign" style="cursor: pointer" onclick="openGuide()"></span>
                                         <?php
-                                            $Query = "SELECT specializzazione.nome FROM `specializzazione`,`azienda_has_specializzazione`,`azienda`"
-                                            . " WHERE id_azienda = azienda_id_azienda"
-                                            . " AND id_specializzazione = specializzazione_id_specializzazione"
-                                            . " AND id_azienda = ".$_SESSION['userId']." ORDER BY specializzazione.nome ASC";
-                                                
-                                            $result = $connessione->query($Query);
-                                            $value = "";
-                                            while ($row = $result->fetch_assoc())
-                                            {
-                                                $value .= $row['nome'] . ",";
-                                            }
-                                            echo " <input id=\"speclist\" disabled=\"true\" type=\"text\" value=\"$value\" data-role=\"tagsinput\" /> <br><br><div id=\"HiddenAddBox\">";
-                                                
-                                            $query = "SELECT * FROM specializzazione WHERE nome != 'sconosciuta' AND  nome != 'Sconosciuta' ORDER BY nome ASC";
+                                            $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "
+                                                    . "WHERE anfp.figura_professionale_id_figura_professionale = fp.id_figura_professionale AND anfp.azienda_id_azienda = ".$_SESSION['userId'];
                                             $result = $connessione->query($query);
-                                            echo "<select id=\"addspec\" class=\"form-control\" style=\"max-width : 350px\">";
-                                            while ($row = $result->fetch_assoc()){ echo "<option value=\"".$row['id_specializzazione']."\"> ".$row['nome']." </option>"; }
-                                            echo "</select> <input id=\"btnaddspec\"  type=\"button\" class=\"btn btn-primary\" value=\"Aggiungi\" style=\"margin-top : 5px\"> </div>";
+                                            if ($result->num_rows > 0)
+                                            {
+                                                while ($row = $result->fetch_assoc())
+                                                {
+                                                    $nome = $row['nome'];
+                                                    $id = $row['id_figura_professionale'];
+                                                    ?>
+                                                <script> $("#figurerichieste").tagsinput('add', "<?php echo $nome; ?>"); </script>    
+                                                    <?php
+                                                }
+                                            }
                                         ?>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <button id="editButtonspec" class="btn btn-warning btn-sm rightAlignment margin buttonfix" onclick="openSpecEdit()">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                                
-                            <button id="cancelButtonspec" class="btn btn-danger btn-sm rightAlignment margin buttonfix" onclick="closeSpecEdit()">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -108,43 +99,6 @@
         </div>
     </div>
     
-    <script>
-        $("input[type=\"text\"]").keydown(function (){ return false; });
-        $('#speclist').on('itemRemoved', function (event){
-            $.ajax({
-                type : 'POST',
-                url : 'ajaxOpsPerSpec/ajaxRemoveSpec.php',
-                data : { 'specializzazione' : event.item },
-                cache : false,
-                success : function (msg)
-                {
-                    if (msg !== "ok")
-                        alert("Eliminazione della specializzazione non riuscita!");
-                }
-            });
-        });
-        
-        $("#btnaddspec").click(function (){
-            var toadd = $( "#addspec option:selected" ).text();
-            var current = $( "#speclist" ).val();
-
-            if (current.indexOf(toadd.trim()) === -1)
-            {
-                $('#speclist').tagsinput('add', $( "#addspec option:selected" ).text());                                        
-                $.ajax({
-                    type : 'POST',
-                    url : 'ajaxOpsPerSpec/ajaxAddSpec.php',
-                    data : { 'id' : $( "#addspec" ).val() },
-                    cache : false,
-                    success : function (msg)
-                    {
-                        if (msg !== "ok")
-                            alert("Inserimento della specializzazione non riuscito!");
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 <?php
     close_html ("../../../");
