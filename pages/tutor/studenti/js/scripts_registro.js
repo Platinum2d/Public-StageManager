@@ -6,13 +6,13 @@ $(document).ready(function() {
     	var regDate = regtr.find(".regDate");
     	var date = regDate.html();
     	var dateSplitted = date.split("-");
-    	var year = dateSplitted [0];
+    	var year = dateSplitted [2];
     	var month = parseInt (dateSplitted [1]) - 1;
-    	var day = dateSplitted [2];
+    	var day = dateSplitted [0];
     	regDate.empty ();
     	regDesc.empty();
     	regDate.append ("<input class='datepicker'/>");
-    	regDate.find (".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+    	regDate.find (".datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
     	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
@@ -162,7 +162,7 @@ $(document).ready(function() {
     	
     	////init componente
     	//init 
-    	$(".datepicker").datepicker();
+    	$(".datepicker").datepicker().datepicker({ dateFormat: 'dd-mm-yy' });
     	$("#DescAddDesc").jqte();
     	$("#DescAddButton").attr("disabled", true);
     	
