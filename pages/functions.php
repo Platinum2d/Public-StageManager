@@ -228,7 +228,7 @@ HTML;
         echo <<<HTML
          <div class="col col-sm-12">
 HTML;
-        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage_iPear.png' alt=''' width='100%' height='326' />";
+        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage_azzurro.png' alt=''' width='100%' height='326' />";
         echo <<<HTML
               </div>
 HTML;
@@ -244,7 +244,7 @@ HTML;
             {
                 if ($_SESSION['type'] !== superUserType)
                 {
-                    echo "<a href=\"".$goBack."contattaci.php\" > Contattaci </a>";
+                    echo "<a href=\"".$goBack."contattaci.php\" ><i class=\"glyphicon glyphicon-earphone\"> </i> Contattaci </a>";
                     if (isset($_SESSION ['type'])) 
                     echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci </a> </li>";
                 }
