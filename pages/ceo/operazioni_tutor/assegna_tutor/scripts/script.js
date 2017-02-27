@@ -1,16 +1,16 @@
 var block = false;
 
 $(document).ready(function (){
-    $(".glyphicon-pencil").hide();
-    $("#maintable").find("tr").each(function (){
-        $(this).mouseover(function (){
-            $(this).find(".glyphicon-pencil").show(); 
-        });
-        
-        $(this).mouseout(function (){
-             $(this).find(".glyphicon-pencil").hide();
-        });
-    });
+//    $(".glyphicon-pencil").hide();
+//    $("#maintable").find("tr").each(function (){
+//        $(this).mouseover(function (){
+//            $(this).find(".glyphicon-pencil").show(); 
+//        });
+//        
+//        $(this).mouseout(function (){
+//             $(this).find(".glyphicon-pencil").hide();
+//        });
+//    });
 });
 
 function editTutor(span, progressiv, id_tutor, studente_has_stage_id)
@@ -24,7 +24,9 @@ function editTutor(span, progressiv, id_tutor, studente_has_stage_id)
             <span style=\"color : red; font-size: 1.2em\" class=\"glyphicon glyphicon-remove leftAlignment\" aria-hidden=\"true\" onclick=\"closeEdit('edit"+progressiv+"', "+progressiv+")\"></span>";
     
     $("#edit"+progressiv).hide();
+    $(span).closest("td").hide();
     $(span).closest("td").append(newhtml);
+    $(span).closest("td").fadeIn("fast");
     
     $.ajax({
         type : 'POST',
@@ -42,7 +44,6 @@ function editTutor(span, progressiv, id_tutor, studente_has_stage_id)
 function closeEdit(spanid, progressiv)
 {
     $("#"+spanid).show();
-    $("#"+spanid).find(".glyphicon-pencil").hide();
     $("#editthistutor"+progressiv).nextAll("span").remove();
     $("#editthistutor"+progressiv).remove();
 }

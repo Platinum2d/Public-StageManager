@@ -1,8 +1,8 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( ceoType , "../../../");
+    include '../../../functions.php';
+    checkLogin ( ceoType , "../../../../");
     open_html ( "Visualizza Tutor" );
-    import("../../../");
+    import("../../../../");
     $recordperpagina = (isset($_POST['customtutor'])) ? $_POST['customtutor'] : null;
     if (!isset($recordperpagina)){  
         $recordperpagina = (!isset($_POST['ntutor'])) ? 10 : $_POST['ntutor'];
@@ -16,8 +16,8 @@
         }
     </style>
     <?php
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
     ?>
     <script src="scripts/scripts.js"> </script>
         
@@ -73,7 +73,7 @@
                     <script> $("#slc").prop('selectedIndex', 1); </script> 
                                       <?php }
                                           
-                                            $conn = dbConnection("../../../");
+                                            $conn = dbConnection("../../../../");
                                             $query = "SELECT * FROM utente, tutor WHERE id_utente = id_tutor AND azienda_id_azienda = ".$_SESSION['userId']." ORDER BY cognome LIMIT $recordperpagina OFFSET 0";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
@@ -136,5 +136,5 @@
     </script>
 </body>
 <?php
-    close_html ("../../../");
+    close_html ("../../../../");
 ?>

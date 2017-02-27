@@ -1,6 +1,6 @@
 <?php
-    include '../../../functions.php';
-    $connection = dbConnection("../../../../");
+    include '../../../../functions.php';
+    $connection = dbConnection("../../../../../");
     
     $username = $connection->escape_string($_POST['username']);
     $password = md5($_POST['password']);

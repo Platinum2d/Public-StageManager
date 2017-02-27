@@ -1,7 +1,7 @@
 <?php
-    include "../../../functions.php";
+    include "../../../../functions.php";
         
-    $conn = dbConnection("../../../../");
+    $conn = dbConnection("../../../../../");
     $idtutor = $_POST['idtutor'];
         
     $query = "SET FOREIGN_KEY_CHECKS = 0";
