@@ -38,7 +38,7 @@ function editTutor(span, progressiv, id_tutor, studente_has_stage_id)
     $("#edit"+progressiv).hide();
     $(span).closest("td").hide();
     $(span).closest("td").append(newhtml);
-    $(span).closest("td").fadeIn("fast");
+    $(span).closest("td").fadeIn("slow");
     
     $.ajax({
         type : 'POST',
@@ -75,6 +75,7 @@ function sendData(spanid, progressiv, studente_has_stage_id)
                                 
                 $("#edit"+progressiv).find("span[name='tutordata']").html($("#editthistutor"+progressiv).find("select option:selected").text());
                 $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", "+$("#editthistutor"+progressiv).find("select").val()+", "+studente_has_stage+")")
+                $("#"+spanid).parents("tr").addClass("success");
                 closeEdit(spanid, progressiv);     
             }
             else
@@ -100,6 +101,7 @@ function freeStudent(studente_has_stage_id, spanid, progressiv)
                 
                 $("#edit"+progressiv).find("span[name='tutordata']").html("");
                 $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", -1, "+studente_has_stage+")");
+                $("#"+spanid).parents("tr").removeClass("success");
                 closeEdit(spanid, progressiv);
                 
             }

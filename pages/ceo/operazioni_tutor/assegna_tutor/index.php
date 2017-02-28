@@ -44,7 +44,7 @@
             <div class="col col-sm-12">
                 <div class="panel">
                     <h1>Assegnazione tutor (Anno scolastico <?php echo $nome_anno; ?>)</h1>
-                    <table style="" class="table table-hover" id="maintable">
+                    <table style="" class="table" id="maintable">
                         <thead >
                         <th style="text-align: center; width: 30%">
                             Studente
@@ -66,7 +66,7 @@
                                             stud.id_studente = shs.studente_id_studente AND 
                                             chs.stage_id_stage = stage.id_stage AND
                                             chs.anno_scolastico_id_anno_scolastico = $id_anno AND 
-                                            shs.azienda_id_azienda = $id_azienda ORDER BY  inizio_stage DESC;
+                                            shs.azienda_id_azienda = $id_azienda ORDER BY  inizio_stage DESC, tutor_id_tutor ASC;
                                             ";
                                 $result = $conn->query($query);
                                 $I=0;
@@ -91,7 +91,7 @@
                                         
                                     $studente_has_stage = $row["id_studente_has_stage"];
                                     echo "<tr";    
-                                    //if ($id_tutor !== -1) echo " style=\"background : #B4EEB4\"";
+                                    if ($id_tutor !== -1) echo " class=\"success\"";
                                     echo " name=\"$studente_has_stage\"> <td> ".$row['cognome']." ".$row['nome']." </td> <td> $startdate </td> <td> $enddate </td> <td><div id=\"edit$I\" class=\"tutorwrapper\"> <span name=\"tutordata\">$cognometutor $nometutor </span> <span  style=\"color : orange\" class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" onclick=\"editTutor(this, $I, $id_tutor, $studente_has_stage)\"></span></div></td></tr>";
                                         
                                     $I++;
