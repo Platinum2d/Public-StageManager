@@ -91,7 +91,7 @@
                                         
                                     $studente_has_stage = $row["id_studente_has_stage"];
                                     echo "<tr";    
-                                    if ($id_tutor !== -1) echo " style=\"background : #B4EEB4\"";
+                                    //if ($id_tutor !== -1) echo " style=\"background : #B4EEB4\"";
                                     echo " name=\"$studente_has_stage\"> <td> ".$row['cognome']." ".$row['nome']." </td> <td> $startdate </td> <td> $enddate </td> <td><div id=\"edit$I\" class=\"tutorwrapper\"> <span name=\"tutordata\">$cognometutor $nometutor </span> <span  style=\"color : orange\" class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" onclick=\"editTutor(this, $I, $id_tutor, $studente_has_stage)\"></span></div></td></tr>";
                                         
                                     $I++;
