@@ -8,13 +8,25 @@
     
     echo "<script src='js/scripts_registro.js'></script>";
     
-    $sql = "select `visita_azienda` from `studente_has_stage` where `id_studente_has_stage`=$idStudenteHasStage";
+    $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.durata_stage
+			FROM studente_has_stage, stage, classe_has_stage
+			WHERE studente_has_stage.id_studente_has_stage = 1
+			AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+			AND classe_has_stage.stage_id_stage = stage.id_stage;";
     $Result = $conn->query ( $sql );
     $row = $Result->fetch_assoc ();
     $visita = $row ['visita_azienda'];
-    
+    $inizioStage = explode ("-", $row ['inizio_stage']);
+    $durataStage = $row ['durata_stage'] - 1;
+    $anno = $inizioStage[0];
+    $mese = $inizioStage[1] - 1;
+    $giorno = $inizioStage[2];
 ?>
-<script>var shs = <?php echo $_POST['shs'] ?>;</script>
+<script>
+	var shs = <?php echo $_POST['shs'] ?>;
+	var inizio_stage = new Date(<?php echo "$anno,$mese,$giorno" ?>);
+	var fine_stage = new Date(inizio_stage.getTime() + <?php echo "$durataStage"; ?> * 86400000 );
+</script>
 <body>
 	<?php
         topNavbar ("../../../");

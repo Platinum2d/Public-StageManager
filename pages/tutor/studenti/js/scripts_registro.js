@@ -1,4 +1,4 @@
-$(document).ready(function() {	
+$(document).ready(function() {
     function DescEdit(event){
     	var regtr = $(event.target).closest("tr");
     	var regDesc = regtr.find(".regDesc");
@@ -12,7 +12,11 @@ $(document).ready(function() {
     	regDate.empty ();
     	regDesc.empty();
     	regDate.append ("<input class='datepicker'/>");
-    	regDate.find (".datepicker").datepicker({ dateFormat: 'dd-mm-yy' });
+    	regDate.find (".datepicker").datepicker({ 
+    		dateFormat: 'dd-mm-yy', 
+    		minDate: inizio_stage,
+    		maxDate: fine_stage
+		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
     	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
@@ -160,9 +164,13 @@ $(document).ready(function() {
     	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
     	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Annulla</button></td>");
     	
-    	////init componente
+    	//init componente
     	//init 
-    	$(".datepicker").datepicker().datepicker({ dateFormat: 'dd-mm-yy' });
+    	$(".datepicker").datepicker({ 
+    		dateFormat: 'dd-mm-yy', 
+    		minDate: inizio_stage,
+    		maxDate: fine_stage
+		});
     	$("#DescAddDesc").jqte();
     	$("#DescAddButton").attr("disabled", true);
     	
