@@ -189,7 +189,7 @@ HTML;
                         echo <<<HTML
                 <li class="button">
 HTML;
-            echo "<a href='" . $goBack . "pages/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
+            echo "<a href='" . $goBack . "sessione/logout/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
             echo "<li>";
         }
     }

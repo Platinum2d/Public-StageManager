@@ -1,7 +1,7 @@
 <?php
-    include "../../functions.php";
+    include "../../pages/functions.php";
         
-    $conn = dbConnection("../../../");
+    $conn = dbConnection("../../");
     $email = $_POST['mail'];
     $messaggio = "SI PREGA DI NON RISPONDERE ALLA MAIL CHE SEGUE, GRAZIE          Salve. Se sta ricevendo questa mail, significa che sta cercando di ripristinare la password del suo profilo di www.leviws.it. In caso contrario, la preghiamo di ignorare questo messaggio. Clicchi su questo link per proseguire con il ripristino http://www.leviws.it/pages/login/forgottenpassword/replace/index.php";
     $tuttobene = false;
@@ -57,9 +57,9 @@
 if ($tuttobene)
     {
         open_html ( "Mail Inviata" );
-        import("../../../");
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        import("../../");
+        topNavbar ("../../");
+        titleImg ("../../");
         ?>
 <body>
     <div class="container">
@@ -80,9 +80,9 @@ if ($tuttobene)
     else
     {
         open_html ( "Errore" );
-        import("../../../");
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        import("../../");
+        topNavbar ("../../");
+        titleImg ("../../");
         ?>
 <body>
     <div class="container">
@@ -100,8 +100,4 @@ if ($tuttobene)
 </body>
         <?php        
     }            
-    close_html("../../../");
-        
-        
-        
-        
+    close_html("../../");

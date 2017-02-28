@@ -1,14 +1,14 @@
 <script>
     if (typeof(localStorage.authorized_replace_id) === "undefined" || typeof(localStorage.authorized_replace_type_user) === "undefined")
     {
-        location.href = "http://www.leviws.it/index.php";
+        location.href = "../../../index.php";
     }
 </script>
     
 <?php
-	include "../../../functions.php";
+	include "../../../pages/functions.php";
 	open_html ( "Ripristino Password" );
-        import("../../../../");
+        import("../../../");
 //        $type = $_GET['type'] + 0;
 //        $id = $_GET['id'];
 //        switch ($type)
@@ -35,8 +35,8 @@
 <body>
 <!--    <script> alert(localStorage.authorized_replace_id + " " + localStorage.authorized_replace_type_user) </script>-->
     <?php
-    topNavbar ("../../../../");
-    titleImg ("../../../../");
+    topNavbar ("../../../");
+    titleImg ("../../../");
     ?>
         
     <!-- Begin Body -->
@@ -95,5 +95,5 @@
     </script>
 </body>
 <?php
-	close_html ("../../../../");
+	close_html ("../../../");
 ?>
