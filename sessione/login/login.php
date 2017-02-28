@@ -1,10 +1,9 @@
 <?php
     include '../../pages/functions.php';
-    function sessionInformation($usr, $userId, $type, $table) {
+    function sessionInformation($usr, $userId, $type) {
         $_SESSION ['user'] = $usr;
         $_SESSION ['userId'] = $userId;
         $_SESSION ['type'] = $type;
-        $_SESSION ['nameTable'] = $table;
     }
     
     $usr = $_POST ["user"];
