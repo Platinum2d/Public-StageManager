@@ -7,7 +7,7 @@
     
 <?php
 	include "../../../pages/functions.php";
-	open_html ( "Ripristino Password" );
+	open_html ( "Ripristino password" );
         import("../../../");
 //        $type = $_GET['type'] + 0;
 //        $id = $_GET['id'];

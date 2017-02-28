@@ -73,7 +73,8 @@ if ($tuttobene)
                     </div>
                 </div>
             </div>
-        </div>    
+        </div> 
+    </div>  
 </body>
         <?php 
     }
@@ -97,7 +98,9 @@ if ($tuttobene)
                 </div>
             </div>
         </div>    
+    </div>
 </body>
-        <?php        
+<?php        
     }            
     close_html("../../");
+?>
