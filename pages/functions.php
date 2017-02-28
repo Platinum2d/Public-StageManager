@@ -189,7 +189,7 @@ HTML;
                         echo <<<HTML
                 <li class="button">
 HTML;
-            echo "<a href='" . $goBack . "pages/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
+            echo "<a href='" . $goBack . "sessione/logout/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
             echo "<li>";
         }
     }
@@ -514,39 +514,6 @@ HTML;
                 </div>
             </footer>
 HTML;
-    }
-    
-//     function footer (){
-//         echo <<<HTML
-//             <footer>
-//                 <div class="container">
-//             		<div class="row">
-//             			<div class="col col-sm-12">
-// 				            <div class="panel">
-//                                 <p class="text-center">
-// Classe 5^B 2014/2015: Scheri Alessio(Gestore Incaricato),Chitoroaga Constantin, Cois Alessio, Corradi Federico, D'Alcamo Kael, Emini Damiano, Kapelyukh Mirko, Liso Emanuele, Mastrangelo Salvatore, Menabue Matteo, Orlandi Mattia, Passuti Roberto, Pevarello Marco, Pizzirani Federico, Rapini Fabio, Sargenti Mattia, Scheri Alessio, Sgarzi Mattia, Singh Rupinder, Vaccari Nicola, Veronesi Matteo, Zambardi Alessio.
-// <br> <br> Classe 5^B 2015/2016: Manicardi Daniele(Gestore Incaricato),Borelli Fabio, Cafagna Michele, Calaiò Salvatore, Calzone Davide,Casini Simone, Enache Alexandru, Faedda Veronica, Fedele Davide , Fernando Pasan,Fossali Ludovico,  Leuzzi  Alessio, Maini Fabio, Manicardi Daniele, Manni Filippo, Minelli Andrea , Odorici Paolo, Pedroni Nicolò, Pizzirani Paolo, Ternelli Mirco.
-//                                 </p>
-//                                 <p class="leviFooter text-center">
-//                                     Istituto Primo Levi, Vignola
-//                                 </p>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </footer>
-// HTML;
-//     }
-        
-    function printChat($goback){
-        echo" 
-        <div id=\"wholechat\">
-            <div id=\"chat\" onclick=\"fillChat('".$_SESSION['nameTable']."', '$goback')\" class=\"chat-container\">
-                <p id=\"nascondi\" class=\"hide-show-p\"><a id=\"nascondilink\" href=\"javascript:hideChat()\" class=\"hide-show-link\"> Chat </a></p>
-                <div id='chatcontent'>
-                </div>
-            </div>
-        </div>";
     }
     
     function studentNoStageWarning () {

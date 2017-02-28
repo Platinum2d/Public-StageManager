@@ -5,11 +5,9 @@
     checkEmail();
     open_html("Home");
     import("");
-    echo "<script src='pages/login/scripts/login.js'></script>"
+    echo "<script src='sessione/login/scripts/login.js'></script>"
 ?>
-
 <body>
-    
     <?php
         topNavbar("");    
         titleImg("");
@@ -53,7 +51,7 @@
                                                 <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
                                             </form><br>
                                                 <div id="forgottenPassword">  
-                                        <a href="pages/login/forgottenpassword/index.php"style="color:#337ab7"> Ho dimenticato la mia password </a>
+                                        <a href="sessione/forgottenpassword/index.php"style="color:#337ab7"> Ho dimenticato la mia password </a>
                                     </div>
                                         </div>
                                         <div id="login-text" class="col col-sm-4 vcenter">
@@ -67,8 +65,6 @@ HTML;
 			</div>
 		</div>
 	</div>
-		<!-- </div>
-	</div>-->
 </body>
 <?php
 	close_html("");
