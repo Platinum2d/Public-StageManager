@@ -72,9 +72,7 @@ function sendData(spanid, progressiv, studente_has_stage_id)
             if (msg === "ok")
             {
                 var studente_has_stage = $("#edit"+progressiv).parent().parent().attr("name");
-                
-                //$("#edit"+progressiv).parents("tr").css("background", "#b4eeb4");
-                
+                                
                 $("#edit"+progressiv).find("span[name='tutordata']").html($("#editthistutor"+progressiv).find("select option:selected").text());
                 $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", "+$("#editthistutor"+progressiv).find("select").val()+", "+studente_has_stage+")")
                 closeEdit(spanid, progressiv);     
@@ -100,11 +98,10 @@ function freeStudent(studente_has_stage_id, spanid, progressiv)
             {
                 var studente_has_stage = $("#edit"+progressiv).parent().parent().attr("name");
                 
-                //$("#edit"+progressiv).parents("tr").css("background", "");
-                
                 $("#edit"+progressiv).find("span[name='tutordata']").html("");
-                $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", "+$("#editthistutor"+progressiv).find("select").val()+", "+studente_has_stage+")");
+                $("#"+spanid).find(".glyphicon-pencil").attr("onclick", "editTutor($('#"+spanid+"'), "+progressiv+", -1, "+studente_has_stage+")");
                 closeEdit(spanid, progressiv);
+                
             }
             else
             {
