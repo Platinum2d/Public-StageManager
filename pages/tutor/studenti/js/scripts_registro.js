@@ -65,7 +65,7 @@ $(document).ready(function() {
     				
     				content.find("tbody").append("<tr></tr>")
     				line = content.find("tbody tr:last")
-    				line.append("<td>"+ $(element).find("date").text() +"</td>")
+    				line.append("<td class='regDate'>"+ $(element).find("date").text() +"</td>")
     				line.append("<td class='regDesc'></td>")
     				line.find("td.regDesc").append(desc)
     				line.append("<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> <button class='regDelete btn btn-primary'>Elimina</button></td>")
@@ -138,10 +138,10 @@ $(document).ready(function() {
     				regtr.find("td.regDesc").empty();
     				regtr.find("td.regDesc").append(nd);
     				regtr.find("td.regOpt").empty();
-    				regtr.find("td.regOpt").append("<button class='regEdit'>Modifica</button>");
-    				//regtr.find(".regEdit").click(DescEdit)
-    				regtr.find("td.regOpt").append("<button class='regDelete'>Elimina</button>");
-    				//regtr.find(".regDelete").click(DescDelete)
+    		    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-primary'>Modifica</button> ");
+    		    	regtr.find(".regEdit").click(DescEdit);
+    		    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-primary'>Elimina</button>");
+    		    	regtr.find(".regDelete").click(DescDelete);
     				DescInit()
     			}
     			else{
@@ -158,7 +158,7 @@ $(document).ready(function() {
     	////init tr e  td
     	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
     	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
-    	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Elimina</button></td>");
+    	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Annulla</button></td>");
     	
     	////init componente
     	//init 
