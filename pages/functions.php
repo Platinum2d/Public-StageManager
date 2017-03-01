@@ -80,39 +80,37 @@ HTML;
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li class=\"dropdown dropdown-hover\">";
-                echo "<a href=\"".$goBack."pages/super_user/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserimento<span class=\"caret\"></span></a><ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
-                    
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/anniscolastici/index.php'>Anni Scolastici</a></li>";  
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/aziende/index.php'>Aziende</a></li>";  
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/classi/index.php'>Classi</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/docenti/index.php'>Docenti</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/figureprofessionali/index.php'>Figure Professionali</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/scuole/index.php'>Scuole</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/settori/index.php'>Settori</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/stage/index.php'>Stage</a></li>";  
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/studenti/index.php'>Studenti</a></li>";                
-                echo " <li><a href='".$goBack."pages/super_user/inserimento/tutor/index.php'>Tutor</a></li>";                
+                echo "<a href=\"".$goBack."pages/super_user/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserimento<span class=\"caret\"></span></a><ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";                    
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/anniscolastici/index.php'>Anni Scolastici</a></li>";  
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/aziende/index.php'>Aziende</a></li>";  
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/classi/index.php'>Classi</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/docenti/index.php'>Docenti</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/figureprofessionali/index.php'>Figure Professionali</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/scuole/index.php'>Scuole</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/settori/index.php'>Settori</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/stage/index.php'>Stage</a></li>";  
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/studenti/index.php'>Studenti</a></li>";                
+                    echo " <li><a href='".$goBack."pages/super_user/inserimento/tutor/index.php'>Tutor</a></li>";                
                 echo "</ul></li>";
                 echo "<li class=\"dropdown dropdown-hover\">";                
                 echo "<a href=\"".$goBack."pages/super_user/visualizza/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Visualizza<span class=\"caret\"></span></a>";
                 echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/aziende/index.php'>Aziende</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/classi/index.php'>Classi</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
-                echo " <li><a href='".$goBack."pages/super_user/visualizza/tutor/index.php'>Tutor</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/anniscolastici/index.php'>Anni scolastici</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/aziende/index.php'>Aziende</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/classi/index.php'>Classi</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
-//                                echo <<<HTML
-//                        <li class="dropdown dropdown-hover">
-//                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Anno Scolastico <span class="caret"></span></a>
-//                                        <ul class="dropdown-menu dropdown-menu-hover" role="menu">
-//                                            
-//HTML;
-//                    echo " <li><a href='javascript:changeDatabase(\"1\");'> 2015/2016 </a></li>";
-//                    echo " <li><a href='javascript:changeDatabase(\"2\");'> 2014/2015 </a></li>";
-//                echo "</ul></li>";
+                   
+                echo "<li class=\"dropdown dropdown-hover\">";                
+                echo "<a href=\"".$goBack."pages/super_user/segnalazioni/index.php?ris=0\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Segnalazioni<span class=\"caret\"></span></a>";
+                echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
+                    echo " <li><a href='".$goBack."pages/super_user/segnalazioni/index.php?ris=0'>Da risolvere</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/segnalazioni/index.php?ris=1'>Risolte</a></li>";
+                echo "</ul></li>";            
+                
                 echo "</ul>"; 
                     
             } elseif ($_SESSION ['type'] == docrefType) { // se e' loggato docente referente
@@ -308,8 +306,6 @@ HTML;
     function import($goBack) { //importa librerie
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
-        echo <<<HTML
-HTML;
         echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
         echo "<script src='".$goBack."lib/jQuery/jquery-2.2.3.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
