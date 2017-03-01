@@ -1,10 +1,5 @@
 <?php
     session_start ();
-//    define ( "prj_root", "/" ); //contiene il percorso alla cartella root del progetto (/alternanza_scuola lavoro)
-//    define ( "prj_pages", prj_root . "pages" ); //contiene il percorso alla cartella pages
-//    define ( "prj_src", prj_root . "src" ); //contiene il percorso alla cartella src
-//    define ( "prj_img", prj_src . "/img" ); //contiene il percorso alla cartella img 
-//    define ( "prj_lib", prj_src . "/lib" ); //contiene il percorso alla cartella lib
     
     define ( "superUserType", 0 );
     define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente super_user
@@ -21,6 +16,11 @@
     define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
+
+    define ( "EMAIL_ALESSIO", "alessio.scheri@gmail.com" ); //Indirizzo email di Alessio
+    define ( "EMAIL_DANIELE", "manicardi215@gmail.com" ); //Indirizzo email di Daniele
+    define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
+    define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
     function resetDBconf($goBack)
     {
@@ -189,7 +189,7 @@ HTML;
                         echo <<<HTML
                 <li class="button">
 HTML;
-            echo "<a href='" . $goBack . "pages/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
+            echo "<a href='" . $goBack . "sessione/logout/destroyer.php'><i class='glyphicon glyphicon-user'></i> Logout</a>";
             echo "<li>";
         }
     }
@@ -228,7 +228,7 @@ HTML;
         echo <<<HTML
          <div class="col col-sm-12">
 HTML;
-        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage_iPear.png' alt=''' width='100%' height='326' />";
+        echo "<img class='img-responsive' src='".$goBack."media/img/copertina_stage_azzurro.png' alt=''' width='100%' height='326' />";
         echo <<<HTML
               </div>
 HTML;
@@ -244,9 +244,9 @@ HTML;
             {
                 if ($_SESSION['type'] !== superUserType)
                 {
-                    echo "<a href=\"".$goBack."contattaci.php\" > Contattaci </a>";
+                    echo "<a href=\"".$goBack."contattaci.php\" ><i class=\"glyphicon glyphicon-earphone\"> </i> Contattaci </a>";
                     if (isset($_SESSION ['type'])) 
-                    echo "<li class=\"button\"> <a href=\"".$goBack."pages/valutazione/index.php\"> Valutaci </a> </li>";
+                    echo "<li class=\"button\"> <a href=\"".$goBack."segnala-problema/index.php\"><i class=\"glyphicon glyphicon-exclamation-sign\"> </i> Segnala un problema </a> </li>";
                 }
                 else
                 {
@@ -461,11 +461,15 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        									<a href="tel:+39 334 9056026" class="contact-link">+39 334 905 6026</a>
+HTML;
+			        									echo "<a href='tel:".TELEFONO_DANIELE."' class='contact-link'> ".TELEFONO_DANIELE."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        									<li>
 		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-		        										<a href="mailto:manicardi215@gmail.com" class="contact-link">manicardi215@gmail.com</a>
+HTML;
+			        									echo "<a href='mailto:".EMAIL_DANIELE."' class='contact-link'> ".EMAIL_DANIELE."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        								</ul>
         									</li>
@@ -474,11 +478,15 @@ HTML;
 		        								<ul>
 		        									<li>
 		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
-			        									<a href="tel:+39 333 2810581" class="contact-link">+39 333 281 0581</a>
+HTML;
+			        									echo "<a href='tel:".TELEFONO_ALESSIO."' class='contact-link'> ".TELEFONO_ALESSIO."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        									<li>
 		        										<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
-		        										<a href="mailto:alessio.scheri@gmail.com" class="contact-link">alessio.scheri@gmail.com</a>
+HTML;
+			        									echo "<a href='mailto:".EMAIL_ALESSIO."' class='contact-link'> ".EMAIL_ALESSIO."</a>";
+		        					echo <<<HTML
 		        									</li>
 		        								</ul>
 		        							</li>
@@ -506,39 +514,6 @@ HTML;
                 </div>
             </footer>
 HTML;
-    }
-    
-//     function footer (){
-//         echo <<<HTML
-//             <footer>
-//                 <div class="container">
-//             		<div class="row">
-//             			<div class="col col-sm-12">
-// 				            <div class="panel">
-//                                 <p class="text-center">
-// Classe 5^B 2014/2015: Scheri Alessio(Gestore Incaricato),Chitoroaga Constantin, Cois Alessio, Corradi Federico, D'Alcamo Kael, Emini Damiano, Kapelyukh Mirko, Liso Emanuele, Mastrangelo Salvatore, Menabue Matteo, Orlandi Mattia, Passuti Roberto, Pevarello Marco, Pizzirani Federico, Rapini Fabio, Sargenti Mattia, Scheri Alessio, Sgarzi Mattia, Singh Rupinder, Vaccari Nicola, Veronesi Matteo, Zambardi Alessio.
-// <br> <br> Classe 5^B 2015/2016: Manicardi Daniele(Gestore Incaricato),Borelli Fabio, Cafagna Michele, Calaiò Salvatore, Calzone Davide,Casini Simone, Enache Alexandru, Faedda Veronica, Fedele Davide , Fernando Pasan,Fossali Ludovico,  Leuzzi  Alessio, Maini Fabio, Manicardi Daniele, Manni Filippo, Minelli Andrea , Odorici Paolo, Pedroni Nicolò, Pizzirani Paolo, Ternelli Mirco.
-//                                 </p>
-//                                 <p class="leviFooter text-center">
-//                                     Istituto Primo Levi, Vignola
-//                                 </p>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </footer>
-// HTML;
-//     }
-        
-    function printChat($goback){
-        echo" 
-        <div id=\"wholechat\">
-            <div id=\"chat\" onclick=\"fillChat('".$_SESSION['nameTable']."', '$goback')\" class=\"chat-container\">
-                <p id=\"nascondi\" class=\"hide-show-p\"><a id=\"nascondilink\" href=\"javascript:hideChat()\" class=\"hide-show-link\"> Chat </a></p>
-                <div id='chatcontent'>
-                </div>
-            </div>
-        </div>";
     }
     
     function studentNoStageWarning () {
