@@ -1,9 +1,7 @@
 function check_login(){    
     var user= $("#username").val();
     var password=$("#password").val();
-    var url = "";
-    
-    url = (location.href.indexOf("/pages/login/index.php") > 0) ? "login.php" : "pages/login/login.php";
+    var url = "sessione/login/login.php";
     
     $.ajax({
         type: 'POST',   
@@ -22,11 +20,7 @@ function check_login(){
                 error.style.fontSize="medium";
                 $("#password").val("");
             }
-            else{
-                localStorage.removeItem("dialogconst");
-                localStorage.removeItem("openedChat");
-                localStorage.removeItem("chatCode");
-                
+            else{                
                 if(tipo==='0') //Super User
                 {
                     location.href = ((location.href.indexOf("/pages/login/index.php") > 0)) ? "../super_user/profiloutente/index.php" : "pages/super_user/profiloutente/index.php";
