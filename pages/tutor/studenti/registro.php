@@ -8,10 +8,10 @@
     
     echo "<script src='js/scripts_registro.js'></script>";
     
-    $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.durata_stage
-			FROM studente_has_stage, stage, classe_has_stage
-			WHERE studente_has_stage.id_studente_has_stage = 1
-			AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+    $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.durata_stage  
+			FROM studente_has_stage, stage, classe_has_stage 
+			WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
+			AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage 
 			AND classe_has_stage.stage_id_stage = stage.id_stage;";
     $Result = $conn->query ( $sql );
     $row = $Result->fetch_assoc ();
