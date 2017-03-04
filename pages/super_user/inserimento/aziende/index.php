@@ -71,7 +71,7 @@
                                 Indirizzo E-Mail <div class="form-group"><input class="form-control" id="MailAzienda"> </div>
                                 Sito <div class="form-group"><input class="form-control" id="SitoAzienda"> </div> 
                                 Nome Responsabile <div class="form-group"><input class="form-control" id="NomeResponsabileAzienda"> </div> 
-                                Cognome Responsabile <div class="form-group"><input class="form-control" id=CognomeResponsabileAzienda"> </div> 
+                                Cognome Responsabile <div class="form-group"><input class="form-control" id="CognomeResponsabileAzienda"> </div> 
                                 Telefono Responsabile <div class="form-group"> <input class="form-control" id="TelefonoResponsabileAzienda"> </div> 
                                 Indirizzo E-Mail Responsabile <div class="form-group"> <input class="form-control" id="MailResponsabileAzienda"> </div>
                                 
