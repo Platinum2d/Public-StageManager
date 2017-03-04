@@ -7,7 +7,7 @@ $(document).ready(function (){
     });
 });
 
-function openAddSettore(id_figura_professionale)
+function openAddSettore(id_figura_professionale) //aggiorna
 {
     var modal = $("#SuperAlert").find(".modal-body");
     
