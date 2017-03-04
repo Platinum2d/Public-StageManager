@@ -62,7 +62,7 @@
                                         
                                     echo "<tr id=\"figura$I\"><td><input class=\"singlecheck\" type=\"checkbox\"></td><td contenteditable=\"true\" oninput=\"$(this).css('color', 'red')\"> $nome </td> ";                                                                        
                                     echo "<td> <button id=\"modifica$I\" type=\"button\" class=\"btn btn-success btn-sm margin buttonfix\" onclick=\"sendData($I, $id)\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>"
-                                            . " </td>";
+                                            . " <button onclick=\"editSettori($id)\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-info-sign\"> </span>  Settori</button></td>";
                                                 
                                     echo "</tr>";
                                     $I++;
