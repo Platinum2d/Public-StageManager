@@ -179,6 +179,21 @@ HTML;
 HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li class=\"dropdown dropdown-hover\">
+                      <a href=\"".$goBack."pages/scuola/classi/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Classi <span class=\"caret\"></span></a>
+                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Inserisci Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'> Visualizza Classi </a></li>";
+                echo "</ul></li>";
+                
+                echo "<li class=\"dropdown dropdown-hover\">
+                      <a href=\"".$goBack."pages/scuola/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
+                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/modifica_tutor/index.php'> Visualizza Aziende </a></li>";
+                echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
 HTML;
