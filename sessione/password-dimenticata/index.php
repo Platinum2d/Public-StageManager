@@ -16,7 +16,7 @@
                 <div class="panel">
                     <h1>Recupero tramite indirizzo e-mail</h1>
                     <br>
-                    <form onsubmit="emailRecovery (); return false;" method="POST">
+                    <form onsubmit="emailRecovery (); return false;">
                     	<div class="row">
                             <div class="col col-sm-6">
                                 Email per il recupero password <input type="email" class="form-control" name="mail" required>
@@ -45,7 +45,7 @@
                         </div>
                 	</div>
                 	<br>
-                    <form class="hidden" action="" method="POST">
+                    <form class="hidden">
                     	<input type="hidden" name="user" required/>
                     	<div class="row">
                             <div class="col col-sm-6">
