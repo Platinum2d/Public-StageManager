@@ -1,5 +1,5 @@
 <?php
-    include '../../../functions.php';
+    include '../../../functions.php'; //??
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Figure professionali" );
     import("../../../../");
