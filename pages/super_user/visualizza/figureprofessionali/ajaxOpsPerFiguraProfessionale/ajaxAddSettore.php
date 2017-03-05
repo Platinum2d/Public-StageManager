@@ -1,7 +1,7 @@
 <?php
     include "../../../../functions.php";
         
-    $conn = dbConnection("../../../../../");    
+    $conn = dbConnection("../../../../../"); //????   
     $id_settore = $_POST['settore'];
     $id_figura = $_POST['figura'];
     

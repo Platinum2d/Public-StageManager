@@ -4,7 +4,7 @@
     open_html ( "Profilo" );
     import("../../../");
     $id_tutor = $_SESSION ['userId'];
-    echo "<script src='profiloutente.js'></script>";
+    echo "<script src='js/profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT nome, cognome, nome_aziendale, tutor.email, tutor.telefono, utente.username 
 			FROM tutor, azienda, utente 
@@ -33,10 +33,16 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>Il mio profilo</h1>
+                    <br>
+                    <h1 style="display: inline">Il mio profilo </h1><h3 style="display: inline">(Informazioni personali del responsabile)</h3>
+                    <br>
+                    <br>
                     <br>
                     <div class="row">
-                        <div class="col col-sm-12">
+                        <div class="col col-sm-3" id='profilewrapper'>
+                            <?php printProfileImageSection($connessione); ?>
+                        </div>
+                        <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout: fixed">
                                     <tr>
                                         <th class="col-sm-5">Username</th>
@@ -82,6 +88,9 @@
             </div>
         </div>
     </div>
+    <script>
+        doSetupForProfileImage();
+    </script>
 </body>
 <?php
     close_html ("../../../");

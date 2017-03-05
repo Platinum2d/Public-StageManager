@@ -3,7 +3,7 @@
     
     $conn = dbConnection("../../../../");
     $idlavoro = $_POST['id'];
-    $data = $_POST['data'];
+    $data = date("Y-m-d", strtotime($_POST['data']));
     $descrizione = $conn->escape_string($_POST['descrizione']);
     
     $query = "UPDATE  `lavoro_giornaliero` SET  `data` =  '$data',`descrizione` =  '$descrizione' WHERE  `id_lavoro_giornaliero` =$idlavoro";

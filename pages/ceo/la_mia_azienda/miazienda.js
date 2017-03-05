@@ -6,7 +6,7 @@ contact = {
     'phone': ''
 };
 
-var figuresSize = 12.5;
+var figuresSize = 12.5; //Costanti generali per le figure professionali
 var figuresLimit = 5;
 
 $(document).ready(function(){
