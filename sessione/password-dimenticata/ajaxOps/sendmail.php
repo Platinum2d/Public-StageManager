@@ -115,7 +115,7 @@
                             che sta cercando di ripristinare la password del suo profilo di www.stagemanager.it. 
                             In caso contrario, la preghiamo di ignorare questo messaggio.<br>
                             Clicchi su questo link per proseguire con il ripristino 
-                            http://www.stagemanager.it/sessione/password-dimenticata/replace/index.php?user=$username&code=$codice";
+                            http://www.stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
             $mittente = "noreply@stagemanager.it";
             $headers = "From: ".$mittente;   
             $oggetto = "Recupero password per $nome";
