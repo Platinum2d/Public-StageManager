@@ -51,7 +51,7 @@
                                                 <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
                                             </form><br>
                                                 <div id="forgottenPassword">  
-                                        <a href="sessione/forgottenpassword/index.php"style="color:#337ab7"> Ho dimenticato la mia password </a>
+                                        <a href="sessione/password-dimenticata/index.php"style="color:#337ab7"> Ho dimenticato la mia password </a>
                                     </div>
                                         </div>
                                         <div id="login-text" class="col col-sm-4 vcenter">

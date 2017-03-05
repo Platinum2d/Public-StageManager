@@ -206,7 +206,12 @@ a, p, label, b, i, span, div{
     box-shadow: none;
     text-align: center;
 }
+
 .kv-avatar .file-input {
     display: table-cell;
     max-width: 220px;
+}
+
+hr.hr-padding {
+	padding-bottom: 15px;
 }
