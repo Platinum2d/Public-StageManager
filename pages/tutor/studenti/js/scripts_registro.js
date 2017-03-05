@@ -1,4 +1,4 @@
-$(document).ready(function() {	
+$(document).ready(function() {
     function DescEdit(event){
     	var regtr = $(event.target).closest("tr");
     	var regDesc = regtr.find(".regDesc");
@@ -6,13 +6,17 @@ $(document).ready(function() {
     	var regDate = regtr.find(".regDate");
     	var date = regDate.html();
     	var dateSplitted = date.split("-");
-    	var year = dateSplitted [0];
+    	var year = dateSplitted [2];
     	var month = parseInt (dateSplitted [1]) - 1;
-    	var day = dateSplitted [2];
+    	var day = dateSplitted [0];
     	regDate.empty ();
     	regDesc.empty();
     	regDate.append ("<input class='datepicker'/>");
-    	regDate.find (".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+    	regDate.find (".datepicker").datepicker({ 
+    		dateFormat: 'dd-mm-yy', 
+    		minDate: inizio_stage,
+    		maxDate: fine_stage
+		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
     	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
@@ -65,7 +69,7 @@ $(document).ready(function() {
     				
     				content.find("tbody").append("<tr></tr>")
     				line = content.find("tbody tr:last")
-    				line.append("<td>"+ $(element).find("date").text() +"</td>")
+    				line.append("<td class='regDate'>"+ $(element).find("date").text() +"</td>")
     				line.append("<td class='regDesc'></td>")
     				line.find("td.regDesc").append(desc)
     				line.append("<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> <button class='regDelete btn btn-primary'>Elimina</button></td>")
@@ -115,40 +119,45 @@ $(document).ready(function() {
     	var desctd = regtr.find("td.regDesc");
     	var nd = desctd.find(".newDesc").val();
     	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
-    	data = {
-    		"newdesc": nd,
-    		"id": regtr.find(".descId").val(),
-			"day": date.getDate(),
-			"month": date.getMonth() + 1,
-			"year": date.getFullYear(),
+    	if (date >= inizio_stage && date <=fine_stage){
+	    	data = {
+	    		"newdesc": nd,
+	    		"id": regtr.find(".descId").val(),
+				"day": date.getDate(),
+				"month": date.getMonth() + 1,
+				"year": date.getFullYear(),
+	    	}
+	    	$.ajax({
+	    		url: "ajaxOps/aggiorna_lavoro.php", //Pagina a quale invio la richiesta
+	    		type: "POST", //Metodologia di invio di dati
+	    		dataType: "xml", //Tipologia di dati restituiti
+	    		data: data, //Dati inviati
+	
+	
+	    		error: function(){ //in caso di errore attende 2 secondi
+	    			alert("Invio dei dati non riuscito")
+	    		},
+	
+	    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
+	    			if($(xml).find("status").text() == 0){
+	    				regtr.find("td.regDesc").empty();
+	    				regtr.find("td.regDesc").append(nd);
+	    				regtr.find("td.regOpt").empty();
+	    		    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-primary'>Modifica</button> ");
+	    		    	regtr.find(".regEdit").click(DescEdit);
+	    		    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-primary'>Elimina</button>");
+	    		    	regtr.find(".regDelete").click(DescDelete);
+	    				DescInit()
+	    			}
+	    			else{
+	    				alert("Errore durante l'invio, prego riprovare");
+	    			}
+	    		}
+	    	});
     	}
-    	$.ajax({
-    		url: "ajaxOps/aggiorna_lavoro.php", //Pagina a quale invio la richiesta
-    		type: "POST", //Metodologia di invio di dati
-    		dataType: "xml", //Tipologia di dati restituiti
-    		data: data, //Dati inviati
-
-
-    		error: function(){ //in caso di errore attende 2 secondi
-    			alert("Invio dei dati non riuscito")
-    		},
-
-    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
-    			if($(xml).find("status").text() == 0){
-    				regtr.find("td.regDesc").empty();
-    				regtr.find("td.regDesc").append(nd);
-    				regtr.find("td.regOpt").empty();
-    				regtr.find("td.regOpt").append("<button class='regEdit'>Modifica</button>");
-    				//regtr.find(".regEdit").click(DescEdit)
-    				regtr.find("td.regOpt").append("<button class='regDelete'>Elimina</button>");
-    				//regtr.find(".regDelete").click(DescDelete)
-    				DescInit()
-    			}
-    			else{
-    				alert("Errore durante l'invio, prego riprovare");
-    			}
-    		}
-    	});
+    	else {
+    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+    	}
     }
     
     function DescAdd(){
@@ -158,57 +167,67 @@ $(document).ready(function() {
     	////init tr e  td
     	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
     	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
-    	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Elimina</button></td>");
+    	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Annulla</button></td>");
     	
-    	////init componente
+    	//init componente
     	//init 
-    	$(".datepicker").datepicker();
+    	$(".datepicker").datepicker({ 
+    		dateFormat: 'dd-mm-yy', 
+    		minDate: inizio_stage,
+    		maxDate: fine_stage
+		});
     	$("#DescAddDesc").jqte();
     	$("#DescAddButton").attr("disabled", true);
     	
     	//add events (save and delete)
     	$("#DescAddSave").click(function(){
-    		try{
-    			data = {
-    				"sid": shs,
-    				"day": $("#DescAddDate").datepicker( "getDate" ).getDate(),
-    				"month":  $("#DescAddDate").datepicker( "getDate" ).getMonth() + 1,
-    				"year":  $("#DescAddDate").datepicker( "getDate" ).getFullYear(),
-    				"desc": $("#DescAddDesc").val()
-    			}
-    		}
-    		catch(err){
-    			var err_str = ""
-    			
-    			if($("#DescAddDate").val() == ""){
-    				err_str += "La data non è valida\n"
-    			}
-    			alert(err_str)
-    		}		
-    	
-    		$.ajax({
-    			url: "ajaxOps/aggiungi_lavoro.php", //Pagina a quale invio la richiesta
-    			type: "POST", //Metodologia di invio di dati
-    			dataType: "xml", //Tipologia di dati restituiti
-    			data: data, //Dati inviati
-    	
-    	
-    			error: function(){ //in caso di errore attende 2 secondi
-    				alert("Salvataggio della relazione non riuscito")
-    			},
-    	
-    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
-    				if($(xml).find("status").text() == 0){
-    					$("#DescAddTR").remove();
-    					//alert("Relazione salvata con successo")
-    					DescInit();
-    				}
-    				else{
-    					alert("Salvataggio della relazione non riuscita");
-    				}
-    			}
-    			
-    		});
+        	date = $("#DescAddDate").datepicker( "getDate" );
+        	if (date >= inizio_stage && date <=fine_stage){
+	    		try{
+	    			data = {
+	    				"sid": shs,
+	    				"day": date.getDate(),
+	    				"month":  date.getMonth() + 1,
+	    				"year":  date.getFullYear(),
+	    				"desc": $("#DescAddDesc").val()
+	    			}
+	    		}
+	    		catch(err){
+	    			var err_str = ""
+	    			
+	    			if($("#DescAddDate").val() == ""){
+	    				err_str += "La data non è valida\n"
+	    			}
+	    			alert(err_str)
+	    		}		
+	    	
+	    		$.ajax({
+	    			url: "ajaxOps/aggiungi_lavoro.php", //Pagina a quale invio la richiesta
+	    			type: "POST", //Metodologia di invio di dati
+	    			dataType: "xml", //Tipologia di dati restituiti
+	    			data: data, //Dati inviati
+	    	
+	    	
+	    			error: function(){ //in caso di errore attende 2 secondi
+	    				alert("Salvataggio della relazione non riuscito")
+	    			},
+	    	
+	    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
+	    				if($(xml).find("status").text() == 0){
+	    					$("#DescAddTR").remove();
+	    					//alert("Relazione salvata con successo")
+	    					DescInit();
+	    				}
+	    				else{
+	    					alert("Salvataggio della relazione non riuscita");
+	    				}
+	    			}
+	    			
+	    		});
+        	}
+        	else {
+        		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+        	}
 
     	});
         $("#DescAddDelete").click(function() {

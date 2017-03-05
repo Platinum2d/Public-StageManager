@@ -1,5 +1,5 @@
 <?php
-    include '../../../functions.php';
+    include '../../../functions.php'; //??
     checkLogin ( superUserType , "../../../../");
     open_html ( "Visualizza Figure professionali" );
     import("../../../../");
@@ -10,9 +10,9 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-        
+    
     <script src="scripts/script.js"></script>
-        
+    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -33,7 +33,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+                            
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
                                 <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
@@ -41,14 +41,14 @@
                         </div>
                     </div>    
                     <br>
-                    
+                        
                     <table id="annitable" class="table table-bordered">
                         <thead style="background : #eee; font-color : white">
                         <th style="text-align : center"> <input type="checkbox" id="checkall"> </th>
                         <th style="text-align : center"> Figura professionale </th>
                         <th style="text-align : center; width: 25%"> Azioni </th>
                         </thead>
-                        
+                            
                         <tbody style="text-align : center">
                             <?php
                                 $query = "SELECT * FROM figura_professionale ORDER BY nome";
@@ -62,7 +62,7 @@
                                         
                                     echo "<tr id=\"figura$I\"><td><input class=\"singlecheck\" type=\"checkbox\"></td><td contenteditable=\"true\" oninput=\"$(this).css('color', 'red')\"> $nome </td> ";                                                                        
                                     echo "<td> <button id=\"modifica$I\" type=\"button\" class=\"btn btn-success btn-sm margin buttonfix\" onclick=\"sendData($I, $id)\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>"
-                                            . " </td>";
+                                            . " <button onclick=\"editSettori($id)\" class=\"btn btn-info\"><span class=\"glyphicon glyphicon-info-sign\"> </span>  Settori</button></td>";
                                                 
                                     echo "</tr>";
                                     $I++;
@@ -75,7 +75,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../");
 ?>

@@ -7,8 +7,7 @@
 XML;
     $xml = new SimpleXMLElement ( $xmlstr );            
     $conn = dbConnection("../../../../../");
-    $exception = $_POST['exception'];
-    
+    $exception = (empty($exception) || !isset($exception)) ? null : $_POST['exception'];   
     
     $query = (empty($exception) || !isset($exception)) ? "SELECT `id_scuola`, `nome`, `username` FROM `scuola`, `utente` WHERE `id_scuola` = `id_utente` " : "SELECT `id_scuola`, `nome`, `username` FROM `scuola`, `utente` WHERE `id_scuola` = `id_utente` AND `id_scuola` != $exception";
     $result = $conn->query($query);

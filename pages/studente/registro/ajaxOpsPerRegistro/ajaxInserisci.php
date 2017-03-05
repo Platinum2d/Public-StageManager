@@ -3,7 +3,7 @@
     
     $conn = dbConnection("../../../../");
     
-    $data = $_POST['data'];
+    $data = date("Y-m-d", strtotime($_POST['data']));
     $descrizione = $conn->escape_string($_POST['descrizione']);
     $idStudtudenteHasStage = $_SESSION ['studenteHasStageId'];
     

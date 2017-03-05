@@ -46,9 +46,9 @@ classe = {
     'nome' : '',
     'scuola' : '',
     //    'stage' : '',
-    'settore' : '',
+    'settore' : ''
     //    'anno' : ''
-}
+};
 
 specializzazione = {
     'nome' : ''    
@@ -80,26 +80,27 @@ scuola = {
     'telefono' : '',
     'email':'',
     'sito' : ''
-}
+};
 
 annoscolastico = {
     'nome' : '',
     'corrente' : 'false'
-}
+};
 
 figuraprofessionale = {
-    'nome' : ''
-}
+    'nome' : '',
+    'settore' : ''
+};
 
 stage = {
     'inizio' : '',
     'durata' : '0'
-}
+};
 
 settore = {
     'nomesettore' : '',
     'indirizzostudi' : ''    
-}
+};
 
 function addDatePickerInInzioStage()
 {
@@ -164,9 +165,9 @@ function freeFieldsFor(userType)
             $("#telefonoStudente").val('');
             $("#inizioStageStudente").val('');
             $("#durataStageStudente").val('');       
-//            $("#aziendaStudente").val('');
-//            $("#docenteStudente").val('');
-//            $("#tutorStudente").val('');            
+            //            $("#aziendaStudente").val('');
+            //            $("#docenteStudente").val('');
+            //            $("#tutorStudente").val('');            
             break;
         
         case 'tutor':
@@ -363,7 +364,7 @@ function addSelectionsFor(page, field)
                             {
                                 $("#SpecializzazioneClasse").html("<option> </option>");
                                 $(xml).find('specializzazione').each(function() {
-                                    $("#SpecializzazioneClasse").append("<option> "+$(this).text()+" </option>")
+                                    $("#SpecializzazioneClasse").append("<option> "+$(this).text()+" </option>");
                                 });
                             }
                         });
@@ -734,6 +735,8 @@ function sendSingleData(userType)
         
         case 'figuraprofessionale':
             figuraprofessionale.nome = $("#nomeFigura").val();
+            figuraprofessionale.settore = $("#nomeSettore").val();
+            
             $.ajax({
                 type : 'POST',
                 url : 'ajaxOpsPerFiguraProfessionale/ajaxInvia.php',
@@ -742,6 +745,8 @@ function sendSingleData(userType)
                 success : function (msg){
                     if (msg === "ok")
                         freeFieldsFor ("figuraprofessionale");
+                    else
+                        alert(msg);
                 }
             });
             break;
