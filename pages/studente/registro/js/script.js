@@ -18,7 +18,11 @@ function openEdit(progressiv)
     $("#conferma"+progressiv).addClass("btn-success");
     $("#data"+progressiv).html("<input class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
     $("#descrizione"+progressiv).html("<textarea id=\"textareadescrizione"+progressiv+"\" style=\"resize:vertical\"  class = \"form-control\" type=\"text\">"+descrizione+"</textarea>");
-    $("#textboxdata"+progressiv).datepicker({ dateFormat : 'yy-mm-dd' });
+    $("#textboxdata"+progressiv).datepicker({ 
+		dateFormat: 'dd-mm-yy', 
+		minDate: inizio_stage,
+		maxDate: fine_stage
+	});
     $("#textboxdata"+progressiv).hide(); $("#textboxdata"+progressiv).hide().fadeIn("slow");
     $("#textareadescrizione"+progressiv).hide(); $("#textareadescrizione"+progressiv).hide().fadeIn("slow");
     $("#elimina"+progressiv).val("Annulla");
@@ -77,24 +81,34 @@ function sendData(progressiv, idDescrizione)
   
     if (!lavoro.data.isEmpty() && !lavoro.descrizione.isEmpty())
     {
-        $.ajax({
-            type : 'POST',
-            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
-            data : lavoro,
-            cache : false,
-            success : function (msg)
-            {
-                if (msg === "ok")
-                    resetColors(progressiv);
-	                data = $("#textboxdata"+progressiv).val();
-	                descrizione = $("#textareadescrizione"+progressiv).val();
-                    closeEdit (progressiv);
-            },
-            error : function ()
-            {
-                alert("errore")
-            }
-        });
+    	date = lavoro.data.split ("-");
+    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
+    	if (date >= inizio_stage && date <=fine_stage) {
+	        $.ajax({
+	            type : 'POST',
+	            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
+	            data : lavoro,
+	            cache : false,
+	            success : function (msg)
+	            {
+	                if (msg === "ok")
+	                    resetColors(progressiv);
+		                data = $("#textboxdata"+progressiv).val();
+		                descrizione = $("#textareadescrizione"+progressiv).val();
+	                    closeEdit (progressiv);
+	            },
+	            error : function ()
+	            {
+	                alert("errore")
+	            }
+	        });
+    	}
+    	else {
+    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+    	}
+    }
+    else {
+    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>I campi data e/o descrizione sono vuoti.");
     }
 }
 
@@ -124,7 +138,11 @@ function appendAddingBox()
     $("#aggiungidata"+progressiv+"").hide(); $("#aggiungidata"+progressiv+"").fadeIn("slow");
     $("#contatoreaggiungi").val(progressiv+1);
     $("#confirmadding"+progressiv+"").attr("onclick","insertActivity("+progressiv+")");
-    $("#aggiungidata"+progressiv+"").datepicker({ dateFormat : 'yy-mm-dd' })
+    $("#aggiungidata"+progressiv+"").datepicker({ 
+		dateFormat: 'dd-mm-yy', 
+		minDate: inizio_stage,
+		maxDate: fine_stage
+	});
 }
 
 function insertActivity(progressiv)
@@ -143,16 +161,26 @@ function insertActivity(progressiv)
     
     if (!lavorodainserire.data.isEmpty() && !lavorodainserire.descrizione.isEmpty())
     {
-        $.ajax({
-           type : 'POST',
-           url : '../registro/ajaxOpsPerRegistro/ajaxInserisci.php',
-           cache : false,
-           data : lavorodainserire,
-           success : function (maxid)
-           {
-               convertToInsertedData(progressiv, maxid);
-           }
-        });
+    	date = lavoro.data.split ("-");
+    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
+    	if (date >= inizio_stage && date <=fine_stage) {
+	        $.ajax({
+	           type : 'POST',
+	           url : '../registro/ajaxOpsPerRegistro/ajaxInserisci.php',
+	           cache : false,
+	           data : lavorodainserire,
+	           success : function (maxid)
+	           {
+	               convertToInsertedData(progressiv, maxid);
+	           }
+	        });
+    	}
+    	else {
+    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+    	}
+    }
+    else {
+    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>I campi data e/o descrizione sono vuoti.");
     }
 }
 

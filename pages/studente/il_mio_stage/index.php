@@ -21,8 +21,8 @@
                             <?php
                                 
                                 function sommaGiorni($dateadd, $duratas) {
-                                    list ( $anno, $mese, $giorno ) = explode ( '-', $dateadd );
-                                    return date ( "Y-m-d", mktime ( 0, 0, 0, $mese, $giorno + $duratas, $anno ) );
+                                    list ( $giorno, $mese, $anno ) = explode ( '-', $dateadd );
+                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas, $anno ) );
                                 }
                                     
                                 $idstud = $_SESSION ['userId'];
@@ -127,7 +127,7 @@
                                             $duratas = $row ['durata_stage'];
                                         }
                                         if (isset ($row ['inizio_stage'])){
-                                            $inizio_stage = $row ['inizio_stage'];
+                                            $inizio_stage = date("d-m-Y", strtotime($row ['inizio_stage']));
                                         }
                                         if (isset ($row ['inizio_stage']) && isset ($row ['durata_stage'])){
                                             $fine_stage = sommaGiorni ( $inizio_stage, $duratas );

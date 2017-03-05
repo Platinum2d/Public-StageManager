@@ -15,7 +15,7 @@ XML;
     while ( $work_line = $query_line->fetch_assoc () ) {
         $line = $xml->addChild ( "line" );
         $line->addChild ( "id", $work_line ['id_lavoro_giornaliero'] );
-        $line->addChild ( "date", $work_line ['data'] );
+        $line->addChild ( "date", date("d-m-Y", strtotime($work_line['data'])) );
         $line->addChild ( "desc", $work_line ['descrizione'] );
     }
    echo $xml->asXML ();
