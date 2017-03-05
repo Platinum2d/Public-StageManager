@@ -1,4 +1,4 @@
-$(document).ready(function (){
+$(document).ready(function (){ ////
     $("#checkall").change(function (){
         if ($(this).prop("checked"))
             $(".singlecheck").prop("checked", true);

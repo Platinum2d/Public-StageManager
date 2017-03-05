@@ -5,7 +5,7 @@
 </data>
 XML;
     
-    $xml = new SimpleXMLElement ( $xmlstr );
+    $xml = new SimpleXMLElement ( $xmlstr ); //??
     include "../../../../functions.php";
         
     $conn = dbConnection("../../../../../");    

@@ -1,7 +1,7 @@
 <?php
     include "../../../../functions.php";
     
-    $conn = dbConnection("../../../../../");
+    $conn = dbConnection("../../../../../"); //??
     
     $id = $_POST['id'];
     $nome = trim($conn->escape_string(strip_tags($_POST['nome'])));
