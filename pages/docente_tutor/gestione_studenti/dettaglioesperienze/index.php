@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Studenti di <?php echo $nome_classe; ?> - A.S. <?php echo $nome_anno; ?></h1> <br>
+                    <h1> Studenti di <?php echo $nome_classe; ?> - A.S. <?php echo $nome_anno; ?></h1> 
                     <br>
                     <table class="table table-hover">
                         <thead>
