@@ -32,16 +32,15 @@ function openEdit(id, idStudente, classe, anno)
  <div class=\"col col-sm-12\">\n\
  <div class=\"row\"> \n\
 <div class=\"col col-sm-6\"> \n\
-                <div ><label id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
-                <div ><label> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
-                <div ><label>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
-                <div ><label>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
+                <div ><label  class='custlabel' id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
+                <div ><label  class='custlabel'> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
+                <div ><label  class='custlabel'>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
 \n\</div>\n\
 <div class=\"col col-sm-6\">\n\
-\n\<div><label>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                <div ><label>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
-                <div ><label>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
-                <div ><label>preferenze</label> <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div>\n\
+\n\<div><label  class='custlabel'>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
+                <div ><label  class='custlabel'>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
+                <div ><label  class='custlabel'>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
+                <div ><label  class='custlabel'>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
                 <div > <br>  \n\
                     <form method=\"POST\" action=\"dettagliostage/index.php\">\n\
                         <div align=\"center\"><input type=\"submit\" class=\"btn btn-info\" value=\"Vai al dettaglio delle esperienze\" /></div> \n\
@@ -54,8 +53,7 @@ function openEdit(id, idStudente, classe, anno)
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
     $("#iniziostage"+numberId).datepicker({ dateFormat: 'yy-mm-dd' });    
-    setOnChangeEvents(numberId);    
-    
+    setOnChangeEvents(numberId);
     toget = {
         'id' : idStudente,
         'idanno' : anno,
@@ -194,7 +192,7 @@ function deleteData(numberId, idStudente)
                 if (msg === "ok")
                     $("#VisibleBox"+numberId).parent("tr").fadeOut("slow");
                 else
-                    printError("Eliminazione non riuscita",msg);
+                    printError("Eliminazione non riuscita","Contattare l'amministratore");
             }
         });
     }
