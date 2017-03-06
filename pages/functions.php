@@ -188,11 +188,11 @@ HTML;
                 echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
+                      <a href=\"".$goBack."pages/scuola/aziende/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/modifica_tutor/index.php'> Visualizza Aziende </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Inserisci Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'> Visualizza Aziende </a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
