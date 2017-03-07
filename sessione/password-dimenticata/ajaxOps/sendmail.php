@@ -1,42 +1,42 @@
 <?php
-    include "../../pages/functions.php";
+    include "../../../pages/functions.php";
     
-    $conn = dbConnection("../../");
+    $conn = dbConnection("../../../");
     $email = $_POST['mail'];
     
     $query = "SELECT nome, cognome, id_docente
-    FROM docente
-    WHERE email = '$email'";
+                FROM docente
+                WHERE email = '$email'";
     $result = $conn->query($query);
     if ($result->num_rows > 0)
     {
         $row = $result->fetch_assoc();
         $id_utente = $row ['id_docente'];
-        $nome = $row ['nome'] + " " + $row ['cognome'];
+        $nome = $row ['nome'] . " " . $row ['cognome'];
     }
     else
     {
         $query = "SELECT nome, cognome, id_studente
-        FROM studente
-        WHERE email = '$email'";
+                    FROM studente
+                    WHERE email = '$email'";
         $result = $conn->query($query);
         if ($result->num_rows > 0)
         {
             $row = $result->fetch_assoc();
             $id_utente = $row ['id_studente'];
-            $nome = $row ['nome'] + " " + $row ['cognome'];
+            $nome = $row ['nome'] . " " . $row ['cognome'];
         }
         else
         {
             $query = "SELECT nome, cognome, id_tutor
-            FROM tutor
-            WHERE email = '$email'";
+                        FROM tutor
+                        WHERE email = '$email'";
             $result = $conn->query($query);
             if ($result->num_rows > 0)
             {
                 $row = $result->fetch_assoc();
                 $id_utente = $row ['id_tutor'];
-                $nome = $row ['nome'] + " " + $row ['cognome'];
+                $nome = $row ['nome'] . " " . $row ['cognome'];
             }
             else
             {
@@ -49,7 +49,7 @@
                 {
                     $row = $result->fetch_assoc();
                     $id_utente = $row ['id_azienda'];
-                    $nome = $row ['nome_responsabile'] + " " + $row ['cognome_responsabile'];
+                    $nome = $row ['nome_responsabile'] . " " . $row ['cognome_responsabile'];
                 }
                 else
                 {
@@ -110,12 +110,13 @@
         }
         
         if ($stato) {
-            $messaggio = "SI PREGA DI NON RISPONDERE ALLA MAIL CHE SEGUE, GRAZIE<br><br>
-                            Salve, $username.<br>Se sta ricevendo questa mail, significa 
-                            che sta cercando di ripristinare la password del suo profilo di www.stagemanager.it. 
-                            In caso contrario, la preghiamo di ignorare questo messaggio.<br>
-                            Clicchi su questo link per proseguire con il ripristino 
-                            http://www.stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
+            $messaggio = "SI PREGA DI NON RISPONDERE ALLA MAIL CHE SEGUE, GRAZIE\n\n" .
+                            "Salve, $username.\n" .
+                            "Se ha ricevuto questa mail, significa che sta tentando di ripristinare la password " .
+                            "del suo profilo nel portale www.stagemanager.it.\n" .
+                            "In caso contrario, la preghiamo di ignorare questo messaggio.\n\n" .
+                            "Clicchi sul seguente link per proseguire con il ripristino: ".
+                            "http://www.stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
             $mittente = "noreply@stagemanager.it";
             $headers = "From: ".$mittente;   
             $oggetto = "Recupero password per $nome";

@@ -15,8 +15,9 @@
                     AND recupera_password.codice_email = '$codice'
                     AND utente.recupera_password_id_recupera_password = recupera_password.id_recupera_password;";
         $result = $conn->query($query);
-        if (!$result->num_rows > 0) //togliere punto esclamativo!!!!!!!!!
+        if ($result->num_rows > 0)
         {
+            $row = $result->fetch_assoc();
             $id_utente = $row ['id_utente'];
         }
         else {
