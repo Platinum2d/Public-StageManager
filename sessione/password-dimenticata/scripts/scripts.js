@@ -1,3 +1,7 @@
+function backToHome () {
+	location.href = "../../index.php";
+}
+
 function checkEquals () {
     email = ""+$("input[name=mail]").val();
     confermamail = ""+$("input[name=confermamail]").val();
@@ -22,7 +26,7 @@ function emailRecovery () {
         {
             if (msg === '0') {
             	printSuccess ("E-mail corretta", "La richiesta di recupero password è avvenuta con successo." +
-        						"<br>A breve riceverai, tramite mail, un link alla pagina dalla quale potrai reimpostare la tua password.");
+        						"<br>A breve riceverai, tramite mail, un link alla pagina dalla quale potrai reimpostare la tua password.", backToHome);
             }
             else if (msg === '1') {
             	printError ("E-mail non corretta", "L'indirizzo e-mail inserito non corrisponde a nessun utente.");            	
@@ -32,9 +36,6 @@ function emailRecovery () {
             }
             else if (msg === '3') {
             	printError ("Errore", "Errore nell'invio della mail.<br>Contattare l'amministratore del servizio.");            	
-            }
-            else {
-            	alert (msg);
             }
         },
         error : function () {

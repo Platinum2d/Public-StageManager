@@ -14,20 +14,21 @@ function checkEquals () {
 }
 
 function replacePassword () {
-	data.password = $("input[name=password]").val();
-	data.id = $("input[name=id]").val();
+	data = {
+			'id' : $("input[name=id]").val(),
+			'password' : $("input[name=password]").val()
+		};
 	$.ajax({
         type : 'POST',
-        url : '../ajaxOps/replacepassword.php',
+        url : 'ajaxOps/replacepassword.php',
         cache : false,
         data : data,
         success : function (msg)
         {
-            if (msg === 0) {
-            	printSuccess ("E-mail corretta", "La richiesta di recupero password è avvenuta con successo." +
-        						"<br>A breve riceverai, tramite mail, un link alla pagina dalla quale potrai reimpostare la tua password.");
+            if (msg === '0') {
+            	printSuccess ("Recupero concluso", "Password reimpostata con successo.", backToHome);
             }
-            else if (msg === 1) {
+            else if (msg === '1') {
             	printError ("Errore", "Errore nella richiesta.");
             }
         },

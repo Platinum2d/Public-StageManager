@@ -72,8 +72,8 @@
         $stato = false;
         $codice = generateRandomString(32);
         $query = "SELECT username, recupera_password_id_recupera_password
-        FROM utente
-        WHERE id_utente = '$id_utente'";
+                    FROM utente
+                    WHERE id_utente = $id_utente;";
         $result = $conn->query($query);
         if ($result->num_rows > 0)
         {
@@ -94,7 +94,7 @@
             }
             else {
                 $query = "INSERT INTO recupera_password (codice_email) 
-                            VALUES ('$codice')";
+                            VALUES ('$codice');";
                 if ($result = $conn->query($query))
                 {
                     $id_recupera = $conn->insert_id;
@@ -110,7 +110,7 @@
         }
         
         if ($stato) {
-            $messaggio = "SI PREGA DI NON RISPONDERE ALLA MAIL CHE SEGUE, GRAZIE\n\n" .
+            $messaggio = "SI PREGA DI NON RISPONDERE ALLA MAIL CHE SEGUE. Grazie.\n\n" .
                             "Salve, $username.\n" .
                             "Se ha ricevuto questa mail, significa che sta tentando di ripristinare la password " .
                             "del suo profilo nel portale www.stagemanager.it.\n" .

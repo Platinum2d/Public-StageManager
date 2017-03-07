@@ -17,7 +17,7 @@
         if ($result->num_rows > 0)
         {
             $row = $result->fetch_assoc ();
-            $id_recupera = $row ['id_recupera_password'];
+            $id_recupera = $row ['recupera_password_id_recupera_password'];
             $query = "UPDATE recupera_password
                         SET codice_email = NULL
                         WHERE id_recupera_password = $id_recupera";

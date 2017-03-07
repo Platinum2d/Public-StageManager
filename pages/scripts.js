@@ -1,4 +1,4 @@
-function printError(title, message)
+function printError(title, message, closeFunction)
 {
     $("#SuperAlert").modal("show");
     if (typeof(title) !== "undefined")
@@ -6,17 +6,29 @@ function printError(title, message)
     else
         $("#SuperAlert").find(".modal-title").html("Errore");
     
+    if (closeFunction !== undefined) {
+    	$("#SuperAlert").on('hidden.bs.modal', function () {
+    		closeFunction ();
+    	});
+	}
+    
     $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
     $("#SuperAlert").find(".modal-body").css("background-color", "rgba(255, 0, 0, 0.3)");
 }
 
-function printSuccess(title, message)
+function printSuccess(title, message, closeFunction)
 {
     $("#SuperAlert").modal("show");
     if (typeof(title) !== "undefined")
         $("#SuperAlert").find(".modal-title").html(title);
     else
         $("#SuperAlert").find(".modal-title").html("Errore");
+    
+    if (closeFunction !== undefined) {
+    	$("#SuperAlert").on('hidden.bs.modal', function () {
+    		closeFunction ();
+    	});
+	}
     
     $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
     $("#SuperAlert").find(".modal-body").css("background-color", "#B7F4B7");
