@@ -1,7 +1,7 @@
 function check_login(){    
-    var user= $("#username").val();
-    var password=$("#password").val();
-    var url = "sessione/login/ajaxOps/login.php";
+    user= $("#username").val();
+    password=$("#password").val();
+    url = "sessione/login/ajaxOps/login.php";
     
     $.ajax({
         type: 'POST',   
@@ -75,6 +75,26 @@ function check_login(){
 	                }
             	}
             }
+        }
+    });
+}
+
+function sendAgree(){    
+    user= $("#username").val();
+    password=$("#password").val();
+    url = "sessione/login/ajaxOps/agree.php";
+    
+    $.ajax({
+        type: 'POST',   
+        url: url,   
+        data: {
+            'user':user, 
+            'password':password
+        },
+        success: function(msg){
+        	if (msg === 0) {	
+        		
+        	}
         }
     });
 }
