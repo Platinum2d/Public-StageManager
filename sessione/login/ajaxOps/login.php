@@ -4,7 +4,7 @@
     $connessione = dbConnection ("../../../");
     $username = $connessione->escape_string($_POST ["user"]);
     $psw = MD5 ( $_POST ["password"] );
-    $dati_corretti = false;
+    $dati_corretti =0;
     
     $query = "SELECT id_utente, username, password, tipo_utente, autorizzazione_dati_personali 
                 FROM utente
@@ -13,7 +13,7 @@
     
     if ($result && $result->num_rows > 0)
     {
-    	$dati_corretti = true;
+    	$dati_corretti = 1;
         $row = $result->fetch_assoc();
         $trattamento_dati = $row ['autorizzazione_dati_personali'];
     	if ($trattamento_dati) {
