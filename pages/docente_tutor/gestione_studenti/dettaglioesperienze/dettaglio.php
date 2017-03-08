@@ -1,10 +1,9 @@
 <?php
     include '../../../functions.php';
     checkLogin ( doctutType , "../../../../");
-    open_html ( "Studenti" );
+    
     $conn = dbConnection ("../../../../");    
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+
     $id_doc = $_SESSION ['userId'];
         
     $idstudente = $_POST['ids'];
@@ -16,6 +15,10 @@
     $cognomestudente = $conn->query("SELECT cognome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['cognome'];
     $nomestudente = $conn->query("SELECT nome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['nome'];
     $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
+    
+    import("../../../../");
+    echo "<script src=\"scripts.js\"> </script>";
+    open_html ( "Esperienze di $cognomestudente $nomestudente" );
 ?>
     
 <body>
@@ -31,8 +34,12 @@
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
-                <div class="panel">
-                    <h1> Esperienze di stage di <?php echo $cognomestudente . " " . $nomestudente ?> A.S. <?php echo $nomeanno ?></h1> <br>
+                <div class="panel" style='min-height: 0'>
+                    <form id='rForm' action="registro.php" method='POST' target="_blank">
+                        <input name='ida' type='hidden' value="<?php echo $idanno; ?>">
+                    </form>
+                    
+                    <h1> Esperienze di stage di <?php echo $cognomestudente . " " . $nomestudente ?></h1> <br>
                         
                     <div class="row">
                         <div class="col col-sm-4">
@@ -42,7 +49,8 @@
                         <div class="col col-sm-4">
                             Desidero visualizzare<select class="form-control" id="destination">
                                 <option value="registro">Registro</option>
-                                <option value="valutazioni">Valutazioni</option>
+                                <option value="valutazionestud">Valutazione dello studente</option>
+                                <option value="valutazioneaz">Valutazione  dell'azienda</option>
                             </select> 
                         </div>
                             
@@ -59,11 +67,11 @@
                         <th style="text-align : center" style="text-align: center;">
                             Data di fine stage
                         </th>
-                        
+                            
                         <th style="text-align : center" style="text-align: center;">
                             Azienda
                         </th>
-                        
+                            
                         <th style="text-align : center" style="text-align: center;">
                             Tutor
                         </th>
@@ -72,7 +80,7 @@
                             Azioni
                         </th>
                         </thead>
-                        
+                            
                         <tbody style="text-align: center">
                             <?php
                                 $result = $conn->query($query);
@@ -85,13 +93,20 @@
                                         
                                     echo "<tr id=\"riga$I\" style=\"font-size : 20px\"> <td>".date("d-m-Y", strtotime($inizio))."</td> <td>".date('d-m-Y', strtotime("+".$durata." days", strtotime($inizio)))."</td>"
                                        . " <td>".$row['nome_aziendale']."</td> <td>".$row['cognome']." ".$row['nome']."</td> <td><div align=\"center\">"
-                                       . "<button onclick=\"$(this).prop('disabled', true); establishDestination($I, ".$row['id_studente_has_stage'].")\" id=\"dettagli$I\" style=\"margin : 0px\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-info-sign\"></span> Visualizza </button></div></td></tr>";
+                                       . "<button onclick=\"establishDestination($I, ".$row['id_studente_has_stage'].")\" id=\"dettagli$I\" style=\"margin : 0px\" class=\"btn btn-success\"> <span class=\"glyphicon glyphicon-circle-arrow-right\"></span> Visualizza </button></div></td></tr>";
                                            
                                     $I++;
                                 }
                             ?>
                         </tbody>
                     </table>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div align='right'>
+                        <h3 style='display: inline'>A.S. <?php echo $nomeanno; ?></h3>
+                    </div>
                 </div>
             </div>
         </div>

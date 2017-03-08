@@ -1,7 +1,7 @@
 <?php
-    include '../../functions.php';
+    include '../../../functions.php';
     if ($_POST ['first']) {
-        $connessione = dbConnection ();
+        $connessione = dbConnection ("../../../../");
         $id_docente = $_SESSION ['userId'];
         $nome = $connessione->escape_string ( strip_tags($_POST ['first']));
         $cognome = $connessione->escape_string ( strip_tags($_POST ['last']) );

@@ -29,8 +29,8 @@ function fillTable(){
                                 <input type=\"hidden\" value=\""+$(this).find("id").text()+"\" name=\"id_classe\">\n\
                                 <input type=\"hidden\" value=\"\" name=\"years\">\n\
                             </form> \n\
-                            <input type=\"button\" class=\"btn btn-success\" value=\"Modifica\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\">\n\
-                            <input type=\"button\" class=\"btn btn-info\" value=\"Visualizza\" id=\"visualizza"+I+"\" onclick=\"redirect("+I+")\">\n\
+                            <button type=\"button\" class=\"btn btn-success\" value=\"\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\"><span class='glyphicon glyphicon-edit'></span> Modifica </button>\n\
+                            <button type=\"button\" class=\"btn btn-info\" value=\"\" id=\"visualizza"+I+"\" onclick=\"redirect("+I+")\"><span class='glyphicon glyphicon-circle-arrow-right'></span>  Visualizza</button>\n\
                         </td>\n\
                             \n\
                     </tr>";

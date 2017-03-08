@@ -1,16 +1,17 @@
 <?php
     include '../../../functions.php';
     checkLogin ( doctutType , "../../../../");
-    open_html ( "Studenti" );
-    $conn = dbConnection ("../../../../");    
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    
+    $conn = dbConnection ("../../../../");
     $id_doc = $_SESSION ['userId'];
-        
     $id_anno = $_POST['anno'];
     $nome_anno = $_POST['nome_anno'];
     $id_classe = $_POST['classe'];
     $nome_classe = $_POST['nome_classe'];
+    
+    open_html ( "Studenti di $nome_classe " );
+    import("../../../../");
+    echo "<script src=\"scripts.js\"> </script>";
 ?>
     
 <body>
@@ -26,8 +27,16 @@
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
-                <div class="panel">
-                    <h1> Studenti di <?php echo $nome_classe; ?> - A.S. <?php echo $nome_anno; ?></h1> <br>
+                <div class="panel" style="min-height : 0">
+                    <div class="row">
+                        <div class="col col-sm-6">
+                            <h1 style='display: inline'>Studenti di <?php echo $nome_classe; ?></h1> 
+                        </div>
+                            
+                        <div class="col col-sm-6" align='right'>
+                            
+                        </div>
+                    </div>
                     <br>
                     <table class="table table-hover">
                         <thead>
@@ -42,7 +51,7 @@
                             
                         <tbody style="text-align: center">
                             <?php
-                                //$query = "SELECT id_studente_has_stage, id_studente, nome, cognome FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud WHERE stud.id_studente = shs.studente_id_studente AND shs.docente_id_docente = $id_doc AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage AND chs.classe_id_classe = $id_classe AND chs.anno_scolastico_id_anno_scolastico = $id_anno GROUP BY stud.id_studente ORDER BY cognome";
+                                //$query = "SELECT id_studente_has_stage, id_studente, nome, cognome FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud WHERE stud.id_studente = shs.studente_id_studente AND shs.docente_tutor_id_docente_tutor = $id_doc AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage AND chs.classe_id_classe = $id_classe AND chs.anno_scolastico_id_anno_scolastico = $id_anno GROUP BY stud.id_studente ORDER BY cognome";
                                 $query = "SELECT s.id_studente, s.nome, s.cognome FROM studente AS s, studente_attends_classe as sas WHERE sas.studente_id_studente = s.id_studente AND sas.anno_scolastico_id_anno_scolastico = $id_anno AND sas.classe_id_classe = $id_classe";
                                 $result = $conn->query($query);
                                 while ($row = $result->fetch_assoc())
@@ -60,6 +69,13 @@
                             ?>
                         </tbody>
                     </table>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div align='right'>
+                        <h3 style='display: inline'>A.S. <?php echo $nome_anno; ?></h3>
+                    </div>
                 </div>
             </div>
         </div>
