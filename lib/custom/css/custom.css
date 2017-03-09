@@ -5,13 +5,13 @@
 div .panel{
     padding-top: 30px;
     padding-bottom: 30px;
-    min-height: 380px;
 }
 
 footer div.panel{
     padding-top: 15px;
     padding-bottom: 15px;
-    min-height: 50px;display:block;
+    min-height: 50px;
+    display:block;
     overflow:auto;
 }
 
