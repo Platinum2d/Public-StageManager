@@ -116,7 +116,7 @@
                             "del suo profilo nel portale www.stagemanager.it.\n" .
                             "In caso contrario, la preghiamo di ignorare questo messaggio.\n\n" .
                             "Clicchi sul seguente link per proseguire con il ripristino: ".
-                            "http://www.stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
+                            "https://stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
             $mittente = "noreply@stagemanager.it";
             $headers = "From: ".$mittente;   
             $oggetto = "Recupero password per $nome";
