@@ -11,7 +11,6 @@ function sendAgree(){
             'password':password
         },
         success: function(xml){
-        	alert (xml);
             if(dati_corretti === '0') {
             	wrongInformation ();
             }
