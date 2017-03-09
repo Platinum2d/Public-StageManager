@@ -215,3 +215,7 @@ a, p, label, b, i, span, div{
 hr.hr-padding {
 	padding-bottom: 15px;
 }
+
+.buttonfix {
+    height: 30px;
+}

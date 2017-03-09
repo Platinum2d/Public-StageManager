@@ -339,7 +339,6 @@ HTML;
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
-        echo "<link href='".$goBack."lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."media/img/favicon.png'>";
         echo "<link href='".$goBack."lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
