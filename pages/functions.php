@@ -347,6 +347,8 @@ HTML;
         echo "<link href='".$goBack."lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/bootstrap-fileinput/js/fileinput.js'></script>";
         echo "<link href='".$goBack."lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
+        echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js\"></script>";
+        echo "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.0/jspdf.plugin.autotable.js\"></script>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
