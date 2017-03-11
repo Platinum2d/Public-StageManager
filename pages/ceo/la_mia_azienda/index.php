@@ -61,7 +61,7 @@
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                                 
-                            <br>
+<!--                            <br>
                             <br>
                             <br>
                             <br>
@@ -73,25 +73,25 @@
                                             <script>$("#figurerichieste").tagsinput({ maxTags: figuresLimit });</script>
                                             <span class="glyphicon glyphicon-question-sign" style="cursor: pointer" onclick="openGuide()"></span>
                                         <?php
-                                            $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "
-                                                    . "WHERE anfp.figura_professionale_id_figura_professionale = fp.id_figura_professionale AND anfp.azienda_id_azienda = ".$_SESSION['userId'];
-                                            $result = $connessione->query($query);
-                                            if ($result->num_rows > 0)
-                                            {
-                                                while ($row = $result->fetch_assoc())
-                                                {
-                                                    $nome = $row['nome'];
-                                                    $id = $row['id_figura_professionale'];
-                                                    ?>
-                                                <script> $("#figurerichieste").tagsinput('add', "<?php echo $nome; ?>"); </script>    
-                                                    <?php
-                                                }
-                                            }
+//                                            $query = "SELECT nome, id_figura_professionale FROM azienda_needs_figura_professionale AS anfp, figura_professionale AS fp "
+//                                                    . "WHERE anfp.figura_professionale_id_figura_professionale = fp.id_figura_professionale AND anfp.azienda_id_azienda = ".$_SESSION['userId'];
+//                                            $result = $connessione->query($query);
+//                                            if ($result->num_rows > 0)
+//                                            {
+//                                                while ($row = $result->fetch_assoc())
+//                                                {
+//                                                    $nome = $row['nome'];
+//                                                    $id = $row['id_figura_professionale'];
+//                                                    ?>
+                                                <script> $("#figurerichieste").tagsinput('add', "//<?php echo $nome; ?>"); </script>    
+                                                    //<?php
+//                                                }
+//                                            }
                                         ?>
                                         </td>
                                     </tr>
                                 </table>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>

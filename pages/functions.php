@@ -140,7 +140,15 @@ HTML;
 // HTML;
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
+                //echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/la_mia_azienda/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> La mia azienda <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>Informazioni</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/figure_professionali/index.php'>Figure professionali richieste</a></li>";
+                echo "</ul></li>";
+                
                 echo "<li class=\"dropdown dropdown-hover\">
                                <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
                                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
