@@ -24,7 +24,7 @@
                             <br>
                             <div class="table-responsive"><table id="figtable" style="table-layout: fixed" class="table table-bordered">
                                 <thead style="background: #eee">
-                                <th style="text-align: center">Figura professionale</th>    
+                                <th style="text-align: center">Figure professionali</th>    
                                 <th style="text-align: center;width: 20%">Azioni</th>                                    
                                 </thead>
                                 <tbody>
