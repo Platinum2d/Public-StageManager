@@ -85,52 +85,22 @@
                             </button>
                         </div>
                     </div>
-                        
+                    <hr/>                        
                     <div class="row">
                         <div class="col col-sm-12">
-                            <div class="table-responsive"><table class="table table-striped" style="margin-top: 50px; table-layout: fixed;">
-                                    <tr>
-                                        <th class="col-sm-5">Preferenze</th>
-                                        <td class="col-sm-5" id="preference" contenteditable='false' class="minw"> 
-                                        <?php 
-                                            $Query = "SELECT figura_professionale.nome ".
-                                            		"FROM `figura_professionale`,`studente`,`studente_whises_figura_professionale` ".
-                                            		"WHERE studente.id_studente = studente_whises_figura_professionale.studente_id_studente ".
-                                            		"AND figura_professionale.id_figura_professionale = studente_whises_figura_professionale.figura_professionale_id_figura_professionale ".
-                                            		"AND studente.id_studente = " . $_SESSION['userId'] . " ".
-                                            		"ORDER BY figura_professionale.nome ASC";
-                                            $result = $connessione->query($Query);
-                                            $value = "";
-                                            while ($row = $result->fetch_assoc())
-                                            {
-                                                $value .= $row['nome'] . ",";
-                                            }
-                                            echo " <input id=\"preferenceslist\" disabled=\"true\" type=\"text\" value=\"$value\" data-role=\"tagsinput\" /> <br><br><div id=\"HiddenAddBox\"><label name=\"addpr\">Aggiungi una preferenza:</label>";
-                                                
-                                            $query = "SELECT * FROM figura_professionale ORDER BY nome ASC";
-                                            $result = $connessione->query($query);
-                                            echo "<select id=\"addpreference\" class=\"form-control\" style=\"max-width : 350px\">";
-                                            if ($connessione->affected_rows) {
-                                            	while ($row = $result->fetch_assoc()){
-                                            		echo "<option value=\"".$row['id_figura_professionale']."\"> ".$row['nome']." </option>";
-                                            	}
-                                            }
-                                            else {
-                                            	echo "<option disabled>Figure professionali non presenti.</option>";
-                                            }
-                                            echo "</select> <input id=\"btnaddpref\"  type=\"button\" class=\"btn btn-primary\" value=\"Aggiungi\" style=\"margin-top : 5px\"> </div>";
-                                        ?>
-                                        </td>
-                                    </tr>
-                                </table></div>
-                                    
-                            <button id="editButtonpreference" class="btn btn-warning btn-sm rightAlignment margin buttonfix" onclick="openPreferenceEdit()">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                                
-                            <button id="cancelButtonpreference" class="btn btn-danger btn-sm rightAlignment margin buttonfix" onclick="closePreferenceEdit()">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </button>
+                            <div class="table-responsive">
+                            	<table id="preferencesTable" class="table table-striped">
+                                    <thead>
+                                    	<tr>
+                                            <th class="col-sm-8">Figura professionale</th>
+                                            <th class="col-sm-2">Priorità</th>
+                                            <th class="col-sm-2"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
