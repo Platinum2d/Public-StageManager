@@ -20,7 +20,6 @@ function openAddBox()
     var lasttr = $("#figtable").find("tr").last();
     
     $("<tr>\n\
-            <td><select onchange='updateAddBoxFigure()' class='form-control' id='addBoxIndirizzi'></select></td>\n\
             <td><select class='form-control' id='addBoxFigure'></select></td>\n\
             <td align='center'>\n\
                 <button id='sendButton' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok'></span></button>\n\
@@ -30,37 +29,8 @@ function openAddBox()
     
     $.ajax({
         type : 'POST',
-        url : 'ajaxOpsPerFigureProfessionali/ajaxIndirizzi.php',
-        cache : false,
-        success : function (xml)
-        {
-            var empty = true;
-            $(xml).find("scuole").find("scuola").each(function (){
-                empty = false;
-                var id = $(this).find("id").text();
-                var indirizzo = $(this).find("indirizzo").text();
-                var settore = $(this).find("settore").text();
-                
-                $("#addBoxIndirizzi").append("<option value='"+id+"'>"+indirizzo+" "+settore+"</option>");
-            });
-            if (!empty) updateAddBoxFigure();
-        }
-    });
-    
-    $("#sendButton").on("click", function (){
-        send($("#addBoxIndirizzi").val(), $("#addBoxFigure").val());
-    });
-}
-
-function updateAddBoxFigure()
-{
-    var settore =  $("#addBoxIndirizzi").find(":selected").val();
-    
-    $.ajax({
-        type : 'POST',
         url : 'ajaxOpsPerFigureProfessionali/ajaxFigure.php',
         cache : false,
-        data : {'settore' : settore},
         success : function (xml)
         {
             $("#addBoxFigure").html("");
@@ -72,29 +42,31 @@ function updateAddBoxFigure()
             });
         }
     });
+    
+    $("#sendButton").on("click", function (){
+        send($("#addBoxFigure").val());
+    });
 }
 
-function send(settore, figura)
+function send(figura)
 {
     $.ajax({
         type : 'POST',
         url : 'ajaxOpsPerFigureProfessionali/ajaxAddFigure.php',
         cache : false,
         data : 
-        {
-            'settore' : settore,
-            'figura' :  figura  
+                {
+                    'figura' :  figura  
         },
         success : function (msg)
         {
             if ($(msg).find("esito").text() === "ok")
             {
-                var added_scuola = $("#addBoxIndirizzi").find(":selected").text();
                 var added_figura = $("#addBoxFigure").find(":selected").text();
                 var id = $(msg).find("insert_id").text();
                 
                 closeAddBox();
-                $("#figtable").find("tbody").append("<tr><td>"+added_scuola+"</td><td>"+added_figura+"</td>\n\
+                $("#figtable").find("tbody").append("<tr><td>"+added_figura+"</td>\n\
                                                      <td align='center'><button class='btn btn-danger' onclick='deleteNeeding("+id+", this)'><span class=\"glyphicon glyphicon-remove\"></span> Elimina</button>\n\
                                                      </td></tr>");
             }
@@ -108,6 +80,6 @@ function send(settore, figura)
 
 function closeAddBox()
 {
-    $("#addBoxIndirizzi").parents("tr").remove();
+    $("#addBoxFigure").parents("tr").remove();
     $("#addButton").prop("disabled", false);
 }

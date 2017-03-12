@@ -9,12 +9,11 @@ XML;
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
     
-    $settore = $_POST['settore'];
     $figura = $_POST['figura'];
     $azienda = $_SESSION['userId'];
     
-    $query = "INSERT INTO azienda_needs_figura_professionale (azienda_id_azienda, figura_professionale_id_figura_professionale, settore_id_settore) "
-            . "VALUES ($azienda, $figura, $settore)";
+    $query = "INSERT INTO azienda_needs_figura_professionale (azienda_id_azienda, figura_professionale_id_figura_professionale) "
+            . "VALUES ($azienda, $figura)";
     
     if ($connection->query($query))
     {
