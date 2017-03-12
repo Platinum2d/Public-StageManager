@@ -196,11 +196,11 @@ HTML;
                 echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
+                      <a href=\"".$goBack."pages/scuola/aziende/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/operazioni_tutor/modifica_tutor/index.php'> Visualizza Aziende </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Inserisci Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'> Visualizza Aziende </a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
@@ -347,7 +347,6 @@ HTML;
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
-        echo "<link href='".$goBack."lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."media/img/favicon.png'>";
         echo "<link href='".$goBack."lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
@@ -355,6 +354,8 @@ HTML;
         echo "<link href='".$goBack."lib/bootstrap-tagsinput-latest/dist/bootstrap-tagsinput.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/bootstrap-fileinput/js/fileinput.js'></script>";
         echo "<link href='".$goBack."lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
+        echo "<script src='".$goBack."lib/jsPDF-1.3.3/dist/jspdf.debug.js'></script>";
+        echo "<script src='".$goBack."lib/jsPDF-AutoTable-2.3.1/dist/jspdf.plugin.autotable.js'></script>";
     }
         
     function open_html($title) { // apre la pagina con il relativo titolo       
@@ -648,4 +649,14 @@ HTML;
         </script>
         <?php
         }
+}
+
+function generateRandomString($length = 32) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
