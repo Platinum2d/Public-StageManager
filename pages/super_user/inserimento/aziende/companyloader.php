@@ -126,16 +126,16 @@
                                 
                             $insertquery .= ", '$sito', '$nomeresponsabile', '$cognomeresponsabile', '$telefonoresponsabile', '$mailresponsabile')";
     
-//                            $conn->query($userquery);
-//                                
-//                            if ($conn->query($insertquery))
-//                            {
-//                                echo "Generato l'utente $username <br><br>";
-//                            }
-//                            else
-//                            {
-//                                $htmltable .= "<tr> $conn->error<br> </tr>";
-//                            }
+                            $conn->query($userquery);
+                                
+                            if ($conn->query($insertquery))
+                            {
+                                echo "Generato l'utente $username <br><br>";
+                            }
+                            else
+                            {
+                                $htmltable .= "<tr> $conn->error<br> </tr>";
+                            }
     
     
                         }

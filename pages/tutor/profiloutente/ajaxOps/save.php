@@ -1,5 +1,5 @@
 <?php
-include '../../functions.php';
+include '../../../functions.php';
 if ($_POST ['first']) {
     $connessione = dbConnection ("../../../");
     $id_tutor = $_SESSION ['userId'];

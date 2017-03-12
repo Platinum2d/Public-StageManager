@@ -7,7 +7,6 @@
         
     $idclasse = $_POST['id_classe'];
     $idanno = $_POST['years'];
-    echo $idclasse . " " . $idanno;
         
     $nomeclasse = $connessione->query("SELECT nome FROM classe WHERE id_classe = $idclasse")->fetch_assoc()["nome"];
     $nomeanno = $connessione->query("SELECT nome_anno FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()["nome_anno"];

@@ -27,10 +27,8 @@ $(document).ready(function(){
 		
 		//rendo al tabella editabile
 		$("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-                $("#password").attr('contenteditable', 'false');
-                $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
-                $("#company").css("color","#828282");
-                $("#company").attr('contenteditable', 'false');
+        $("#password").attr('contenteditable', 'false');
+        $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
 	});
 	
 	$("#saveButton").click(function(){
@@ -48,8 +46,8 @@ $(document).ready(function(){
                 url: "ajaxOps/save.php",
                 data: contact,
                 cache: false,
-                success : function (msg)
-                {
+                success: function (msg) {
+                	
                 }
             });
         }
@@ -71,7 +69,7 @@ $(document).ready(function(){
 	});
 	
 	function exitEdit(){
-        $("#password").html("");
+
 		//blocco la tabella
 		$("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
 		
@@ -191,4 +189,3 @@ function updatePassword()
         }
     })
 }
-

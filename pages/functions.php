@@ -140,7 +140,15 @@ HTML;
 // HTML;
 //                 echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
-                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
+                //echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>La mia azienda</a></li>";
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/la_mia_azienda/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> La mia azienda <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>Informazioni</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/figure_professionali/index.php'>Figure professionali richieste</a></li>";
+                echo "</ul></li>";
+                
                 echo "<li class=\"dropdown dropdown-hover\">
                                <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Tutor <span class=\"caret\"></span></a>
                                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
@@ -339,7 +347,6 @@ HTML;
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
-        echo "<link href='".$goBack."lib/custom/buttonfix.css' rel='stylesheet'>";
         echo "<link rel='icon' type='image/png' href='".$goBack."media/img/favicon.png'>";
         echo "<link href='".$goBack."lib/bootstrap-select-1.10.0/dist/css/bootstrap-select.min.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/bootstrap-select-1.10.0/dist/js/bootstrap-select.js'></script>";
@@ -642,4 +649,14 @@ HTML;
         </script>
         <?php
         }
+}
+
+function generateRandomString($length = 32) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
