@@ -1,6 +1,6 @@
 <?php
     require '../../../../lib/PHPReader/Classes/PHPExcel.php';
-    require_once('../../../../lib/TCPDF/tcpdf.php');
+    //require_once('../../../../lib/TCPDF/tcpdf.php');
     include "../../../../pages/functions.php";
     checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
@@ -126,16 +126,16 @@
                                 
                             $insertquery .= ", '$sito', '$nomeresponsabile', '$cognomeresponsabile', '$telefonoresponsabile', '$mailresponsabile')";
     
-//                            $conn->query($userquery);
-//                                
-//                            if ($conn->query($insertquery))
-//                            {
-//                                echo "Generato l'utente $username <br><br>";
-//                            }
-//                            else
-//                            {
-//                                $htmltable .= "<tr> $conn->error<br> </tr>";
-//                            }
+                            $conn->query($userquery);
+                                
+                            if ($conn->query($insertquery))
+                            {
+                                echo "Generato l'utente $username <br><br>";
+                            }
+                            else
+                            {
+                                $htmltable .= "<tr> $conn->error<br> </tr>";
+                            }
     
     
                         }
