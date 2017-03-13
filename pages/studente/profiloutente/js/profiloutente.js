@@ -267,10 +267,10 @@ function initPreferences () {
 				
 				newTbody.append("<tr></tr>");
 				tr = newTbody.find("tr:last");
-				tr.data("id", id);
+				//tr.data("id", id);
 				tr.append("<td>"+ nome +"</td>");
-				tr.append("<td>" + priorita + "</td>"); //stampare stella al posto di 1 o 0
-				tr.append("<td><button class='btn btn-danger' onclick='removePreference ();'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
+				tr.append("<td class='centeredText'>" + priorita + "</td>"); //stampare stella al posto di 1 o 0
+				tr.append("<td class='centeredText'><button class='btn btn-danger' onclick='removePreference ("+id+");'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
 			})
 			tbody.remove();
 			table.append(newTbody);  	
@@ -325,20 +325,21 @@ function removePreference (id_preferenza) {
         	        		$("#selectFigura").append("<option value='"+id_figura+"'>"+nome_figura+"</option>");
         	        	}
         	        	else {
-        	        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	        		printError ("Errore", "Impossibile rimuovere questa figura professionale1");
         	        	}
         	        },
         	        error : function () {
-        	        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	        	printError ("Errore", "Impossibile rimuovere questa figura professionale2");
         	        }
         	    });	
         	}
         	else {
-        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        		alert (xml);
+        		printError ("Errore", "Impossibile rimuovere questa figura professionale3");
         	}
         },
         error : function () {
-        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	printError ("Errore", "Impossibile rimuovere questa figura professionale4");
         }
     });	
 }

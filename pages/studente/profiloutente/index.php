@@ -22,7 +22,7 @@
 	$result = $connessione->query($sql);
 ?>
 <body>
-       	<?php
+   	<?php
         topNavbar ("../../../");
         titleImg ("../../../");
     ?>
@@ -93,8 +93,8 @@
                                     <thead>
                                     	<tr>
                                             <th class="col-sm-8">Figura professionale</th>
-                                            <th class="col-sm-2">Priorità</th>
-                                            <th class="col-sm-2">Azioni</th>
+                                            <th class="col-sm-2 centeredText">Priorità</th>
+                                            <th class="col-sm-2 centeredText">Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -120,12 +120,11 @@
 													WHERE studente_whises_figura_professionale.studente_id_studente = 11);";
 								    $result = $connessione->query ( $query );
 								    
-								    while ( $work_line = $result->fetch_assoc () ) {
+								    while ($result && $work_line = $result->fetch_assoc () ) {
 								    	$id_figura = $work_line ['id_figura_professionale'];
 								    	$nome_figura = $work_line ['nome'];
 								    	echo "<option value='$id_figura'>$nome_figura</option>";
     								}
-    						
                             	?>
                             </select>
                         </div>
