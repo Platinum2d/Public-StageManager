@@ -123,14 +123,14 @@
 								    while ( $work_line = $result->fetch_assoc () ) {
 								    	$id_figura = $work_line ['id_figura_professionale'];
 								    	$nome_figura = $work_line ['nome'];
-								    	echo "<option data-id='$id_figura'>$nome_figura</option>";
+								    	echo "<option value='$id_figura'>$nome_figura</option>";
     								}
     						
                             	?>
                             </select>
                         </div>
                         <div class="col col-sm-3">
-                            <button class="btn btn-success"><span class='glyphicon glyphicon-plus'></span>  Aggiungi</button>
+                            <button class="btn btn-success" onclick="addPreference();"><span class='glyphicon glyphicon-plus'></span>  Aggiungi</button>
                         </div>
                     </div>
                 </div>

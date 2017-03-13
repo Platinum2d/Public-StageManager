@@ -277,3 +277,24 @@ function initPreferences () {
         }
     });	
 }
+
+function addPreference () {
+	id_figura = $("#selectFigura").val();
+	$.ajax({
+        type : 'POST',
+        url : 'ajaxOps/ajaxAddPreference.php',
+        data : {
+        	'preferenza' : id_figura
+        },
+        cache : false,
+        success : function (msg) {
+        	if (msg == "ok") {
+        		$('#selectFigura').find(":selected").remove();
+        		initPreferences ();
+        	}
+        	else {
+        		printError ("Errore", "Impossibile aggiungere questa figura professionale");
+        	}
+        }
+    });	
+}
