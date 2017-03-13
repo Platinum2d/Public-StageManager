@@ -270,7 +270,7 @@ function initPreferences () {
 				tr.data("id", id);
 				tr.append("<td>"+ nome +"</td>");
 				tr.append("<td>" + priorita + "</td>"); //stampare stella al posto di 1 o 0
-				tr.append("<td><button class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
+				tr.append("<td><button class='btn btn-danger' onclick='removePreference ();'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
 			})
 			tbody.remove();
 			table.append(newTbody);  	
@@ -295,6 +295,50 @@ function addPreference () {
         	else {
         		printError ("Errore", "Impossibile aggiungere questa figura professionale");
         	}
+        }
+    });	
+}
+
+function removePreference (id_preferenza) {
+	$.ajax({
+        type : 'POST',
+        url : 'ajaxOps/returnFigure.php',
+        data : {
+        	'preferenza' : id_preferenza
+        },
+        cache : false,
+        success : function (xml) {
+        	status = $(xml).find("status").text();
+        	if (status == "1") {
+            	id_figura = $(xml).find("id").text();
+            	nome_figura = $(xml).find("nome").text();
+        		$.ajax({
+        	        type : 'POST',
+        	        url : 'ajaxOps/ajaxRemovePreference.php',
+        	        data : {
+        	        	'preferenza' : id_preferenza
+        	        },
+        	        cache : false,
+        	        success : function (msg) {
+        	        	if (msg == "ok") {
+        	        		initPreferences ();
+        	        		$("#selectFigura").append("<option value='"+id_figura+"'>"+nome_figura+"</option>");
+        	        	}
+        	        	else {
+        	        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	        	}
+        	        },
+        	        error : function () {
+        	        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	        }
+        	    });	
+        	}
+        	else {
+        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
+        	}
+        },
+        error : function () {
+        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
         }
     });	
 }
