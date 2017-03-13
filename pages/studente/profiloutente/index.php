@@ -89,18 +89,48 @@
                     <div class="row">
                         <div class="col col-sm-12">
                             <div class="table-responsive">
-                            	<table id="preferencesTable" class="table table-striped">
+                            	<table id="preferencesTable" class="table table-striped table-bordered">
                                     <thead>
                                     	<tr>
                                             <th class="col-sm-8">Figura professionale</th>
                                             <th class="col-sm-2">Priorità</th>
-                                            <th class="col-sm-2"></th>
+                                            <th class="col-sm-2">Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="col col-sm-3">
+                            <select id="selectFigura" class="form-control">
+                            	<option>Seleziona un'opzione</option>
+                            	<?php
+                            		$query = "SELECT figura_professionale.id_figura_professionale, figura_professionale.nome
+												FROM figura_professionale, anno_scolastico, studente_attends_classe, classe, settore_has_figura_professionale, studente_whises_figura_professionale
+												WHERE studente_attends_classe.studente_id_studente = 11
+												AND studente_attends_classe.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
+												AND anno_scolastico.corrente = 1
+												AND studente_attends_classe.classe_id_classe = classe.id_classe
+												AND classe.settore_id_settore = settore_has_figura_professionale.settore_id_settore
+												AND settore_has_figura_professionale.settore_id_settore = classe.settore_id_settore
+												AND settore_has_figura_professionale.figura_professionale_id_figura_professionale = figura_professionale.id_figura_professionale
+												AND figura_professionale.id_figura_professionale != (SELECT studente_whises_figura_professionale.figura_professionale_id_figura_professionale
+													FROM studente_whises_figura_professionale
+													WHERE studente_whises_figura_professionale.studente_id_studente = 11);";
+								    $result = $connessione->query ( $query );
+								    
+								    while ( $work_line = $result->fetch_assoc () ) {
+								    	$id_figura = $work_line ['id_figura_professionale'];
+								    	$nome_figura = $work_line ['nome'];
+								    	echo "<option data-id='$id_figura'>$nome_figura</option>";
+    								}
+    						
+                            	?>
+                            </select>
+                        </div>
+                        <div class="col col-sm-3">
+                            <button class="btn btn-success"><span class='glyphicon glyphicon-plus'></span>  Aggiungi</button>
                         </div>
                     </div>
                 </div>

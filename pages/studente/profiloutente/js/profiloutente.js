@@ -266,11 +266,11 @@ function initPreferences () {
 				priorita = $(element).find("priority").text();
 				
 				newTbody.append("<tr></tr>");
-				//aggiungere id
 				tr = newTbody.find("tr:last");
+				tr.data("id", id);
 				tr.append("<td>"+ nome +"</td>");
 				tr.append("<td>" + priorita + "</td>"); //stampare stella al posto di 1 o 0
-				tr.append("<td></td>"); //aggiungere cestino per rimuovere preferenza
+				tr.append("<td><button class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
 			})
 			tbody.remove();
 			table.append(newTbody);  	
