@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>Assegnazione tutor (Anno scolastico <?php echo $nome_anno; ?>)</h1>
+                    <h1>Assegnazione tutor</h1>
                     <table style="" class="table" id="maintable">
                         <thead >
                         <th style="text-align: center; width: 30%">
@@ -100,6 +100,12 @@
                             ?>
                         </tbody>
                     </table>
+                    <br>
+                    <br>
+                    
+                    <div align='right'>
+                        <h3 style='display: inline'>A.S. <?php echo $nome_anno; ?></h3>
+                    </div>
                 </div>
             </div>
         </div>
