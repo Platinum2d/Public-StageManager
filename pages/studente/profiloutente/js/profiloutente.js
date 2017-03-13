@@ -265,15 +265,60 @@ function initPreferences () {
 				nome = $(element).find("name").text();
 				priorita = $(element).find("priority").text();
 				
-				newTbody.append("<tr></tr>");
+				newTbody.append("<tr data-id='"+id+"'></tr>");
 				tr = newTbody.find("tr:last");
 				//tr.data("id", id);
 				tr.append("<td>"+ nome +"</td>");
-				tr.append("<td class='centeredText'>" + priorita + "</td>"); //stampare stella al posto di 1 o 0
+				if (priorita == "1") {
+					tr.append("<td class='centeredText'><image class='star-priority' data-star='1' src='../../../media/img/star_colored.png'/></td>");
+				}
+				else {
+					tr.append("<td class='centeredText'><image class='star-priority' data-star='0' src='../../../media/img/star_blank.png'/></td>");
+				}
 				tr.append("<td class='centeredText'><button class='btn btn-danger' onclick='removePreference ("+id+");'><span class='glyphicon glyphicon-trash'></span>  Elimina</button></td>"); //aggiungere cestino per rimuovere preferenza
 			})
 			tbody.remove();
 			table.append(newTbody);  	
+        },
+        error : function () {
+        	printError ("Errore", "Impossibile inizializzare la tabella.");
+        },
+        complete : function () {
+            $('.star-priority').mouseenter (function () {
+            	if ($(this).data("star") == "0") {
+            		$(this).attr ("src", "../../../media/img/star_colored.png");
+            	}
+            });
+            
+            $(".star-priority").mouseleave (function () {
+            	if ($(this).data("star") == "0") {
+            		$(this).attr ("src", "../../../media/img/star_blank.png");
+            	}
+            });
+            
+            $(".star-priority").click (function () {
+            	if ($(this).data("star") == "0") {
+            		$(".star-priority").attr ("src", "../../../media/img/star_blank.png").data("star", "0");
+            		$(this).attr ("src", "../../../media/img/star_colored.png");
+            		$(this).data("star", "1");
+            		id_preferenza = $(this).closest("tr").data("id");
+            		alert(id_preferenza);
+
+            		/*$.ajax({
+            	        type : 'POST',
+            	        url : 'ajaxOps/updatePriority.php',
+            	        data : {
+            	        	'preferenza' : id_preferenza
+            	        },
+            	        cache : false,
+            	        success : function (msg) {
+            	        	if (msg !== "ok") {
+            	        		printError ("Errore", "Impossibile modificare la priorità");
+            	        	}
+            	        }
+            	    });	*/
+            	}
+            });
         }
     });	
 }

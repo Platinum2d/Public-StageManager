@@ -10,3 +10,7 @@ thead {
 #selectFigura:focus option:first-of-type {
     display: none;
 }
+
+img.star-priority {
+	height: 30px;
+}
