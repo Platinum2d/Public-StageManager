@@ -90,9 +90,10 @@
                                     }
                                         
                                     $studente_has_stage = $row["id_studente_has_stage"];
+                                    $id_studente = $row['id_studente'];
                                     echo "<tr";    
                                     if ($id_tutor !== -1) echo " class=\"success\"";
-                                    echo " name=\"$studente_has_stage\"> <td> ".$row['cognome']." ".$row['nome']." </td> <td> $startdate </td> <td> $enddate </td> <td><div id=\"edit$I\" class=\"tutorwrapper\"> <span name=\"tutordata\">$cognometutor $nometutor </span> <span  style=\"color : orange\" class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" onclick=\"editTutor(this, $I, $id_tutor, $studente_has_stage)\"></span></div></td></tr>";
+                                    echo " name=\"$studente_has_stage\"> <td><u style='cursor:pointer' onclick=\"userProfile($id_studente, '../../../')\">".$row['cognome']." ".$row['nome']."</u> </td> <td> $startdate </td> <td> $enddate </td> <td><div id=\"edit$I\" class=\"tutorwrapper\"> <span name=\"tutordata\">$cognometutor $nometutor </span> <span  style=\"color : orange\" class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" onclick=\"editTutor(this, $I, $id_tutor, $studente_has_stage)\"></span></div></td></tr>";
                                         
                                     $I++;
                                 }
