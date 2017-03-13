@@ -3,6 +3,11 @@
     $conn = dbConnection ("../../../");  
     $id_stud = $_POST['user'];
         
+    if (! isset ( $_SESSION ['type'] )) 
+    {
+        header ( "location: ../../../index.php" );
+    }
+            
     $result = $conn->query("SELECT * FROM utente, studente WHERE id_studente = id_utente AND id_studente = $id_stud")->fetch_assoc();
     $nome_stud = $result['nome'];
     $cognome_stud = $result['cognome'];
