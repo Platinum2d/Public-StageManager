@@ -1,6 +1,5 @@
 <?php
     require '../../../../lib/PHPReader/Classes/PHPExcel.php';
-    //require_once('../../../../lib/TCPDF/tcpdf.php');
     include "../../../../pages/functions.php";
     checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
@@ -8,7 +7,7 @@
         
     define ("PasswordLenght", 8);
         
-    function generateRandomString($length) 
+    function generateRandomicString($length) 
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -89,7 +88,7 @@
                             str_replace(" ", "", $nome);
                             $username = $nome;
                             $username = checkCompany($username);//verifica dell'esistenza del nome utente                            
-                            $password = generateRandomString(PasswordLenght);
+                            $password = generateRandomicString(PasswordLenght);
                             $cryptedPassword = md5($password);
                             $citta = (trim($sheet->getCell('B'.$I)->getValue()));
                                 $citta = (empty($citta) || !isset($citta)) ? "Sconosciuta" : $citta;
@@ -108,10 +107,10 @@
                             $mailresponsabile = (trim($sheet->getCell('K'.$I)->getValue()));
                             $conn->query("SET FOREIGN_KEY_CHECKS = 0");
                                 
-                            $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', 4)";
+                            $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".ceoType.")";
                                 
                             $insertquery = "INSERT INTO azienda (id_azienda, nome_aziendale, citta_aziendale, CAP, indirizzo, telefono_aziendale, email_aziendale, sito_web, nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile)"
-                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 4),'".$conn->escape_string($nome)."','".$conn->escape_string($citta)."','".$conn->escape_string($CAP)."','".$conn->escape_string($indirizzo)."','".$conn->escape_string($telefono)."', '".$conn->escape_string($email)."'";
+                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".ceoType."),'".$conn->escape_string($nome)."','".$conn->escape_string($citta)."','".$conn->escape_string($CAP)."','".$conn->escape_string($indirizzo)."','".$conn->escape_string($telefono)."', '".$conn->escape_string($email)."'";
                             $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$username</td> <td>$password</td> <td>$nome</td> <td>$citta</td> <td>$CAP</td> <td>$indirizzo</td>
                             <td>$telefono</td><td>$email</td><td>$sito</td><td>$nomeresponsabile</td><td>$cognomeresponsabile</td><td>$telefonoresponsabile</td> 
                             <td>$mailresponsabile</td></tr>";
