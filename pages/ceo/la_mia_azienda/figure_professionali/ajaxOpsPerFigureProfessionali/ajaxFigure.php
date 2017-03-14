@@ -9,19 +9,10 @@ XML;
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
         
-    $settore = $_POST['settore'];
     $azienda = $_SESSION['userId'];
     
-    $query = "SELECT f.id_figura_professionale, f.nome "
-            . "FROM figura_professionale AS f, settore_has_figura_professionale AS shfp "
-            . "WHERE shfp.figura_professionale_id_figura_professionale = f.id_figura_professionale "
-            . "AND shfp.settore_id_settore = $settore "
-            . "AND f.id_figura_professionale NOT IN ("
-                                                    . "SELECT figura_professionale_id_figura_professionale "
-                                                    . "FROM azienda_needs_figura_professionale "
-                                                    . "WHERE azienda_needs_figura_professionale.azienda_id_azienda = $azienda AND 
-                                                       azienda_needs_figura_professionale.settore_id_settore = $settore                                                        
-                                                    )";
+    $query = "SELECT * FROM figura_professionale WHERE id_figura_professionale NOT IN (SELECT figura_professionale_id_figura_professionale "
+            . "FROM azienda_needs_figura_professionale WHERE azienda_id_azienda = $azienda)";
                 
     $result = $connection->query($query);
     if ($result && $result->num_rows > 0)

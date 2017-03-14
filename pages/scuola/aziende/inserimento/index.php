@@ -15,6 +15,11 @@
             return (this.length === 0 || !this.trim());
         };      
         
+        $(document).ready(function (){
+            $(".buttonText").html("        Sfoglia");
+            $(".icon-span-filestyle").remove();
+        });        
+        
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
                     || $("#CittaAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
@@ -82,23 +87,25 @@
                     </div>
                 </div>
                     
-<!--                <div class="panel">
+                <div class="panel">
                     <div class="row">
-                        <div class="col-sm-6">
-                            
-                            
-                                                        <form enctype="multipart/form-data" method="post" action="companyloader.php" name="uploadform">
-                                                            Seleziona il file contenente le aziende da caricare:
-                                                            <br>
-                                                            <br>
-                                                            <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="companyfile">
-                                                            <br>
-                                                            <input type="submit" class="btn btn-primary" value="invia" name="invio">
-                                    
-                                                        </form>
+                        <div class="col-sm-6">                            
+                            <form enctype="multipart/form-data" method="post" action="companyloader.php" name="uploadform">
+                                Seleziona il file contenente le aziende da caricare:
+                                <br>
+                                <br>
+                                <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="companyfile">
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="invia" name="invio">
+                                <br>
+                                <br>
+                                <div align="right">
+                                    <u><a style="color: #828282" href="Stage_Manager_Modulo_Aziende.xlsx" download>Scarica modello per le aziende</a></u>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
     </div>
