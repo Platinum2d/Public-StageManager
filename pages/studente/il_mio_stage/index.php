@@ -22,7 +22,7 @@
                                 
                                 function sommaGiorni($dateadd, $duratas) {
                                     list ( $giorno, $mese, $anno ) = explode ( '-', $dateadd );
-                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas, $anno ) );
+                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas - 1, $anno ) );
                                 }
                                     
                                 $idstud = $_SESSION ['userId'];
