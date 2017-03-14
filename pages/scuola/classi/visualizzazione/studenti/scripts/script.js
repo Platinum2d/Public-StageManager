@@ -11,6 +11,8 @@ studente = {
 };
 
 $(document).ready(function (){
+    $(".buttonText").html("        Sfoglia");
+    $(".icon-span-filestyle").remove();
     $("#checkall").change(function (){
         if ($(this).prop("checked"))
             $(".singlecheck").prop("checked", true);
@@ -289,8 +291,8 @@ function openMoveStudent(that)
         url : 'ajaxOpsPerStudente/ajaxOtherClasses.php',
         cache : false,
         data : 
-        {
-            'exception' : classe,
+                {
+                    'exception' : classe,
             'id_anno' : anno
         },
         success : function (xml)
@@ -320,8 +322,8 @@ function moveStudent(idclasse)
         type : 'POST',
         cache : false,
         data : 
-        {
-            classenuova : idclasse,
+                {
+                    classenuova : idclasse,
             classevecchia : localStorage.getItem("clstd"),
             anno : localStorage.getItem("anstd"),
             studente : localStorage.getItem("stdstd")
