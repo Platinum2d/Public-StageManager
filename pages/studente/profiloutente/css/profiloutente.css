@@ -3,10 +3,6 @@
 	width: 65%;
 }
 
-thead {
-	background: #eee;
-}
-
 #selectFigura:focus option:first-of-type {
     display: none;
 }
