@@ -132,9 +132,10 @@
                                 <button class="btn btn-success" onclick="addPreference();"><span class='glyphicon glyphicon-plus'></span>  Aggiungi</button>
                             </div>
                         </div>
-                        <div class="col col-sm-12">
-                        	<p>
+                        <div id="note" class="col col-sm-12">
+                        	<p class="small text-right">
                         		* Puoi indicare una preferenza come prioritaria o meno cliccando sull'apposita stella.
+                        		<br>
                         		** Solo una preferenza può essere impostata come prioritaria.
                         	</p>
                         </div>
