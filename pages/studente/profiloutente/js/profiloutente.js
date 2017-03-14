@@ -48,7 +48,9 @@ $(document).ready(function(){
                 cache: false,
                 success : function(msg)
                 {
-//                    alert(msg);
+                },
+                error : function () {
+                	printError ("Errore", "Problema nella modifica delle informazioni personali.");
                 }
             });
         }
@@ -288,25 +290,28 @@ function initPreferences () {
             	if ($(this).data("star") == "0") {
             		$(this).attr ("src", "../../../media/img/star_colored.png");
             	}
+            	else if ($(this).data("star") == "1") {
+            		$(this).attr ("src", "../../../media/img/star_blank.png");
+            	}
             });
             
             $(".star-priority").mouseleave (function () {
             	if ($(this).data("star") == "0") {
             		$(this).attr ("src", "../../../media/img/star_blank.png");
             	}
+            	else if ($(this).data("star") == "1") {
+            		$(this).attr ("src", "../../../media/img/star_colored.png");
+            	}
             });
             
             $(".star-priority").click (function () {
-            	if ($(this).data("star") == "0") {
-            		$(".star-priority").attr ("src", "../../../media/img/star_blank.png").data("star", "0");
-            		$(this).attr ("src", "../../../media/img/star_colored.png");
-            		$(this).data("star", "1");
-            		id_preferenza = $(this).closest("tr").data("id");
-            		alert(id_preferenza);
+            	star = $(this);
+            	if (star.data("star") == "0") {
+            		id_preferenza = star.closest("tr").data("id");
 
-            		/*$.ajax({
+            		$.ajax({
             	        type : 'POST',
-            	        url : 'ajaxOps/updatePriority.php',
+            	        url : 'ajaxOps/addPriority.php',
             	        data : {
             	        	'preferenza' : id_preferenza
             	        },
@@ -315,8 +320,34 @@ function initPreferences () {
             	        	if (msg !== "ok") {
             	        		printError ("Errore", "Impossibile modificare la priorità");
             	        	}
+            	        	else {
+                        		$(".star-priority").attr ("src", "../../../media/img/star_blank.png").data("star", "0");
+                        		star.attr ("src", "../../../media/img/star_colored.png");
+                        		star.data("star", "1");
+            	        	}
             	        }
-            	    });	*/
+            	    });
+            	}
+            	else if (star.data("star") == "1") {
+            		id_preferenza = star.closest("tr").data("id");
+
+            		$.ajax({
+            	        type : 'POST',
+            	        url : 'ajaxOps/removePriority.php',
+            	        data : {
+            	        	'preferenza' : id_preferenza
+            	        },
+            	        cache : false,
+            	        success : function (msg) {
+            	        	if (msg !== "ok") {
+            	        		printError ("Errore", "Impossibile modificare la priorità");
+            	        	}
+            	        	else {
+                        		star.attr ("src", "../../../media/img/star_blank.png");
+                        		star.data("star", "0");
+            	        	}
+            	        }
+            	    });
             	}
             });
         }
@@ -370,21 +401,20 @@ function removePreference (id_preferenza) {
         	        		$("#selectFigura").append("<option value='"+id_figura+"'>"+nome_figura+"</option>");
         	        	}
         	        	else {
-        	        		printError ("Errore", "Impossibile rimuovere questa figura professionale1");
+        	        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
         	        	}
         	        },
         	        error : function () {
-        	        	printError ("Errore", "Impossibile rimuovere questa figura professionale2");
+        	        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
         	        }
         	    });	
         	}
         	else {
-        		alert (xml);
-        		printError ("Errore", "Impossibile rimuovere questa figura professionale3");
+        		printError ("Errore", "Impossibile rimuovere questa figura professionale");
         	}
         },
         error : function () {
-        	printError ("Errore", "Impossibile rimuovere questa figura professionale4");
+        	printError ("Errore", "Impossibile rimuovere questa figura professionale");
         }
     });	
 }
