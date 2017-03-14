@@ -20,7 +20,6 @@
         $username = $row ['username'];
     }
 ?>
-
 <body>
     <?php
         topNavbar ("../../../");
