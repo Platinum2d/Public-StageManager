@@ -1,85 +1,140 @@
 contact = {
-		'first': '',
-		'last': '',
-        'mail': '',
-        'phone': ''
+    'username' : '',
+    'first': '',
+    'last': '',
+    'mail': '',
+    'phone': ''
 };
 
-$(document).ready(function(){
-	
-	contact.first=$("#first").html();
-	contact.last=$("#last").html();
-	contact.mail=$("#mail").html();
-	contact.phone=$("#phone").html();
-	
-	//nascondo i bottoni save e cancel che compaiono solo in modalità edit
-	$("#cancelButton").hide();
-	$("#saveButton").hide();
-	
-	$("#editButton").click(function(){
-		
-		//faccio sparire il bottone edit
-		$("#editButton").hide();
-		
-		//faccio comprarire i bottoni save e cancel
-		$("#saveButton").show();
-		$("#cancelButton").show();
-		
-		//rendo al tabella editabile
-		$("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
+var initialUsername;
+
+$(document).ready(function()
+{
+    initialUsername = $("#username").html();
+    contact.username=$("#username").html();
+    contact.first=$("#first").html();
+    contact.last=$("#last").html();
+    contact.mail=$("#mail").html();
+    contact.phone=$("#phone").html();
+    
+    //nascondo i bottoni save e cancel che compaiono solo in modalità edit
+    $("#cancelButton").hide();
+    $("#saveButton").hide();
+    
+    $("#editButton").click(function(){
+        
+        //faccio sparire il bottone edit
+        $("#editButton").hide();
+        
+        //faccio comprarire i bottoni save e cancel
+        $("#saveButton").show();
+        $("#cancelButton").show();
+        
+        //rendo al tabella editabile
+        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
         $("#password").attr('contenteditable', 'false');
         $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
-	});
-	
-	$("#saveButton").click(function(){
-
-		//salvo i nuovi dati contenuti nella tabella nell'oggetto contact
-		contact.first=$("#first").html();
-		contact.last=$("#last").html();
-		contact.mail=$("#mail").html();
-		contact.phone=$("#phone").html();
-		
-		//eseguo query
-		if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0){
+    });
+    
+    $("#saveButton").click(function(){
+        
+        //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
+        contact.username = $("#username").html();
+        contact.first=$("#first").html();
+        contact.last=$("#last").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
+        
+        //eseguo query
+        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0)
+        {
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/save.php",
                 data: contact,
                 cache: false,
-                success: function (msg) {
-                	
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                        exitEdit();
+                    else
+                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
+                                                               Se il problema persiste, contattare un amministratore.</div>"); 
                 }
             });
         }
-		
-		//esco dalla modalità edit
-		exitEdit();
-	});
-
-	$("#cancelButton").click(function(){
-		
-		//rimetto i valori precedenti nella tabella
-		$("#first").html(contact.first);
-		$("#last").html(contact.last);
-		$("#mail").html(contact.mail);
-		$("#phone").html(contact.phone);
-		
-		//esco dalla modalità edit
-		exitEdit();
-	});
-	
-	function exitEdit(){
-
-		//blocco la tabella
-		$("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
-		
-		//spariscono i bottoni save e cancel
-		$("#cancelButton").hide();
-		$("#saveButton").hide();
-		
-		//compare bottone edit
-		$("#editButton").show();
-	}
+        else
+        {
+            printError("Informazioni incomplete", "<div align='center'>Si prega di completare tutti i campi necessari</div>");
+        }
+        
+        //esco dalla modalità edit
+        
+    });
+    
+    $("#cancelButton").click(function(){
+        
+        //rimetto i valori precedenti nella tabella
+        $("#first").html(contact.first);
+        $("#last").html(contact.last);
+        $("#mail").html(contact.mail);
+        $("#phone").html(contact.phone);
+        
+        //esco dalla modalità edit
+        exitEdit();
+    });
+    
+    function exitEdit(){
+        
+        //blocco la tabella
+        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        
+        //spariscono i bottoni save e cancel
+        $("#cancelButton").hide();
+        $("#saveButton").hide();
+        
+        //compare bottone edit
+        $("#editButton").show();
+    }
+    $("#username").on("input", function () {
+        if ($("#username").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        if ($("#username").html().toString().trim().length > 50)
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckUserExistence.php',
+            cache : false,
+            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            success : function (esito)
+            {
+                if (esito === "trovato")
+                {
+                    $("#saveButton").prop("disabled", true);
+                    $("#username").parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().find("th").css("color", "red");
+                }
+                else
+                {
+                    $("#saveButton").prop("disabled", false);
+                    $("#username").parent().find("th").html("Username");
+                    $("#username").parent().find("th").css("color", "#828282");
+                }
+            }
+        });
+    });
 });
 
 
@@ -102,21 +157,21 @@ function addPasswordEdit()
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();
         
-       $.ajax({
-           type : 'POST',
-           url : 'ajaxOps/ajaxCheckPassword.php',
-           cache : false,
-           data : { 'password' : $("input[for=\"vecchiapassword\"]").val() },
-           success : function (msg)
-           {
-            if (msg !== "esiste")
-                 $("#validpassword").val("0");
-             else
-                 $("#validpassword").val("1");
-             
-             checkTheWhole();
-           }
-       })
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckPassword.php',
+            cache : false,
+            data : { 'password' : $("input[for=\"vecchiapassword\"]").val() },
+            success : function (msg)
+            {
+                if (msg !== "esiste")
+                    $("#validpassword").val("0");
+                else
+                    $("#validpassword").val("1");
+                
+                checkTheWhole();
+            }
+        })
     });
     
     $("input[for=\"nuovapassword\"]").on("keyup",function (e){
@@ -137,7 +192,7 @@ function addPasswordEdit()
     $("input[for=\"confermapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();
-            
+        
         if ($("input[for=\"nuovapassword\"]").val() !== $("input[for=\"confermapassword\"]").val() || $("input[for=\"nuovapassword\"]").val().isEmpty() || $("input[for=\"confermapassword\"]").val().isEmpty())
         {
             $("#validinput").val("0");
