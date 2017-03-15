@@ -22,14 +22,14 @@
         
         $headers .= "From:" . $cognome . " " . $nome . "<" . $email_tutor .">";
         if (mail ( $email_destinatario, $object, $msg, $headers )) {
-            $_SESSION ['email_sent'] = sended;
+            $_SESSION ['email_sent'] = sent;
              
         } else {
-            $_SESSION ['email_sent'] = notSended;
+            $_SESSION ['email_sent'] = notSent;
         }
     }
     else{
-        $_SESSION ['email_sent'] = notSended;
+        $_SESSION ['email_sent'] = notSent;
     }
     // Da inserire l'url della home page o un redirect automatico.
     echo "<script> alert($email_destinatario + ' ' + $object + ' ' + $msg + ' ' + $headers) </script>";
