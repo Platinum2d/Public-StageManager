@@ -1,4 +1,4 @@
-function printError(title, message)
+function printError(title, message, closeFunction)
 {
     $("#SuperAlert").modal("show");
     if (typeof(title) !== "undefined")
@@ -6,17 +6,29 @@ function printError(title, message)
     else
         $("#SuperAlert").find(".modal-title").html("Errore");
     
+    if (closeFunction !== undefined) {
+    	$("#SuperAlert").on('hidden.bs.modal', function () {
+            closeFunction ();
+    	});
+    }
+    
     $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
     $("#SuperAlert").find(".modal-body").css("background-color", "rgba(255, 0, 0, 0.3)");
 }
 
-function printSuccess(title, message)
+function printSuccess(title, message, closeFunction)
 {
     $("#SuperAlert").modal("show");
     if (typeof(title) !== "undefined")
         $("#SuperAlert").find(".modal-title").html(title);
     else
         $("#SuperAlert").find(".modal-title").html("Errore");
+    
+    if (closeFunction !== undefined) {
+    	$("#SuperAlert").on('hidden.bs.modal', function () {
+            closeFunction ();
+    	});
+    }
     
     $("#SuperAlert").find(".modal-body").html("<b>"+message+"</b>");
     $("#SuperAlert").find(".modal-body").css("background-color", "#B7F4B7");
@@ -76,16 +88,26 @@ function checkSubmitForProfileImage()
     if ($(".file-default-preview").length > 0) return false;
 }
 
-function changeDatabase(database)
+function userProfile(user_id, goback)
 {
+    $("#redirectUserForm").remove();
     $.ajax({
         type : 'POST',
-        url : 'ajaxOpsPerDatabase/ajaxCambiaDatabase.php',
+        url : goback+'../lib/custom/ajax/ajaxUserType.php',
         cache : false,
-        data : { 'db' : database},
-        success : function (session)
-        {
-            location.reload();
-        }
-    })
+        data : {'id' : user_id},
+        success : function (xml){
+            if ($(xml).find("esito").text().length > 0)
+            {
+                var tipo = $(xml).find("tipo").text();
+                
+                $("body").append("<form id='redirectUserForm' style='height:0px; width:0px' action='"+goback+"visualizza_utente/"+tipo+"/index.php' method='POST'>\n\
+                    <input type='hidden' name='user' value='"+user_id+"'/>\n\
+               </form>");
+                
+                $("#redirectUserForm").submit();
+                $("#redirectUserForm").remove();
+            }
+        }        
+    });
 }
