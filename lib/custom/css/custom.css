@@ -5,13 +5,13 @@
 div .panel{
     padding-top: 30px;
     padding-bottom: 30px;
-    min-height: 380px;
 }
 
 footer div.panel{
     padding-top: 15px;
     padding-bottom: 15px;
-    min-height: 50px;display:block;
+    min-height: 50px;
+    display:block;
     overflow:auto;
 }
 
@@ -206,7 +206,20 @@ a, p, label, b, i, span, div{
     box-shadow: none;
     text-align: center;
 }
+
 .kv-avatar .file-input {
     display: table-cell;
     max-width: 220px;
+}
+
+hr.hr-padding {
+	padding-bottom: 15px;
+}
+
+.buttonfix {
+    height: 30px;
+}
+
+table.table-bordered > thead {
+	background: #eee;
 }

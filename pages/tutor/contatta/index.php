@@ -6,6 +6,7 @@
     import("../../../");
     $id_tutor = $_SESSION ['userId'];
 ?>
+<link href='css/contatta.css' rel='stylesheet' type='text/css'>
 <body>
     <?php
         topNavbar ("../../../");
@@ -19,7 +20,7 @@
                     <br>
                     <div class="row">
                         <div class="col col-sm-10">
-                            <form action="Sendmail.php" method="POST" class="contact" name="contactForm">
+                            <form action="sendmail.php" method="POST" class="contact" name="contactForm">
                                 <div class="form-group">
                                     <label for="destinatario" class="select">Seleziona lo studente o il tutor che intendi contattare:</label>
                                     <br>
@@ -41,9 +42,9 @@
                                             $sql2 = "SELECT docente.nome as nome_docente, docente.cognome as cognome_docente, docente.email as email_docente 
                                                         FROM docente, studente_has_stage 
                                                         WHERE studente_has_stage.tutor_id_tutor = $id_tutor 
-														AND studente_has_stage.docente_id_docente = docente.id_docente;";
+														AND studente_has_stage.docente_tutor_id_docente_tutor = docente.id_docente;";
                                             $result2 = $connessione->query ( $sql2 );
-                                            while ( $row = $result2->fetch_assoc () ) {
+                                            while ( $result2 && $row = $result2->fetch_assoc () ) {
                                                 $nome_docente = $row ['nome_docente'];
                                                 $cognome_docente = $row ['cognome_docente'];
                                                 $email_docente = $row ['email_docente'];

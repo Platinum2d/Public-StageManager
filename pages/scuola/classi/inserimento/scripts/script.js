@@ -45,5 +45,6 @@ function sendData()
 
 function freeFields()
 {
+    printSuccess("Azione eseguita correttamente", "<div align='center'>La classe è stata inserita correttamente</div>");
     $("#nomeClasse").val('');
 }

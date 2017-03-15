@@ -24,7 +24,7 @@ function sendData(classe, anno, stage)
             if (msg === "ok")
                 location.reload();
             else
-                printError("Modifica non riuscita",msg);
+                printError("Eliminazione non riuscita","Contattare l'amministratore");
         }
     });
 }
@@ -44,7 +44,7 @@ function deleteExperience(idexp){
                 if (msg === "ok")
                     location.reload();
                 else
-                    printError("Eliminazione non riuscita",msg);
+                    printError("Eliminazione non riuscita","Contattare l'amministratore");
             }
         });    
     }
