@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" style='min-height: 0'>
-                    <h1>Le mie classi</h1> <br>
+                    <h1 style="display: inline">Le mie classi</h1> <br><br>
                         
                     <table class="table table-hover">
                         <thead>
