@@ -1,12 +1,17 @@
 contact = {
+    'username' : '',
     'first': '',
     'last': '',
     'mail': '',
     'phone': ''
 };
 
-$(document).ready(function(){
-	
+var initialUsername;
+
+$(document).ready(function()
+{
+    initialUsername = $("#username").html();
+    contact.username=$("#username").html();	
     contact.first=$("#first").html();
     contact.last=$("#last").html();
     contact.mail=$("#mail").html();
@@ -33,19 +38,33 @@ $(document).ready(function(){
     $("#saveButton").click(function(){
 
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
+        contact.username = $("#username").html();
         contact.first=$("#first").html();
         contact.last=$("#last").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0)
+        {
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/ajax.php",
                 data: contact,
-                cache: false
+                cache: false,
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                        exitEdit();
+                    else
+                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
+                                                               Se il problema persiste, contattare un amministratore.</div>"); 
+                }
             });
+        }
+        else
+        {
+            printError("Informazioni incomplete", "<div align='center'>Si prega di completare tutti i campi necessari</div>");
         }
 		
         //esco dalla modalità edit
@@ -76,6 +95,46 @@ $(document).ready(function(){
         //compare bottone edit
         $("#editButton").show();
     }
+    
+    $("#username").on("input", function () {
+        if ($("#username").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        if ($("#username").html().toString().trim().length > 50)
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckUserExistence.php',
+            cache : false,
+            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            success : function (esito)
+            {
+                if (esito === "trovato")
+                {
+                    $("#saveButton").prop("disabled", true);
+                    $("#username").parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().find("th").css("color", "red");
+                }
+                else
+                {
+                    $("#saveButton").prop("disabled", false);
+                    $("#username").parent().find("th").html("Username");
+                    $("#username").parent().find("th").css("color", "#828282");
+                }
+            }
+        });
+    });
 });
 
 function changePicture(){
