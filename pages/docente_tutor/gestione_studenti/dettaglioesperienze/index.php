@@ -52,7 +52,14 @@
                         <tbody style="text-align: center">
                             <?php
                                 //$query = "SELECT id_studente_has_stage, id_studente, nome, cognome FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud WHERE stud.id_studente = shs.studente_id_studente AND shs.docente_tutor_id_docente_tutor = $id_doc AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage AND chs.classe_id_classe = $id_classe AND chs.anno_scolastico_id_anno_scolastico = $id_anno GROUP BY stud.id_studente ORDER BY cognome";
-                                $query = "SELECT s.id_studente, s.nome, s.cognome FROM studente AS s, studente_attends_classe as sas WHERE sas.studente_id_studente = s.id_studente AND sas.anno_scolastico_id_anno_scolastico = $id_anno AND sas.classe_id_classe = $id_classe";
+                                $query = "SELECT shs.id_studente_has_stage, stud.id_studente, stud.nome, stud.cognome 
+                                          FROM studente AS stud, studente_has_stage AS shs, classe_has_stage AS chs, anno_scolastico AS ass
+                                          WHERE stud.id_studente = shs.studente_id_studente 
+                                          AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
+                                          AND chs.anno_scolastico_id_anno_scolastico = ass.id_anno_scolastico 
+                                          AND chs.classe_id_classe = $id_classe
+                                          AND shs.docente_tutor_id_docente_tutor = $id_doc 
+                                          AND ass.id_anno_scolastico = $id_anno;";
                                 $result = $conn->query($query);
                                 while ($row = $result->fetch_assoc())
                                 {
