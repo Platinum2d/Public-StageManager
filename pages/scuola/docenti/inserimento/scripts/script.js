@@ -45,7 +45,7 @@ function send()
                 if (msg === "Inserimento dei dati riuscito!")
                 {
                     freeFields();
-                    printSuccess("Inserimento Riuscito", "Docente inserito correttamente!");
+                    printSuccess("Inserimento Riuscito", "<div align='center'>Docente inserito correttamente!</div>");
                 }                    
             }
         });
