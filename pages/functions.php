@@ -650,7 +650,7 @@ HTML;
                                         });
                                         $(".btn-primary > .hidden-xs").html("Seleziona...");
                                         modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
-                                        <?php $urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
+                                        <?php //$urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
                                         var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
                                         modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php //echo $urlattuale ?> \">");*/
                                     });
