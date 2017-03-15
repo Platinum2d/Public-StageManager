@@ -8,7 +8,8 @@
     stripslashes ( $msg );
     stripslashes ( $object );
     
-    if ($email_destinatario){
+    if ($email_destinatario)
+    {
         $connection = dbConnection("../../../");
         $query = "SELECT docente.nome, docente.cognome, docente.email
                     FROM docente
@@ -22,14 +23,14 @@
         
         $headers .= "From:" . $cognome . " " . $nome . "<" . $email_docente .">";
         if (mail ( $email_destinatario, $object, $msg, $headers )) {
-            $_SESSION ['email_sent'] = sended;
+            $_SESSION ['email_sent'] = sent;
         } else {
-            $_SESSION ['email_sent'] = notSended;
+            $_SESSION ['email_sent'] = notSent;
         }
     }
     else{
-        $_SESSION ['email_sent'] = notSended;
+        $_SESSION ['email_sent'] = notSent;
     }
     // Da inserire l'url della home page o un redirect automatico.
-    header ( "location: " . prj_pages . "/docente_tutor/contatta/index.php" );
+    header ( "location: index.php" );
 ?>
