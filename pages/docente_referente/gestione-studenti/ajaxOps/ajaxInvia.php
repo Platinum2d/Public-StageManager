@@ -3,7 +3,7 @@
     
     $connessione = dbConnection("../../../../../");
     
-    $id = $_POST['id'];
+    $id_shs = $_POST['id'];
     $nome = (empty($_POST['nome']) || !isset($_POST['nome'])) ? "NULL" : strip_tags(trim($connessione->escape_string($_POST['nome'])));
     $citta = (empty($_POST['citta']) || !isset($_POST['citta'])) ? "NULL" : strip_tags(trim($connessione->escape_string($_POST['citta'])));
     $CAP = (empty($_POST['CAP']) || !isset($_POST['CAP'])) ? "NULL" : strip_tags(trim($connessione->escape_string($_POST['CAP'])));
@@ -21,7 +21,7 @@
     if ($email !== "NULL") $query .= "email = '$email', "; else $query .= "email = $email, ";
     if ($sitoweb !== "NULL") $query .= "sito_web = '$sitoweb' "; else $query .= "sito_web = $sitoweb ";   
     
-    $query .= " WHERE id_scuola = $id";
+    $query .= " WHERE id_scuola = $id_shs";
     
     if ($connessione->query($query))
         echo "ok";

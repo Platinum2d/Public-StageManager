@@ -1,19 +1,136 @@
 $(document).ready(function (){
-    $("#checkall").change(function (){
-        if ($(this).prop("checked"))
-            $(".singlecheck").prop("checked", true);
-        else
-            $(".singlecheck").prop("checked", false);
+    $(".docTutButton").click ( function () {
+    	tr_click = $(this).parents("tr");
+	    id_docente = $(this).data("id");
+	    id_classe = $(tr_click).data("classe");
+        tutorContent = $("<tr>" +
+			        		"<td colspan='3'>" +
+			        			"<div class='row information-row'>" +
+			        				"<div class='col col-sm-4'>" +
+			        					"Docente tutor:" +
+			        					"<br>" +
+			        					"<select class='form-control'>" +
+			        					"</select>" +
+			        					"<br>" +
+			        					"<button class='remove-assignment btn btn-danger''>Rimuovi assegnazione</button>" +
+			        				"</div>" +
+			        				"<div class='col col-sm-8 dati-docente'>" +
+			        				"</div>" +
+			        			"</div>" +
+			        		"</td>" +
+			        		"<td class='actions text-center'>" +
+				        		"<button class='btn btn-danger' disabled>Annulla</button> " +
+				        		"<button class='btn btn-success' disabled>Assegna</button>" +
+			        		"</td>" +
+			           "</tr>");
+	    $.ajax({
+	        type : 'POST',
+	        url : 'ajaxOps/getDocenti.php',
+	        cache : false,
+	        data : {
+	        	'id' : id_classe
+        	},
+	        success : function (xml) {
+	        	if ($(xml).find("status").text() == '1') {
+	        		select = tutorContent.find ("select");
+	        		select.data ("last", id_docente);
+	        		if (id_docente == "-1") {
+	        			tutorContent.find (".remove-assignment").attr("disabled","disabled");
+	        			select.addClass("titolo-non-selezionabile");
+	        			select.append("<option value='-1' selected>Scegli un'opzione</option>");
+	        		}
+	        		$(xml).find("docente").each ( function (index, element) {
+	        			id = $(element).find("id").text();
+	        			nome = $(element).find("nome").text();
+	        			cognome = $(element).find("cognome").text();
+	        			selected = "";
+	        			if (id == id_docente) {
+	        				selected = "selected";
+	        			}
+	        			select.append("<option value='"+id+"' "+selected+">" +nome + " " + cognome + "</option>");
+	        			
+	        			select.change (function () {
+	        				//$(this).siblings (".remove-assignment").removeAttr("disabled");
+	        				showDatiDocente ($(this).parent("div").siblings(".dati-docente"), $(this).val());
+	        				if (select.data("last") != select.val()) {
+	        					$(".actions").find ("button").removeAttr ("disabled");
+	        				}
+	        			})
+	        			
+	        			if (id_docente !== -1)  {
+		        			showDatiDocente (tutorContent.find (".dati-docente"), id_docente);
+	        			}
+		        		$(tr_click).after (tutorContent);
+	        		});
+	        	}
+        		else {
+        			printError ("Errore", "Errore nella richiesta dei docenti tutor disponibili.");
+        		}
+        	},
+        	error : function () {
+        		printError ("Errore", "Errore nella richiesta.");
+        	}
+        });
+    });
+    
+    $(".aziendaButton").click ( function () {	
     });
 });
 
-function openEdit(numberId, id_scuola)
+function showDatiDocente (father, id_docente) {
+	$.ajax({
+        type : 'POST',
+        url : 'ajaxOps/getDocente.php',
+        cache : false,
+        data : {
+        	'id' : id_docente
+    	},
+        success : function (xml2) {
+        	if ($(xml2).find("status").text() == '1') {
+        		nome = $(xml2).find("nome").text();
+        		cognome = $(xml2).find("cognome").text();
+        		telefono = $(xml2).find("telefono").text();
+        		email = $(xml2).find("email").text();
+        		father.append ("<table class='table table-responsive table-striped table-bordered'>" +
+        							"<tbody>" +
+		        						"<tr>" +
+		        							"<td><b>Nome</b></td>" + 
+		        							"<td>" + nome + "</td>" +
+		        						"</tr>" +
+		        						"<tr>" +
+		        							"<td><b>Cognome</b></td>" + 
+		        							"<td>" + cognome + "</td>" +
+		        						"</tr>" +
+		        						"<tr>" +
+		        							"<td><b>Telefono</b></td>" + 
+		        							"<td>" + telefono + "</td>" +
+		        						"</tr>" +
+		        						"<tr>" +
+		        							"<td><b>Email</b></td>" + 
+		        							"<td>" + email + "</td>" +
+		        						"</tr>" +
+        							"<tbody>" +
+        						"</table>");
+        	}
+    		else {
+    			printError ("Errore", "Errore nella richiesta delle informazioni del docente selezionato.");
+    		}
+    	},
+    	error : function () {
+    		printError ("Errore", "Errore nella richiesta.");
+    	}
+	});
+}
+
+/*function openEdit(numberId, id_scuola)
 {
     $.ajax({
         type : 'POST',
         url : 'ajaxOpsPerScuole/getData.php',
         cache : false,
-        data : { 'id' : id_scuola },
+        data : { 
+        	'id' : id_scuola
+    	},
         success : function (xml)
         {
             $("#modifica"+numberId).prop("disabled", true);
@@ -25,29 +142,6 @@ function openEdit(numberId, id_scuola)
             var email = $(xml).find("scuola").find("email").text();
             var sitoweb = $(xml).find("scuola").find("sito_web").text();
             
-            $("<tr id=\"edit"+numberId+"\"> \n\
-                    <td></td><td>\n\
-                        <div class=\"row\">\n\
-                            <div class=\"col col-sm-12\">\n\
-                                <div class=\"row\">\n\
-                                    <div class=\"col col-sm-6\">\n\
-                                        Nome <input class=\"form-control\" id=\"nome"+numberId+"\" value=\""+nome+"\"\">\n\
-                                        Città <input class=\"form-control\" id=\"citta"+numberId+"\" value=\""+citta+"\"\">\n\
-                                        CAP <input class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
-                                        Indirizzo <input class=\"form-control\" id=\"indirizzo"+numberId+"\" value=\""+indirizzo+"\"\">\n\
-                                    </div>\n\
-                                    <div class=\"col col-sm-6\">\n\
-                                        Telefono <input class=\"form-control\" id=\"telefono"+numberId+"\" value=\""+telefono+"\"\">\n\
-                                        E-Mail <input class=\"form-control\" id=\"email"+numberId+"\" value=\""+email+"\"\">\n\
-                                        Sito Web <input class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\"><br>\n\
-                                        <button id=\"save"+numberId+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"sendData("+numberId+", "+id_scuola+")\"><span class=\"glyphicon glyphicon-ok\"></span></button>\n\
-                                        <button id=\"cancel"+numberId+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"><span class=\"glyphicon glyphicon-remove\"></span></button>\n\
-                                    </div>\n\
-                                </div>\n\
-                            </div>\n\
-                        </div>\n\
-                    </td> \n\
-               </tr>").insertAfter("#scuola"+numberId);
             setOnChangeEvents(numberId);
             $("#edit"+numberId).hide();
             $("#edit"+numberId).fadeIn("slow");
@@ -123,7 +217,7 @@ function deleteSchool(numberId, id_scuola)
             }
         }); 
     }
-}
+}*/
 
 function closeEdit(numberId)
 {
