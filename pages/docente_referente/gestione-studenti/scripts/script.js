@@ -27,7 +27,7 @@ $(document).ready(function (){
 			        			"</div>" +
 			        		"</td>" +
 			        		"<td class='actions text-center'>" +
-				        		"<button class='btn btn-danger close-doctut'>Annulla</button> " +
+				        		"<button class='btn btn-danger close-doctut'>Chiudi</button> " +
 				        		"<button class='btn btn-success assign-doctut' disabled>Assegna</button>" +
 			        		"</td>" +
 			           "</tr>");
@@ -61,6 +61,9 @@ $(document).ready(function (){
         				showDatiDocente ($(this).parent("div").siblings(".dati-docente"), $(this).val());
         				if (select.data("last") != select.val()) {
         					$(this).closest("td").siblings(".actions").find (".assign-doctut").removeAttr ("disabled");
+        				}
+        				else {
+        					$(this).closest("td").siblings(".actions").find (".assign-doctut").attr ("disabled", "disabled");
         				}
         			});
         			
@@ -130,6 +133,7 @@ $(document).ready(function (){
         	        	        	if ($(pressed_button).siblings ("select").val() != "-1") {
         	        	        		$(pressed_button).closest ("tr").find(".assign-docTut").removeAttr("disabled");
         	        	        	}
+        	        	        	$(pressed_button).siblings ("select").data("last", "-1");
         	                	}
         	            		else {
         	            			printError ("Errore", "Si è verificato un problema in fase di rimozione del docente tutor.");
@@ -184,7 +188,7 @@ $(document).ready(function (){
 				        			"</div>" +
 				        		"</td>" +
 				        		"<td class='actions text-center'>" +
-					        		"<button class='btn btn-danger close-azienda'>Annulla</button> " +
+					        		"<button class='btn btn-danger close-azienda'>Chiudi</button> " +
 					        		"<button class='btn btn-success assign-azienda' disabled>Assegna</button>" +
 				        		"</td>" +
 				           "</tr>");
@@ -217,6 +221,9 @@ $(document).ready(function (){
         				showDatiAzienda ($(this).parent("div").siblings(".dati-azienda"), $(this).val());
         				if (select.data("last") != select.val()) {
         					$(this).closest("td").siblings(".actions").find (".assign-azienda").removeAttr ("disabled");
+        				}
+        				else {
+        					$(this).closest("td").siblings(".actions").find (".assign-azienda").attr ("disabled", "disabled");
         				}
         			});
         			
@@ -286,6 +293,7 @@ $(document).ready(function (){
         	        	        	if ($(pressed_button).siblings ("select").val() != "-1") {
         	        	        		$(pressed_button).closest ("tr").find(".assign-azienda").removeAttr("disabled");
         	        	        	}
+        	        	        	$(pressed_button).siblings ("select").data("last", "-1");
         	                	}
         	            		else {
         	            			printError ("Errore", "Si è verificato un problema in fase di rimozione dell'azienda.");
@@ -327,6 +335,7 @@ function showDatiDocente (father, id_docente) {
         		var cognome = $(xml2).find("cognome").text();
         		var telefono = $(xml2).find("telefono").text();
         		var email = $(xml2).find("email").text();
+        		father.find("table").remove();
         		father.append ("<table class='table table-responsive table-striped table-bordered'>" +
         							"<tbody>" +
 		        						"<tr>" +
@@ -379,6 +388,7 @@ function showDatiAzienda (father, id_azienda) {
         		var cognome_responsabile = $(xml2).find("cognome_responsabile").text();
         		var telefono_responsabile = $(xml2).find("telefono_responsabile").text();
         		var email_responsabile = $(xml2).find("email_responsabile").text();
+        		father.find("table").remove();
         		father.append ("<table class='table table-responsive table-striped table-bordered'>" +
         							"<tbody>" +
 		        						"<tr>" +
