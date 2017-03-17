@@ -55,7 +55,7 @@
                         <tbody>
                             <?php
                                 $id_docente = $_SESSION ['userId'];
-                                $query = "SELECT classe.id_classe, classe.nome AS nome_classe, studente.cognome AS cognome_studente, studente.nome AS nome_studente, docente.id_docente, docente.cognome AS cognome_docente, docente.nome AS nome_docente, azienda.id_azienda, azienda.nome_aziendale
+                                $query = "SELECT studente_has_stage.id_studente_has_stage, classe.id_classe, classe.nome AS nome_classe, studente.cognome AS cognome_studente, studente.nome AS nome_studente, docente.id_docente, docente.cognome AS cognome_docente, docente.nome AS nome_docente, azienda.id_azienda, azienda.nome_aziendale
                                             FROM studente_has_stage
                                             JOIN docente_referente_has_studente_has_stage ON docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
                                             JOIN studente ON studente.id_studente = studente_has_stage.studente_id_studente
@@ -72,17 +72,18 @@
                                 $i = 0;
                                 while ($result && $row = $result->fetch_assoc())
                                 {
+                                    $id_shs = $row['id_studente_has_stage'];
                                     $id_classe = $row['id_classe'];
                                     $classe = $row ['nome_classe'];
                                     $nome = $row['cognome_studente'] . " " . $row['nome_studente'];
                                     $id_doctutor = $row ['id_docente'];
-                                    $docente_tutor = $row['cognome_docente'] . $row['nome_docente'];
+                                    $docente_tutor = $row['nome_docente'] . " " . $row['cognome_docente'];
                                     $docbutton_class = "btn btn-success";
                                     $id_azienda = $row ['id_azienda'];
                                     $azienda = $row['nome_aziendale'];
                                     $azbutton_class = "btn btn-success";
                                         
-                                    echo "<tr id='studente$i' data-classe='$id_classe'>";
+                                    echo "<tr data-classe='$id_classe' data-shs='$id_shs'>";
                                         
                                         echo "<td>$classe</td>";
                                         echo "<td>$nome</td>";
