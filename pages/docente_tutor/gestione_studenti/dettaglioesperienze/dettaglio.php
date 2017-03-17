@@ -39,7 +39,7 @@
                         <input name='ida' type='hidden' value="<?php echo $idanno; ?>">
                     </form>
                     
-                    <h1> Esperienze di stage di <?php echo $cognomestudente . " " . $nomestudente ?></h1> <br>
+                    <h1> Esperienze di stage di <u onclick="userProfile(<?php echo $idstudente ?>, '../../../')" style="cursor: pointer"><?php echo $cognomestudente . " " . $nomestudente ?></u></h1> <br>
                         
                     <div class="row">
                         <div class="col col-sm-4">

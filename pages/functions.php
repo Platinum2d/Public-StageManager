@@ -12,8 +12,8 @@
     define ( "err_noLog", 1 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina senza essersi loggato
     define ( "err_noPerm", 2 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina per la quale non ha i permessi necessari (pagina per un altro utente)
         
-    define ( "sended", 2);  //contiene il valore corrispondente ad un email correttamente inviata
-    define ( "notSended", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
+    define ( "sent", 2);  //contiene il valore corrispondente ad un email correttamente inviata
+    define ( "notSent", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
         
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
 
@@ -188,13 +188,6 @@ HTML;
 HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-                echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/classi/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Classi <span class=\"caret\"></span></a>
-                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
-                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Inserisci Classi</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'> Visualizza Classi </a></li>";
-                echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
                       <a href=\"".$goBack."pages/scuola/aziende/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
@@ -202,6 +195,22 @@ HTML;
                 
                 echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Inserisci Aziende</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'> Visualizza Aziende </a></li>";
+                echo "</ul></li>";
+                
+                echo "<li class=\"dropdown dropdown-hover\">
+                      <a href=\"".$goBack."pages/scuola/classi/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Classi <span class=\"caret\"></span></a>
+                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Inserisci Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'> Visualizza Classi </a></li>";
+                echo "</ul></li>";                
+                
+                echo "<li class=\"dropdown dropdown-hover\">
+                      <a href=\"".$goBack."pages/scuola/docenti/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Docenti Referenti <span class=\"caret\"></span></a>
+                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/scuola/docenti/inserimento/index.php'>Inserisci Docenti referenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/docenti/visualizzazione/index.php'> Visualizza Docenti referenti</a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
@@ -613,8 +622,8 @@ HTML;
             $query = "SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'];
             $result = $connessione->query($query);
             $row = $result->fetch_assoc();
-            echo "<div align=\"center\" style=\"background-color : black\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../media/loads/profimgs/".$row['URL']."\"></div><br>";
-            echo "<a style=\"color: #828282\" href=\"javascript:changePicture()\">  <span id=\"editspan\" style=\"position:absolute; font-size: 15px\" class=\"glyphicon glyphicon-pencil\"></span></a>";
+            echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../media/loads/profimgs/".$row['URL']."\"></div><br>";
+            echo "<a style=\"color: #828282\"> <span id=\"editspan\" style=\"position:absolute; font-size: 15px; cursor : pointer;\" class=\"glyphicon glyphicon-pencil\"></span></a>";
         ?>
         <script>
             $("#editspan").on("click", function (){
@@ -642,9 +651,9 @@ HTML;
                                         });
                                         $(".btn-primary > .hidden-xs").html("Seleziona...");
                                         modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
-                                        <?php $urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
+                                        <?php //$urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
                                         var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
-                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php echo $urlattuale ?> \">");*/
+                                        modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php //echo $urlattuale ?> \">");*/
                                     });
 
         </script>
