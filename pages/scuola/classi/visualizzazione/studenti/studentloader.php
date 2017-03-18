@@ -93,32 +93,29 @@
                                 $email = (empty($email) || !isset($email)) ? "Sconosciuta" : $email;
                             $telefono = strtolower(trim($sheet->getCell('E'.$I)->getValue()));
                                 $telefono = (empty($telefono) || !isset($telefono)) ? "Sconosciuto" : $telefono;
-                              
-                                $htmltable .= "<tr><td>".($I - 1)."</td> <td>$username</td> <td>$password</td> <td>$citta</td> <td>$email</td> <td>$telefono</td> </tr>";
-                                    $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
                                 
-//                            $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
-//                                
-//                            $result = $conn->query($userquery);
-//                                
-//                            if ($result)
-//                            {
-//                                $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-//                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($citta)."','".$conn->escape_string($email)."','".$conn->escape_string($telefono)."', ".$_SESSION['userId].")";
-//                                                
-//                                $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
-//                                                . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
-//                                
-//                                if ($conn->query($insertquery) && $conn->query($attendsquery))
-//                                {
-//                                    $htmltable .= "<tr> <td>$username</td> <td>$password</td> <td>$citta</td> <td>$email</td> <td>$telefono</td> </tr>";
-//                                    $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
-//                                }
-//                                else
-//                                {
-//                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
-//                                }
-//                            }                            
+                            $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
+                                
+                            $result = $conn->query($userquery);
+                                
+                            if ($result)
+                            {
+                                $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
+                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($citta)."','".$conn->escape_string($email)."','".$conn->escape_string($telefono)."', ".$_SESSION['userId'].")";
+                                                
+                                $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
+                                                . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
+                                
+                                if ($conn->query($insertquery) && $conn->query($attendsquery))
+                                {
+                                    $htmltable .= "<tr> <td>$username</td> <td>$password</td> <td>$citta</td> <td>$email</td> <td>$telefono</td> </tr>";
+                                    $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
+                                }
+                                else
+                                {
+                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
+                                }
+                            }                            
                         }
                         else
                         {
