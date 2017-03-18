@@ -17,10 +17,10 @@
     $queryusers = ($isDocenteTutor) ? "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".doctutType.")" 
                                     : "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".docrefType.")";
     
-    $Query = ($isDocenteTutor) ? "INSERT INTO `docente` (`id_docente`, `nome`, `cognome`, `telefono`, `email`, `docente_referente`, `docente_tutor`) "
-        . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 3), '$nome', '$cognome', '$telefono', '$email', '$isDocenteReferente', '$isDocenteTutor');"
-            : "INSERT INTO `docente` (id_docente,  `nome`, `cognome`, `telefono`, `email`, `docente_referente`, `docente_tutor`) "
-        . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = 2), '$nome', '$cognome', '$telefono', '$email', '$isDocenteReferente', '$isDocenteTutor');";
+    $Query = ($isDocenteTutor) ? "INSERT INTO `docente` (`id_docente`, `nome`, `cognome`, `telefono`, `email`) "
+        . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".doctutType."), '$nome', '$cognome', '$telefono', '$email');"
+            : "INSERT INTO `docente` (id_docente,  `nome`, `cognome`, `telefono`, `email`) "
+        . "VALUES ( (SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".docrefType."), '$nome', '$cognome', '$telefono', '$email');";
     $ok = (!$connection->query($queryusers)) ? false : true;
     $ok = (!$connection->query($Query)) ? false : true;
     
