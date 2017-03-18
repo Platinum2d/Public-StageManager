@@ -1,9 +1,9 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( docrefType , "../../../");
-    open_html ( "Gestione studenti" );
-    import("../../../");
-    $conn = dbConnection("../../../");
+include '../../functions.php';
+checkLogin ( docrefType , "../../../");
+open_html ( "Gestione studenti" );
+import("../../../");
+$conn = dbConnection("../../../");
 ?>
 <link href='css/gestione_studenti.css' rel='stylesheet' type='text/css'>
 <script src="scripts/script.js"></script>
@@ -46,8 +46,8 @@
                     <table id="annitable" class="table table-bordered">
                         <thead>
                         	<tr>
-                                <th class="col col-sm-1">Classe</th>
-                                <th class="col col-sm-5">Studente</th>
+                                <th class="text-center col col-sm-1">Classe</th>
+                                <th class="text-center col col-sm-5">Studente</th>
                                 <th  class="text-center col col-sm-3">Docente tutor</th>
                                 <th  class="text-center col col-sm-3">Azienda</th>
                             </tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             <?php
                                 $id_docente = $_SESSION ['userId'];
-                                $query = "SELECT studente_has_stage.id_studente_has_stage, classe.id_classe, classe.nome AS nome_classe, studente.cognome AS cognome_studente, studente.nome AS nome_studente, docente.id_docente, docente.cognome AS cognome_docente, docente.nome AS nome_docente, azienda.id_azienda, azienda.nome_aziendale
+                                $query = "SELECT studente.id_studente, studente_has_stage.id_studente_has_stage, classe.id_classe, classe.nome AS nome_classe, studente.cognome AS cognome_studente, studente.nome AS nome_studente, docente.id_docente, docente.cognome AS cognome_docente, docente.nome AS nome_docente, azienda.id_azienda, azienda.nome_aziendale
                                             FROM studente_has_stage
                                             JOIN docente_referente_has_studente_has_stage ON docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
                                             JOIN studente ON studente.id_studente = studente_has_stage.studente_id_studente
@@ -72,6 +72,7 @@
                                 $i = 0;
                                 while ($result && $row = $result->fetch_assoc())
                                 {
+                                    $id_studente = $row ['id_studente'];
                                     $id_shs = $row['id_studente_has_stage'];
                                     $id_classe = $row['id_classe'];
                                     $classe = $row ['nome_classe'];
@@ -85,8 +86,8 @@
                                         
                                     echo "<tr data-classe='$id_classe' data-shs='$id_shs'>";
                                         
-                                        echo "<td>$classe</td>";
-                                        echo "<td>$nome</td>";
+                                        echo "<td class='text-center'>$classe</td>";
+                                        echo "<td class='text-center'><u style='cursor:pointer' onclick=\"userProfile($id_studente, '../../')\">$nome</u></td>";
                                         if ($id_doctutor == "") {
                                             $id_doctutor = -1;
                                             $docente_tutor = "<i>Non assegnato</i>";
