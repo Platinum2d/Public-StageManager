@@ -1,7 +1,7 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( studType,"../../../" );
-    $MySQLConnection = dbConnection("../../../");
+    checkLogin ( studType,"../../../../" );
+    $MySQLConnection = dbConnection("../../../../");
     
     $Voto = htmlspecialchars ( $_POST ['voto'] );
     $Descrizione = htmlspecialchars ( $_POST ['descrizione'] );
@@ -15,8 +15,6 @@
         
     if ($MySQLConnection->connect_error) 
     {
-//        $_SESSION ['grade_sent'] = 1; // connessione al database fallita
-//        die("Errore di connessione: ".$MySQLConnection->connect_error);
         echo "invio della valutazione NON riuscito";
     }
       
