@@ -2,7 +2,7 @@
     include '../../functions.php';
     checkLogin ( scuolaType , "../../../");
     import("../../../");
-    open_html ( "Visualizza" );
+    open_html ( "Modifica" );
     $connessione = dbConnection ("../../../");
         
 ?>
@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Menù di visualizzazione </h1><br>
+                    <h1> Menù di modifica </h1><br>
                     <div class="row">
                         <div class="col col-sm-12"> 
                             <div align="center">
