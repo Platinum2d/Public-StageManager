@@ -60,7 +60,10 @@
                                 <br>
                                 <br>                              
                                 <input class="btn btn-primary" value="Invia" onclick="send();">     
-                            </div>                         
+                            </div>
+                            <div align="center" class="col col-sm-6">
+                                <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
+                            </div>
                         </form>       
                     </div>
                 </div>

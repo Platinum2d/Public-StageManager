@@ -1,11 +1,12 @@
-prdocente = {
+docente = {
     'username': '',
     'password': '',
     'confermaPassword': '',
     'nome': '',
     'cognome': '',
     'telefono': '',
-    'email': ''
+    'email': '',
+    'docente_tutor' : true
 };
 
 function send()
@@ -21,6 +22,8 @@ function send()
     docente.cognome = ''+$("#CognomeDocente").val().trim();
     docente.telefono = ''+$("#TelefonoDocente").val().trim();
     docente.email = ''+$("#EmailDocente").val().trim();
+    if ($("#isDocenteReferente").is(":checked")) 
+        docente.docente_tutor = false;
     
     if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty())
     {
