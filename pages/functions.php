@@ -195,6 +195,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
                 echo "</ul></li>";
                 
