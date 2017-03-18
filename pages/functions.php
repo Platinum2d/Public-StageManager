@@ -210,7 +210,6 @@ HTML;
                 echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/modifica/settori/index.php'>Settori</a></li>";
                 echo "</ul></li>";                
                 
                 echo "<li class=\"dropdown dropdown-hover\">
