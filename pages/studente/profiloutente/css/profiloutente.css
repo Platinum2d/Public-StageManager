@@ -2,3 +2,15 @@
 .minw {
 	width: 65%;
 }
+
+#selectFigura:focus option:first-of-type {
+    display: none;
+}
+
+img.star-priority {
+	height: 30px;
+}
+
+#note {
+	margin-top: 15px;
+}

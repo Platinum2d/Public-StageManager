@@ -5,12 +5,13 @@
     open_html ( "Contatta" );
     import("../../../");
 ?>
+<link href='css/contatta.css' rel='stylesheet' type='text/css'>
+<script src="js/script.js"></script>  
 <body>
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-    ?>    
-    <script src="js/script.js"></script>    
+    ?>      
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -46,7 +47,7 @@
                                                 $Query = "SELECT docente.nome, docente.cognome, docente.email 
                                                             FROM studente_has_stage, docente 
                                                             WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
-                                                            AND studente_has_stage.docente_id_docente = docente.id_docente;";
+                                                            AND studente_has_stage.docente_tutor_id_docente_tutor = docente.id_docente;";
                                                 $result = $connessione->query($Query);
                                                 if ($result->num_rows > 0)
                                                 {

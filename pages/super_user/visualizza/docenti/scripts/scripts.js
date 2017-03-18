@@ -6,8 +6,7 @@ docente = {
     'cognome' : '',
     'telefono' : '',
     'email' : '',
-    'docente_referente' : '',
-    'docente_tutor' : ''
+    'tipo_utente' : ''
 }
 
 $(document).ready(function (){
@@ -64,8 +63,8 @@ function openEdit (id, iddocente)
                 $("#cognome"+numberId).val($(this).find("cognome").text());
                 $("#telefono"+numberId).val($(this).find("telefono").text());
                 $("#email"+numberId).val($(this).find("email").text());     
-                if ($(this).find("docente_tutor").text() === "1") $("#docentetutor"+numberId).attr('checked',true);
-                if ($(this).find("docente_referente").text() === "1") $("#docentereferente"+numberId).attr('checked',true);
+                if ($(this).find("tipo_utente").text() === "3") $("#docentetutor"+numberId).attr('checked',true);
+                if ($(this).find("tipo_utente").text() === "2") $("#docentereferente"+numberId).attr('checked',true);
                 $("#username"+numberId).on("input", function (){
                     $.ajax({
                         type : 'POST',
@@ -120,8 +119,7 @@ function sendData(iddocente, numberId)
     docente.nome = $("#nome"+numberId).val();
     docente.telefono = $("#telefono"+numberId).val();
     docente.email = $("#email"+numberId).val();
-    docente.docente_referente = ($("#docentereferente"+numberId).prop('checked') === true) ? "1" : "0";
-    docente.docente_tutor = ($("#docentetutor"+numberId).prop('checked') === true) ? "1" : "0";
+    docente.tipo_utente = ($("#docentereferente"+numberId).prop('checked') === true) ? "2" : "3";
     
     $.ajax({
         type : 'POST',
@@ -136,8 +134,7 @@ function sendData(iddocente, numberId)
                 $("#label"+numberId).html($("#cognome"+numberId).val() + " " + $("#nome"+numberId).val() + " ("+$("#username"+numberId).val()+")");
             }
         }
-    })
-    
+    });
     
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
@@ -173,8 +170,14 @@ function setOnChangeEvents(numberId)
     $("#cognome"+numberId).on('input',((function (e){ $("#cognome"+numberId).css('color','red'); })));
     $("#telefono"+numberId).on('input',((function (e){ $("#telefono"+numberId).css('color','red'); })));
     $("#email"+numberId).on('input',((function (e){ $("#email"+numberId).css('color','red'); })));
-    $("#docentereferente"+numberId).change(((function (e){ $("#docref").css("color","red"); })));
-    $("#docentetutor"+numberId).change(((function (e){ $("#doctut").css("color","red"); })));
+    $("#docentereferente"+numberId).change(((function (e){ 
+        $("#docref").css("color","red"); 
+        $("#docentetutor"+numberId).prop("checked", false);
+    })));
+    $("#docentetutor"+numberId).change(((function (e){ 
+        $("#doctut").css("color","red"); 
+        $("#docentereferente"+numberId).prop("checked", false);
+    })));
 }
 
 function resetColors(numberId)
