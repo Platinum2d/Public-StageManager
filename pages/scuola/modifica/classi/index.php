@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Visualizza Classi </h1>
+                    <h1> Modifica Classi </h1>
                     <br>  
                     <div class="row">
                         <div class="col col-sm-4">

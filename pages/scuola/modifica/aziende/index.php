@@ -4,15 +4,6 @@
     open_html ( "Visualizza Aziende" );
     import("../../../../");
     $conn = dbConnection("../../../../");
-    /*$recordperpagina = (isset($_POST['customaz'])) ? intval($_POST['customaz']) : null;
-    if (!isset($recordperpagina)){  
-        $recordperpagina = (!isset($_POST['naziende'])) ? 10 : $_POST['naziende'];
-    }
-    if ($recordperpagina <= 0) {
-        $result = $conn->query("SELECT COUNT(id_azienda) AS tot FROM azienda");
-        $row = $result->fetch_assoc();
-        $recordperpagina = intval($row['tot']);
-    }*/
 ?>
 <body>
     <style>
@@ -31,13 +22,12 @@
     ?>
     <script src="scripts/scripts.js"></script>
     
-    <input type="hidden" value="<?php echo $recordperpagina ?>" id="recordperpagina">
     <!-- Begin Body -->
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id="mainPanel" style="min-height: 0px">
-                    <h1>Visualizza Aziende</h1> <br>
+                    <h1>Modifica Aziende</h1> <br>
                     <!--                    <div class="row">
                                             <div class="col col-sm-4">
                                                 <div align="left">
