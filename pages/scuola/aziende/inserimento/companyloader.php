@@ -55,6 +55,8 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
         ?> 
+    
+    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -73,16 +75,16 @@
                             echo "<br>";
                             echo "<div align='center'><h4 style='color:red'><u>ATTENZIONE: SALVARE E CONSERVARE IL FILE PDF APPENA SCARICATO.<br><br>LE PASSWORD DEGLI UTENTI APPENA INSERITI SONO REPERIBILI SOLO DA ESSO.</u></h4></div>";
                             echo "<br><br><br>";
-                            echo "<b>Estraggo e inizializzo i parametri del file excel.....</b><br>";
+                            echo "<div align='center'><b>Estraggo e inizializzo i parametri del file excel.....</b><br></div>";
                             $reader = PHPExcel_IOFactory::createReaderForFile("../../../../media/loads/" . $fileName);
                             $loadedfile = $reader->load("../../../../media/loads/" . $fileName);
                             $sheet = $loadedfile->getSheet(0);
                             $rows = $sheet->getHighestRow();
                             $cols = $sheet->getHighestColumn();
-                            echo "<b>Fatto.</b><br><br>"; //(trovate $rows righe)
+                            echo "<div align='center'><b>Fatto.</b></div><br><br>"; //(trovate $rows righe)
                                 
                             //analisi di nomi e cognomi, creazione dello username sul posto. Se uno esiste già, usa il progressivo
-                            echo "<b>\tCreo gli username e inserisco le aziende nel database....</b><br>";
+                            echo "<div align='center'><b>Creo gli username e inserisco le aziende nel database....</b></div>";
                             $htmltable = "<div class='table-responsive'><table class='table table-hover' id='report'> <thead> <th>#</th> <th>Username</th> <th>Password</th> <th>Nome azienda</th> <th>Citta'</th> <th>CAP</th> <th>Indirizzo</th> <th>Telefono</th>"
                                 . "<th>Email</th><th>Sito web</th><th>Nome responsabile</th><th>Cognome responsabile</th><th>Telefono responsabile</th><th>Email responsabile</th></thead> <tbody>";
                                 $tableforpdf = "<table style='' id='forpdf'> <thead> <th>#</th> <th>Nome azienda</th> <th>Username</th> <th>Password</th> </thead> <tbody>";
@@ -143,14 +145,8 @@
                                             
                                             $conn->query($userquery);
 
-                                            if ($conn->query($insertquery))
-                                            {
-                                                echo "Generato l'utente $username <br><br>";
-                                            }
-                                            else
-                                            {
+                                            if (!$conn->query($insertquery))
                                                 $htmltable .= "<tr><td>$conn->error<br></td></tr>";
-                                            }
                                         }
                                         else
                                         {
@@ -170,7 +166,7 @@
                         echo "<div align='center'><h3 style=\"color:RED\"> ==== CARICAMENTO FALLITO ==== </h3></div>";
                         }
                             
-                        echo "<b>Fatto.</b><br><br>$htmltable</div>";
+                        echo "<div align='center'><b>Fatto.</b></div><br><br>$htmltable</div>";
                         echo "<br><br>$reporterrori";
                         echo $tableforpdf;
                             
