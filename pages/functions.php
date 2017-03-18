@@ -189,27 +189,28 @@ HTML;
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/aziende/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
+                      <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Inserisci Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'> Visualizza Aziende </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/docenti/inserimento/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/studenti/inserimento/index.php'>Studenti</a></li>";
                 echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/classi/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Classi <span class=\"caret\"></span></a>
+                      <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Inserisci Classi</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'> Visualizza Classi </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/docenti/visualizzazione/index.php'>Docenti</a></li>";
                 echo "</ul></li>";                
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/docenti/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Docenti Referenti <span class=\"caret\"></span></a>
+                      <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci<span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/docenti/inserimento/index.php'>Inserisci Docenti referenti</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/docenti/visualizzazione/index.php'> Visualizza Docenti referenti</a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
