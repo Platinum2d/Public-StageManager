@@ -122,6 +122,7 @@ HTML;
 //                 //echo "<li> <a> <span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\">guida</span> </a></li>";
 //                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_referente/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/gestione-studenti/index.php'>Gestione studenti</a></li>";
                 echo <<<HTML
                     </ul>      
 HTML;
