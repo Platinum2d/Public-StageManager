@@ -9,8 +9,10 @@
     $nome = $conn->escape_string($_POST['nome']);
     $telefono = $conn->escape_string($_POST['telefono']);
     $email = $conn->escape_string($_POST['email']);
+    $tipo_utente = $_POST['tipo_utente'];
     
-    $query = "UPDATE  `utente` SET  `username` =  '$username' ";
+    
+    $query = "UPDATE  `utente` SET  `username` =  '$username', `tipo_utente` = '$tipo_utente' ";
     if ($password !== "immutato") $query .= ", `password` =  '".md5($password)."'";
     
     $query .= " WHERE id_utente = $iddocente";

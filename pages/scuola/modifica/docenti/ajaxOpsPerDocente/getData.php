@@ -23,6 +23,7 @@ XML;
         $azienda->addChild('cognome',$row['cognome']);
         $azienda->addChild('telefono',$row['telefono']);
         $azienda->addChild('email',$row['email']);
+        $azienda->addChild('tipo_utente',$row['tipo_utente']);
     }
     
     echo $xml->asXML();

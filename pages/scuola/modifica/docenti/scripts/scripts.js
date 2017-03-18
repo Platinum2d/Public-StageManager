@@ -5,7 +5,8 @@ docente = {
     'nome' : '',
     'cognome' : '',
     'telefono' : '',
-    'email' : ''
+    'email' : '',
+    'tipo_utente' : ''
 }
 
 $(document).ready(function (){
@@ -35,9 +36,12 @@ function openEdit (id, iddocente)
                         <div class=\"form-group\">Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\"></div>\n\
                         <div class=\"form-group\">Telefono <input placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\"></div>\n\
                         <div class=\"form-group\">E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"></div>\n\
+                        </div>\n\
+                        <div class=\"col col-sm-6\"><div class=\"form-group\"><label id=\"docref\"> Docente Referente </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentereferente"+numberId+"\"></div>\n\
+                        <div class=\"form-group\"><label id=\"doctut\"> Docente Tutor </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentetutor"+numberId+"\"></div>\n\
                     </form>\n\
+                    </div>\n\
                 </div>\n\
-            </div>\n\
             <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
             <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+iddocente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
         </div>\n\
@@ -58,7 +62,9 @@ function openEdit (id, iddocente)
                 $("#nome"+numberId).val($(this).find("nome").text());
                 $("#cognome"+numberId).val($(this).find("cognome").text());
                 $("#telefono"+numberId).val($(this).find("telefono").text());
-                $("#email"+numberId).val($(this).find("email").text());
+                $("#email"+numberId).val($(this).find("email").text());     
+                if ($(this).find("tipo_utente").text() === "3") $("#docentetutor"+numberId).attr('checked',true);
+                if ($(this).find("tipo_utente").text() === "2") $("#docentereferente"+numberId).attr('checked',true);
                 $("#username"+numberId).on("input", function (){
                     $.ajax({
                         type : 'POST',
@@ -113,6 +119,7 @@ function sendData(iddocente, numberId)
     docente.nome = $("#nome"+numberId).val();
     docente.telefono = $("#telefono"+numberId).val();
     docente.email = $("#email"+numberId).val();
+    docente.tipo_utente = ($("#docentereferente"+numberId).prop('checked') === true) ? "2" : "3";
     
     $.ajax({
         type : 'POST',
@@ -127,8 +134,7 @@ function sendData(iddocente, numberId)
                 $("#label"+numberId).html($("#cognome"+numberId).val() + " " + $("#nome"+numberId).val() + " ("+$("#username"+numberId).val()+")");
             }
         }
-    })
-    
+    });
     
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
@@ -164,6 +170,14 @@ function setOnChangeEvents(numberId)
     $("#cognome"+numberId).on('input',((function (e){ $("#cognome"+numberId).css('color','red'); })));
     $("#telefono"+numberId).on('input',((function (e){ $("#telefono"+numberId).css('color','red'); })));
     $("#email"+numberId).on('input',((function (e){ $("#email"+numberId).css('color','red'); })));
+    $("#docentereferente"+numberId).change(((function (e){ 
+        $("#docref").css("color","red"); 
+        $("#docentetutor"+numberId).prop("checked", false);
+    })));
+    $("#docentetutor"+numberId).change(((function (e){ 
+        $("#doctut").css("color","red"); 
+        $("#docentereferente"+numberId).prop("checked", false);
+    })));
 }
 
 function resetColors(numberId)
@@ -174,4 +188,6 @@ function resetColors(numberId)
     $("#cognome"+numberId).css('color','#555');
     $("#telefono"+numberId).css('color','#555');
     $("#email"+numberId).css('color','#555');
+    $("#docref").css("color","#555");
+    $("#doctut").css("color","#555");
 }
