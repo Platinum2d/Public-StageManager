@@ -5,12 +5,12 @@
 </data>
 XML;
 
-        include '../../../../../../functions.php';
+        include '../../../../functions.php';
     //header ( "Content-Type: application/xml" );
 
     $xml = new SimpleXMLElement ( $xmlstr );
     
-    $connection = dbConnection("../../../../../../../");    
+    $connection = dbConnection("../../../../../");    
     
     $Query = "SELECT id_scuola, nome FROM scuola ORDER BY nome ASC";
     

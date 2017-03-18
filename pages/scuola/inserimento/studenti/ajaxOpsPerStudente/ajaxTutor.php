@@ -4,11 +4,11 @@
 <data>
 </data>
 XML;
-    include '../../../../../../functions.php';
+    include '../../../../functions.php';
     //header ( "Content-Type: application/xml" );    
     
     $xml = new SimpleXMLElement ( $xmlstr );    
-    $connection = dbConnection("../../../../../../../");    
+    $connection = dbConnection("../../../../../");    
     $idAzienda = $_POST['idAzienda'];
     
     

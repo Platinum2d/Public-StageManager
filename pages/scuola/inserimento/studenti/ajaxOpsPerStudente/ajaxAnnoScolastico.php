@@ -7,8 +7,8 @@ XML;
 
     $xml = new SimpleXMLElement ( $xmlstr );
 
-    include '../../../../../../functions.php';
-    $connection = dbConnection("../../../../../../../");
+    include '../../../../functions.php';
+    $connection = dbConnection("../../../../../");
     
     $query = "SELECT * FROM `anno_scolastico` ORDER BY `nome_anno` DESC";
     $result = $connection->query($query);

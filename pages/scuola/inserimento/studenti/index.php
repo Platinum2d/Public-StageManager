@@ -1,9 +1,9 @@
 <?php
-    include '../../../../../functions.php';
-    checkLogin ( scuolaType , "../../../../../../");
+    include '../../../functions.php';
+    checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci studenti" );
     echo "<script src='scripts/script.js'></script>";
-    import("../../../../../../");
+    import("../../../../");
 ?>
 <script>
     addSelectionsFor('anno_scolastico');
@@ -12,8 +12,8 @@
     
 <body>
     <?php
-        topNavbar ("../../../../../../");
-        titleImg ("../../../../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
     ?>
         
     <script> 
@@ -174,5 +174,5 @@
         
 </body>
 <?php
-    close_html ("../../../../../../");
+    close_html ("../../../../");
 ?>

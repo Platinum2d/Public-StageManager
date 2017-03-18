@@ -4,12 +4,12 @@
 <data>
 </data>
 XML;
-    include '../../../../../../functions.php';
+    include '../../../../functions.php';
     //header ( "Content-Type: application/xml" )
 
     $xml = new SimpleXMLElement ( $xmlstr );
     
-    $connection = dbConnection("../../../../../../../");    
+    $connection = dbConnection("../../../../../");    
     
     $Query = "SELECT id_docente, username, nome, cognome FROM utente, docente WHERE id_docente = id_utente ORDER BY cognome";
     

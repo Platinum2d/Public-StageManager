@@ -192,19 +192,19 @@ HTML;
                       <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Classi</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/docenti/inserimento/index.php'>Docenti</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/studenti/inserimento/index.php'>Studenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
                 echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
                       <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'>Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'>Classi</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/docenti/visualizzazione/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/visualizzazione/aziende/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/visualizzazione/classi/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/visualizzazione/docenti/index.php'>Docenti</a></li>";
                 echo "</ul></li>";                
                 
                 echo "<li class=\"dropdown dropdown-hover\">

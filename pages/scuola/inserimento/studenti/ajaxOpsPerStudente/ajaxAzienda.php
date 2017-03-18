@@ -4,15 +4,14 @@
 <data>
 </data>
 XML;
-
-    include '../../../../../../functions.php';
+    include '../../../../functions.php';
     //header ( "Content-Type: application/xml" );
 
     $xml = new SimpleXMLElement ( $xmlstr );
     
-    $connection = dbConnection("../../../../../../../");
+    $connection = dbConnection("../../../../../");    
     
-    $Query = "SELECT id_classe, nome FROM classe WHERE classe.scuola_id_scuola = ".$_SESSION['userId']." ORDER BY classe.nome";
+    $Query = "SELECT id_azienda, nome_aziendale FROM utente, azienda WHERE id_utente = id_azienda ORDER BY nome_aziendale";
     
     if (!$result = $connection->query($Query))
     {
@@ -20,12 +19,12 @@ XML;
     }
     else 
     {
-        $classi = $xml->addChild("classi");
+        $aziende = $xml->addChild("aziende");
         while ($row = $result->fetch_assoc())
         {
-            $classe = $classi->addChild("classe");
-            $classe->addChild("id", $row['id_classe']);
-            $classe->addChild("nome", $row['nome']);
+            $azienda = $aziende->addChild("azienda");
+            $azienda->addChild("id",$row['id_azienda']);
+            $azienda->addChild("nome",$row['nome_aziendale']);            
         }
         
         echo $xml->asXML();

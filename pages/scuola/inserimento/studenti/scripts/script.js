@@ -97,7 +97,10 @@ function sendData()
         success : function(msg)
         {
             if (msg === "ok")
+            {
                 freeFields();
+                printSuccess("Inserimento Riuscito", "<div align='center'>Studente inserito correttamente!</div>");
+            }
         }                
     });
 }

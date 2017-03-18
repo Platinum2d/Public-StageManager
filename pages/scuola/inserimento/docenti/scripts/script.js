@@ -1,4 +1,4 @@
-docente = {
+prdocente = {
     'username': '',
     'password': '',
     'confermaPassword': '',
