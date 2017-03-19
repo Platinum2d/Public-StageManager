@@ -148,7 +148,8 @@ function addPasswordEdit()
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     };
-    
+
+    $("#password").hide();
     $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
                                       <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
                                       <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
@@ -158,6 +159,7 @@ function addPasswordEdit()
                                       <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
                                       </div>\n\
                                       <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+    $("#password").fadeIn("slow");
     $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();

@@ -354,8 +354,6 @@ HTML;
         echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
-        echo "<link href='".$goBack."lib/jquery-te/jquery-te-1.4.0.css' type'text/css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
         echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/custom/css/custom.css' rel='stylesheet'>";
