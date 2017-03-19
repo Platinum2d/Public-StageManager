@@ -6,7 +6,7 @@ docente = {
     'cognome': '',
     'telefono': '',
     'email': '',
-    'docente_tutor' : true
+    'docente_tutor' : '0'
 };
 
 function send()
@@ -23,7 +23,7 @@ function send()
     docente.telefono = ''+$("#TelefonoDocente").val().trim();
     docente.email = ''+$("#EmailDocente").val().trim();
     if ($("#isDocenteReferente").is(":checked")) 
-        docente.docente_tutor = false;
+        docente.docente_tutor = '0';
     
     if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty())
     {
