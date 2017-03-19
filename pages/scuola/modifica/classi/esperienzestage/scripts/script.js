@@ -24,7 +24,7 @@ function sendData(classe, anno, stage)
             if (msg === "ok")
                 location.reload();
             else
-                printError("Eliminazione non riuscita","Contattare l'amministratore");
+                printError("Inserimento non riuscito","<div align='center'>Contattare l'amministratore</div>");
         }
     });
 }
