@@ -32,11 +32,13 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id = "mainPanel">
-                    <h1> Esperienze di stage della <?php echo $nomeclasse; ?> (A.S <?php echo $nomeanno; ?>) </h1>    
+                    <h1> Esperienze di stage della <?php echo $nomeclasse; ?> </h1>    
                     <br>
                     <div class="row">
                         <div class="col col-sm-4">
-                            
+                            <p class="large text-left">
+                                <u>E' caldamente consigliato l'inserimento di TUTTI gli studenti della classe <?php echo $nomeclasse; ?> prima di procedere</u>
+                            </p>
                         </div>
                         <div class="col col-sm-4">
                             <select id='add' class="form-control">
@@ -56,9 +58,9 @@
                             </button>
                         </div>
                     </div>
-                    
+                        
                     <br>
-                    
+                        
                     <table class="table table-bordered" id="table">
                         <thead style="background : #eee">
                         <th style="text-align : center; width: 50%">
@@ -71,7 +73,7 @@
                             Azioni
                         </th>
                         </thead>
-                        
+                            
                         <tbody>
                             <?php
                                 $query = "SELECT id_classe_has_stage, inizio_stage, durata_stage FROM stage AS s, classe_has_stage AS chs WHERE s.id_stage = chs.stage_id_stage AND chs.classe_id_classe = $classe AND chs.anno_scolastico_id_anno_scolastico = $anno ORDER BY inizio_stage DESC";
@@ -89,12 +91,24 @@
                         </tbody>
                     </table>
                     <br>
+                    <br>
+                    <div class='row'>
+                        <div class="col col-sm-12">
+                            <div class='row'>
+                                <div class="col col-sm-4">
+                                </div>
+                                <div class="col col-sm-8" align='right'>
+                                    <h3>A.S. <?php echo $nomeanno; ?></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>        
 </body>
-
+    
 <?php
     close_html ("../../../../../");
 ?>
