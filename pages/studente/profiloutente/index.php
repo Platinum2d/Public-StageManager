@@ -41,18 +41,17 @@
                             <?php printProfileImageSection($connessione); ?>
                         </div>
                         <div class="col col-sm-9">
-                            <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout:fixed"><tr>
-                                    <th class="col-sm-5">Username</th>
-                                        <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                            <div><table id="myInformations" class="table table-striped table-bordered table-responsive" style="table-layout:fixed"><tr>
+                                    <th class="col-sm-3">Username</th>
+                                        <td id="username" class="col-sm-6"><?php echo $username; ?></td>
                                     </tr>
                                     <tr>
-                                        <th class="col-sm-5">Password</th>
-                                        <td id="password" class="col-sm-5"></td>
-                                    </tr>
-                                    
+                                        <th>Password</th>
+                                        <td id="password"></td>
+                                    </tr>                                    
                                     <tr>
-                                        <th class="col-sm-5">Nome</th>
-                                        <td id="first" class="col-sm-5"><?php echo $nome;?></td>
+                                        <th>Nome</th>
+                                        <td id="first"><?php echo $nome;?></td>
                                     </tr>
                                     <tr>
                                         <th>Cognome</th>

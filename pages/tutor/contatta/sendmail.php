@@ -33,5 +33,5 @@
     }
     // Da inserire l'url della home page o un redirect automatico.
     echo "<script> alert($email_destinatario + ' ' + $object + ' ' + $msg + ' ' + $headers) </script>";
-    header ( "location: " . prj_pages . "/tutor/contatta/index.php" );
+    header ( "location: index.php" );
 ?>

@@ -1,6 +1,7 @@
 $(document).ready(function (){
     $(".segnalation").click(function (){
         var id_segnalazione = $(this).attr("name");
+        var id_segnalatore = $(this).find(".userCell").attr("name"); //visualizzazione futura dei segnalatoriS
         
         $.ajax({
             type : 'POST',

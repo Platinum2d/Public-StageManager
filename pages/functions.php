@@ -101,6 +101,8 @@ HTML;
                     echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
                     echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
                     echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/settori/index.php'>Settori</a></li>";
+                    echo " <li><a href='".$goBack."pages/super_user/visualizza/stage/index.php'>Stage</a></li>";
                     echo " <li><a href='".$goBack."pages/super_user/visualizza/tutor/index.php'>Tutor</a></li>";
                 echo "</ul></li>";
                    
@@ -120,6 +122,7 @@ HTML;
 //                 //echo "<li> <a> <span class=\"glyphicon glyphicon-star\" aria-hidden=\"true\">guida</span> </a></li>";
 //                echo "<li><a href='".$goBack."index.php'>Home</a></li>"; 
                 echo "<li><a href='".$goBack."pages/docente_referente/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/gestione-studenti/index.php'>Gestione studenti</a></li>";
                 echo <<<HTML
                     </ul>      
 HTML;
@@ -189,27 +192,30 @@ HTML;
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/aziende/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Aziende <span class=\"caret\"></span></a>
+                      <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/aziende/inserimento/index.php'>Inserisci Aziende</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/aziende/visualizzazione/index.php'> Visualizza Aziende </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
                 echo "</ul></li>";
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/classi/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Classi <span class=\"caret\"></span></a>
+                      <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                 
-                echo "<li><a href='".$goBack."pages/scuola/classi/inserimento/index.php'>Inserisci Classi</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/classi/visualizzazione/index.php'> Visualizza Classi </a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/modifica/aziende/index.php'>Aziende</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
                 echo "</ul></li>";                
                 
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/docenti/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Docenti Referenti <span class=\"caret\"></span></a>
+                      <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">  Gestisci  <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
-                echo "<li><a href='".$goBack."pages/scuola/docenti/inserimento/index.php'>Inserisci Docenti referenti</a></li>";
-                echo "<li><a href='".$goBack."pages/scuola/docenti/visualizzazione/index.php'> Visualizza Docenti referenti</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
@@ -348,8 +354,6 @@ HTML;
         echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
-        echo "<script src='".$goBack."lib/jquery-te/jquery-te-1.4.0.min.js'></script>";
-        echo "<link href='".$goBack."lib/jquery-te/jquery-te-1.4.0.css' type'text/css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
         echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/custom/css/custom.css' rel='stylesheet'>";
