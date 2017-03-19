@@ -19,8 +19,8 @@ $(document).ready(function() {
 		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
-    	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
-    	regDesc.find("textarea").jqte();
+    	regDesc.append("<textarea class='newDesc form-control'>" + desc + "</textarea>");
+    	regDesc.find("textarea");
     	regDesc.append("<textarea class='descBackup' style='display: none;'>" + desc + "</textarea>");
     	regtr.find("td.regOpt").empty();
     	regtr.find("td.regOpt").append('<button class="descSave btn btn-primary">Salva</button> <button class="descDiscard btn btn-primary">Annulla</button>');
@@ -166,7 +166,7 @@ $(document).ready(function() {
     	
     	////init tr e  td
     	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
-    	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
+    	$("#DescAddTR").append("<td><textarea id='DescAddDesc' class='form-control'/></td>");
     	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Annulla</button></td>");
     	
     	//init componente
@@ -176,7 +176,7 @@ $(document).ready(function() {
     		minDate: inizio_stage,
     		maxDate: fine_stage
 		});
-    	$("#DescAddDesc").jqte();
+    	$("#DescAddDesc");
     	$("#DescAddButton").attr("disabled", true);
     	
     	//add events (save and delete)
