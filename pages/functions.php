@@ -215,7 +215,7 @@ HTML;
                 echo "<li class=\"dropdown dropdown-hover\">
                       <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">  Gestisci  <span class=\"caret\"></span></a>
                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
+                echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
                 echo "</ul></li>";
                 echo <<<HTML
                     </ul>      
