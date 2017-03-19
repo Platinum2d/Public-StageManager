@@ -144,7 +144,7 @@ function openValutazioneStudente(numberId, id_studente_has_stage)
                 else
                     $("#valstud").find("tbody").append("<tr style=\"background-color:rgba(255, 0, 0, 0.3);\"> <td> Acquisisce nuove conoscenze </td> <td style=\"text-align : center\"> "+$(xml).find("valutazione_studente").find("anc").text()+" </td> </tr>");        
                 
-                $("<label>Commento Finale:</label><textarea class='form-control'>"+$(xml).find("valutazione_studente").find("c").text()+"</textarea>").insertAfter("#valstud");
+                $("<label>Commento Finale:</label><textarea readonly class='form-control'>"+$(xml).find("valutazione_studente").find("c").text()+"</textarea>").insertAfter("#valstud");
             }
             else
             {
