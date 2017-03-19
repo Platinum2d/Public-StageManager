@@ -2,17 +2,6 @@ $(document).ready(function (){
     $("#actionwrapper").hide();
     $("#viewoptions").hide();
     
-    $.ajax({
-        url : 'ajaxOpsPerClasse/ajaxScuola.php',
-        cache : false,
-        success : function (xml)
-        {
-            $(xml).find("scuole").find("scuola").each(function (){
-                $("#classes").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" (username: "+$(this).find("username").text()+") </option>");
-            });
-        }
-    });
-    
     $("#classes").change(function (){
         $.ajax({
             url : 'ajaxOpsPerClasse/ajaxClasse.php',
