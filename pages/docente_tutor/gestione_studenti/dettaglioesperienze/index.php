@@ -64,8 +64,8 @@
                                 while ($row = $result->fetch_assoc())
                                 {
                                     echo 
-                                    "<tr style=\"font-size : 20px\"> "
-                                        . "<td class=\"tdlink\"> "
+                                    "<tr class='tdlink' style=\"font-size : 20px\"> "
+                                        . "<td> "
                                             . "<form class=\"redirectform\" style=\"height : 0px\" action = \"dettaglio.php\" method = \"POST\">"
                                             . "<input type=\"hidden\" name=\"idc\" value=\"$id_classe\"> "
                                             . "<input type=\"hidden\" name=\"ida\" value=\"$id_anno\"> "
