@@ -139,14 +139,14 @@ function addPasswordEdit()
     };
     
     $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
+                                      <div class=\"col-xs-7\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
                                       <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
                                       <span> Conferma la nuova </span> <input for=\"confermapassword\" class=\"form-control\" type=\"password\" > <br>\n\
                                       \n\
                                       <input class=\"btn btn-primary leftAlignment\" type=\"button\" value=\"Salva le modifiche\" disabled=\"true\" onclick=\"updatePassword()\">\n\
                                       <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
                                       </div>\n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+                                      <div class=\"col-xs-5\" style=\"padding:0px\" id=\"reportcol\"></div>");
     $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();
