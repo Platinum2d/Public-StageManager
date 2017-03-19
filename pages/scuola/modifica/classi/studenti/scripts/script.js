@@ -53,7 +53,7 @@ function openEdit(id, idStudente, classe, anno)
                 </div>");
     
     $("#HiddenBox"+numberId).hide();
-    $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
+    $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+", "+classe+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
     $("#iniziostage"+numberId).datepicker({ dateFormat: 'yy-mm-dd' });    
     setOnChangeEvents(numberId);
     toget = {
@@ -141,7 +141,7 @@ function openEdit(id, idStudente, classe, anno)
     $("#ButtonBox"+numberId).height($("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height());
 }
 
-function sendData(idStudente, numberId)
+function sendData(idStudente, numberId, id_classe)
 {
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
@@ -153,12 +153,10 @@ function sendData(idStudente, numberId)
     studente.citta = $("#citta"+numberId+"").val();
     studente.mail = $("#email"+numberId+"").val();
     studente.telefono = $("#telefono"+numberId+"").val();
-    
-    var appoggio = $("#classe"+numberId+"").find(':selected').attr('value') + '';
-    studente.classe = (!appoggio.isEmpty()) ? $("#classe"+numberId+"").find(':selected').attr('value') : '';
+    studente.classe = id_classe;
     
     studente.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
-    
+        
     if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty() && !studente.citta.isEmpty() && !studente.mail.isEmpty())
     {
         
@@ -167,16 +165,12 @@ function sendData(idStudente, numberId)
             url : 'ajaxOpsPerStudente/ajaxInvia.php',
             data : studente,
             success : function (xml)
-            {      
-                var query    = $(xml).find("query").text();
+            {
+                var query = $(xml).find("query").text();
                 $("#label"+numberId).html(studente.cognome + " " + studente.nome + " ("+studente.username+")");
                 resetColors(numberId);
-            },
-            error : function ()
-            {
-                alert("errore")
             }
-        })
+        });
     }
 }
 
