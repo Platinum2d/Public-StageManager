@@ -1,7 +1,7 @@
 <?php
-    include '../../functions.php';
+    include '../../../functions.php';
     if ($_POST ['first']) {
-        $connessione = dbConnection ("../../../");
+        $connessione = dbConnection ("../../../../");
         $id_az = $_SESSION ['userId'];
         $nome = $connessione->escape_string ( $_POST ['first'] );
         $citta = $connessione->escape_string ( $_POST ['city'] );
