@@ -65,3 +65,25 @@ function freeFields()
     $("#TelefonoDocente").val('');
     $("#EmailDocente").val('');
 }
+
+function setUserToAdd()
+{
+    if ($(".active").html() === "Docenti Tutor")
+    {
+        $("input[name='tipo_docente']").val("docente_tutor");
+        localStorage.setItem("tipo_docente", "docente_tutor");
+    }
+    else
+    {
+        $("input[name='tipo_docente']").val("docente_referente");
+        localStorage.setItem("tipo_docente", "docente_referente");
+    }
+}
+
+function handleTypes(id)
+{
+    $(".list-group-item").each(function (){
+        $(this).removeClass("active");
+    });    
+    $("#"+id).addClass("active");
+}

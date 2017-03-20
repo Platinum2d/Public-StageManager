@@ -42,7 +42,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendData();">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendData();">
                             </div>
                             <div class="col col-sm-6"> 
                                 Durata Stage <div class="form-group"> <input type="number" min="1" class="form-control" id="durataStage"> </div>

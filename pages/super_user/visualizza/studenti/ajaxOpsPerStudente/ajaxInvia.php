@@ -1,13 +1,6 @@
-
 <?php
-
+$xmlstr = "<?xml version=\"1.0\" encoding=\"utf-8\" ?> <data></data>";
 include '../../../../functions.php';
-
-$xmlstr = <<<XML
-<?xml version="1.0" encoding="utf-8" ?>
-<data>
-</data>
-XML;
 $xml = new SimpleXMLElement ( $xmlstr ); 
         
 $connessione = dbConnection("../../../../../");
@@ -23,7 +16,7 @@ $telefono = $connessione->escape_string($_POST['telefono']);
 $idclasse = $_POST['classe'];
 
 $userquery = "UPDATE utente SET username = '$username' ";
-if ($password !== "immutato") $userquery .= "`password` = '".md5($password)."' ";
+if ($password !== "immutato") $userquery .= ", `password` = '".md5($password)."' ";
 $userquery .= "WHERE id_utente = $id";
 
 $Query = "UPDATE `studente` SET `nome` = '$nome', `cognome` = '$cognome', `citta` = '$citta', `email` = '$mail', `telefono` = '$telefono' WHERE `id_studente` = $id";

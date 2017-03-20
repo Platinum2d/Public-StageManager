@@ -101,7 +101,7 @@ $(document).ready(function() {
     	
     	
     			error: function(){ //in caso di errore attende 2 secondi
-    				alert("Eliminazione della descrizione non riuscita")
+    				printError ("Errore", "Problema nell'invio della richiesta.");
     			},
     	
     			success: function(msg){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
@@ -135,7 +135,7 @@ $(document).ready(function() {
 	
 	
 	    		error: function(){ //in caso di errore attende 2 secondi
-	    			alert("Invio dei dati non riuscito")
+	    			printError ("Errore", "Problema nell'invio della richiesta.");
 	    		},
 	
 	    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
@@ -150,7 +150,7 @@ $(document).ready(function() {
 	    				DescInit()
 	    			}
 	    			else{
-	    				alert("Errore durante l'invio, prego riprovare");
+	    				printError("Errore", "Errore durante l'invio, prego riprovare.");
 	    			}
 	    		}
 	    	});
@@ -198,7 +198,7 @@ $(document).ready(function() {
 	    			if($("#DescAddDate").val() == ""){
 	    				err_str += "La data non è valida\n"
 	    			}
-	    			alert(err_str)
+	    			printError ("Errore", err_str);
 	    		}		
 	    	
 	    		$.ajax({
@@ -209,17 +209,16 @@ $(document).ready(function() {
 	    	
 	    	
 	    			error: function(){ //in caso di errore attende 2 secondi
-	    				alert("Salvataggio della relazione non riuscito")
+	    				printError ("Errore", "Problema nell'invio della richiesta.");
 	    			},
 	    	
 	    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
 	    				if($(xml).find("status").text() == 0){
 	    					$("#DescAddTR").remove();
-	    					//alert("Relazione salvata con successo")
 	    					DescInit();
 	    				}
 	    				else{
-	    					alert("Salvataggio della relazione non riuscita");
+	    					printErorr ("Errore", "Salvataggio della relazione non riuscita.");
 	    				}
 	    			}
 	    			

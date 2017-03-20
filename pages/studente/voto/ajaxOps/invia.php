@@ -15,7 +15,7 @@
         
     if ($MySQLConnection->connect_error) 
     {
-        echo "invio della valutazione NON riuscito";
+        echo "no ok";
     }
       
       $queryValutazioneId = "SELECT studente_has_stage.valutazione_stage_id_valutazione_stage 
@@ -29,7 +29,7 @@
         			VALUES ('$Descrizione', '$Voto');";
             
         if (!$MySQLConnection->query ( $Query )) {
-			echo "invio della valutazione NON riuscito";                
+			echo "no ok";                
         }
         else {
         	$idNuovaValutazioneStage = $MySQLConnection->insert_id;
@@ -37,10 +37,10 @@
           					SET `valutazione_stage_id_valutazione_stage` =  '$idNuovaValutazioneStage' 
           					WHERE `id_studente_has_stage` = $idStudenteHasStage;";
         	if (!$MySQLConnection->query ( $Query )) {
-        		echo "invio della valutazione NON riuscito";
+        		echo "no ok";
         	}
         	else {
-        		echo "invio della valutazione riuscita";
+        		echo "ok";
         	}
         }
       }
@@ -55,11 +55,11 @@
           					WHERE  `valutazione_stage`.`id_valutazione_stage` = $idValutazione;";
           if ($MySQLConnection->query($UpdateQuery))
           {
-              echo "invio della valutazione riuscita";
+              echo "ok";
           }
           else
           {
-                echo "Modifica della valutazione non riuscita";
+                echo "no ok";
           }
       }
     $MySQLConnection->close ();

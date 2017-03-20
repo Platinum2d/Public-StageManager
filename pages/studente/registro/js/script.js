@@ -99,7 +99,7 @@ function sendData(progressiv, idDescrizione)
 	            },
 	            error : function ()
 	            {
-	                alert("errore")
+	                printError ("Errore", "Problema nell'invio della richiesta.");
 	            }
 	        });
     	}

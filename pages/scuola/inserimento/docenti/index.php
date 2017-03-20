@@ -59,7 +59,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>                              
-                                <input class="btn btn-primary" value="Invia" onclick="send();">     
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="send();">     
                             </div>
                             <div align="center" class="col col-sm-6">
                                 <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
@@ -67,10 +67,42 @@
                         </form>       
                     </div>
                 </div>
+                <div class="panel">
+                    <div class="row">
+                        <div class="col col-sm-12">
+                            <div class="row">
+                                <div class="col col-sm-6">
+                                    <form onsubmit="setUserToAdd();" enctype="multipart/form-data" method="POST" action="docsloader.php" name="uploadform">
+                                        Seleziona il file contenente gli studenti da caricare:
+                                        <br>
+                                        <br>
+                                        <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="docsfile">
+                                        <input type="hidden" name="tipo_docente" value="">
+                                        <br>
+                                        <input type="submit" class="btn btn-primary" value="invia" name="invio">
+                                        <div align="right">
+                                            <u><a style="color: #828282" href="Stage_Manager_Modulo_Docenti.xlsx" download>Scarica modello per i docenti</a></u>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="list-group">
+                                        <a href="javascript:handleTypes('docstutor')" id='docstutor' class="list-group-item active">Docenti Tutor</a>
+                                        <a href="javascript:handleTypes('docsref')" id='docsref' class="list-group-item">Docenti Referenti</a>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>                    
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <script>
+        $(document).ready(function (){
+            $(".buttonText").html("        Sfoglia");
+            $(".icon-span-filestyle").remove();
+        });
         $("#UsernameDocente").on('input',function (){
             $.ajax({
                 type : 'POST',
