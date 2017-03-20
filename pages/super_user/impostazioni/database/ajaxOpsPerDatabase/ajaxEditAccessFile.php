@@ -1,4 +1,5 @@
 <?php    
+    require_once "../../../../../db_config.php";
     $user = $_POST['user'];
     $host = $_POST['host'];
     $name = $_POST['name'];
@@ -9,24 +10,33 @@
     }
     else
     {
-        $recoveredData = file_get_contents("../../../../../db.txt");
-        $database = unserialize($recoveredData);
-        $password = $database['password'];
+        $password = $dbpassword;
     }
-        
-    $connessione = new mysqli( $host, $user, $password, $name );
-    if ($connessione->error) 
-        echo $connessione->error;
-    else
-    {
-        $createfile = fopen("../../../../../db.txt", "w");        
-        $serializedPOST = serialize($_POST);
-        file_put_contents("../../../../../db.txt", $serializedPOST);
-        fclose($createfile);
-        $_SESSION['dbhost'] = $name;
-        $_SESSION['dbuser'] = $user;
-        $_SESSION['dbpassword'] = $password;
-        $_SESSION['dbname'] = $name;
+    
+    if ($overwrite) {
+        $overwrite = "true";
+    }
+    else {
+        $overwrite = "false";
+    }
+    if ($readytouse) {
+        $readytouse = "true";
+    }
+    else {
+        $readytouse = "false";
+    }
+    $php = "<?php\n" .
+            "\t\$dbhost = \"$host\";\n" .
+            "\t\$dbname = \"$name\";\n" .
+            "\t\$dbuser = \"$user\";\n" .
+            "\t\$dbpassword = \"$password\";\n" .
+            "\t\$overwrite = $overwrite;\n" .
+            "\t\$readytouse = $readytouse;\n" .
+            "?>";
+    if (file_put_contents('../../../../../db_config.php', $php)) {
         echo "ok";
+    }
+    else {
+        echo "no ok";
     }
 ?>
