@@ -203,6 +203,7 @@ HTML;
                     echo "</ul></li>";
                     echo <<<HTML
                         </ul>
+HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
                 
