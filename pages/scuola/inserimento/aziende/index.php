@@ -69,7 +69,7 @@
                                 <br>
                                 
                                 * Campo Obbligatorio<br>
-                                <input style="margin-top : 5px" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
+                                <input type="button" style="margin-top : 5px" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                     
                             </div>
                             <div class="col col-sm-6">                                
