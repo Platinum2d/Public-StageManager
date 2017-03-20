@@ -54,22 +54,10 @@ function openEdit(){
         }
     });
     
+    checkPassword();
+    
     $("#actualpassword").on("input", function (){
-        $.ajax({
-            url : 'ajaxOpsPerDatabase/ajaxCheckPassword.php',
-            type : 'POST',
-            cache : false,
-            data : { 'password' : $("#actualpassword").val() },
-            success : function (msg)
-            {
-                if (msg === "ok")
-                    $("#validpassword").val("1");
-                else
-                    $("#validpassword").val("0");
-            }
-        });
-        
-        checkTheWhole();
+    	checkPassword ();
     });
     
     $("#newpassword").on("input", function (){        
@@ -125,9 +113,27 @@ function editAccess(){
 }
 
 function checkTheWhole(){
-    //alert($("#host").html().trim().isEmpty() + " " +$("#user").html().trim().isEmpty()+ " " + $("#name").html().trim().isEmpty())
     if (!$("#host").html().trim().isEmpty() && !$("#user").html().trim().isEmpty() && !$("#name").html().trim().isEmpty() && $("#validpassword").val() === "1" && $("#newpassword").val() === $("#confirmnewpassword").val())
         $("#saveButton").prop("disabled", false);
     else
         $("#saveButton").prop("disabled", true);
+}
+
+function checkPassword() {
+	$.ajax({
+        url : 'ajaxOpsPerDatabase/ajaxCheckPassword.php',
+        type : 'POST',
+        cache : false,
+        data : { 'password' : $("#actualpassword").val() },
+        success : function (msg)
+        {
+            if (msg === "ok")
+                $("#validpassword").val("1");
+            else
+                $("#validpassword").val("0");
+        },
+        complete : function () {
+            checkTheWhole();
+        }
+    });
 }

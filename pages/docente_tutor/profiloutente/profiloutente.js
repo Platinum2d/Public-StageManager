@@ -1,12 +1,17 @@
 contact = {
+    'username' : '',
     'first': '',
     'last': '',
     'mail': '',
     'phone': ''
 };
 
+var initialUsername;
+
 $(document).ready(function(){
 	
+    initialUsername = $("#username").html();
+    contact.username=$("#username").html();
     contact.first=$("#first").html();
     contact.last=$("#last").html();
     contact.mail=$("#mail").html();
@@ -36,6 +41,7 @@ $(document).ready(function(){
     $("#saveButton").click(function(){
 
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
+        contact.username = $("#username").html();
         contact.first=$("#first").html();
         contact.last=$("#last").html();
         contact.mail=$("#mail").html();
@@ -47,12 +53,21 @@ $(document).ready(function(){
                 type: "POST",
                 url: "ajaxOps/ajax.php",
                 data: contact,
-                cache: false
+                cache: false,
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                        exitEdit();
+                    else
+                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
+                                                               Se il problema persiste, contattare un amministratore.</div>"); 
+                }
             });
         }
-		
-        //esco dalla modalità edit
-        exitEdit();
+        else
+        {
+            printError("Informazioni incomplete", "<div align='center'>Si prega di completare tutti i campi necessari</div>");
+        }
     });
 
     $("#cancelButton").click(function(){
@@ -81,6 +96,46 @@ $(document).ready(function(){
         $("#editButton").show();
                 
     }
+    
+    $("#username").on("input", function () {
+        if ($("#username").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        if ($("#username").html().toString().trim().length > 50)
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().find("th").css("color", "red");
+            return;
+        }
+        
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckUserExistence.php',
+            cache : false,
+            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            success : function (esito)
+            {
+                if (esito === "trovato")
+                {
+                    $("#saveButton").prop("disabled", true);
+                    $("#username").parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().find("th").css("color", "red");
+                }
+                else
+                {
+                    $("#saveButton").prop("disabled", false);
+                    $("#username").parent().find("th").html("Username");
+                    $("#username").parent().find("th").css("color", "#828282");
+                }
+            }
+        });
+    });
 });
 
 function addPasswordEdit()
@@ -90,14 +145,14 @@ function addPasswordEdit()
     };
     
     $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
+                                      <div class=\"col-xs-7\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
                                       <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
                                       <span> Conferma la nuova </span> <input for=\"confermapassword\" class=\"form-control\" type=\"password\" > <br>\n\
                                       \n\
                                       <input class=\"btn btn-primary leftAlignment\" type=\"button\" value=\"Salva le modifiche\" disabled=\"true\" onclick=\"updatePassword()\">\n\
                                       <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
                                       </div>\n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+                                      <div class=\"col-xs-5\" style=\"padding:0px\" id=\"reportcol\"></div>");
     $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();

@@ -19,8 +19,8 @@ $(document).ready(function() {
 		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
-    	regDesc.append("<textarea class='newDesc'>" + desc + "</textarea>");
-    	regDesc.find("textarea").jqte();
+    	regDesc.append("<textarea class='newDesc form-control'>" + desc + "</textarea>");
+    	regDesc.find("textarea");
     	regDesc.append("<textarea class='descBackup' style='display: none;'>" + desc + "</textarea>");
     	regtr.find("td.regOpt").empty();
     	regtr.find("td.regOpt").append('<button class="descSave btn btn-primary">Salva</button> <button class="descDiscard btn btn-primary">Annulla</button>');
@@ -101,7 +101,7 @@ $(document).ready(function() {
     	
     	
     			error: function(){ //in caso di errore attende 2 secondi
-    				alert("Eliminazione della descrizione non riuscita")
+    				printError ("Errore", "Problema nell'invio della richiesta.");
     			},
     	
     			success: function(msg){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
@@ -135,7 +135,7 @@ $(document).ready(function() {
 	
 	
 	    		error: function(){ //in caso di errore attende 2 secondi
-	    			alert("Invio dei dati non riuscito")
+	    			printError ("Errore", "Problema nell'invio della richiesta.");
 	    		},
 	
 	    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
@@ -150,7 +150,7 @@ $(document).ready(function() {
 	    				DescInit()
 	    			}
 	    			else{
-	    				alert("Errore durante l'invio, prego riprovare");
+	    				printError("Errore", "Errore durante l'invio, prego riprovare.");
 	    			}
 	    		}
 	    	});
@@ -166,7 +166,7 @@ $(document).ready(function() {
     	
     	////init tr e  td
     	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
-    	$("#DescAddTR").append("<td><textarea id='DescAddDesc' /></td>");
+    	$("#DescAddTR").append("<td><textarea id='DescAddDesc' class='form-control'/></td>");
     	$("#DescAddTR").append("<td><button id='DescAddSave' class='btn btn-primary'>Salva</button> <button id='DescAddDelete' class='btn btn-primary'>Annulla</button></td>");
     	
     	//init componente
@@ -176,7 +176,7 @@ $(document).ready(function() {
     		minDate: inizio_stage,
     		maxDate: fine_stage
 		});
-    	$("#DescAddDesc").jqte();
+    	$("#DescAddDesc");
     	$("#DescAddButton").attr("disabled", true);
     	
     	//add events (save and delete)
@@ -198,7 +198,7 @@ $(document).ready(function() {
 	    			if($("#DescAddDate").val() == ""){
 	    				err_str += "La data non è valida\n"
 	    			}
-	    			alert(err_str)
+	    			printError ("Errore", err_str);
 	    		}		
 	    	
 	    		$.ajax({
@@ -209,17 +209,16 @@ $(document).ready(function() {
 	    	
 	    	
 	    			error: function(){ //in caso di errore attende 2 secondi
-	    				alert("Salvataggio della relazione non riuscito")
+	    				printError ("Errore", "Problema nell'invio della richiesta.");
 	    			},
 	    	
 	    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
 	    				if($(xml).find("status").text() == 0){
 	    					$("#DescAddTR").remove();
-	    					//alert("Relazione salvata con successo")
 	    					DescInit();
 	    				}
 	    				else{
-	    					alert("Salvataggio della relazione non riuscita");
+	    					printErorr ("Errore", "Salvataggio della relazione non riuscita.");
 	    				}
 	    			}
 	    			

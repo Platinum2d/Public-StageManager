@@ -14,7 +14,12 @@ function sendGrade()
         },
         success : function (msg)
         {
-            alert(msg);
+            if (msg == 'ok') {
+            	printSuccess ("Invio riuscito", "Votazione inviata con successo.");
+            }
+            else {
+            	printErrorr ("Errore", "Problema nell'invio della votazione.");
+            }
         }
     });
 }

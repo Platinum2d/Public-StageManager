@@ -1,9 +1,8 @@
 <?php
     $psw = $_POST['password'];
-    $recoveredData = file_get_contents("../../../../../db.txt");
-    $database = unserialize($recoveredData);
+    require_once "../../../../../db_config.php";
     
-    if (($database['password']) === ($psw))
+    if (($dbpassword) === ($psw))
         echo "ok";
     else
         echo "non ok";
