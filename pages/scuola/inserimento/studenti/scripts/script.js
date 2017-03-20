@@ -37,6 +37,7 @@ function addSelectionsFor(field)
                 {
                     $(xml).find("anni").find("anno").each(function (){
                         $("#annoclasseStudente").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
+                        $("#annoclasseStudenteForm").append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+" </option>");
                     });
                 }
             });
@@ -54,6 +55,7 @@ function addSelectionsFor(field)
                     $(xml).find('classi').find("classe").each(function()
                     {
                         $('#classeStudente').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+"</option>");
+                        $('#classeStudenteForm').append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("nome").text()+"</option>");
                     });
                 }
             });
@@ -103,4 +105,13 @@ function sendData()
             }
         }                
     });
+}
+
+function updateFormInputs()
+{
+    $("form[name='uploadform']").find("input[name='classe']").val($("#classeStudenteForm").val());
+    $("form[name='uploadform']").find("input[name='anno']").val($("#annoclasseStudenteForm").val());
+    localStorage.setItem("nome_classe", $("#classeStudenteForm").find(":selected").text());
+    localStorage.setItem("nome_anno", $("#annoclasseStudenteForm").find(":selected").text());
+    alert($("#classeStudenteForm").find(":selected").text());
 }
