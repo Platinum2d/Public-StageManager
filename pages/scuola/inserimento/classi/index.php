@@ -50,7 +50,7 @@
                         </form>                        
                     </div>
                     * Campo Obbligatorio <br><br>
-                    <input class="btn btn-primary" value="Invia" onclick="sendData();">
+                    <input type="button" class="btn btn-primary" value="Invia" onclick="sendData();">
                 </div>
                 
 <!--                <div class="panel" style="min-height: 0">
