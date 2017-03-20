@@ -435,12 +435,11 @@ function showDatiAzienda (father, id_azienda) {
         						"</table>");
         	}
     		else {
-    			alert (xml2);
     			printError ("Errore", "Errore nella richiesta delle informazioni dell'azienda selezionata.");
     		}
     	},
     	error : function () {
-    		printError ("Errore", "Errore nella richiesta.");
+    		printError ("Errore", "Problema nell'invio della richiesta.");
     	}
 	});
 }
