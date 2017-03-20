@@ -141,10 +141,10 @@
                                                 Ecco le informazioni relative all'azienda alla quale sei stato assegnato:
                                             </p>
                                             <br>
-                                            <div class=\"table-responsive\"><table id="myStage" class="table table-striped">
+                                            <div class=\"table-responsive\"><table id="myStage" class="table table-striped table-bordered">
                                                 <tr>
-                                                    <th class="col-sm-5">Nome azienda</th>
-                                                    <td class="col-sm-5">$nome</td>
+                                                    <th class="col-sm-4">Nome azienda</th>
+                                                    <td class="col-sm-8">$nome</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Citt&agrave; azienda</th>
