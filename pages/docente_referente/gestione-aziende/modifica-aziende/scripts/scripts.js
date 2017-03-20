@@ -134,13 +134,16 @@ function deleteMultiple(recordperpagina)
                             }
                         });                        
                     }                    
+                },
+                error : function () {
+                	printError ("Errore", "Problema nell'invio della richiesta.");
                 }
             });
         }
     }
     
     if (error)
-        alert("Sono insorti errori durante l'operazione richiesta");
+        printError ("Errore", "Sono insorti errori durante l'operazione richiesta");
     
     if ($("#tableaziende").find("tbody").html().trim().isEmpty())
     {
@@ -243,9 +246,8 @@ function openEdit (id, idazienda)
                 });
             });
         },
-        error : function()
-        {
-            alert("errore")
+        error : function() {
+        	printError ("Errore", "Problema nell'invio della richiesta.");
         }
     })
     $("#HiddenBox"+numberId).fadeIn("slow")
