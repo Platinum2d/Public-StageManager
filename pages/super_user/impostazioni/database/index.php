@@ -5,12 +5,7 @@
     echo "<script src=\"scripts.js\"> </script>";
     open_html ( "Impostazioni - Database" );
     $connessione = dbConnection ("../../../../");
-    $recoveredData = file_get_contents("../../../../db.txt");
-    $database = unserialize($recoveredData);
-    $host = $database["host"];
-    $user = $database["user"];
-    $name = $database["name"];
-    $password = $database["password"];
+    require "../../../../db_config.php";
 ?>
 <body>
     <?php    
@@ -28,21 +23,19 @@
                         <table id="databaseInfo" class="table table-striped" >
                             <tr>
                                 <th class="col-sm-3">Host del server</th>
-                                <td id="host" class="col-sm-5"><?php echo $host; ?></td>
+                                <td id="host" class="col-sm-5"><?php echo $dbhost; ?></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-3">Utente</th>
-                                <td id="user" class="col-sm-5"><?php echo $user ?></td>
+                                <td id="user" class="col-sm-5"><?php echo $dbuser ?></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-3">Nome del database</th>
-                                <td id="name" class="col-sm-5"><?php echo $name; ?></td>
+                                <td id="name" class="col-sm-5"><?php echo $dbname; ?></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-3">Password</th>
-                                <td id="password" class="col-sm-5">
-                                    
-                                </td>
+                                <td id="password" class="col-sm-5">  </td>
                             </tr>
                         </table>
                     </div>
