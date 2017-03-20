@@ -2,22 +2,6 @@
     width : 90px;
 }
 
-body {
-	/*text-align:center;}
-	.btn {
-  background: #00ADE9;
-  
-  -webkit-border-radius: 18;
-  -moz-border-radius: 18;
-  border-radius: 18px;
-  font-family: Courier New;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;*/
-	
-}
-
 .btn:hover {
 	background: #3cb0fd;
 	background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
@@ -34,30 +18,8 @@ textarea#styled {
 	border: 3px solid #cccccc;
 	padding: 5px;
 	border-radius: 10px;
-	font-family: Tahoma, sans-serif;
-	/*background-image: url(bg.gif);
-	background-position: bottom right;
-	background-repeat: no-repeat;*/
 }
 
 h2 {
 	font-size: 16px;
-	/*color:#FF7070; 
-	font-family:Trebuchet Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;}
-	
-	select{
-		width:100px; 
-		padding:5px; 
-		line-height:5px; 
-		border:bold;
-		font-family:Trebuchet Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
-		color:#3498db;
-		font-size:18px;
-		text-align:center;
-		}
-#TutScol { color:red;
-
-}
-#ListAz { 
-color:green;*/
 }

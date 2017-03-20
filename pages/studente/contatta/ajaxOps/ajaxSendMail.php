@@ -17,16 +17,16 @@
         $mittente = $row['email'];   
         $nome = $row['nome'];
         $cognome = $row['cognome'];
-    }
     
-    $headers = "From: ".$mittente;
-    
-    if (mail($destinatario, $oggetto, $messaggio,$headers))
-    {
-        echo "email inviata con successo";
-    }
-    else
-    {
-        echo "email non inviata";
+        $headers .= "From:" . $cognome . " " . $nome . "<" . $mittente .">";
+        
+        if (mail($destinatario, $oggetto, $messaggio,$headers))
+        {
+            echo "email inviata con successo";
+        }
+        else
+        {
+            echo "email non inviata";
+        }
     }
 ?>
