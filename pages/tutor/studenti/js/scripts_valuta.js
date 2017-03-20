@@ -39,13 +39,16 @@ function insertGrades ()
         success : function (msg)
         {
             if (msg === "ok") {
-                alert("Valutazione inserita con successo !");
+                printSuccess ("Inserimento riuscito", "Valutazione inserita con successo!");
                 $("input#SalvaValutazione").attr ("value", "Aggiorna valutazione");
                 $("input#SalvaValutazione").attr ("onclick", "updateGrades();");
             }
             else {
-                alert(msg);
+            	printError ("Errore", "Problema non previsto.");
             }
+        },
+        error : function () {
+        	printError ("Errore", "Problema nell'invio della richiesta.");
         }
     });
     
@@ -74,13 +77,13 @@ function updateGrades()
        success : function (msg)
        {
            if (msg === "ok")
-               alert("Valutazione aggiornata con successo !");
+               printSuccess ("Aggiornamento riuscito", "Valutazione aggiornata con successo!");
            else
-               alert(msg);
+        	   printError ("Errore", "Problema non previsto.");
        },
        error : function(msg)
        {
-           //alert(msg);
+    	   printError ("Errore", "Problema nell'invio della richiesta.");
        }
     });
 }
