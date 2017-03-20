@@ -22,37 +22,35 @@
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
-    function resetDBconf($goBack)
+    /*function resetDBconf($goBack)
     {
-        $recoveredData = file_get_contents("".$goBack."db.txt");
-        $recoveredArray = unserialize($recoveredData);
-        $_SESSION['dbhost'] = $recoveredArray['host'];
-        $_SESSION['dbuser'] = $recoveredArray['user'];
-        $_SESSION['dbpassword'] = $recoveredArray['password'];
-        $_SESSION['dbname'] = $recoveredArray['name'];
+        require_once ($goBack + "db_config.php");
+        $_SESSION['dbhost'] = $host;
+        $_SESSION['dbuser'] = $user;
+        $_SESSION['dbpassword'] = $password;
+        $_SESSION['dbname'] = $name;
     
         $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
         $connessioneforuse->query("USE ".$_SESSION['dbname']);
-    }
+    }*/
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
-        if (!file_exists($goBack."db.txt") || !file_exists($goBack."okuser.txt")) {
-            echo $goBack."install/index.php";
+        require_once ($goBack . "db_config.php");
+        if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
-    
-        if (!isset($_SESSION['dbhost']) || !isset($_SESSION['dbuser']) || !isset($_SESSION['dbpassword']) || !isset($_SESSION['dbname']))
+        /*if (!isset($_SESSION['dbhost']) || !isset($_SESSION['dbuser']) || !isset($_SESSION['dbpassword']) || !isset($_SESSION['dbname']))
         {
             resetDBconf($goBack);
-        }
+        }*/
     
-        $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+        $connessione = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
     
         if ($connessione->connect_error)
         {
-            resetDBconf($goBack);
-            $connessione = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
+            require ($goBack . "db_config.php");
+            $connessione = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
             return ($connessione->connect_error) ? $connessione->connect_error : $connessione;
         }
         else
@@ -312,15 +310,14 @@ HTML;
         }
     
         echo "</li>";
-        echo "<li class=\"button\"> <a href=\"".$goBack."manuale.pdf\"><i class=\"glyphicon glyphicon-book\"> </i> Manuale </a></li>";
+        //echo "<li class=\"button\"> <a href=\"".$goBack."manuale.pdf\"><i class=\"glyphicon glyphicon-book\"> </i> Manuale </a></li>";
         loginButton ($goBack);
         echo"</li></ul>";
     }
     
     function topNavbar($goBack) {  // barra di navigazione che contiene sia la barra orizzontale che i bottoni
-        //         printBadge($goBack);
-        if (!file_exists($goBack."db.txt") || !file_exists($goBack."okuser.txt")) {
-            echo $goBack."install/index.php";
+//      printBadge($goBack);
+        if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
     
