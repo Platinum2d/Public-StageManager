@@ -99,6 +99,10 @@
         </div>
     </div>
     <script>
+        $(document).ready(function (){
+            $(".buttonText").html("        Sfoglia");
+            $(".icon-span-filestyle").remove();
+        });
         $("#UsernameDocente").on('input',function (){
             $.ajax({
                 type : 'POST',
