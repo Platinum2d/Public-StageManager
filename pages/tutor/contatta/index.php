@@ -26,10 +26,10 @@
                                         <br>
                                         <select class="form-control titolo-non-selezionabile" id="receiverType">
                                             <option value="-1" selected>Seleziona un'opzione</option>
-                                            <option value="2">Docente referente</option>
-                                            <option value="3">Docente tutor</option>
-                                            <option value="6">Studente</option>
-                                            <option value="4">Responsabile aziendale</option>
+                                            <option value="<?php echo docrefType; ?>">Docente referente</option>
+                                            <option value="<?php echo doctutType; ?>">Docente tutor</option>
+                                            <option value="<?php echo studType; ?>">Studente</option>
+                                            <option value="<?php echo ceoType; ?>">Responsabile aziendale</option>
                                         </select>
                                     </div>
                                 	<div class="col col-sm-6">

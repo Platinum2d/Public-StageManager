@@ -124,7 +124,7 @@ function sendMail () {
 	    	},
 	    	complete : function () {
 	    		if (copia) {
-	    			messaggio = "Copia dell'email inviata a " + destinatario + " tramite https://stagemanage.it:\n-------------------------------------------------\n\n" + messaggio;
+	    			messaggio = "Copia dell'email inviata a " + destinatario + " tramite https://stagemanage.it:\n-------------------------------------------------------------\n\n" + messaggio;
 	    			$.ajax({
 	    		        type : 'POST',
 	    		        url : 'ajaxOps/mail.php',
