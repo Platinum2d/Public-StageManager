@@ -24,51 +24,9 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id="mainPanel" style="min-height: 0px">
-                    <h1>Modifica Docenti</h1>
-                    <br>                      
-                    <div class="row">
-                        <div class="col col-sm-4">
-                            <div align="left">
-                                <p style="display: inline">Cerca</p> <input style="display: inline" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col col-sm-4">
-                            Azione<div align="center">
-                                <select class="form-control" id="actions">
-                                    <option>  </option>                                    
-                                    <option value="1"> Espandi </option>
-                                    <option value="2"> Riduci </option>
-                                    <option value="3"> Elimina </option>
-                                </select>
-                            </div>
-                        </div>
-                            
-                        <div class="col col-sm-4"> 
-                            Filtra righe<div align="right">
-                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
-                            </div>
-                        </div>
-                    </div>    
+                    <h1>Modifica Docenti</h1>   
                     <br>
-                                        <?php   /*
-                                        echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customdocente\"> </form>  <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"> <select name=\"ndocenti\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div><br>  ";
-                                            if (isset($_POST['ndocenti']))
-                                            {
-                                        ?>
-                    <script>
-                        var rightindex = 1;
-                        $("#slc > option").each(function() {
-                            if (this.text === '<?php echo intval($_POST['ndocenti']); ?>')
-                            rightindex = this.index;
-                                
-                            $("#slc").prop('selectedIndex', rightindex);
-                        });
-                    </script>      
-                                      <?php }
-                                            else 
-                                            { ?> 
-                    <script> $("#slc").prop('selectedIndex', 1); </script> 
-                                      <?php }   */
+                                        <?php 
                                             $conn = dbConnection("../../../../");
                                             $query = "SELECT * FROM utente, docente WHERE id_docente = id_utente AND id_docente != ".$_SESSION['userId']." ORDER BY cognome";
                                             $result = $conn->query($query);

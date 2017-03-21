@@ -4,6 +4,8 @@
     open_html ( "Inserisci docenti" );
     echo "<script src='scripts/script.js'></script>";
     import("../../../../");
+    $conn = dbConnection("../../../../");
+    
 ?>
 <body>
     <?php
@@ -26,8 +28,6 @@
                 $("input[value=\"Invia\"]").prop("disabled",false);
             }
         },1);
-        
-        
     </script>
     <input type="hidden" id="userexists" value="0">
     <input type="hidden" id="passworderror" value="0">
@@ -61,8 +61,33 @@
                                 <br>                              
                                 <input type="button" class="btn btn-primary" value="Invia" onclick="send();">     
                             </div>
-                            <div align="center" class="col col-sm-6">
-                                <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
+                            <div class="col col-sm-6">
+                                <b>E' necessario specificare una classe in cui questo docente <u>insegna</u>*</b>
+                                <select class="form-control" id="classeDocente">
+                                    <?php
+                                        $query = "SELECT c.id_classe, c.nome AS nomeclasse
+                                        FROM classe AS c
+                                        WHERE c.scuola_id_scuola = ".$_SESSION['userId'];
+                                        
+                                        $result = $conn->query($query);
+                                        if ($result && $result->num_rows > 0)
+                                        {
+                                            while ($row = $result->fetch_assoc())
+                                            {
+                                                $id = $row['id_classe'];
+                                                $nome = $row['nomeclasse'];
+                                                
+                                                echo "<option value='$id'>$nome</option>";
+                                            }
+                                        }
+                                    ?>
+                                </select>
+                                <br>
+                                <br>
+                                <div align="center">
+                                    <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
+                                </div>
+                                <br>                                    
                             </div>
                         </form>       
                     </div>
