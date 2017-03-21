@@ -6,7 +6,8 @@ docente = {
     'cognome': '',
     'telefono': '',
     'email': '',
-    'docente_tutor' : '0'
+    'docente_tutor' : '0',
+    'classe' : ''
 };
 
 function send()
@@ -22,6 +23,8 @@ function send()
     docente.cognome = ''+$("#CognomeDocente").val().trim();
     docente.telefono = ''+$("#TelefonoDocente").val().trim();
     docente.email = ''+$("#EmailDocente").val().trim();
+    docente.classe = ''+$("#classeDocente").val();
+    
     if ($("#isDocenteReferente").is(":checked")) 
         docente.docente_tutor = '0';
     
