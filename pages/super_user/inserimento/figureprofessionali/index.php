@@ -62,7 +62,29 @@
                     <div class="row">
                         <form class="form-vertical">
                             <div class="col col-sm-6">
-                                <b>Nome della figura professionale*</b> <div class="form-group"> <input class="form-control" id="nomeFigura"> </div>                           
+                                <b>Nome della figura professionale*</b> 
+                                <div class="form-group"> <input class="form-control" id="nomeFigura"> </div>     
+                                Figure professionali già presenti
+                                <div class="form-group"> 
+                                    <select onchange='$("#nomeFigura").val($(this).find(":selected").text())' class="form-control" id="figurePresenti">
+                                        <option value="-1"></option>
+                                        <?php
+                                            $query = "SELECT * FROM figura_professionale";
+                                            
+                                            $result = $connection->query($query);
+                                            if (is_object($result) && $result->num_rows > 0)
+                                            {
+                                                while ($row = $result->fetch_assoc())
+                                                {
+                                                    $id = $row['id_figura_professionale'];
+                                                    $nome = $row['nome'];
+
+                                                    echo "<option value='$id'>$nome</option>";
+                                                }
+                                            }
+                                        ?>                                        
+                                    </select>
+                                </div>      
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
