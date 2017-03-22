@@ -4,6 +4,8 @@
     open_html ( "Inserisci docenti" );
     echo "<script src='scripts/script.js'></script>";
     import("../../../../");
+    $conn = dbConnection("../../../../");
+    
 ?>
 <body>
     <?php
@@ -26,8 +28,6 @@
                 $("input[value=\"Invia\"]").prop("disabled",false);
             }
         },1);
-        
-        
     </script>
     <input type="hidden" id="userexists" value="0">
     <input type="hidden" id="passworderror" value="0">
@@ -61,8 +61,10 @@
                                 <br>                              
                                 <input type="button" class="btn btn-primary" value="Invia" onclick="send();">     
                             </div>
-                            <div align="center" class="col col-sm-6">
-                                <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
+                            <div class="col col-sm-6">
+                                <div align="center">
+                                    <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
+                                </div>                                
                             </div>
                         </form>       
                     </div>

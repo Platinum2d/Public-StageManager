@@ -71,7 +71,7 @@
                                         
                                     echo "<tr id=\"riga$I\" style=\"text-align : center\"> <td> ".date("d-m-Y", strtotime($row['inizio_stage']))." </td> <td> ".$row['durata_stage']." giorni </td>"
                                          . " <td>"
-                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclassestage, $idstudente, $id_studente_has_stage)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
+                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclassestage, $idstudente, $id_studente_has_stage, $idanno)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
                                          . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"deleteExperience($id_studente_has_stage)\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-remove\"></span> Rimuovi </button> </td> </tr>";
                                              
                                     $I++;
