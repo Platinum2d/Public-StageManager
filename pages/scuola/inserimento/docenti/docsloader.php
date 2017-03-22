@@ -102,7 +102,25 @@
                                         str_replace(" ", "", $nome);
                                         str_replace(" ", "", $cognome);
                                         $username = $nome.$cognome;
-                                        $username = checkDoc($username);//verifica dell'esistenza del nome utente                            
+                                        $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
+                                        $result = $conn->query($query);
+                                        if ($result->num_rows > 0)
+                                        {
+                                            $tentativi = 1;
+                                            while (true)
+                                            {
+                                                $newuser = $username.$tentativi;
+                                                $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($newuser)."'";
+                                                $result = $conn->query($query);
+                                                if ($result->num_rows === 0)
+                                                {
+                                                    $username = $newuser;
+                                                    break;
+                                                }
+                                                $tentativi++;
+                                            }
+                                        }   
+                                        
                                         $password = generateRandomicString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $telefono = (trim($sheet->getCell('C'.$I)->getValue()));
@@ -145,7 +163,7 @@
                         echo "<div align='center'><b>Fatto.</b></div><br><br>$htmltable</div>";
                         echo "<br><br>$reporterrori";
                         echo $tableforpdf;
-                            
+                        unlink($filepath . $fileName);
         ?> 
             
                 </div>

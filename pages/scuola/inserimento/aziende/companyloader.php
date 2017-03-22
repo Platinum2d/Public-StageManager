@@ -22,10 +22,9 @@
         
     function checkCompany($username)
     {
-        $connection = dbConnection("../../../../");
-        $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($username)."'";
-        $result = $connection->query($query);
-        if (!$result || $result->num_rows === 0)
+        $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
+        $result = $conn->query($query);
+        if ($result->num_rows === 0)
         {
             return $username;
         }
@@ -35,8 +34,8 @@
             while (true)
             {
                 $newuser = $username.$tentativi;
-                $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($newuser)."'";
-                $result = $connection->query($query);
+                $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($newuser)."'";
+                $result = $conn->query($query);
                 if (!$result || $result->num_rows === 0)
                 {
                     return $newuser;
@@ -98,7 +97,24 @@
                                         {
                                         str_replace(" ", "", $nome);
                                         $username = $nome;
-                                        $username = checkCompany($username);//verifica dell'esistenza del nome utente                            
+                                        $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
+                                        $result = $conn->query($query);
+                                        if ($result->num_rows > 0)
+                                        {
+                                            $tentativi = 1;
+                                            while (true)
+                                            {
+                                                $newuser = $username.$tentativi;
+                                                $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($newuser)."'";
+                                                $result = $conn->query($query);
+                                                if ($result->num_rows === 0)
+                                                {
+                                                    $username = $newuser;
+                                                    break;
+                                                }
+                                                $tentativi++;
+                                            }
+                                        }                        
                                         $password = generateRandomicString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $citta = (trim($sheet->getCell('B'.$I)->getValue()));
@@ -169,7 +185,8 @@
                         echo "<div align='center'><b>Fatto.</b></div><br><br>$htmltable</div>";
                         echo "<br><br>$reporterrori";
                         echo $tableforpdf;
-                            
+                        
+                        unlink($filepath . $fileName);
         ?> 
             
                 </div>
