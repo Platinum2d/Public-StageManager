@@ -26,9 +26,10 @@ open_html ( "Contatta" );
                                         <br>
                                         <select class="form-control titolo-non-selezionabile" id="receiverType">
                                             <option value="-1" selected>Seleziona un'opzione</option>
-                                            <option value="<?php echo ceoType;?>">Responsabile aziendale</option>
+                                            <option value="<?php echo scuolaType;?>">Responsabile scolastico</option>
                                             <option value="<?php echo doctutType;?>">Docente tutor</option>
                                             <option value="<?php echo studType;?>">Studente</option>
+                                            <option value="<?php echo ceoType;?>">Responsabile aziendale</option>
                                         </select>
                                     </div>
                                 	<div class="col col-sm-6">

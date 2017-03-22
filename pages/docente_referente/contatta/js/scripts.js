@@ -17,7 +17,10 @@ $(document).ready (function () {
 		        		select.html("");
 		        		select.append ("<option value='-1' selected>Seleziona un'opzione</option>");
 		        		$(xml).find("destinatario").each ( function (index, element) {
-		        			var nome = $(element).find("nome").text() + " " + $(element).find("cognome").text();
+		        			var nome = $(element).find("nome").text();
+		        			if ($(element).find("cognome").length != 0) {
+		        				nome += " " + $(element).find("cognome").text();
+		        			}
 		        			var email = $(element).find("email").text();
 		        			var nome_studente_node = $(element).find("nome_studente");
 		        			var cognome_studente_node = $(element).find("cognome_studente");

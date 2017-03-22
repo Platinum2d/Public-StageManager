@@ -45,6 +45,15 @@ XML;
                     AND anno_scolastico.corrente = 1
                     AND studente_has_stage.studente_id_studente = studente.id_studente;";
     }
+    elseif ($tipo == scuolaType) {
+        $query = "SELECT scuola.nome, scuola.email
+                    FROM scuola, anno_scolastico, classe_has_docente, classe
+                    WHERE classe_has_docente.docente_id_docente = $id_docente
+                    AND classe_has_docente.classe_id_classe = classe.id_classe
+                    AND classe.scuola_id_scuola = scuola.id_scuola
+                    AND classe_has_docente.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
+                    AND anno_scolastico.corrente = 1;";
+    }
     else {
         $xml->addChild("status", "0");
         return;
