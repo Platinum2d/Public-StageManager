@@ -113,8 +113,8 @@
                                             
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', $type)";
                                             
-                                        $insertquery = "INSERT INTO docente (id_docente, nome, cognome, telefono, email)"
-                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($telefono)."','".$conn->escape_string($email)."')";
+                                        $insertquery = "INSERT INTO docente (id_docente, nome, cognome, telefono, email, scuola_id_scuola)"
+                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($telefono)."','".$conn->escape_string($email)."', ".$_SESSION['userId'].")";
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$nome $cognome</td> <td>$username</td> <td>$password</td> <td>$telefono</td> <td>$email</td> </tr>";
                                                 
                                         $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
