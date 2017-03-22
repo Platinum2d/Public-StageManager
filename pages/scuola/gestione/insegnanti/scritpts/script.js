@@ -80,7 +80,7 @@ function openAddInsegnante(progressiv, id_classe, id_anno)
         $("#docs").append("\
             <tr id='addInsegnanteRow'>\n\
                 <td align='center'>\n\
-                    <select style='margin-top:5px' class='form-control' id='addInsegnanteSelect'></select>\n\
+                    <select style='margin-top:5px; text-align-last:center;' class='form-control' id='addInsegnanteSelect'></select>\n\
                 </td>\n\
                 <td align='center'> \n\
                     <button onclick='assegna("+id_classe+", "+id_anno+")' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok'></span></button>\n\
