@@ -1,9 +1,9 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( docrefType , "../../../" );
-    checkEmail();
-    import("../../../");
-    open_html ( "Contatta" );
+include '../../functions.php';
+checkLogin ( docrefType , "../../../" );
+checkEmail();
+import("../../../");
+open_html ( "Contatta" );
 ?>
 <script src='js/scripts.js'></script>
 <body>
@@ -27,7 +27,7 @@
                                         <select class="form-control titolo-non-selezionabile" id="receiverType">
                                             <option value="-1" selected>Seleziona un'opzione</option>
                                             <option value="<?php echo ceoType;?>">Responsabile aziendale</option>
-                                            <option value="<?php echo doctutType;?>">Tutor aziendale</option>
+                                            <option value="<?php echo doctutType;?>">Docente tutor</option>
                                             <option value="<?php echo studType;?>">Studente</option>
                                         </select>
                                     </div>
