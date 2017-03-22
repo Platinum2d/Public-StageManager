@@ -6,6 +6,7 @@ docente = {
     'cognome': '',
     'telefono': '',
     'email': '',
+    'scuola' : '',
     'isDocenteTutor': false,
     'isDocenteReferente': false        
 };
@@ -442,6 +443,8 @@ function sendSingleData(userType)
             docente.email = ''+$("#EmailDocente").val().trim();
             docente.isDocenteTutor = $('#isDocenteTutor').is(':checked');
             docente.isDocenteReferente = $('#isDocenteReferente').is(':checked');
+            docente.scuola = $("#scuolaDocente").val();
+            
             var NoCheckBoxSelected = false;
             if (!$('#isDocenteTutor').is(':checked') && !$('#isDocenteReferente').is(':checked'))
                 NoCheckBoxSelected = true;        
@@ -466,6 +469,7 @@ function sendSingleData(userType)
                     cache: false,
                     success: function(msg)
                     {
+                        alert(msg);
                         if (msg === "Inserimento dei dati riuscito!")
                             freeFieldsFor('docente');
                     }
