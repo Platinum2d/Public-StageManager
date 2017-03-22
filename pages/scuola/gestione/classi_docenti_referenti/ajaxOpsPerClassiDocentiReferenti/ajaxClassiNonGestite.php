@@ -38,7 +38,10 @@ XML;
         
         $num_stud_gestiti_current_doc = intval($conn->query($num_stud_gestiti_current_doc_query)->fetch_assoc()['count']);
         
-        if ($num_stud_current_class > 0 && $num_stud_gestiti_current_doc === 0)
+        $classe_has_stage_query = "SELECT COUNT(id_classe_has_stage) AS count FROM classe_has_stage WHERE classe_id_classe = $current_classe_id AND anno_scolastico_id_anno_scolastico = $idanno";
+        $num_esperienze_classe_corrente = intval($conn->query($classe_has_stage_query)->fetch_assoc()['count']);
+        
+        if ($num_esperienze_classe_corrente > 0 && $num_stud_current_class > 0 && $num_stud_gestiti_current_doc === 0)
         {
             $classevalida = $classivalide->addChild("classe_valida");
             $classevalida->addChild("id", $current_classe_id);

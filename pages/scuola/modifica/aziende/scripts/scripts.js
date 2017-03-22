@@ -180,7 +180,7 @@ function openEdit (id, idazienda)
                 <label class='custlabel'>Password </label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
                 <label class='custlabel'>Nome Azienda</label> <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
                 <label class='custlabel'>Citta</label> <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
-                <label class='custlabel'>CAP</label> <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
+                <label class='custlabel'>CAP</label> <input type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
                 <label class='custlabel'>Indirizzo</label> <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
             </div>\n\
             <div class=\"col col-sm-6\"> \n\

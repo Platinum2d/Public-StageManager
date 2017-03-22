@@ -156,7 +156,7 @@ function deleteDocente(idDocente)
                 if (msg === "ok")
                     location.reload();
                 else
-                    printError("Eliminazione non riuscita",msg);
+                    printError("Eliminazione non riuscita","<div align='center'>Controllare che il docente non sia più legato ad alcun contesto (insegnamento, associazione come docente referente ecc.)<br>Se l'errore persiste, contattare l'amministratore</div>");
             }
         });
     }
