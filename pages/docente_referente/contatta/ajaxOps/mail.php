@@ -1,11 +1,11 @@
 <?php
     include "../../../functions.php";
-    $id_studente = $_SESSION ['userId'];
+    $id_docente = $_SESSION ['userId'];
     
     $connection = dbConnection("../../../../");
-    $query = "SELECT studente.nome, studente.cognome, studente.email
-                FROM studente
-                WHERE studente.id_studente = $id_studente;";
+    $query = "SELECT docente.nome, docente.cognome, docente.email
+                FROM docente
+                WHERE docente.id_docente = $id_docente;";
     $result = $connection->query ( $query );
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc ();
