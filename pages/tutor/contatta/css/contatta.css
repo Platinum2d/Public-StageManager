@@ -1,5 +1,0 @@
-@CHARSET "UTF-8";
-
-select#destinatario:focus option:first-of-type {
-    display: none;
-}
