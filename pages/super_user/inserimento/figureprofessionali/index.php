@@ -89,7 +89,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('figuraprofessionale');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('figuraprofessionale');">
                             </div>
                             <div class="col col-sm-6"> 
                                 <b>Tipo di scuola*</b>

@@ -72,10 +72,10 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('studente');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('studente');">
                                 
                                 
-                            </div>
+                            </div>  
                             
                             <div class="col col-sm-6">
                                 <b>Scuola* </b> <div class="form-group"><select class="form-control"  id="scuolaStudente">  </select> </div>

@@ -69,7 +69,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('tutor');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('tutor');">
                             </div>
                                 
                             <div class="col col-sm-6">
