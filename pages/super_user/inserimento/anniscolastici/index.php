@@ -43,7 +43,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('annoscolastico');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('annoscolastico');">
                             </div>
                             <div class="col col-sm-6" align="center">
                                 <input type="checkbox" id="currentyear" /> Anno Corrente

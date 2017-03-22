@@ -62,7 +62,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                 
                             </div>
                             <div class="col col-sm-6">                                
