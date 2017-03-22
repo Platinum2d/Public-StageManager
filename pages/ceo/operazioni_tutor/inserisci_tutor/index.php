@@ -63,7 +63,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData();">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData();">
                             </div>
                         </form>
                     </div>
