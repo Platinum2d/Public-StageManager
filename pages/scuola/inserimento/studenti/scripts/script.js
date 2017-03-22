@@ -113,5 +113,4 @@ function updateFormInputs()
     $("form[name='uploadform']").find("input[name='anno']").val($("#annoclasseStudenteForm").val());
     localStorage.setItem("nome_classe", $("#classeStudenteForm").find(":selected").text());
     localStorage.setItem("nome_anno", $("#annoclasseStudenteForm").find(":selected").text());
-    alert($("#classeStudenteForm").find(":selected").text());
 }
