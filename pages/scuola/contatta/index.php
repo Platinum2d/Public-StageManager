@@ -1,9 +1,9 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( aztutType , "../../../" );
-    checkEmail();
-    import("../../../");
-    open_html ( "Contatta" );
+include '../../functions.php';
+checkLogin ( scuolaType , "../../../" );
+checkEmail();
+import("../../../");
+open_html ( "Contatta" );
 ?>
 <script src='js/scripts.js'></script>
 <body>
@@ -26,10 +26,10 @@
                                         <br>
                                         <select class="form-control titolo-non-selezionabile" id="receiverType">
                                             <option value="-1" selected>Seleziona un'opzione</option>
-                                            <option value="<?php echo docrefType; ?>">Docente referente</option>
-                                            <option value="<?php echo doctutType; ?>">Docente tutor</option>
-                                            <option value="<?php echo studType; ?>">Studente</option>
-                                            <option value="<?php echo ceoType; ?>">Responsabile aziendale</option>
+                                            <option value="<?php echo docrefType;?>">Docente referente</option>
+                                            <option value="<?php echo doctutType;?>">Docente tutor</option>
+                                            <option value="<?php echo studType;?>">Studente</option>
+                                            <option value="<?php echo ceoType;?>">Responsabile aziendale</option>
                                         </select>
                                     </div>
                                 	<div class="col col-sm-6">

@@ -17,7 +17,10 @@ $(document).ready (function () {
 		        		select.html("");
 		        		select.append ("<option value='-1' selected>Seleziona un'opzione</option>");
 		        		$(xml).find("destinatario").each ( function (index, element) {
-		        			var nome = $(element).find("nome").text() + " " + $(element).find("cognome").text();
+		        			var nome = $(element).find("nome").text();
+		        			if ($(element).find("cognome").length != 0) {
+		        				nome += " " + $(element).find("cognome").text();
+		        			}
 		        			var email = $(element).find("email").text();
 		        			var nome_studente_node = $(element).find("nome_studente");
 		        			var cognome_studente_node = $(element).find("cognome_studente");
@@ -27,10 +30,17 @@ $(document).ready (function () {
 		        			else {
 		        				var nome_studente = "";
 		        			}
-		        			select.append("<option value='"+email+"'>" +nome + nome_studente + "</option>");
+		        			if ($(element).find("nome_aziendale").length !==0) {
+		        				var nome_aziendale = " (azienda: " + $(element).find("nome_aziendale").text() + ")";
+		        			}
+		        			else {
+		        				var nome_aziendale = "";
+		        			}
+		        			select.append("<option value='"+email+"'>" +nome + nome_studente + nome_aziendale + "</option>");
 		        		});
 		        	}
 	        		else {
+	        			alert(xml);
 	        			printError ("Errore", "Errore nella richiesta dei destinatari disponibili.");
 	        		}
 	        	},

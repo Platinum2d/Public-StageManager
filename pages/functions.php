@@ -121,6 +121,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/inserisci-aziende/index.php'>Inserisci</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/modifica-aziende/index.php'>Modifica</a></li>";
                 echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
                         </ul>
 HTML;
@@ -131,111 +132,112 @@ HTML;
                 echo <<<HTML
                         </ul>
 HTML;
-                } elseif ($_SESSION ['type'] == ceoType) { // se è loggato responsabile impresa
-                    echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
-                    echo "<li class=\"dropdown dropdown-hover\">
-                                   <a href=\"".$goBack."pages/ceo/la_mia_azienda/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">La mia azienda <span class=\"caret\"></span></a>
-                                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-    
-                    echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>Informazioni</a></li>";
-                    echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/figure_professionali/index.php'>Figure professionali richieste</a></li>";
-                    echo "</ul></li>";
-    
-                    echo "<li class=\"dropdown dropdown-hover\">
-                                   <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Tutor <span class=\"caret\"></span></a>
-                                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-    
-                    echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/assegna_tutor/index.php'>Assegna Tutor</a></li>";
-                    echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
-                    echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
-                    echo "</ul></li>";
-                    echo "<li><a href='".$goBack."pages/ceo/contatta/index.php'>Contatta</a></li>";
-                    echo <<<HTML
-                        </ul>
+            } elseif ($_SESSION ['type'] == ceoType) { // se è loggato responsabile impresa
+                echo "<li><a href='".$goBack."pages/ceo/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/la_mia_azienda/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">La mia azienda <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/index.php'>Informazioni</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/la_mia_azienda/figure_professionali/index.php'>Figure professionali richieste</a></li>";
+                echo "</ul></li>";
+
+                echo "<li class=\"dropdown dropdown-hover\">
+                               <a href=\"".$goBack."pages/ceo/operazioni_tutor/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Tutor <span class=\"caret\"></span></a>
+                                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/assegna_tutor/index.php'>Assegna Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/inserisci_tutor/index.php'>Inserisci Tutor</a></li>";
+                echo "<li><a href='".$goBack."pages/ceo/operazioni_tutor/modifica_tutor/index.php'> Visualizza Tutor </a></li>";
+                echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/ceo/contatta/index.php'>Contatta</a></li>";
+                echo <<<HTML
+                    </ul>
 HTML;
-                } elseif ($_SESSION ['type'] == aztutType) { // se è loggato tutor aziendale
-                    echo "<li><a href='".$goBack."pages/tutor/profiloutente/index.php'>Profilo</a></li>";
-                    echo "<li><a href='".$goBack."pages/tutor/studenti/index.php'>Studenti</a></li>";
-                    echo "<li><a href='".$goBack."pages/tutor/contatta/index.php'>Contatta</a></li>";
-                    echo <<<HTML
-                        </ul>
+            } elseif ($_SESSION ['type'] == aztutType) { // se è loggato tutor aziendale
+                echo "<li><a href='".$goBack."pages/tutor/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li><a href='".$goBack."pages/tutor/studenti/index.php'>Studenti</a></li>";
+                echo "<li><a href='".$goBack."pages/tutor/contatta/index.php'>Contatta</a></li>";
+                echo <<<HTML
+                    </ul>
 HTML;
-                    } elseif ($_SESSION ['type'] == studType) { // se è loggato studente
-                        echo "<li><a href='".$goBack."pages/studente/profiloutente/index.php'>Profilo</a></li>";
-                        echo "<li><a href='".$goBack."pages/studente/il_mio_stage/index.php'>Il mio stage</a></li>";
-                        echo "<li><a href='".$goBack."pages/studente/registro/index.php'>Registro</a></li>";
-                        echo "<li><a href='".$goBack."pages/studente/voto/index.php'>Voto</a></li>";
-                        echo "<li><a href='".$goBack."pages/studente/contatta/index.php'>Contatta</a></li>";
-                        echo <<<HTML
-                        </ul>
-HTML;
-                    } elseif ($_SESSION ['type'] == scuolaType) {
-                        echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-    
-                        echo "<li class=\"dropdown dropdown-hover\">
-                          <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserisci <span class=\"caret\"></span></a>
-                                <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-    
-                        echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
-                        echo "</ul></li>";
-    
-                        echo "<li class=\"dropdown dropdown-hover\">
-                          <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Modifica <span class=\"caret\"></span></a>
-                                <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-    
-                        echo "<li><a href='".$goBack."pages/scuola/modifica/aziende/index.php'>Aziende</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
-                        echo "</ul></li>";
-    
-                        echo "<li class=\"dropdown dropdown-hover\">
-                          <a href=\"".$goBack."pages/scuola/gestione/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci <span class=\"caret\"></span></a>
-                                <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                        
-                        echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
-                        echo "<li><a href='".$goBack."pages/scuola/gestione/insegnanti/index.php'>Insegnanti</a></li>";
-                    echo "</ul></li>";
-                    echo <<<HTML
-                        </ul>
+            } elseif ($_SESSION ['type'] == studType) { // se è loggato studente
+                echo "<li><a href='".$goBack."pages/studente/profiloutente/index.php'>Profilo</a></li>";
+                echo "<li><a href='".$goBack."pages/studente/il_mio_stage/index.php'>Il mio stage</a></li>";
+                echo "<li><a href='".$goBack."pages/studente/registro/index.php'>Registro</a></li>";
+                echo "<li><a href='".$goBack."pages/studente/voto/index.php'>Voto</a></li>";
+                echo "<li><a href='".$goBack."pages/studente/contatta/index.php'>Contatta</a></li>";
+                echo <<<HTML
+                </ul>
 HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-                
+
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
-                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
+                  <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserisci <span class=\"caret\"></span></a>
+                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
                 echo "</ul></li>";
-                
+
                 echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
-                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
+                  <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Modifica <span class=\"caret\"></span></a>
+                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+
                 echo "<li><a href='".$goBack."pages/scuola/modifica/aziende/index.php'>Aziende</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
                 echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
-                echo "</ul></li>";                
-                
-                echo "<li class=\"dropdown dropdown-hover\">
-                      <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci<span class=\"caret\"></span></a>
-                            <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
                 echo "</ul></li>";
+
+                echo "<li class=\"dropdown dropdown-hover\">
+                  <a href=\"".$goBack."pages/scuola/gestione/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci <span class=\"caret\"></span></a>
+                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+                echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
+                echo "<li><a href='".$goBack."pages/scuola/gestione/insegnanti/index.php'>Insegnanti</a></li>";
+                echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/scuola/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
-                    </ul>      
+                    </ul>
 HTML;
-                        }
+//             } elseif ($_SESSION ['type'] == scuolaType) {
+//                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
+                
+//                 echo "<li class=\"dropdown dropdown-hover\">
+//                       <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
+//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
+//                 echo "</ul></li>";
+                
+//                 echo "<li class=\"dropdown dropdown-hover\">
+//                       <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
+//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                
+//                 echo "<li><a href='".$goBack."pages/scuola/modifica/aziende/index.php'>Aziende</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
+//                 echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
+//                 echo "</ul></li>";                
+                
+//                 echo "<li class=\"dropdown dropdown-hover\">
+//                       <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci<span class=\"caret\"></span></a>
+//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+//                 echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
+//                 echo "</ul></li>";
+//                 echo <<<HTML
+//                     </ul>      
+// HTML;
+            }
         }
     }
     
