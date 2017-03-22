@@ -198,7 +198,8 @@ HTML;
                           <a href=\"".$goBack."pages/scuola/gestione/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci <span class=\"caret\"></span></a>
                                 <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
                         
-                    echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
+                        echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
+                        echo "<li><a href='".$goBack."pages/scuola/gestione/insegnanti/index.php'>Insegnanti</a></li>";
                     echo "</ul></li>";
                     echo <<<HTML
                         </ul>
