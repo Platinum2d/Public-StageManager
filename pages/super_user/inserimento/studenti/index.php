@@ -11,13 +11,12 @@
 //    addSelectionsFor('studente','docente');
     addSelectionsFor('studente','anno_scolastico');
 </script>
-    
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
         
     <script> 
         String.prototype.isEmpty = function() {
@@ -26,8 +25,7 @@
         
         var check = setInterval(function(){
             if ($("#usernameStudente").val().isEmpty() || $("#passwordStudente").val().isEmpty() || $("#confermaPasswordStudente").val().isEmpty() || $("#nomeStudente").val().isEmpty()
-                    || $("#cognomeStudente").val().isEmpty() || $("#cittaStudente").val().isEmpty() || $("#mailStudente").val().isEmpty() || $("#telefonoStudente").val().isEmpty() 
-                    || $("#classeStudente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
+                    || $("#cognomeStudente").val().isEmpty() || $("#classeStudente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -65,9 +63,9 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input class="form-control" type="password" id="confermaPasswordStudente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeStudente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeStudente"> </div>
-                                <b>Citta*</b> <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
-                                <b>Mail*</b> <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
-                                <b>Telefono*</b> <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
+                                <b>Città</b> <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
+                                <b>Mail</b> <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>

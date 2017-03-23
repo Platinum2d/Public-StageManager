@@ -19,7 +19,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameDocente").val().isEmpty() || $("#PasswordDocente").val().isEmpty() || $("#ConfermaPasswordDocente").val().isEmpty() || $("#NomeDocente").val().isEmpty()
-                    || $("#CognomeDocente").val().isEmpty() || $("#TelefonoDocente").val().isEmpty() || $("#EmailDocente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
+                    || $("#CognomeDocente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -53,8 +53,8 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordDocente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="NomeDocente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="CognomeDocente"> </div>
-                                <b>Telefono*</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
-                                <b>E-Mail*</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
+                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
                                 <br>
                                 * Campo Obbligatorio
                                 <br>

@@ -16,7 +16,21 @@
     $queryusers = "INSERT INTO `utente` (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', $type)";
     
     $Query = "INSERT INTO `docente` (`id_docente`,  `nome`, `cognome`, `telefono`, `email`, `scuola_id_scuola`) "
-        . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".$type."), '$nome', '$cognome', '$telefono', '$email', $scuola);";
+        . "VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".$type."), '$nome', '$cognome'";
+
+    if ($telefono != "") {
+        $Query .= ",'$telefono'";
+    }
+    else {
+        $Query .= ", NULL";
+    }
+    if ($email != "") {
+        $Query .= ",'$email'";
+    }
+    else {
+        $Query .= ", NULL";
+    }
+    $Query .= ", $scuola);";
     
     $ok = (!$connection->query($queryusers)) ? false : true;
     $ok = (!$connection->query($Query)) ? false : true;

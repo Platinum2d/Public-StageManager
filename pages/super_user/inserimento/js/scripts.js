@@ -449,7 +449,7 @@ function sendSingleData(userType)
             if (!$('#isDocenteTutor').is(':checked') && !$('#isDocenteReferente').is(':checked'))
                 NoCheckBoxSelected = true;        
             
-            if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty() || NoCheckBoxSelected)
+            if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || NoCheckBoxSelected)
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;
@@ -469,7 +469,6 @@ function sendSingleData(userType)
                     cache: false,
                     success: function(msg)
                     {
-                        alert(msg);
                         if (msg === "Inserimento dei dati riuscito!")
                             freeFieldsFor('docente');
                     }
@@ -486,10 +485,7 @@ function sendSingleData(userType)
             azienda.password = ''+$('#PasswordAzienda').val().trim();
             azienda.confermaPassword = ''+$("#ConfermaPasswordAzienda").val().trim();            
             azienda.nome = ''+$('#NomeAzienda').val().trim();
-            azienda.citta = ''+$('#CittaAzienda').val().trim();
-            azienda.CAP = ''+$('#CAPAzienda').val().trim();
-            azienda.indirizzo = ''+$('#IndirizzoAzienda').val().trim();
-            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.indirizzo.isEmpty())
+            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;
@@ -500,27 +496,31 @@ function sendSingleData(userType)
                 alert("errore nell'inserimento della password");
                 return;
             }
+
+            azienda.citta = ''+$('#CittaAzienda').val();
+            azienda.CAP = ''+$('#CAPAzienda').val();
+            azienda.indirizzo = ''+$('#IndirizzoAzienda').val();
             
             azienda.telefono = ''+$('#TelefonoAzienda').val();
-            if (azienda.telefono.isEmpty()) azienda.telefono = ' ';
+//            if (azienda.telefono.isEmpty()) azienda.telefono = ' ';
             
             azienda.email = ''+$('#MailAzienda').val();
-            if (azienda.email.isEmpty()) azienda.email = ' ';
+//            if (azienda.email.isEmpty()) azienda.email = ' ';
             
             azienda.sito = ''+$('#SitoAzienda').val();
-            if (azienda.sito.isEmpty()) azienda.sito = ' ';
+//            if (azienda.sito.isEmpty()) azienda.sito = ' ';
             
             azienda.nomeresponsabile = ''+$('#NomeResponsabileAzienda').val();
-            if (azienda.nomeresponsabile.isEmpty()) azienda.nomeresponsabile = ' ';
+//            if (azienda.nomeresponsabile.isEmpty()) azienda.nomeresponsabile = ' ';
             
             azienda.cognomeresponsabile = ''+$('#CognomeResponsabileAzienda').val();
-            if (azienda.cognomeresponsabile.isEmpty() || azienda.cognomeresponsabile === 'undefined') azienda.cognomeresponsabile = ' ';
+//            if (azienda.cognomeresponsabile.isEmpty() || azienda.cognomeresponsabile === 'undefined') azienda.cognomeresponsabile = ' ';
             
             azienda.telefonoresponsabile = ''+$('#TelefonoResponsabileAzienda').val();
-            if (azienda.telefonoresponsabile.isEmpty()) azienda.telefonoresponsabile = ' ';
+//            if (azienda.telefonoresponsabile.isEmpty()) azienda.telefonoresponsabile = ' ';
             
             azienda.emailresponsabile = ''+$('#MailResponsabileAzienda').val();
-            if (azienda.emailresponsabile.isEmpty()) azienda.emailresponsabile = ' ';
+//            if (azienda.emailresponsabile.isEmpty()) azienda.emailresponsabile = ' ';
             
             $.ajax({
                 type : 'POST',
@@ -553,7 +553,7 @@ function sendSingleData(userType)
             studente.scuola = $('#scuolaStudente').val();
             studente.annoclasse = $("#annoclasseStudente").val();
             
-            if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty() || studente.scuola.isEmpty())
+            if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.classe.isEmpty() || studente.scuola.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;
@@ -641,8 +641,8 @@ function sendSingleData(userType)
             tutor.telefono = $("#telefonoTutor").val().trim();
             tutor.email = $("#emailTutor").val().trim();
             tutor.azienda = $("#aziendaTutor").val().trim();
-            
-            if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || tutor.telefono.isEmpty() || tutor.email.isEmpty())
+
+            if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || $('#aziendaTutor').val () == '-1')
             {
                 alert("si prega di inserire i campi obbligatori");
                 return;

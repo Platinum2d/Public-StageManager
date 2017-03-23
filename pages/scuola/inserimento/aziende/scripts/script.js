@@ -483,10 +483,7 @@ function sendSingleData(userType)
             azienda.password = ''+$('#PasswordAzienda').val().trim();
             azienda.confermaPassword = ''+$("#ConfermaPasswordAzienda").val().trim();            
             azienda.nome = ''+$('#NomeAzienda').val().trim();
-            azienda.citta = ''+$('#CittaAzienda').val().trim();
-            azienda.CAP = ''+$('#CAPAzienda').val().trim();
-            azienda.indirizzo = ''+$('#IndirizzoAzienda').val().trim();
-            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty() || azienda.citta.isEmpty() || azienda.indirizzo.isEmpty())
+            if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty())
             {
                 alert("Si prega di compilare i cambi obbligatori");
                 return;
@@ -497,27 +494,31 @@ function sendSingleData(userType)
                 alert("errore nell'inserimento della password");
                 return;
             }
+
+            azienda.citta = ''+$('#CittaAzienda').val();
+            azienda.CAP = ''+$('#CAPAzienda').val();
+            azienda.indirizzo = ''+$('#IndirizzoAzienda').val();
             
             azienda.telefono = ''+$('#TelefonoAzienda').val();
-            if (azienda.telefono.isEmpty()) azienda.telefono = ' ';
+//            if (azienda.telefono.isEmpty()) azienda.telefono = ' ';
             
             azienda.email = ''+$('#MailAzienda').val();
-            if (azienda.email.isEmpty()) azienda.email = ' ';
+//            if (azienda.email.isEmpty()) azienda.email = ' ';
             
             azienda.sito = ''+$('#SitoAzienda').val();
-            if (azienda.sito.isEmpty()) azienda.sito = ' ';
+//            if (azienda.sito.isEmpty()) azienda.sito = ' ';
             
             azienda.nomeresponsabile = ''+$('#NomeResponsabileAzienda').val();
-            if (azienda.nomeresponsabile.isEmpty()) azienda.nomeresponsabile = ' ';
+//            if (azienda.nomeresponsabile.isEmpty()) azienda.nomeresponsabile = ' ';
             
             azienda.cognomeresponsabile = ''+$('#CognomeResponsabileAzienda').val();
-            if (azienda.cognomeresponsabile.isEmpty() || azienda.cognomeresponsabile === 'undefined') azienda.cognomeresponsabile = ' ';
+//            if (azienda.cognomeresponsabile.isEmpty() || azienda.cognomeresponsabile === 'undefined') azienda.cognomeresponsabile = ' ';
             
             azienda.telefonoresponsabile = ''+$('#TelefonoResponsabileAzienda').val();
-            if (azienda.telefonoresponsabile.isEmpty()) azienda.telefonoresponsabile = ' ';
+//            if (azienda.telefonoresponsabile.isEmpty()) azienda.telefonoresponsabile = ' ';
             
             azienda.emailresponsabile = ''+$('#MailResponsabileAzienda').val();
-            if (azienda.emailresponsabile.isEmpty()) azienda.emailresponsabile = ' ';
+//            if (azienda.emailresponsabile.isEmpty()) azienda.emailresponsabile = ' ';
             
             $.ajax({
                 type : 'POST',

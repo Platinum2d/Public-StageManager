@@ -1,19 +1,9 @@
-<?php    
-    require '../../../../lib/PHPExcel.php';
-    include "../../../../pages/functions.php";
+<?php
+    require '../../../../lib/PHPReader/Classes/PHPExcel.php';
+    include "../../../functions.php";
     checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
     import("../../../../");
-    
-    function generateRandomString($length = 5) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
     
     function checkStudentRecursive($username){
         $connection = dbConnection("../../../../");
@@ -96,7 +86,7 @@
                         {
                             $username = $nome.$cognome;
                             $username = checkStudentRecursive($username);//verifica dell'esistenza del nome utente                            
-                            $password = generateRandomString();
+                            $password = generateRandomString(5);
                             $cryptedPassword = md5($password);
                             $citta = strtolower(trim($sheet->getCell('D'.$I)->getValue()));
                                 $citta = (empty($citta) || !isset($citta)) ? "Sconosciuta" : $citta;
