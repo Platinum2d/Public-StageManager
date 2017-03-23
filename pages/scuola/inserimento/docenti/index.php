@@ -75,7 +75,7 @@
                             <div class="row">
                                 <div class="col col-sm-6">
                                     <form onsubmit="setUserToAdd();" enctype="multipart/form-data" method="POST" action="docsloader.php" name="uploadform">
-                                        Seleziona il file contenente gli studenti da caricare:
+                                        Seleziona il file contenente i docenti da caricare:
                                         <br>
                                         <br>
                                         <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="docsfile">
