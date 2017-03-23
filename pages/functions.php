@@ -36,7 +36,7 @@
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
-        require_once ($goBack . "db_config.php");
+        require ($goBack . "db_config.php");
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }

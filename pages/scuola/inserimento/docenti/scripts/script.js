@@ -28,7 +28,7 @@ function send()
     else
         docente.docente_tutor = '1';
         
-    if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty())
+    if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty())
     {
         alert("Si prega di compilare i cambi obbligatori");
         return;

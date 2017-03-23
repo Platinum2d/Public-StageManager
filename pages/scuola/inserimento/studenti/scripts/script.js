@@ -80,7 +80,7 @@ function sendData()
     studente.classe = $('#classeStudente').val();
     studente.annoclasse = $("#annoclasseStudente").val();
     
-    if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty())
+    if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.classe.isEmpty() || studente.annoclasse.isEmpty())
     {
         alert("Si prega di compilare i cambi obbligatori");
         return;

@@ -23,7 +23,7 @@ function sendSingleData()
     tutor.telefono = $("#telefonoTutor").val().trim();
     tutor.email = $("#emailTutor").val().trim();
             
-    if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || tutor.telefono.isEmpty() || tutor.email.isEmpty())
+    if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty())
     {
         alert("si prega di inserire i campi obbligatori");
         return;
@@ -43,6 +43,7 @@ function sendSingleData()
         {
             if (msg === "Inserimento dei dati riuscito!")
                 freeFields();
+            else alert (msg);
         }
     });
 }
