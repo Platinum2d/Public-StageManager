@@ -26,6 +26,7 @@
                             <div align="center">
                                 <table class="table table-hover">
                                     <tr> <td align="center"><h1> <a href="classi_docenti_referenti/index.php">Docenti referenti assegnati alle classi</a>  </h1></td> </tr>
+                                    <tr> <td align="center"><h1> <a href="insegnanti/index.php">Insegnanti</a>  </h1></td> </tr>
                                 </table>
                             </div>
                         </div>

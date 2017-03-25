@@ -12,7 +12,7 @@
     };      
     
     var check = setInterval(function(){
-        if ($("#inizioStage").val().isEmpty())
+        if ($("#inizioStage").val().isEmpty() || $("#durataStage").val().isEmpty())
         {
             $("input[value=\"Invia\"]").prop("disabled",true);
         }
@@ -22,12 +22,12 @@
         }
     },1);
 </script>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -43,7 +43,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('stage');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('stage');">
                             </div>
                             <div class="col col-sm-6"> 
                                 Durata Stage <div class="form-group"> <input type="number" min="1" class="form-control" id="durataStage"> </div>

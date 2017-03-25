@@ -19,7 +19,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameDocente").val().isEmpty() || $("#PasswordDocente").val().isEmpty() || $("#ConfermaPasswordDocente").val().isEmpty() || $("#NomeDocente").val().isEmpty()
-                    || $("#CognomeDocente").val().isEmpty() || $("#TelefonoDocente").val().isEmpty() || $("#EmailDocente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
+                    || $("#CognomeDocente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -53,8 +53,8 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordDocente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="NomeDocente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="CognomeDocente"> </div>
-                                <b>Telefono*</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
-                                <b>E-Mail*</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
+                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
@@ -62,32 +62,9 @@
                                 <input type="button" class="btn btn-primary" value="Invia" onclick="send();">     
                             </div>
                             <div class="col col-sm-6">
-                                <b>E' necessario specificare una classe in cui questo docente <u>insegna</u>*</b>
-                                <select class="form-control" id="classeDocente">
-                                    <?php
-                                        $query = "SELECT c.id_classe, c.nome AS nomeclasse
-                                        FROM classe AS c
-                                        WHERE c.scuola_id_scuola = ".$_SESSION['userId'];
-                                        
-                                        $result = $conn->query($query);
-                                        if ($result && $result->num_rows > 0)
-                                        {
-                                            while ($row = $result->fetch_assoc())
-                                            {
-                                                $id = $row['id_classe'];
-                                                $nome = $row['nomeclasse'];
-                                                
-                                                echo "<option value='$id'>$nome</option>";
-                                            }
-                                        }
-                                    ?>
-                                </select>
-                                <br>
-                                <br>
                                 <div align="center">
                                     <label><input  type="checkbox" id="isDocenteReferente">  Inserisci come docente referente</label>
-                                </div>
-                                <br>                                    
+                                </div>                                
                             </div>
                         </form>       
                     </div>
@@ -98,7 +75,7 @@
                             <div class="row">
                                 <div class="col col-sm-6">
                                     <form onsubmit="setUserToAdd();" enctype="multipart/form-data" method="POST" action="docsloader.php" name="uploadform">
-                                        Seleziona il file contenente gli studenti da caricare:
+                                        Seleziona il file contenente i docenti da caricare:
                                         <br>
                                         <br>
                                         <input type="file" class="filestyle" data-buttonName="btn-primary" data-placeholder="File non inserito" name="docsfile">

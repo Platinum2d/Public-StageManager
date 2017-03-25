@@ -6,8 +6,7 @@ docente = {
     'cognome': '',
     'telefono': '',
     'email': '',
-    'docente_tutor' : '0',
-    'classe' : ''
+    'docente_tutor' : '0'
 };
 
 function send()
@@ -23,12 +22,13 @@ function send()
     docente.cognome = ''+$("#CognomeDocente").val().trim();
     docente.telefono = ''+$("#TelefonoDocente").val().trim();
     docente.email = ''+$("#EmailDocente").val().trim();
-    docente.classe = ''+$("#classeDocente").val();
     
     if ($("#isDocenteReferente").is(":checked")) 
         docente.docente_tutor = '0';
-    
-    if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty())
+    else
+        docente.docente_tutor = '1';
+        
+    if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty())
     {
         alert("Si prega di compilare i cambi obbligatori");
         return;
