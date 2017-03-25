@@ -18,7 +18,7 @@
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
     define ( "EMAIL_ALESSIO", "alessio.scheri@gmail.com" ); //Indirizzo email di Alessio
-    define ( "EMAIL_DANIELE", "manicardi215@gmail.com" ); //Indirizzo email di Daniele
+    define ( "EMAIL_DANIELE", "manicardi@stagemanager.it" ); //Indirizzo email di Daniele
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
@@ -36,7 +36,7 @@
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
-        require_once ($goBack . "db_config.php");
+        require ($goBack . "db_config.php");
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }

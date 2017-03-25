@@ -102,19 +102,37 @@
                                         str_replace(" ", "", $nome);
                                         str_replace(" ", "", $cognome);
                                         $username = $nome.$cognome;
-                                        $username = checkDoc($username);//verifica dell'esistenza del nome utente                            
+                                        $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
+                                        $result = $conn->query($query);
+                                        if ($result->num_rows > 0)
+                                        {
+                                            $tentativi = 1;
+                                            while (true)
+                                            {
+                                                $newuser = $username.$tentativi;
+                                                $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($newuser)."'";
+                                                $result = $conn->query($query);
+                                                if ($result->num_rows === 0)
+                                                {
+                                                    $username = $newuser;
+                                                    break;
+                                                }
+                                                $tentativi++;
+                                            }
+                                        }   
+                                        
                                         $password = generateRandomicString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $telefono = (trim($sheet->getCell('C'.$I)->getValue()));
-                                        $telefono = (empty($telefono) || !isset($telefono)) ? "Sconosciuto" : $telefono;
+                                        $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                         $email = (trim($sheet->getCell('D'.$I)->getValue()));
-                                        $email = (empty($email) || !isset($email)) ? "Sconosciuta" : $email;
+                                        $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                         $conn->query("SET FOREIGN_KEY_CHECKS = 0");
                                             
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', $type)";
                                             
                                         $insertquery = "INSERT INTO docente (id_docente, nome, cognome, telefono, email, scuola_id_scuola)"
-                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($telefono)."','".$conn->escape_string($email)."', ".$_SESSION['userId'].")";
+                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$conn->escape_string($telefono).",".$conn->escape_string($email).", ".$_SESSION['userId'].")";
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$nome $cognome</td> <td>$username</td> <td>$password</td> <td>$telefono</td> <td>$email</td> </tr>";
                                                 
                                         $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
@@ -145,7 +163,7 @@
                         echo "<div align='center'><b>Fatto.</b></div><br><br>$htmltable</div>";
                         echo "<br><br>$reporterrori";
                         echo $tableforpdf;
-                            
+                        unlink($filepath . $fileName);
         ?> 
             
                 </div>

@@ -17,18 +17,17 @@
             return (this.length === 0 || !this.trim());
         };      
         
-//        var check = setInterval(function(){
-//            if ($("#usernameTutor").val().isEmpty() || $("#passwordTutor").val().isEmpty() || $("#confermaPasswordTutor").val().isEmpty() || $("#nomeTutor").val().isEmpty()
-//                    || $("#cognomeTutor").val().isEmpty() || $("#telefonoTutor").val().isEmpty() || $("#emailTutor").val().isEmpty() || $("#aziendaTutor").val().isEmpty() 
-//                    || $("#userexists").val() === "1")
-//            {
-//                $("input[value=\"Invia\"]").prop("disabled",true);
-//            }
-//            else
-//            {
-//                $("input[value=\"Invia\"]").prop("disabled",false);
-//            }
-//        },1);
+       var check = setInterval(function(){
+           if ($("#usernameTutor").val().isEmpty() || $("#passwordTutor").val().isEmpty() || $("#confermaPasswordTutor").val().isEmpty() || $("#nomeTutor").val().isEmpty()
+                   || $("#cognomeTutor").val().isEmpty() || $("#userexists").val() === "1")
+           {
+               $("input[value=\"Invia\"]").prop("disabled",true);
+           }
+           else
+           {
+               $("input[value=\"Invia\"]").prop("disabled",false);
+           }
+       },1);
     </script>
     <input type="hidden" id="userexists" value="0">
     <div class="container">
@@ -57,13 +56,13 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="confermaPasswordTutor"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeTutor"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeTutor"> </div>
-                                <b>Telefono*</b> <div class="form-group"> <input class="form-control" id="telefonoTutor"> </div>
-                                <b>E-mail*</b> <div class="form-group"> <input class="form-control" id="emailTutor"> </div>
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="telefonoTutor"> </div>
+                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="emailTutor"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData();">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData();">
                             </div>
                         </form>
                     </div>
