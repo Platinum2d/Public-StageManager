@@ -22,12 +22,12 @@
         }
     },1);
 </script>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -43,7 +43,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('annoscolastico');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('annoscolastico');">
                             </div>
                             <div class="col col-sm-6" align="center">
                                 <input type="checkbox" id="currentyear" /> Anno Corrente

@@ -72,7 +72,7 @@ function changePage(tupledastampare, offset, pagetounderline)
                         
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                             </div>
                         </div>
                     </div>    

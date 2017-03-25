@@ -5,12 +5,12 @@
     import("../../../../");
     echo "<script src='../js/scripts.js'></script>";
 ?>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
         
     <script> 
         String.prototype.isEmpty = function() {
@@ -19,7 +19,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
-                    || $("#CittaAzienda").val().isEmpty() || $("#IndirizzoAzienda").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
+                    || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
             }
@@ -56,13 +56,13 @@
                                 </div> 
                                 <b>Conferma Password*</b><div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordAzienda"></div> 
                                 <b>Nome Azienda*</b> <div class="form-group"><input class="form-control" id="NomeAzienda"></div> 
-                                <b>Citta'*</b><div class="form-group"> <input class="form-control" id="CittaAzienda"></div>
-                                <b>Indirizzo*</b><div class="form-group"> <input class="form-control" id="IndirizzoAzienda"></div> 
+                                <b>Città</b><div class="form-group"> <input class="form-control" id="CittaAzienda"></div>
+                                <b>Indirizzo</b><div class="form-group"> <input class="form-control" id="IndirizzoAzienda"></div> 
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                 
                             </div>
                             <div class="col col-sm-6">                                
