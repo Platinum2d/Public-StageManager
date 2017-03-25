@@ -10,13 +10,16 @@ XML;
     
         $id_classe = $_POST['id'];
         
-        $query =  "SELECT DISTINCT azienda.id_azienda, azienda.nome_aziendale
+        /*$query =  "SELECT DISTINCT azienda.id_azienda, azienda.nome_aziendale
                     FROM azienda, azienda_needs_figura_professionale, settore_has_figura_professionale, classe
                     WHERE azienda.id_azienda = azienda_needs_figura_professionale.azienda_id_azienda
                     AND azienda_needs_figura_professionale.figura_professionale_id_figura_professionale = settore_has_figura_professionale.figura_professionale_id_figura_professionale
                     AND settore_has_figura_professionale.settore_id_settore = classe.settore_id_settore
                     AND classe.id_classe = $id_classe
-                    ORDER BY azienda.nome_aziendale;";
+                    ORDER BY azienda.nome_aziendale;";*/
+        
+        $query =  "SELECT azienda.id_azienda, azienda.nome_aziendale
+			        FROM azienda;";
         
         if ($result = $connessione->query($query)) {
             $xml->addChild("status", "1");
