@@ -39,7 +39,7 @@ function openInfo(progressiv, nome_classe, id_classe, id_anno)
                 
                 $("#docs").append("<tr class='idcont' id='"+id_docente+"'>\n\
                                                 <td align='center'>"+cognome+" "+nome+"</td>\n\
-                                                <td align='center'><button onclick='disassegna("+id_chd+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></span> Disassegna</button></td>\n\
+                                                <td align='center'><button onclick='disassegna("+id_chd+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
                                               </tr>");
             });
         }
@@ -129,7 +129,7 @@ function assegna(id_classe, id_anno)
                 
                 $("#docs").append("<tr class='idcont' id='"+$("#addInsegnanteSelect").val()+"'>\n\
                         <td align='center'>"+$("#addInsegnanteSelect").find(":selected").text()+"</td>\n\
-                        <td align='center'><button onclick='disassegna("+id_chd+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></span> Disassegna</button></td>\n\
+                        <td align='center'><button onclick='disassegna("+id_chd+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
                      </tr>");
                 
                 closeAddInsegnante();

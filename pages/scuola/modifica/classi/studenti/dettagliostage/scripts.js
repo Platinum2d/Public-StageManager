@@ -332,7 +332,7 @@ function openDocsRefs(id_studente_has_stage, id_anno)
                 
                 $("#docsRefsTable").append("<tr id='"+id_doc+"' class='idcont' name='"+id_drhshs+"'>\n\
                                                 <td align='center'>"+cognome+" "+nome+"</td>\n\
-                                                <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></span> Disassegna</button></td>\n\
+                                                <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
                                             </tr>")
             });
         }
@@ -394,7 +394,7 @@ function assegna(id_shs, id_anno)
                 
                 $("#docsRefsTable").append("<tr class='idcont' id='"+$("#addDocsRefSelect").val()+"'>\n\
                         <td align='center'>"+$("#addDocsRefSelect").find(":selected").text()+"</td>\n\
-                        <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></span> Disassegna</button></td>\n\
+                        <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
                      </tr>");
                 
                 closeAddDocsRef();
