@@ -43,7 +43,7 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
         cache : false,
         success : function (xml){
             var authorised = $(xml).find("autorizzazione").text();
-            var visited = $(xml).find("azienda").find("visitata").text();
+            var visited = $(xml).find("visitata").text();
             var studente_has_stage = id_studente_has_stage;
             
             $("#confirm"+progressiv).attr('onclick',"sendData("+progressiv+", "+id_classe_has_stage+", "+id_studente+", "+studente_has_stage+")");
@@ -200,7 +200,7 @@ function deleteExperience(studente_has_stage){
     }
     else
     {
-        alert("Stage non impostato: impossibile procedere");
+        printError("Errore di eliminazione", "<div align='center'>Stage non impostato: impossibile procedere</div>");
     }
 }
 
