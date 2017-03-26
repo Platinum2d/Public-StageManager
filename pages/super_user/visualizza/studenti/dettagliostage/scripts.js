@@ -200,7 +200,7 @@ function deleteExperience(studente_has_stage){
     }
     else
     {
-        alert("Stage non impostato: impossibile procedere");
+        printError("Errore di eliminazione", "<div align='center'>Stage non impostato: impossibile procedere</div>");
     }
 }
 

@@ -48,7 +48,7 @@ $xml = new SimpleXMLElement ( $xmlstr );
         $azienda = $xml->addChild("azienda");
         $azienda->addChild("id", $azienda_results['azienda_id_azienda']);
         $azienda->addChild("nome", $azienda_results['nome_aziendale']);
-        $azienda->addChild("visitata", $azienda_results['visita_azienda']);
+        //$azienda->addChild("visitata", $azienda_results['visita_azienda']);
         $docente = $xml->addChild("docente");
         $docente->addChild("id", $docente_results['docente_tutor_id_docente_tutor']);
         $docente->addChild("nome", $docente_results['nome']);
