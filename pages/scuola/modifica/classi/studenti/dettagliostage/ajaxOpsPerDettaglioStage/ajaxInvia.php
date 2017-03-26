@@ -15,13 +15,13 @@
     {
         $query = "INSERT INTO studente_has_stage "
                 . "(azienda_id_azienda, tutor_id_tutor, docente_tutor_id_docente_tutor, studente_id_studente, classe_has_stage_id_classe_has_stage, autorizzazione_registro, visita_azienda, "
-                . "valutazione_studente_id_valutazione_studente, valutazione_stage_id_valutazione_stage) VALUES ($azienda, $tutor, $docente, $studente, $classe_has_stage, $autorizzazione, 0, "
+                . "valutazione_studente_id_valutazione_studente, valutazione_stage_id_valutazione_stage) VALUES ($azienda, $tutor, $docente, $studente, $classe_has_stage, $autorizzazione, '$visita', "
                 . "NULL, NULL)";
     }
     else
     {
         $query = "UPDATE studente_has_stage "
-                . "SET azienda_id_azienda = $azienda, tutor_id_tutor = $tutor, docente_tutor_id_docente_tutor = $docente, autorizzazione_registro = $autorizzazione, visita_azienda = $visita "
+                . "SET azienda_id_azienda = $azienda, tutor_id_tutor = $tutor, docente_tutor_id_docente_tutor = $docente, autorizzazione_registro = $autorizzazione, visita_azienda = '$visita' "
                 . "WHERE id_studente_has_stage = $studente_has_stage";
     }
     
