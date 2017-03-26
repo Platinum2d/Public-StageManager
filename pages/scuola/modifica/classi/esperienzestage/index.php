@@ -83,7 +83,7 @@
                                     $inizio_stage = date("d-m-Y", strtotime($row['inizio_stage']));
                                     echo "<tr> "
                                     . "<td style=\"text-align : center\"><label> $inizio_stage </label></td> <td style=\"text-align : center\"> <label>".$row['durata_stage']."</label> </td> "
-                                    . " <td> <div align=\"center\"> <button style=\"margin : 0px\" name=\"delete\" onclick=\"deleteExperience(".$row['id_classe_has_stage'].")\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-remove\"></span> Rimuovi </button></div> </td> "
+                                    . " <td> <div align=\"center\"> <button style=\"margin : 0px\" name=\"delete\" onclick=\"deleteExperience(".$row['id_classe_has_stage'].")\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-trash\"></span> Rimuovi </button></div> </td> "
                                     . "</tr>";
                                 }
                             ?>
