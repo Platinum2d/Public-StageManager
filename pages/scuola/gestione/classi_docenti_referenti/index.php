@@ -9,7 +9,7 @@
     $nomeanno = $resultanno['nome_anno'];
     $idanno = $resultanno['id_anno_scolastico'];
 ?>
-    
+
 <body>
     <?php
         topNavbar ("../../../../");
@@ -64,7 +64,10 @@
                         </th>
                         <th>
                             Docente referente assegnato
-                        </th>                            
+                        </th> 
+                        <th>
+                            Gestiti su Totali
+                        </th> 
                         <th style="text-align:center">
                             Azioni
                         </th>
@@ -107,10 +110,11 @@
                                             
                                         //echo $current_cognome_docente . " " . $current_nome_docente . " gestisce ". $num_stud_gestiti_current_doc . " in ".$current_nome_classe. " su ".$num_stud_current_class. " totali<br>";
                                             
-                                        if ($num_stud_current_class > 0 && $num_stud_current_class === $num_stud_gestiti_current_doc)
+                                        if ($num_stud_current_class > 0 && $num_stud_gestiti_current_doc > 0)
                                         {
                                             echo "<tr><td align='center'>$current_nome_classe</td><td>$current_nome_docente $current_cognome_docente</td>"
-                                                    . "<td align='center'><button onclick='deleteAssignment($current_docente_id, $current_classe_id, $idanno)' class='btn btn-danger'><span class='glyphicon glyphicon-remove'></span> Disassegna</button></td></tr>";
+                                                    . "<td align='center'><u style='cursor : pointer' onclick='showAssignedStudents($current_docente_id, $current_classe_id, $idanno)'>$num_stud_gestiti_current_doc su $num_stud_current_class</u></td>"
+                                                    . "<td align='center'><button onclick='deleteAssignment($current_docente_id, $current_classe_id, $idanno)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td></tr>";
                                         }
                                     }
                                 }
@@ -124,7 +128,7 @@
                         <div class="col col-sm-12">
                             <div class='row'>
                                 <div class="col col-sm-4">
-                                        * Non appaiono in lista classi vuote e/o senza esperienze di stage assegnate
+                                    * Non appaiono in lista classi vuote e/o senza esperienze di stage assegnate
                                 </div>
                                 <div class="col col-sm-8" align='right'>
                                     <h3>A.S. <?php echo $nomeanno; ?></h3>
