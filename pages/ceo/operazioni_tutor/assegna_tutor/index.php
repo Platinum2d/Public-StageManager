@@ -73,7 +73,7 @@
                                 while ($row = $result->fetch_assoc())
                                 {
                                     $startdate = date('d/m/Y', strtotime($row['inizio_stage']));
-                                    $enddate = date('d/m/Y', strtotime("+".$row['durata_stage']." days"));
+                                    $enddate = date('d/m/Y', strtotime($row['inizio_stage']." + ".$row['durata_stage']." days"));
                                     if (isset($row['tutor_id_tutor']) && !empty($row['tutor_id_tutor']))
                                     {
                                         $rowtutor = $conn->query("SELECT id_tutor, nome, cognome FROM tutor WHERE id_tutor = ".$row['tutor_id_tutor'])->fetch_assoc();
