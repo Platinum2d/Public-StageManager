@@ -17,7 +17,7 @@
     
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
-    define ( "EMAIL_ALESSIO", "alessio.scheri@gmail.com" ); //Indirizzo email di Alessio
+    define ( "EMAIL_ALESSIO", "alessio.scheri@stagemanager.it" ); //Indirizzo email di Alessio
     define ( "EMAIL_DANIELE", "manicardi@stagemanager.it" ); //Indirizzo email di Daniele
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele

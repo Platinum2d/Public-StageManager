@@ -17,6 +17,7 @@ function openEdit(numberId, id_scuola)
         success : function (xml)
         {
             $("#modifica"+numberId).prop("disabled", true);
+            var username = $(xml).find("scuola").find("username").text();
             var nome = $(xml).find("scuola").find("nome").text();
             var citta = $(xml).find("scuola").find("citta").text();
             var CAP = $(xml).find("scuola").find("CAP").text();
@@ -31,12 +32,14 @@ function openEdit(numberId, id_scuola)
                             <div class=\"col col-sm-12\">\n\
                                 <div class=\"row\">\n\
                                     <div class=\"col col-sm-6\">\n\
+                                        <span id=\"userlabel"+numberId+"\">Username</span><input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\" value='"+username+"'>\n\
                                         Nome <input class=\"form-control\" id=\"nome"+numberId+"\" value=\""+nome+"\"\">\n\
                                         Città <input class=\"form-control\" id=\"citta"+numberId+"\" value=\""+citta+"\"\">\n\
                                         CAP <input class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
                                         Indirizzo <input class=\"form-control\" id=\"indirizzo"+numberId+"\" value=\""+indirizzo+"\"\">\n\
                                     </div>\n\
                                     <div class=\"col col-sm-6\">\n\
+                                        Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
                                         Telefono <input class=\"form-control\" id=\"telefono"+numberId+"\" value=\""+telefono+"\"\">\n\
                                         E-Mail <input class=\"form-control\" id=\"email"+numberId+"\" value=\""+email+"\"\">\n\
                                         Sito Web <input class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\"><br>\n\
@@ -57,6 +60,8 @@ function openEdit(numberId, id_scuola)
 
 function setOnChangeEvents(numberId)
 {
+    $("#username"+numberId).on ('input', function (e){ $(this).css('color','red'); });
+    $("#password"+numberId).on ('input', function (e){ $(this).css('color','red'); });
     $("#nome"+numberId).on ('input', function (e){ $(this).css('color','red'); });
     $("#citta"+numberId).on ('input', function (e){ $(this).css('color','red'); });
     $("#CAP"+numberId).on ('input', function (e){ $(this).css('color','red'); });
@@ -68,6 +73,8 @@ function setOnChangeEvents(numberId)
 
 function resetColors(numberId)
 {
+    $("#username"+numberId).css('color','#555');
+    $("#password"+numberId).css('color','#555');
     $("#nome"+numberId).css('color','#555');
     $("#citta"+numberId).css('color','#555');
     $("#CAP"+numberId).css('color','#555');
@@ -79,8 +86,14 @@ function resetColors(numberId)
 
 function sendData(numberId, id_scuola)
 {
+    String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+    };
+    
     tosend = {
         'id' : id_scuola,
+        'username' : $("#username"+numberId).val(),
+        'password' : $("#password"+numberId).val(),
         'nome' : $("#nome"+numberId).val(),
         'citta' : $("#citta"+numberId).val(),
         'CAP' : $("#CAP"+numberId).val(),
@@ -89,6 +102,8 @@ function sendData(numberId, id_scuola)
         'email' : $("#email"+numberId).val(),
         'sitoweb' : $("#sitoweb"+numberId).val()
     };
+    
+    tosend.password = ($("#password"+numberId).val().isEmpty()) ? "immutato" : $("#password"+numberId).val();
     
     $.ajax({
         type : 'POST',
