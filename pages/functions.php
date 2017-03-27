@@ -121,6 +121,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/inserisci-aziende/index.php'>Inserisci</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/modifica-aziende/index.php'>Modifica</a></li>";
                 echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/tutorato/index.php'>Tutorato</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
                         </ul>
