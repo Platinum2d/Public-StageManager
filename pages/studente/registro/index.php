@@ -48,12 +48,13 @@ if (isset($_SESSION ['studenteHasStageId'])) {
         																WHERE lavoro_giornaliero.studente_has_stage_id_studente_has_stage = $idStudtudenteHasStage 
         																ORDER BY data ASC;");
                                                 
-                                            $Query = "SELECT autorizzazione_registro 
+                                            $Query = "SELECT autorizzazione_registro, visita_azienda 
                                                         FROM studente_has_stage 
                                                         WHERE id_studente_has_stage = $idStudtudenteHasStage;";
                                             $result = $db->query($Query);
                                             $row = $result->fetch_assoc();
                                             $autorizzazione = $row['autorizzazione_registro'];
+                                            $visita = $row['visita_azienda'];
                                     ?>
                                         <input type="hidden" id="contatoreaggiungi" value="0">                                        
                                         <div id="DescMain">
@@ -63,7 +64,7 @@ if (isset($_SESSION ['studenteHasStageId'])) {
                                                         <th style="width:15%">Data</th>
                                                         <th style="width:65%">Descrizione</th>
                                                         <?php
-                                                            if ($autorizzazione === "1") {
+                                                            if ($autorizzazione == "1" && $visita == "1") {
                                                                 echo " <th>Azioni</th>";
                                                             }
                                                         ?>
@@ -82,7 +83,7 @@ if (isset($_SESSION ['studenteHasStageId'])) {
                                                         	<?php echo $work_line['descrizione']; ?>
                                                         </td>
                                                      	<?php
-                                                            if ($autorizzazione === "1") {   
+                                                            if ($autorizzazione == "1" && $visita == "1") {   
                                                         ?>
 														<td class="regEdit">
                                                             <div align="center" style="vertical-align: middle">              
@@ -103,7 +104,7 @@ if (isset($_SESSION ['studenteHasStageId'])) {
                                         </div>
                                     </div>
                                     <?php
-                                        if ($autorizzazione === "1") {   
+                                        if ($autorizzazione == "1" && $visita == "1") {   
                                     ?>                                            
                                     <input type="button" name="<?php echo $I - 1 ?>" id="edit" class="btn btn-success" value="Aggiungi" onclick="appendAddingBox()">
                                     <?php
