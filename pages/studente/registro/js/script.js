@@ -132,7 +132,7 @@ function resetColors(progressiv)
 function appendAddingBox()
 {
     var progressiv = parseInt($("#contatoreaggiungi").val());
-    $("#DescTable").append("<tr> <td> <input type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea style=\"resize:vertical\"  class=\"form-control\" id=\"aggiungidescrizione"+progressiv+"\"></textarea> </td> <td id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div> </td> </tr>");
+    $("#DescTable").append("<tr> <td> <input type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea style=\"resize:vertical\" rows=\"9\" class=\"form-control\" id=\"aggiungiLavoro"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"9\" class=\"form-control\" id=\"aggiungiInsegnamenti"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"9\" class=\"form-control\" id=\"aggiungiCommento"+progressiv+"\"></textarea> </td> <td class=\"pull-content-bottom\" id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-save\"> </span> </button> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-trash\"> </span> </button> </div> </td> </tr>");
     $("#gobuttons"+progressiv+"").hide(); $("#gobuttons"+progressiv+"").fadeIn("slow");
     $("#aggiungidescrizione"+progressiv+"").hide(); $("#aggiungidescrizione"+progressiv+"").fadeIn("slow");
     $("#aggiungidata"+progressiv+"").hide(); $("#aggiungidata"+progressiv+"").fadeIn("slow");
@@ -152,14 +152,18 @@ function insertActivity(progressiv)
     }; 
     
     var data = ''+$("#aggiungidata"+progressiv+"").val();
-    var descrizione = ''+$("#aggiungidescrizione"+progressiv+"").val();
+    var lavoroSvolto = ''+$("#aggiungiLavoro"+progressiv+"").val();
+    var insegnamenti = ''+$("#aggiungiInsegnamenti"+progressiv+"").val();
+    var commento = ''+$("#aggiungiCommento"+progressiv+"").val();
     
     lavorodainserire = {
         'data' : data,
-        'descrizione' : descrizione
+        'lavoroSvolto' : lavoroSvolto,
+        'insegnamenti' : insegnamenti,
+        'commento' : commento
     }
     
-    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.descrizione.isEmpty())
+    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
     {
     	date = data.split ("-");
     	date = new Date (date[2], parseInt (date[1]) - 1, date[0]);
@@ -171,6 +175,7 @@ function insertActivity(progressiv)
 	           data : lavorodainserire,
 	           success : function (maxid)
 	           {
+	        	   alert (maxid);
 	               convertToInsertedData(progressiv, maxid);
 	           }
 	        });
@@ -198,11 +203,19 @@ function convertToInsertedData(progressiv, maxid)
     $("#aggiungidata"+progressiv+"").closest("td").attr("id","data"+(generalprogressiv + 1));
     $("#aggiungidata"+progressiv+"").closest("td").html(data)
     
-    var descrizione = $("#aggiungidescrizione"+progressiv+"").val();
-    $("#aggiungidescrizione"+progressiv+"").closest("td").attr("id","descrizione"+(generalprogressiv + 1));
-    $("#aggiungidescrizione"+progressiv+"").closest("td").html(descrizione);
+    var lavoro = $("#aggiungiLavoro"+progressiv+"").val();
+    $("#aggiungiLavoro"+progressiv+"").closest("td").attr("id","lavoroSvolto"+(generalprogressiv + 1));
+    $("#aggiungiLavoro"+progressiv+"").closest("td").html(lavoro);
     
-    $("#gobuttons"+progressiv).html("<div align=\"center\"><input type=\"button\" class=\"btn btn-info\" id=\"modifica"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Modifica\" onclick = \"openEdit("+(generalprogressiv + 1)+")\"> <input type=\"button\" class=\"btn btn-danger\" id=\"elimina"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Cancella\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", this.name)\"></div>");
+    var insegnamenti = $("#aggiungiInsegnamenti"+progressiv+"").val();
+    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").attr("id","insegnamenti"+(generalprogressiv + 1));
+    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").html(insegnamenti);
+
+    var commento = $("#aggiungiCommento"+progressiv+"").val();
+    $("#aggiungiCommento"+progressiv+"").closest("td").attr("id","commento"+(generalprogressiv + 1));
+    $("#aggiungiCommento"+progressiv+"").closest("td").html(commento);
+    
+    $("#gobuttons"+progressiv).html("<div align=\"center\"><button class=\"btn btn-warning buttonfix btn-sm margin\" id=\"modifica"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" onclick = \"openEdit("+(generalprogressiv + 1)+")\"><span class=\"glyphicon glyphicon-edit\"></span></button> <button class=\"btn btn-danger buttonfix btn-sm margin\" id=\"elimina"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Cancella\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", this.name)\"><span class=\"glyphicon glyphicon-trash\"></span></button></div>");
     $("#edit").attr("name",(generalprogressiv+1));
     
     $("#riga"+(generalprogressiv + 1)).hide();
