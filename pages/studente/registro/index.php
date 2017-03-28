@@ -1,31 +1,31 @@
 <?php
-include '../../functions.php';
-checkLogin ( studType,"../../../" );
-open_html ( "Registro stage" );
-import("../../../");
-
-$db = dbConnection("../../../");
-if (isset($_SESSION ['studenteHasStageId'])) {
-	$idStudtudenteHasStage = $_SESSION ['studenteHasStageId'];
-	$query_stage = "SELECT stage.inizio_stage, stage.durata_stage
-	FROM studente_has_stage, stage, classe_has_stage
-	WHERE studente_has_stage.id_studente_has_stage = $idStudtudenteHasStage
-	AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
-	AND classe_has_stage.stage_id_stage = stage.id_stage;";
-	$resultStage = $db->query ( $query_stage );
-	$rowStage = $resultStage->fetch_assoc ();
-	$inizioStage = explode ("-", $rowStage ['inizio_stage']);
-	$durataStage = $rowStage ['durata_stage'] - 1;
-	$anno = $inizioStage[0];
-	$mese = $inizioStage[1] - 1;
-	$giorno = $inizioStage[2];
-	?>
-<script>
-	var inizio_stage = new Date(<?php echo "$anno,$mese,$giorno"; ?>);
-	var fine_stage = new Date(inizio_stage.getTime() + <?php echo "$durataStage"; ?> * 86400000 );
-</script>
+    include '../../functions.php';
+    checkLogin ( studType,"../../../" );
+    open_html ( "Registro stage" );
+    import("../../../");
+    
+    $db = dbConnection("../../../");
+    if (isset($_SESSION ['studenteHasStageId'])) {
+    	$idStudtudenteHasStage = $_SESSION ['studenteHasStageId'];
+    	$query_stage = "SELECT stage.inizio_stage, stage.durata_stage
+    	FROM studente_has_stage, stage, classe_has_stage
+    	WHERE studente_has_stage.id_studente_has_stage = $idStudtudenteHasStage
+    	AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+    	AND classe_has_stage.stage_id_stage = stage.id_stage;";
+    	$resultStage = $db->query ( $query_stage );
+    	$rowStage = $resultStage->fetch_assoc ();
+    	$inizioStage = explode ("-", $rowStage ['inizio_stage']);
+    	$durataStage = $rowStage ['durata_stage'] - 1;
+    	$anno = $inizioStage[0];
+    	$mese = $inizioStage[1] - 1;
+    	$giorno = $inizioStage[2];
+    	?>
+    <script>
+    	var inizio_stage = new Date(<?php echo "$anno,$mese,$giorno"; ?>);
+    	var fine_stage = new Date(inizio_stage.getTime() + <?php echo "$durataStage"; ?> * 86400000 );
+    </script>
 <?php
-}
+    }
 ?>
 <script src="js/script.js"></script>
 <body>
@@ -93,10 +93,10 @@ if (isset($_SESSION ['studenteHasStageId'])) {
                                                      	<?php
                                                             if ($autorizzazione == "1" && $visita == "1") {   
                                                         ?>
-														<td class="regEdit">
+														<td class="regEdit pull-content-bottom">
                                                             <div align="center" style="vertical-align: middle;">              
-                                                                <button class="btn btn-warning buttonfix btn-sm margin" id="modifica<?php echo $I; ?>" name="<?php echo $work_line['id_lavoro_giornaliero']; ?>" onclick = "openEdit(<?php echo $I; ?>)"><span class="glyphicon glyphicon-edit"></span></button>
-                                                                <button class="btn btn-danger buttonfix btn-sm margin" id="elimina<?php echo $I; ?>" name="<?php echo $work_line['id_lavoro_giornaliero']; ?>" onclick = "deleteDescrizione(<?php echo $I; ?>, this.name)"><span class="glyphicon glyphicon-trash"></span></button>
+                                                                <button class="btn btn-warning buttonfix btn-sm margin" id="modifica<?php echo $I; ?>" onclick = "openEdit(<?php echo $I; ?>, <?php echo $work_line['id_lavoro_giornaliero']; ?>)"><span class="glyphicon glyphicon-edit"></span></button>
+                                                                <button class="btn btn-danger buttonfix btn-sm margin" id="elimina<?php echo $I; ?>" onclick = "deleteDescrizione(<?php echo $I; ?>, <?php echo $work_line['id_lavoro_giornaliero']; ?>)"><span class="glyphicon glyphicon-trash"></span></button>
                                                             </div>
                                                         </td>
                                                      	<?php
