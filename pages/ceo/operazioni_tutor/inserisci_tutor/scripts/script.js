@@ -42,8 +42,12 @@ function sendSingleData()
         success : function(msg)
         {
             if (msg === "Inserimento dei dati riuscito!")
+            {
+                printSuccess("Inserimento Riuscito", "<div align='center'>Tutor aziendale inserito correttamente!</div>");
                 freeFields();
-            else alert (msg);
+            }
+            else 
+                printError("Inserimento non riuscito", "<div align='center'>L'inserimento non è andato a buon fine. Si prega di riprovare<br>Se l'errore dovesse persistere, contattare l'amministratore</div>");
         }
     });
 }

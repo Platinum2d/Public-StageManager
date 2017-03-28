@@ -98,6 +98,7 @@ function sendData()
         cache : false,
         success : function(msg)
         {
+            alert(msg); 
             if (msg === "ok")
             {
                 freeFields();
