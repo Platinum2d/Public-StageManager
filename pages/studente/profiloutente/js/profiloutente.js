@@ -49,7 +49,7 @@ $(document).ready(function(){
         contact.phone=$("#phone").html();
         
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.city.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.username.length>0 && contact.last.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/save.php",
