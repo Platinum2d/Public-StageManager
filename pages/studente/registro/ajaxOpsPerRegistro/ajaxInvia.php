@@ -16,7 +16,7 @@
     }
     
     $query = "UPDATE lavoro_giornaliero 
-                SET data=$data, lavoro_svolto='$lavoro', insegnamenti='$insegnamenti', commento=$commento 
+                SET data='$data', lavoro_svolto='$lavoro', insegnamenti='$insegnamenti', commento=$commento 
                 WHERE id_lavoro_giornaliero=$idlavoro;";
     
     if ($conn->query($query))

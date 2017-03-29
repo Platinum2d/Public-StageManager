@@ -106,6 +106,7 @@ function sendData(progressiv, idDescrizione)
     	date = lavoro.data.split ("-");
     	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
     	if (date >= inizio_stage && date <=fine_stage) {
+    		lavoro.data = date;
 	        $.ajax({
 	            type : 'POST',
 	            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',

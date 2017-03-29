@@ -62,8 +62,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="col col-sm-2 text-center">Data</th>
-                                                        <th class="col col-sm-3 text-center">Lavoro svolto</th>
-                                                        <th class="col col-sm-3 text-center">Insegnamenti ottenuti</th>
+                                                        <th class="col col-sm-3 text-center">Attività svolte</th>
+                                                        <th class="col col-sm-3 text-center">Capacità acquisite</th>
                                                         <th class="col col-sm-2 text-center">Commento</th>
                                                         <th class='col col-sm-2 text-center'>Azioni</th>
                                                     </tr>

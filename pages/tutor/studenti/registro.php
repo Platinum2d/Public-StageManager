@@ -58,8 +58,8 @@
                                     <thead>
                                         <tr>
                                             <td class="text-center col col-sm-2">Data</td>
-                                            <td class="text-center col col-sm-3">Lavoro svolto</td>
-                                            <td class="text-center col col-sm-3">Insegnamenti ottenuti</td>
+                                            <td class="text-center col col-sm-3">Attività svolte</td>
+                                            <td class="text-center col col-sm-3">Capacità acquisite</td>
                                             <td class="text-center col col-sm-2">Commenti</td>
                                             <td class="text-center col col-sm-2">Opzioni</td>
                                         </tr>
