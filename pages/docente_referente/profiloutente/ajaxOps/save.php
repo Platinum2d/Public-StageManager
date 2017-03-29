@@ -9,8 +9,25 @@
         $email = $connessione->escape_string ( strip_tags($_POST ['mail']) );
         $telefono = $connessione->escape_string ( strip_tags($_POST ['phone']) );
         
-        $userquery = "UPDATE utente SET username = '$username' WHERE id_utente = $id_docente";
-        $sql = "update docente set nome='$nome',cognome='$cognome', telefono='$telefono', email='$email' where id_docente='$id_docente';";
+        if ($email == "") {
+            $email = "NULL";
+        }
+        else {
+            $email = "'".$email."'";
+        }
+        if ($telefono == "") {
+            $telefono = "NULL";
+        }
+        else {
+            $telefono = "'".$telefono."'";
+        }
+        
+        $userquery = "UPDATE utente 
+                        SET username = '$username' 
+                        WHERE id_utente = $id_docente;";
+        $sql = "UPDATE docente 
+                SET nome='$nome',cognome='$cognome', telefono=$telefono, email=$email 
+                WHERE id_docente=$id_docente;";
         if ($connessione->query ( $userquery ) && $connessione->query ( $sql ))
             echo "ok";
         else 
