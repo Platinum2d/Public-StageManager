@@ -148,7 +148,7 @@
                                         $stage_result = $stage_result->fetch_assoc(); 
                                         $id_stage = $stage_result['id_stage'];
                                         $inizio_stage = $stage_result['inizio_stage'];
-                                        $durata_stage = $stage_result['durata_stage'];
+                                        $durata_stage = $stage_result['durata_stage'] - 1;
                                     }
                                     else
                                     {
