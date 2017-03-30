@@ -9,6 +9,18 @@ contact = {
 var figuresSize = 12.5; //Costanti generali per le figure professionali
 var figuresLimit = 5;
 
+function turnEditOn()
+{
+    $("#myInformations td").addClass("editCell");
+    $(".edittextdiv").attr('contenteditable', 'true');
+}
+
+function turnEditOff()
+{
+    $("#myInformations td").removeClass("editCell");
+    $(".edittextdiv").attr('contenteditable', 'false');
+}
+
 $(document).ready(function(){
     $("#HiddenAddBox").hide();
     $("#cancelButtonspec").hide();
@@ -66,7 +78,7 @@ $(document).ready(function(){
         $("#cancelButton").show();
         
         //rendo al tabella editabile
-        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
+        turnEditOn();
     });
     
     $("#saveButton").click(function(){
@@ -108,7 +120,7 @@ $(document).ready(function(){
     function exitEdit(){
         
         //blocco la tabella
-        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        turnEditOff();
         
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
