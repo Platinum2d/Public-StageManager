@@ -2,8 +2,9 @@
 include '../../functions.php';
 checkLogin ( scuolaType , "../../../" );
 checkEmail();
-import("../../../");
+
 open_html ( "Contatta" );
+import("../../../");
 ?>
 <script src='js/scripts.js?0.1'></script>
 <body>
