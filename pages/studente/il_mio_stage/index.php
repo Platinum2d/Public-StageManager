@@ -22,7 +22,7 @@
                                 
                                 function sommaGiorni($dateadd, $duratas) {
                                     list ( $giorno, $mese, $anno ) = explode ( '-', $dateadd );
-                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas, $anno ) );
+                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas - 1, $anno ) );
                                 }
                                     
                                 $idstud = $_SESSION ['userId'];
@@ -69,7 +69,9 @@
                                             
                                         if ($idtust !== null)
                                         {
-                                            $outputut = $conn->query ( "SELECT `nome`, `cognome`, `id_tutor` FROM `tutor` WHERE id_tutor=$idtust" );
+                                            $outputut = $conn->query ( "SELECT `nome`, `cognome`, `id_tutor` 
+                                                                        FROM `tutor` 
+                                                                        WHERE id_tutor=$idtust" );
                                             if ($outputut->num_rows > 0)
                                             {
                                                 $tutor = $outputut->fetch_assoc ();
@@ -81,16 +83,16 @@
                                         else
                                         {
                                             $cognome_tutor_az = null;
-                                            $nome_tutor_az = null;
+                                            $nome_tutor_az = "<u><i>Non assegnato</i></u>";
                                         }
                                         //tutor scolastico
-                                        $iddost = $conn->query ("SELECT `docente_id_docente` 
+                                        $iddost = $conn->query ("SELECT `docente_tutor_id_docente_tutor` 
                                                                 FROM `studente_has_stage` 
                                                                 WHERE id_studente_has_stage = $idStudtudenteHasStage;");
                                         if ($iddost->num_rows > 0)
                                         {
                                             $iddost = $iddost->fetch_assoc ();
-                                            $iddost = $iddost ["docente_id_docente"];
+                                            $iddost = $iddost ["docente_tutor_id_docente_tutor"];
                                         }
                                         else 
                                         {
@@ -99,7 +101,9 @@
                                             
                                         if ($iddost !== null)
                                         {
-                                            $outputdo = $conn->query ( "SELECT `nome`, `cognome`, `id_docente` FROM `docente` WHERE id_docente=$iddost" );
+                                            $outputdo = $conn->query ( "SELECT `nome`, `cognome`, `id_docente` 
+                                                                        FROM `docente` 
+                                                                        WHERE id_docente=$iddost" );
                                             if ($outputdo->num_rows > 0)
                                             {
                                                 $docente = $outputdo->fetch_assoc ();
@@ -110,7 +114,7 @@
                                         else
                                         {
                                             $cognome_tutor_sc = null;
-                                                $nome_tutor_sc = null;
+                                            $nome_tutor_sc = "<u><i>Non assegnato</i></u>";
                                         }
                                         // ouput periodo stage
                                         $query_stage = "SELECT stage.inizio_stage, stage.durata_stage 
@@ -137,10 +141,10 @@
                                                 Ecco le informazioni relative all'azienda alla quale sei stato assegnato:
                                             </p>
                                             <br>
-                                            <div class=\"table-responsive\"><table id="myStage" class="table table-striped">
+                                            <div class=\"table-responsive\"><table id="myStage" class="table table-striped table-bordered">
                                                 <tr>
-                                                    <th class="col-sm-5">Nome azienda</th>
-                                                    <td class="col-sm-5">$nome</td>
+                                                    <th class="col-sm-4">Nome azienda</th>
+                                                    <td class="col-sm-8">$nome</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Citt&agrave; azienda</th>

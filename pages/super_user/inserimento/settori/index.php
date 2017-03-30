@@ -5,7 +5,7 @@
     echo "<script src='../js/scripts.js'></script>";
     import("../../../../");
 ?>
-    
+
 <script>
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
@@ -43,7 +43,7 @@
                                 * Campo Obbligatorio
                                 <br>
                                 <br>
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('settore');">
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('settore');">
                             </div>
                             <div class="col col-sm-6"> 
                                 <b>Nome settore*</b> <div class="form-group"> <input class="form-control" id="nomeSettore"> </div>
@@ -54,20 +54,6 @@
             </div>
         </div>
     </div>
-        
-    <!--    <script>
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerSettore/ajaxIndirizzi.php',
-            cache : false,
-            success : function (xml)
-            {
-                $(xml).find("indirizzi").find("indirizzo").each(function (){
-                    $("#indirizzoStudi").append("<option> "+$(this).text()+" </option>");
-                })
-            }
-        })
-    </script>-->
 </body>
 <?php
     close_html ("../../../../");

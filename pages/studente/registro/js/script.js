@@ -1,52 +1,65 @@
-lavoro = {
-    'id' : '',
-    'data' : '',
-    'descrizione' : ''
-}
 var data = "";
-var descrizione = "";
+var lavoro = "";
+var insegnamenti = "";
+var commento = "";
 
-function openEdit(progressiv)
+function openEdit(progressiv, idDescrizione)
 {
     data = $("#data"+progressiv).html().trim();
-    descrizione = $("#descrizione"+progressiv).html().trim();
+    lavoro = $("#lavoroSvolto"+progressiv).html().trim();
+    insegnamenti = $("#insegnamenti"+progressiv).html().trim();
+    commento = $("#commento"+progressiv).html().trim();
     $("riga"+progressiv).css("background","yellow")
-    $("#modifica"+progressiv).val('Conferma');
+    $("#modifica"+progressiv).html("<span class='glyphicon glyphicon-save'></span>");
     $("#modifica"+progressiv).attr("id","conferma"+progressiv);
-    $("#conferma"+progressiv).attr("onclick","sendData("+progressiv+",this.name)")
-    $("#conferma"+progressiv).removeClass("btn-info");
+    $("#conferma"+progressiv).attr("onclick","sendData("+progressiv+", "+idDescrizione+")");
+    $("#conferma"+progressiv).removeClass("btn-warning");
     $("#conferma"+progressiv).addClass("btn-success");
     $("#data"+progressiv).html("<input class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
-    $("#descrizione"+progressiv).html("<textarea id=\"textareadescrizione"+progressiv+"\" style=\"resize:vertical\"  class = \"form-control\" type=\"text\">"+descrizione+"</textarea>");
+    $("#data"+progressiv).data ("old", data);
+    $("#lavoroSvolto"+progressiv).html("<textarea id=\"textareaLavoro"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+lavoro+"</textarea>");
+    $("#lavoroSvolto"+progressiv).data ("old", lavoro);
+    $("#insegnamenti"+progressiv).html("<textarea id=\"textareaInsegnamenti"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+insegnamenti+"</textarea>");
+    $("#insegnamenti"+progressiv).data ("old", insegnamenti);
+    $("#commento"+progressiv).html("<textarea id=\"textareaCommento"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\" placeholder=\"Facoltativo\">"+commento+"</textarea>");
+    $("#commento"+progressiv).data("old", commento);
     $("#textboxdata"+progressiv).datepicker({ 
 		dateFormat: 'dd-mm-yy', 
 		minDate: inizio_stage,
 		maxDate: fine_stage
 	});
     $("#textboxdata"+progressiv).hide(); $("#textboxdata"+progressiv).hide().fadeIn("slow");
-    $("#textareadescrizione"+progressiv).hide(); $("#textareadescrizione"+progressiv).hide().fadeIn("slow");
-    $("#elimina"+progressiv).val("Annulla");
+    $("#textareaLavoro"+progressiv).hide(); $("#textareaLavoro"+progressiv).hide().fadeIn("slow");
+    $("#textareaInsegnamenti"+progressiv).hide(); $("#textareaInsegnamenti"+progressiv).hide().fadeIn("slow");
+    $("#textareaCommento"+progressiv).hide(); $("#textareaCommento"+progressiv).hide().fadeIn("slow");
+    $("#elimina"+progressiv).html("<span class='glyphicon glyphicon-remove'></span>");
     $("#elimina"+progressiv).attr("id","annulla"+progressiv);
-    $("#annulla"+progressiv).attr("onclick","closeEdit("+progressiv+")");
+    $("#annulla"+progressiv).attr("onclick","closeEdit("+progressiv+", "+idDescrizione+")");
     setOnChangeEvents(progressiv);
 }
 
-function closeEdit(progressiv)
+function closeEdit(progressiv, idDescrizione)
 {
         $("#textboxdata"+progressiv).remove();
-        $("#textareadescrizione"+progressiv).remove();
-        $("#data"+progressiv).html(data)
-        $("#descrizione"+progressiv).html(descrizione)
+        $("#textareaLavoro"+progressiv).remove();
+        $("#textareaInsegnamenti"+progressiv).remove();
+        $("#textareaCommento"+progressiv).remove();
+        $("#data"+progressiv).html($("#data"+progressiv).data("old"));
+        $("#lavoroSvolto"+progressiv).html($("#lavoroSvolto"+progressiv).data("old"));
+        $("#insegnamenti"+progressiv).html($("#insegnamenti"+progressiv).data("old"));
+        $("#commento"+progressiv).html($("#commento"+progressiv).data("old"));
         $("#conferma"+progressiv).attr("id","modifica"+progressiv);
         $("#annulla"+progressiv).attr("id","elimina"+progressiv);
-        $("#modifica"+progressiv).val("Modifica")
-        $("#elimina"+progressiv).val("Cancella")
+        $("#modifica"+progressiv).html("<span class='glyphicon glyphicon-edit'></span>");
+        $("#elimina"+progressiv).html("<span class='glyphicon glyphicon-trash'></span>");
         $("#modifica"+progressiv).removeClass("btn-success");
-        $("#modifica"+progressiv).addClass("btn-info");
-        $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+")")
-        $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+"),this.name");
+        $("#modifica"+progressiv).addClass("btn-warning");
+        $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+")");
+        $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+"), "+idDescrizione+")");
         data = "";
-        descrizione = "";
+        lavoro = "";
+        insegnamenti = "";
+        commento = "";
 }
 
 function deleteDescrizione(progressiv, idDescrizione)
@@ -73,17 +86,27 @@ function sendData(progressiv, idDescrizione)
 {    
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
-    }; 
+    };
     
-    lavoro.id = idDescrizione;
-    lavoro.data = ''+$("#textboxdata"+progressiv).val() ;
-    lavoro.descrizione = ''+$("#textareadescrizione"+progressiv).val();
-  
-    if (!lavoro.data.isEmpty() && !lavoro.descrizione.isEmpty())
+    lavoro = {
+    	    'id' : idDescrizione,
+    	    'data' : ''+$("#textboxdata"+progressiv).val(),
+    	    'lavoro' : ''+$("#textareaLavoro"+progressiv).val(),
+    	    'insegnamenti' : ''+$("#textareaInsegnamenti"+progressiv).val(),
+    	    'commento' : ''+$("#textareaCommento"+progressiv).val()
+	};
+
+    if (!lavoro.data.isEmpty() && !lavoro.lavoro.isEmpty() && !lavoro.insegnamenti.isEmpty())
     {
+    	$("#data"+progressiv).data ("old", lavoro.data);
+        $("#lavoroSvolto"+progressiv).data ("old", lavoro.lavoro);
+        $("#insegnamenti"+progressiv).data ("old", lavoro.insegnamenti);
+        $("#commento"+progressiv).data("old", lavoro.commento);
+        
     	date = lavoro.data.split ("-");
     	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
     	if (date >= inizio_stage && date <=fine_stage) {
+    		lavoro.data = date;
 	        $.ajax({
 	            type : 'POST',
 	            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
@@ -94,12 +117,14 @@ function sendData(progressiv, idDescrizione)
 	                if (msg === "ok")
 	                    resetColors(progressiv);
 		                data = $("#textboxdata"+progressiv).val();
-		                descrizione = $("#textareadescrizione"+progressiv).val();
+		                lavoro = $("#textareaLavoro"+progressiv).val();
+		                insegnamenti = $("#textareaInsegnamenti"+progressiv).val();
+		                commento = $("#textareaCommento"+progressiv).val();
 	                    closeEdit (progressiv);
 	            },
 	            error : function ()
 	            {
-	                alert("errore")
+	                printError ("Errore", "Problema nell'invio della richiesta.");
 	            }
 	        });
     	}
@@ -108,14 +133,22 @@ function sendData(progressiv, idDescrizione)
     	}
     }
     else {
-    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>I campi data e/o descrizione sono vuoti.");
+    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
     }
 }
 
 function setOnChangeEvents(progressiv)
 {
-    $("#textareadescrizione"+progressiv).on('input',function() {
-        $("#textareadescrizione"+progressiv).css("color","red");
+    $("#textareaLavoro"+progressiv).on('input',function() {
+        $("#textareaLavoro"+progressiv).css("color","red");
+    });
+    
+    $("#textareaInsegnamenti"+progressiv).on('input',function() {
+        $("#textareaInsegnamenti"+progressiv).css("color","red");
+    });
+    
+    $("#textareaCommento"+progressiv).on('input',function() {
+        $("#textareaCommento"+progressiv).css("color","red");
     });
     
     $("#textboxdata"+progressiv).on('input',function() {
@@ -125,17 +158,25 @@ function setOnChangeEvents(progressiv)
 
 function resetColors(progressiv)
 {
-    $("#textareadescrizione"+progressiv).css("color","#555");
+    $("#textareaLavoro"+progressiv).css("color","#555");
+    $("#textareaInsegnamenti"+progressiv).css("color","#555");
+    $("#textareaCommento"+progressiv).css("color","#555");
     $("#textboxdata"+progressiv).css("color","#555");
 }
 
 function appendAddingBox()
 {
     var progressiv = parseInt($("#contatoreaggiungi").val());
-    $("#DescTable").append("<tr> <td> <input type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea style=\"resize:vertical\"  class=\"form-control\" id=\"aggiungidescrizione"+progressiv+"\"></textarea> </td> <td id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div> </td> </tr>");
+    $("#DescTable").append("<tr> <td> <input type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiLavoro"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiInsegnamenti"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiCommento"+progressiv+"\" placeholder=\"Facoltativo\"></textarea> </td> <td class=\"pull-content-bottom\" id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-save\"> </span> </button> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-trash\"> </span> </button> </div> </td> </tr>");
     $("#gobuttons"+progressiv+"").hide(); $("#gobuttons"+progressiv+"").fadeIn("slow");
-    $("#aggiungidescrizione"+progressiv+"").hide(); $("#aggiungidescrizione"+progressiv+"").fadeIn("slow");
-    $("#aggiungidata"+progressiv+"").hide(); $("#aggiungidata"+progressiv+"").fadeIn("slow");
+    $("#aggiungiLavoro"+progressiv+"").hide();
+    $("#aggiungiLavoro"+progressiv+"").fadeIn("slow");
+    $("#aggiungiInsegnamenti"+progressiv+"").hide();
+    $("#aggiungiInsegnamenti"+progressiv+"").fadeIn("slow");
+    $("#aggiungiCommento"+progressiv+"").hide();
+    $("#aggiungiCommento"+progressiv+"").fadeIn("slow");
+    $("#aggiungidata"+progressiv+"").hide();
+    $("#aggiungidata"+progressiv+"").fadeIn("slow");
     $("#contatoreaggiungi").val(progressiv+1);
     $("#confirmadding"+progressiv+"").attr("onclick","insertActivity("+progressiv+")");
     $("#aggiungidata"+progressiv+"").datepicker({ 
@@ -152,17 +193,21 @@ function insertActivity(progressiv)
     }; 
     
     var data = ''+$("#aggiungidata"+progressiv+"").val();
-    var descrizione = ''+$("#aggiungidescrizione"+progressiv+"").val();
+    var lavoroSvolto = ''+$("#aggiungiLavoro"+progressiv+"").val();
+    var insegnamenti = ''+$("#aggiungiInsegnamenti"+progressiv+"").val();
+    var commento = ''+$("#aggiungiCommento"+progressiv+"").val();
     
     lavorodainserire = {
         'data' : data,
-        'descrizione' : descrizione
+        'lavoroSvolto' : lavoroSvolto,
+        'insegnamenti' : insegnamenti,
+        'commento' : commento
     }
     
-    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.descrizione.isEmpty())
+    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
     {
-    	date = lavoro.data.split ("-");
-    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
+    	date = data.split ("-");
+    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]);
     	if (date >= inizio_stage && date <=fine_stage) {
 	        $.ajax({
 	           type : 'POST',
@@ -180,7 +225,7 @@ function insertActivity(progressiv)
     	}
     }
     else {
-    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>I campi data e/o descrizione sono vuoti.");
+    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
     }
 }
 
@@ -198,11 +243,19 @@ function convertToInsertedData(progressiv, maxid)
     $("#aggiungidata"+progressiv+"").closest("td").attr("id","data"+(generalprogressiv + 1));
     $("#aggiungidata"+progressiv+"").closest("td").html(data)
     
-    var descrizione = $("#aggiungidescrizione"+progressiv+"").val();
-    $("#aggiungidescrizione"+progressiv+"").closest("td").attr("id","descrizione"+(generalprogressiv + 1));
-    $("#aggiungidescrizione"+progressiv+"").closest("td").html(descrizione);
+    var lavoro = $("#aggiungiLavoro"+progressiv+"").val();
+    $("#aggiungiLavoro"+progressiv+"").closest("td").attr("id","lavoroSvolto"+(generalprogressiv + 1));
+    $("#aggiungiLavoro"+progressiv+"").closest("td").html(lavoro);
     
-    $("#gobuttons"+progressiv).html("<div align=\"center\"><input type=\"button\" class=\"btn btn-info\" id=\"modifica"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Modifica\" onclick = \"openEdit("+(generalprogressiv + 1)+")\"> <input type=\"button\" class=\"btn btn-danger\" id=\"elimina"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Cancella\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", this.name)\"></div>");
+    var insegnamenti = $("#aggiungiInsegnamenti"+progressiv+"").val();
+    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").attr("id","insegnamenti"+(generalprogressiv + 1));
+    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").html(insegnamenti);
+
+    var commento = $("#aggiungiCommento"+progressiv+"").val();
+    $("#aggiungiCommento"+progressiv+"").closest("td").attr("id","commento"+(generalprogressiv + 1));
+    $("#aggiungiCommento"+progressiv+"").closest("td").html(commento);
+    
+    $("#gobuttons"+progressiv).html("<div align=\"center\"><button class=\"btn btn-warning buttonfix btn-sm margin\" id=\"modifica"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" onclick = \"openEdit("+(generalprogressiv + 1)+")\"><span class=\"glyphicon glyphicon-edit\"></span></button> <button class=\"btn btn-danger buttonfix btn-sm margin\" id=\"elimina"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Cancella\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-trash\"></span></button></div>");
     $("#edit").attr("name",(generalprogressiv+1));
     
     $("#riga"+(generalprogressiv + 1)).hide();

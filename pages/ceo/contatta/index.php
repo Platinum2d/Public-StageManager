@@ -1,11 +1,12 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( ceoType , "../../../");
-    checkEmail();
-    open_html ( "Contatta" );
-    import("../../../");
-    $id_tutor = $_SESSION ['userId'];
+include '../../functions.php';
+checkLogin ( ceoType , "../../../" );
+//checkEmail();
+open_html ( "Contatta" );
+import("../../../");
+
 ?>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");
@@ -19,47 +20,48 @@
                     <br>
                     <div class="row">
                         <div class="col col-sm-10">
-                            <form action="Sendmail.php" method="POST" class="contact" name="contactForm">
-                                <div class="form-group">
-                                    <label for="destinatario" class="select">Seleziona lo studente o il tutor che intendi contattare:</label>
-                                    <br>
-                                    <select name="email" id="destinatario">
-                                        <option value="0" selected>Seleziona</option>
-                                 		<?php
-                                            $connessione = dbConnection ("../../../");
-                                            $Query = "SELECT cognome, nome FROM studente WHERE azienda_id_azienda = ".$_SESSION['userId']." ORDER BY cognome";
-                                            $result = $connessione->query($Query);
-                                            if ($result->num_rows > 0)
-                                            {
-                                                while ($row = $result->fetch_assoc())
-                                                {
-                                                    echo "<option> Studente - ".$row['cognome']." ".$row['nome']."</option>";
-                                                }
-                                            }
-                                            
-                                            $Query = "SELECT cognome, nome FROM tutor WHERE azienda_id_azienda = ".$_SESSION['userId']." ORDER BY cognome";
-                                            $result = $connessione->query($Query);
-                                            if ($result->num_rows > 0)
-                                            {
-                                                while ($row = $result->fetch_assoc())
-                                                {
-                                                    echo "<option> Tutor - ".$row['cognome']." ".$row['nome']."</option>";
-                                                }
-                                            }
-                                            
-                                        ?>
-                                    </select>
+                            <form id="contactForm" onsubmit="sendMail (); return false;">
+                                <div class="form-group row">
+                                	<div class="col col-sm-6">
+                                        <label for="receiverType" class="select">Seleziona il tipo di utente che vuoi contattare:</label>
+                                        <br>
+                                        <select class="form-control titolo-non-selezionabile" id="receiverType">
+                                            <option value="-1" selected>Seleziona un'opzione</option>
+                                            <option value="<?php echo docrefType;?>">Docente referente</option>
+                                            <option value="<?php echo doctutType;?>">Docente tutor</option>
+                                            <option value="<?php echo studType;?>">Studente</option>
+                                            <option value="<?php echo aztutType;?>">Tutor</option>
+                                        </select>
+                                    </div>
+                                	<div class="col col-sm-6">
+                                        <label for="receiver" class="select">Seleziona il destinatario della email:</label>
+                                        <br>
+                                        <select class="form-control titolo-non-selezionabile" id="receiver" disabled>
+                                            <option value="-1" selected>Seleziona un'opzione</option>
+                                        </select>
+                                        </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="obj">Oggetto:</label>
-                                    <input type="text" name="object" class="form-control" id="obj">
+                                <div id="objectRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <label for="object">Oggetto:</label>
+                                        <input type="text" class="form-control" id="object">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="comment">Messaggio:</label>
-                                    <textarea name="message" class="form-control" rows="5" id="comment"></textarea>
-                                    <br>
-                                    <input class="btn btn-default" type="submit" name="send" value="Invia"></input>
+                                <div id="messageRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <label for="message">Messaggio:</label>
+                                        <textarea class="form-control" rows="5" id="message"></textarea>
+                                        <br>
+                                    </div>
                                 </div>
+                                <div id="copyRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <input id="sendCopy" type="checkbox" value="1">
+                                        <label for="sendCopy">Ricevi una copia dell'email inviata</label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <button id="sendButton" class="btn btn-primary" type="submit" disabled>Invia</button>
                             </form>
                         </div>
                     </div>

@@ -54,24 +54,34 @@
                                                                     ORDER BY `data` ASC;" );
                             ?>
                             <div id="DescMain">
-                                <div class="table-responsive"><table id="DescTable" class="table table-striped table-bordered">
+                                <div class="table-responsive"><table id="DescTable" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <td>Data</td>
-                                            <td>Descrizione delle attivit&agrave; lavorative</td>
-                                            <td>Opzioni</td>
+                                            <td class="text-center col col-sm-2">Data</td>
+                                            <td class="text-center col col-sm-3">Attività svolte</td>
+                                            <td class="text-center col col-sm-3">Capacità acquisite</td>
+                                            <td class="text-center col col-sm-2">Commenti</td>
+                                            <td class="text-center col col-sm-2">Opzioni</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                             			<?php
                                             while ( $work_line = $query_line->fetch_assoc () ) {
+                                                if (isset($work_line['commento'])) {
+                                                        $commento = $work_line['commento'];
+                                                }
+                                                else {
+                                                        $commento = "";
+                                                }
                                         ?>
                                         <tr>
                                             <td class="regDate"><?php echo date("d-m-Y", strtotime($work_line['data'])); ?></td>
-                                            <td class="regDesc"><?php echo $work_line['descrizione']; ?></td>
+                                            <td class="regLavoro"><?php echo $work_line['lavoro_svolto']; ?></td>
+                                            <td class="regInsegnamenti"><?php echo $work_line['insegnamenti']; ?></td>
+                                            <td class="regCommento"><?php echo $commento ?></td>
                             				<?php
-                                                echo "<td class='regOpt'><button class='regEdit btn btn-primary'>Modifica</button> ";
-                                                echo "<button class='regDelete btn btn-primary'>Elimina</button></td>";
+                                                echo "<td class='regOpt pull-content-bottom text-center'><button class='regEdit btn btn-warning buttonfix btn-sm margin'><span class='glyphicon glyphicon-edit'></span></button> ";
+                                                echo "<button class='regDelete btn btn-danger buttonfix btn-sm margin'><span class='glyphicon glyphicon-trash'></span></button></td>";
                                                 echo "<input type='hidden' class='descId' value='".$work_line['id_lavoro_giornaliero']."' />";
                                             ?>
                                         </tr>
@@ -80,7 +90,7 @@
                                         ?>
                                     </tbody>
                                 </table></div>
-                                <button id="DescAddButton" class="btn btn-primary">Aggiungi</button>
+                                <button id="DescAddButton" class="btn btn-info"><span class="glyphicon glyphicon-plus"></span> Aggiungi</button>
                             </div>
                             <div style="margin-top: 20px;">
                                 <?php 

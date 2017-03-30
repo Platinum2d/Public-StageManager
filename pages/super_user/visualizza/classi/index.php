@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( superUserType , "../../../../");
+    checkLogin ( superUserType , "../../../../");    
+    open_html ( "Visualizza classi" );
     import("../../../../");
     echo "<script src=\"scripts/scripts.js\"> </script>";
-    open_html ( "Visualizza classi" );
     $connessione = dbConnection ("../../../../");
         
 ?>
@@ -24,6 +24,19 @@
                         <div class="col col-sm-4">
                             Scuola<select data-style="btn-info" class="form-control selectpicker" data-live-search = "true"  id="classes">
                                 <option style="font-color : white" value="-1" selected disabled> Selezionare </option>
+                                <?php
+                                $query = "SELECT `id_scuola`, `nome`, `username` FROM `scuola`, `utente` WHERE `id_scuola` = `id_utente`";
+                                $result = $connessione->query($query);
+                                
+                                while ($row = $result->fetch_assoc())
+                                {
+                                    $idscuola = $row['id_scuola'];
+                                    $nome = $row['nome'];
+                                    $username = $row['username'];
+                                    
+                                    echo "<option value=\"$idscuola\"> $nome (username: $username) </option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="col col-sm-4">
@@ -54,7 +67,7 @@
                         
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                             </div>
                         </div>
                     </div>    

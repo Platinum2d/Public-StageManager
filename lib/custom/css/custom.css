@@ -219,3 +219,15 @@ hr.hr-padding {
 .buttonfix {
     height: 30px;
 }
+
+table.table-bordered > thead {
+	background: #eee;
+}
+
+select.titolo-non-selezionabile:focus option:first-of-type {
+    display: none;
+}
+
+.pull-content-bottom {
+	vertical-align: bottom!important;
+}

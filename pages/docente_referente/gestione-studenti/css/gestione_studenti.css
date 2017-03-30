@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.information-row {
+	margin-top: 15px;
+}
+
+.information-row table {
+	margin-bottom: 0px;
+}
+
+.actions {
+	vertical-align: bottom!important;
+}

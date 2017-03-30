@@ -1,12 +1,29 @@
 contact = {
+    'username' : '',
     'first': '',
     'last': '',
     'mail': '',
     'phone': ''
 };
 
+var initialUsername;
+
+function turnEditOn()
+{
+    $("#myInformations td").addClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'true');
+}
+
+function turnEditOff()
+{
+    $("#myInformations td").removeClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'false');
+}
+
 $(document).ready(function(){
 	
+    initialUsername = $("#username").html();
+    contact.username=$("#username").html();
     contact.first=$("#first").html();
     contact.last=$("#last").html();
     contact.mail=$("#mail").html();
@@ -17,6 +34,12 @@ $(document).ready(function(){
     $("#saveButton").hide();
 	
     $("#editButton").click(function(){
+
+        contact.username=$("#username").html();
+        contact.first=$("#first").html();
+        contact.last=$("#last").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -26,8 +49,7 @@ $(document).ready(function(){
         $("#cancelButton").show();
 		
         //rendo al tabella editabile
-        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-        $("#password").attr('contenteditable', 'false');
+        turnEditOn();
         $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
                 
                 
@@ -36,28 +58,41 @@ $(document).ready(function(){
     $("#saveButton").click(function(){
 
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
+        contact.username = $("#username").html();
         contact.first=$("#first").html();
         contact.last=$("#last").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.last.length>0 && contact.username.length>0) {
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/ajax.php",
                 data: contact,
-                cache: false
+                cache: false,
+                success : function (msg)
+                {
+                    if (msg === "ok")
+                        exitEdit();
+                    else
+                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
+                                                               Se il problema persiste, contattare un amministratore.</div>"); 
+                }
             });
         }
-		
-        //esco dalla modalità edit
-        exitEdit();
+        else
+        {
+            printError("Informazioni incomplete", "<div align='center'>Si prega di completare tutti i campi necessari</div>");
+        }
     });
 
     $("#cancelButton").click(function(){
 		
         //rimetto i valori precedenti nella tabella
+        $("#username").parent().parent().find("th").html("Username");
+        $("#username").parent().parent().find("th").css("color", "#828282");
+        $("#username").html(contact.username);
         $("#first").html(contact.first);
         $("#last").html(contact.last);
         $("#mail").html(contact.mail);
@@ -71,16 +106,86 @@ $(document).ready(function(){
         $("#password").html("");
 
         //blocco la tabella
-        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        turnEditOff();
 		
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
+        $("#saveButton").prop("disabled", false);
         $("#saveButton").hide();
 		
         //compare bottone edit
         $("#editButton").show();
                 
     }
+    
+    $("#username").on("input", function () {
+        if ($("#username").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().parent().find("th").css("color", "red");
+            return;
+        }
+        
+        if ($("#username").html().toString().trim().length > 50)
+        {
+            $("#saveButton").prop("disabled", true);
+            $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().parent().find("th").css("color", "red");
+            return;
+        }
+        
+        $.ajax({
+            type : 'POST',
+            url : 'ajaxOps/ajaxCheckUserExistence.php',
+            cache : false,
+            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            success : function (esito)
+            {
+                if (esito === "trovato")
+                {
+                    $("#saveButton").prop("disabled", true);
+                    $("#username").parent().parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().parent().find("th").css("color", "red");
+                }
+                else
+                {
+                    $("#username").parent().parent().find("th").html("Username");
+                    $("#username").parent().parent().find("th").css("color", "#828282");
+                    if ($("#first").html().toString().trim() !== "" && $("#last").html().toString().trim() !== "")
+                    {
+                        $("#saveButton").prop("disabled", false);
+                    }
+                }
+            }
+        });
+    });
+    
+    $("#first").on("input", function () {
+        if ($("#first").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#last").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
+    });
+    
+    $("#last").on("input", function () {
+        if ($("#last").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#first").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
+    });
 });
 
 function addPasswordEdit()
@@ -90,14 +195,14 @@ function addPasswordEdit()
     };
     
     $("#password").html("<input type=\"hidden\" value=\"0\" id=\"validpassword\"> <input type=\"hidden\" value=\"0\" id=\"validinput\">  \n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
+                                      <div class=\"col-xs-7\" style=\"padding:0px\"> <span> Attuale </span> <input for=\"vecchiapassword\" class=\"form-control\" type=\"password\">  \n\
                                       <span> Nuova </span> <input for=\"nuovapassword\" class=\"form-control\" type=\"password\" >\n\
                                       <span> Conferma la nuova </span> <input for=\"confermapassword\" class=\"form-control\" type=\"password\" > <br>\n\
                                       \n\
                                       <input class=\"btn btn-primary leftAlignment\" type=\"button\" value=\"Salva le modifiche\" disabled=\"true\" onclick=\"updatePassword()\">\n\
                                       <input class=\"btn btn-secondary leftAlignment\" style=\"color:#828282\" type=\"button\" value=\"Chiudi\" onclick=\"rollbackToEdit()\">\n\
                                       </div>\n\
-                                      <div class=\"col-xs-6\" style=\"padding:0px\" id=\"reportcol\"></div>");
+                                      <div class=\"col-xs-5\" style=\"padding:0px\" id=\"reportcol\"></div>");
     $("input[for=\"vecchiapassword\"]").on("keyup",function (e){
         if (e.which === 13 && !$("input[value=\"Salva i cambiamenti\"]").prop("disabled"))
             updatePassword();

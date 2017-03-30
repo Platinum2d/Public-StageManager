@@ -23,12 +23,12 @@
         }
     },1);
 </script>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -51,7 +51,7 @@
                         </form>                        
                     </div>
                     * Campo Obbligatorio <br><br>
-                    <input class="btn btn-primary" value="Invia" onclick="sendSingleData('classe');">
+                    <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('classe');">
                 </div>
                 
                 <div class="panel">
@@ -76,8 +76,6 @@
     <script>
         addSelectionsFor("classe","scuola");
         addSelectionsFor("classe","settore");
-//        addSelectionsFor("classe","anno_scolastico");        
-//        addSelectionsFor("classe","stage");
     </script>
 </body>
 <?php

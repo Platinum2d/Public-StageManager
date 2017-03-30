@@ -1,8 +1,9 @@
 <?php
     include '../../functions.php';
     checkLogin ( ceoType , "../../../");
-    import("../../../");
+    
     open_html ( "La mia azienda" );
+    import("../../../");
     $id_az = $_SESSION ['userId'];
     echo "<script src='miazienda.js'></script>";
     $connessione = dbConnection ("../../../");
@@ -33,22 +34,22 @@
                             <div class="table-responsive"><table id="myInformations" class="table table-striped" style="table-layout: fixed">
                                     <tr>
                                         <th class="col-sm-5">Nome</th>
-                                        <td id="first" class="col-sm-5"><?php echo $nome; ?></td>
+                                        <td id="" class="col-sm-5"><div id="first" class='edittextdiv' contenteditable="false"><?php echo $nome; ?></div></td>
                                     </tr><tr>
                                         <th>Citt&agrave;</th>
-                                        <td id="city"><?php echo $citta; ?></td>
+                                        <td id=""><div id="city" class='edittextdiv' contenteditable="false"><?php echo $citta; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Indirizzo</th>
-                                        <td id="address"><?php echo $indirizzo; ?></td>
+                                        <td id=""><div id="address" class='edittextdiv' contenteditable="false"><?php echo $indirizzo; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td id="mail"><?php echo $email; ?></td>
+                                        <td id=""><div id="mail" class='edittextdiv' contenteditable="false"><?php echo $email; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Telefono</th>
-                                        <td id="phone"><?php echo $telefono; ?></td>
+                                        <td id=""><div id="phone" class='edittextdiv' contenteditable="false"><?php echo $telefono; ?></div></td>
                                     </tr>
                                 </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">

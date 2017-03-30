@@ -23,7 +23,7 @@ function sendSingleData()
     tutor.telefono = $("#telefonoTutor").val().trim();
     tutor.email = $("#emailTutor").val().trim();
             
-    if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || tutor.telefono.isEmpty() || tutor.email.isEmpty())
+    if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty())
     {
         alert("si prega di inserire i campi obbligatori");
         return;
@@ -42,7 +42,12 @@ function sendSingleData()
         success : function(msg)
         {
             if (msg === "Inserimento dei dati riuscito!")
+            {
+                printSuccess("Inserimento Riuscito", "<div align='center'>Tutor aziendale inserito correttamente!</div>");
                 freeFields();
+            }
+            else 
+                printError("Inserimento non riuscito", "<div align='center'>L'inserimento non è andato a buon fine. Si prega di riprovare<br>Se l'errore dovesse persistere, contattare l'amministratore</div>");
         }
     });
 }

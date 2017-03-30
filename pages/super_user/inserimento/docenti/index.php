@@ -4,13 +4,15 @@
     open_html ( "Inserisci docenti" );
     echo "<script src='../js/scripts.js'></script>";
     import("../../../../");
+    
+    $connection = dbConnection("../../../../");
 ?>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <link rel="stylesheet" href="../InsertStyle.css">
     <script> 
         String.prototype.isEmpty = function() {
             return (this.length === 0 || !this.trim());
@@ -18,7 +20,7 @@
         
         var check = setInterval(function(){
             if ($("#UsernameDocente").val().isEmpty() || $("#PasswordDocente").val().isEmpty() || $("#ConfermaPasswordDocente").val().isEmpty() || $("#NomeDocente").val().isEmpty()
-                    || $("#CognomeDocente").val().isEmpty() || $("#TelefonoDocente").val().isEmpty() || $("#EmailDocente").val().isEmpty() || (!$("#isSuperUser").prop("checked") && 
+                    || $("#CognomeDocente").val().isEmpty() || (!$("#isSuperUser").prop("checked") && 
                     !$("#isDocenteTutor").prop("checked") && !$("#isDocenteReferente").prop("checked")) || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
             {
                 $("input[value=\"Invia\"]").prop("disabled",true);
@@ -49,37 +51,62 @@
                         <form class="form-vertical">
                             <div class="col col-sm-6">
                                 <b id="usr">Username*</b> 
-                                    <div class="form-group has-error has-feedback" id="usernameregulator"> 
-                                        <input class="form-control" id="UsernameDocente"> 
-                                        <span class="glyphicon glyphicon-remove form-control-feedback" id="usernamespanregulator"></span> 
-                                    </div>
+                                <div class="form-group has-error has-feedback" id="usernameregulator"> 
+                                    <input class="form-control" id="UsernameDocente"> 
+                                    <span class="glyphicon glyphicon-remove form-control-feedback" id="usernamespanregulator"></span> 
+                                </div>
                                 <b id="psw">Password (minimo 8 caratteri)*</b> 
-                                    <div class="form-group has-error has-feedback" id="passwordregulator"> 
-                                        <input type="password" class="form-control" id="PasswordDocente"> 
-                                        <span class="glyphicon glyphicon-remove form-control-feedback" id="passwordspanregulator"></span> 
-                                    </div>
+                                <div class="form-group has-error has-feedback" id="passwordregulator"> 
+                                    <input type="password" class="form-control" id="PasswordDocente"> 
+                                    <span class="glyphicon glyphicon-remove form-control-feedback" id="passwordspanregulator"></span> 
+                                </div>
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordDocente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="NomeDocente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="CognomeDocente"> </div>
-                                <b>Telefono*</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
-                                <b>E-Mail*</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
+                                <b>E-Mail</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
                                 <br>                              
-                                <input class="btn btn-primary" value="Invia" onclick="sendSingleData('docente');">     
+                                <input type="button" class="btn btn-primary" value="Invia" onclick="sendSingleData('docente');">     
                             </div>
-                                
-                            <br>
-                                
-                            <div name="paddedDiv">
-                                <div class="col col-sm-2">
-                                    <label><input type="checkbox" id="isDocenteTutor" onchange="uncheckTheOtherCheckBox('docenteTutor')" checked=""> Docente Tutor</label><br>                      
+                            
+                            <div class="col col-sm-6">
+                                <div class="row"> 
+                                    <b>Scuola*</b> 
+                                    <select class="form-control" id="scuolaDocente">
+                                        <?php 
+                                            $query = "SELECT * FROM scuola";
+                                            $result = $connection->query($query);
+                                            
+                                            if (is_object($result) && $result->num_rows > 0)
+                                            {
+                                                while ($row = $result->fetch_assoc())
+                                                {
+                                                    $id = $row['id_scuola'];
+                                                    $nome = $row['nome'];
+                                                    
+                                                    echo "<option value = '$id'>$nome</option>";  
+                                                    
+                                                }
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
-                                <div class="col col-sm-2">
-                                    <label><input type="checkbox" id="isDocenteReferente" onchange="uncheckTheOtherCheckBox('docenteReferente')" checked="uncheckTheOtherCheckBox('docenteReferente')"> Docente Referente</label> <br>                      
+                                <br><br>
+                                <div class="row"> 
+                                    <div class="col col-sm-3">
+                                    </div>
+                                    <div class="col col-sm-3" align='center'>
+                                        <label><input type="checkbox" id="isDocenteTutor" onchange="uncheckTheOtherCheckBox('docenteTutor')" checked=""> Docente Tutor</label><br>                      
+                                    </div>
+                                    <div class="col col-sm-4" align='center'>
+                                        <label><input type="checkbox" id="isDocenteReferente" onchange="uncheckTheOtherCheckBox('docenteReferente')" checked="uncheckTheOtherCheckBox('docenteReferente')"> Docente Referente</label> <br>                      
+                                    </div>
                                 </div>
-                            </div>                            
+                                    
+                            </div>
                         </form>       
                     </div>
                 </div>

@@ -1,11 +1,12 @@
 <?php
     include "pages/functions.php";
-    checkAccessDenied();
-    //checkVoto();
-    checkEmail();
     open_html("Home");
     import("");
-    echo "<script src='sessione/login/scripts/login.js'></script>"
+    echo "<script src='sessione/login/scripts/login.js'></script>";
+    checkAccessDenied();
+    //checkVoto();
+    //checkEmail();    
+
 ?>
 <body>
     <?php

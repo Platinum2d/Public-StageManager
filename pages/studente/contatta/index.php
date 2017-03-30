@@ -1,88 +1,78 @@
 <?php
     include '../../functions.php';
-    checkLogin ( studType , "../../../");
-    checkEmail();
-    open_html ( "Contatta" );
+    checkLogin ( studType , "../../../" );
     import("../../../");
+    open_html ( "Contatta" );
 ?>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");
         titleImg ("../../../");
-    ?>    
-    <script src="js/script.js"></script>    
+    ?>
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                	<?php
-                		if (isset($_SESSION ['studenteHasStageId'])) {
-    						$idStudenteHasStage = $_SESSION ['studenteHasStageId'];
-    				?>
-                            <h1>Contatta</h1>
-                            <br>
-                            <div class="row">
-                                <div class="col col-sm-10">
-                                    <div class="form-group">
-                                        <label for="destinatario" class="select">Seleziona il docente o il tutor che intendi contattare:</label>
+                    <h1>Contatta</h1>
+                    <br>
+                    <div class="row">
+                        <div class="col col-sm-10">
+                            <form id="contactForm" onsubmit="sendMail (); return false;">
+                                <div class="form-group row">
+                                	<div class="col col-sm-6">
+                                        <label for="receiverType" class="select">Seleziona il tipo di utente che vuoi contattare:</label>
                                         <br>
-                                        <select name="email" id="destinatario" class="form-control" style="width: 400px">
-                                            <option value="0" selected>Seleziona</option>
-                                            <?php 
-                                                $Query = "SELECT tutor.cognome, tutor.nome, tutor.email 
-                                                            FROM studente_has_stage, tutor 
-                                                            WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
-                                                            AND studente_has_stage.tutor_id_tutor = tutor.id_tutor;";
-                                                $connessione = dbConnection("../../../");
-                                                $result = $connessione->query($Query);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while ($row = $result->fetch_assoc())
-                                                    {
-                                                        echo "<option value=\"".$row['email']."\"> Tutor aziendale - ".$row['cognome']." ".$row['nome']." </option>";
-                                                    }
-                                                }
-                                                
-                                                $Query = "SELECT docente.nome, docente.cognome, docente.email 
-                                                            FROM studente_has_stage, docente 
-                                                            WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
-                                                            AND studente_has_stage.docente_id_docente = docente.id_docente;";
-                                                $result = $connessione->query($Query);
-                                                if ($result->num_rows > 0)
-                                                {
-                                                    while ($row = $result->fetch_assoc())
-                                                    {
-                                                        echo "<option value=\"".$row['email']."\"> Docente scolastico - ".$row['cognome']." ".$row['nome']." </option>";
-                                                    }
+                                        <select class="form-control titolo-non-selezionabile" id="receiverType">
+                                            <option value="-1" selected>Seleziona un'opzione</option>
+                                            <option value="<?php echo scuolaType;?>">Responsabile scolastico</option>
+                                            <?php
+                                                if (isset ($_SESSION ['studenteHasStageId'])) {
+                                                    echo "<option value='" . docrefType . "'>Docente referente</option>";
+                                                    echo "<option value='" . doctutType . "'>Docente tutor</option>";
+                                                    echo "<option value='" . ceoType . "'>Responsabile aziendale</option>";
+                                                    echo "<option value='" . aztutType . "'>Tutor aziendale</option>";
                                                 }
                                             ?>
                                         </select>
+                                    </div>
+                                	<div class="col col-sm-6">
+                                        <label for="receiver" class="select">Seleziona il destinatario della email:</label>
                                         <br>
-                                        <br>
-                                        <div class="form-group">
-                                            <label for="obj">Oggetto:</label>
-                                            <input type="text" name="object" class="form-control" id="obj">
+                                        <select class="form-control titolo-non-selezionabile" id="receiver" disabled>
+                                            <option value="-1" selected>Seleziona un'opzione</option>
+                                        </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="comment">Messaggio:</label>
-                                            <textarea name="message" class="form-control" rows="5" id="comment"></textarea>
-                                            <br>
-                                            <input class="btn btn-primary" type="button" name="send" value="Invia" onclick="sendMail()">
-                                        </div>
+                                </div>
+                                <div id="objectRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <label for="object">Oggetto:</label>
+                                        <input type="text" class="form-control" id="object">
                                     </div>
                                 </div>
-                            </div>
-                    <?php
-                    	}
-                        else {
-                            studentNoStageWarning();
-                        }
-                    ?>
-            	</div>
-        	</div>
+                                <div id="messageRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <label for="message">Messaggio:</label>
+                                        <textarea class="form-control" rows="5" id="message"></textarea>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div id="copyRow" class="form-group row">
+                                	<div class="col col-sm-12">
+                                        <input id="sendCopy" type="checkbox" value="1">
+                                        <label for="sendCopy">Ricevi una copia dell'email inviata</label>
+                                        <br>
+                                    </div>
+                                </div>
+                                <button id="sendButton" class="btn btn-primary" type="submit" disabled>Invia</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</body>    
+</body>
 <?php
     close_html ("../../../");
 ?>
