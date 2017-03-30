@@ -1,7 +1,6 @@
 <?php
     include '../../functions.php';
     checkLogin ( studType , "../../../" );
-    checkEmail();
     import("../../../");
     open_html ( "Contatta" );
 ?>

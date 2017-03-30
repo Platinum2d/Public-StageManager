@@ -12,9 +12,6 @@
     define ( "err_noLog", 1 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina senza essersi loggato
     define ( "err_noPerm", 2 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina per la quale non ha i permessi necessari (pagina per un altro utente)
     
-    define ( "sent", 2);  //contiene il valore corrispondente ad un email correttamente inviata
-    define ( "notSent", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
-    
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
     define ( "EMAIL_ALESSIO", "alessio.scheri@stagemanager.it" ); //Indirizzo email di Alessio
@@ -430,26 +427,6 @@ HTML;
         }
     }
     
-    function checkEmail() { //controllo email e stampa se il messaggio è stato inviato correttamente o no
-        if (isset ( $_SESSION ['email_sent'] )) {
-            if ($_SESSION ['email_sent'] == 2) {
-                echo <<<HTML
-                    <script>alert("L'e-mail e' stata inviata con successo.");
-                    </script>
-HTML;
-                unset ( $_SESSION ['email_sent'] );
-            } else {
-                if ($_SESSION ['email_sent'] == 1) {
-                    echo <<<HTML
-                    <script>alert("L'e-mail NON e' stata inviata correttamente.");
-                    </script>
-HTML;
-                    unset ( $_SESSION ['email_sent'] );
-                }
-            }
-        }
-    }
-    
     //     function printBadge($goBack)
     //     {
     //         echo "<a href = \"".$goBack."help.pdf\" target=\"_blank\">";
@@ -469,25 +446,6 @@ HTML;
     // </script>
     // HTML;
     //     }
-    
-    //    function checkVoto() { //controllo del voto e stampa un messaggio in caso di successo o di errore
-    //        if (isset ( $_SESSION ['grade_sent'] )) {
-    //            if ($_SESSION ['grade_sent'] == 2) {
-    //                echo "<script>alert(\"Il voto è stato inviato con successo.\"); </script>";
-    //                unset ( $_SESSION ['grade_sent'] );
-    //            } else {
-    //                if ($_SESSION ['grade_sent'] == 1) {
-    //                echo "<script>alert(\"Si è verificato un errore durante la connessione al database.\");</script>";
-    //                    unset ( $_SESSION ['grade_sent'] );
-    //                } else {
-    //                    if ($_SESSION ['grade_sent'] == 3) {
-    //                echo "<script>alert(\"Si è verificato un errore durante l'invio del voto.\");</script>";
-    //                        unset ( $_SESSION ['grade_sent'] );
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     function footer ($goBack) {
         $anno_attuale = date("Y");
