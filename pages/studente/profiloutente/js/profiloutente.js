@@ -28,6 +28,13 @@ $(document).ready(function(){
     $("#saveButton").hide();
     
     $("#editButton").click(function(){
+    	
+        contact.username=$("#username").html();
+        contact.first=$("#first").html();
+        contact.last=$("#last").html();
+        contact.city=$("#city").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
         
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -49,7 +56,7 @@ $(document).ready(function(){
         contact.phone=$("#phone").html();
         
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.city.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.username.length>0 && contact.last.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/save.php",
@@ -74,6 +81,9 @@ $(document).ready(function(){
     $("#cancelButton").click(function(){
         
         //rimetto i valori precedenti nella tabella
+        $("#username").parent().find("th").html("Username");
+        $("#username").parent().find("th").css("color", "#828282");
+        $("#username").html(contact.username);
         $("#first").html(contact.first);
         $("#last").html(contact.last);
         $("#city").html(contact.city);
@@ -96,6 +106,7 @@ $(document).ready(function(){
         
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
+        $("#saveButton").prop("disabled", false);
         $("#saveButton").hide();
         
         //compare bottone edit
@@ -134,12 +145,41 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    $("#saveButton").prop("disabled", false);
                     $("#username").parent().find("th").html("Username");
                     $("#username").parent().find("th").css("color", "#828282");
+                    if ($("#first").html().toString().trim() !== "" && $("#last").html().toString().trim() !== "")
+                    {
+                        $("#saveButton").prop("disabled", false);
+                    }
                 }
             }
         });
+    });
+    
+    $("#first").on("input", function () {
+        if ($("#first").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#last").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
+    });
+    
+    $("#last").on("input", function () {
+        if ($("#last").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#first").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
     });
 });
 
