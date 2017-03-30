@@ -121,6 +121,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/inserisci-aziende/index.php'>Inserisci</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/modifica-aziende/index.php'>Modifica</a></li>";
                 echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/tutorato/index.php'>Tutorato</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
                         </ul>
@@ -385,18 +386,22 @@ HTML;
         echo "<link href='".$goBack."lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jsPDF-1.3.3/dist/jspdf.debug.js'></script>";
         echo "<script src='".$goBack."lib/jsPDF-AutoTable-2.3.1/dist/jspdf.plugin.autotable.js'></script>";
+        echo "<script src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js'></script>";
+        echo "<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>";
     }
     
     function open_html($title) { // apre la pagina con il relativo titolo
     
+        echo "<!DOCTYPE html>";
     echo <<<HTML
+        
                 <html lang="it">
                         <head>
-                                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
                                 <meta charset="utf-8">
+                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
     
                                 <title>$title</title>
-                                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 HTML;
     echo <<<HTML
                         </head>

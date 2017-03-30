@@ -176,9 +176,9 @@ function openEdit (id, idazienda)
     <div class=\"row\"> \n\
         <div class=\"col col-sm-12\"> \n\
             <div class=\"col col-sm-6\">\n\
-                <label class='custlabel' id=\"userlabel"+numberId+"\"> Username </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                <label class='custlabel' id=\"userlabel"+numberId+"\"> Username* </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
                 <label class='custlabel'>Password </label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                <label class='custlabel'>Nome Azienda</label> <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+                <label class='custlabel'>Nome Azienda*</label> <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
                 <label class='custlabel'>Citta</label> <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
                 <label class='custlabel'>CAP</label> <input type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
                 <label class='custlabel'>Indirizzo</label> <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
@@ -287,7 +287,7 @@ function sendData(idazienda, numberId)
         return (this.length === 0 || !this.trim());
     };
     
-    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty() && !azienda.cittaazienda.isEmpty() && !azienda.capazienda.isEmpty() && !azienda.indirizzoazienda.isEmpty())
+    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty())
     {
         $.ajax({
             type : 'POST',
@@ -302,6 +302,9 @@ function sendData(idazienda, numberId)
                 }
             }
         });
+    }
+    else {
+    	printError ("Dati mancanti", "Alcuni dei campi obbligatori sono stati lasciati vuoti.")
     }
 }
 

@@ -8,13 +8,23 @@ XML;
     $db = dbConnection("../../../../");
 
     $uid = intval ($_SESSION ['userId']);
-    $nm = $db->escape_string ( $_POST ['newdesc'] );
+    $lavoro = $db->escape_string ( $_POST ['lavoro'] );
+    $insegnamenti = $db->escape_string ( $_POST ['insegnamenti'] );
+    $commento = $db->escape_string ( $_POST ['commento'] );
     $id = intval ( $_POST ['id'] );
     $day = intval ($_POST ['day']);
     $month = intval ($_POST ['month']);
     $year = intval ($_POST ['year']);
+    
+    if ($commento == "") {
+        $commento = "NULL";
+    }
+    else {
+        $commento = "'".$commento."'";
+    }
+    
     $query = "UPDATE `lavoro_giornaliero` 
-                SET `descrizione` = '$nm', `data` = '$year-$month-$day'
+                SET `lavoro_svolto` = '$lavoro', `insegnamenti` = '$insegnamenti', `commento` = $commento, `data` = '$year-$month-$day'
                 WHERE `id_lavoro_giornaliero` = $id;";
     if ($db->query ($query)) {
         $xml->addChild ( "status", 0 );

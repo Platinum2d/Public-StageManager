@@ -1,8 +1,8 @@
 <?php
     include '../../functions.php';
-   checkLogin ( superUserType , "../../../");
-    import("../../../");
+    checkLogin ( superUserType , "../../../");    
     open_html ( "Inserisci" );
+    import("../../../");
     $connessione = dbConnection ("../../../");
         
 ?>

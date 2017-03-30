@@ -16,7 +16,15 @@ XML;
         $line = $xml->addChild ( "line" );
         $line->addChild ( "id", $work_line ['id_lavoro_giornaliero'] );
         $line->addChild ( "date", date("d-m-Y", strtotime($work_line['data'])) );
-        $line->addChild ( "desc", $work_line ['descrizione'] );
+        $line->addChild ( "lavoro", $work_line ['lavoro_svolto'] );
+        $line->addChild ( "insegnamenti", $work_line ['insegnamenti'] );
+        if (isset($work_line ['commento'])) {
+            $commento = $work_line ['commento'];
+        }
+        else {
+            $commento = "";
+        }
+        $line->addChild ( "commento", $commento);
     }
    echo $xml->asXML ();
 ?>
