@@ -1,7 +1,6 @@
 <?php
     include '../../functions.php';
     checkLogin ( aztutType , "../../../" );
-    checkEmail();
     import("../../../");
     open_html ( "Contatta" );
 ?>
