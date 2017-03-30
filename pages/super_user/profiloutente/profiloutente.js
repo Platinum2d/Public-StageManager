@@ -8,6 +8,18 @@ contact = {
 
 var initialUsername;
 
+function turnEditOn()
+{
+    $("#myInformations td").addClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'true');
+}
+
+function turnEditOff()
+{
+    $("#myInformations td").removeClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'false');
+}
+
 $(document).ready(function()
 {
     initialUsername = $("#username").html();
@@ -30,8 +42,7 @@ $(document).ready(function()
         $("#cancelButton").show();
 		
         //rendo al tabella editabile
-        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-        $("#password").attr('contenteditable', 'false');
+        turnEditOn();
         $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
     });
 	
@@ -86,7 +97,7 @@ $(document).ready(function()
     function exitEdit(){
         $("#password").html("");
         //blocco la tabella
-        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        turnEditOff();
 		
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
