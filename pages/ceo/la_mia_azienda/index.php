@@ -1,8 +1,9 @@
 <?php
     include '../../functions.php';
     checkLogin ( ceoType , "../../../");
-    import("../../../");
+    
     open_html ( "La mia azienda" );
+    import("../../../");
     $id_az = $_SESSION ['userId'];
     echo "<script src='miazienda.js'></script>";
     $connessione = dbConnection ("../../../");

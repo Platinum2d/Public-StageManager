@@ -1,8 +1,8 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( ceoType , "../../../../");
-    import("../../../../");
+    checkLogin ( ceoType , "../../../../");    
     open_html ( "Figure Professionali" );
+    import("../../../../");
     $id_az = $_SESSION ['userId'];
     echo "<script src='scripts/script.js'></script>";
     $connessione = dbConnection ("../../../../");
