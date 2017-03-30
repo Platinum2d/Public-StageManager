@@ -474,7 +474,10 @@ HTML;
     	        							<h4>Contatti:</h4>
     		        						<ul>
     		        							<li>
-            										Daniele Manicardi:
+HTML;
+        
+            										echo "<u style='cursor:pointer' onclick='location.href = \"".$goBack."pages/visualizza_utente/super_user/daniele/index.php\"'>Daniele Manicardi</u>:";
+echo <<<HTML
     		        								<ul>
     		        									<li>
     		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
@@ -491,7 +494,9 @@ HTML;
     		        								</ul>
             									</li>
     		        							<li>
-    		        								Alessio Scheri:
+HTML;
+                                                                    echo "<u style='cursor:pointer' onclick='location.href = \"".$goBack."pages/visualizza_utente/super_user/alessio/index.php\"'>Alessio Scheri</u>:";
+                                                                    echo <<<HTML
     		        								<ul>
     		        									<li>
     		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
