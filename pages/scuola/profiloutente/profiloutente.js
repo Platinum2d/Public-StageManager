@@ -20,6 +20,11 @@ $(document).ready(function(){
     $("#saveButton").hide();
 	
     $("#editButton").click(function(){
+    	
+        contact.username=$("#username").html();
+        contact.first=$("#first").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -43,7 +48,7 @@ $(document).ready(function(){
         contact.phone=$("#phone").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.username.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/ajax.php",
@@ -68,6 +73,9 @@ $(document).ready(function(){
     $("#cancelButton").click(function(){
 		
         //rimetto i valori precedenti nella tabella
+        $("#username").parent().find("th").html("Username");
+        $("#username").parent().find("th").css("color", "#828282");
+        $("#username").html(contact.username);
         $("#first").html(contact.first);
         $("#mail").html(contact.mail);
         $("#phone").html(contact.phone);
@@ -84,6 +92,7 @@ $(document).ready(function(){
 		
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
+        $("#saveButton").prop("disabled", false);
         $("#saveButton").hide();
 		
         //compare bottone edit
@@ -123,12 +132,28 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    $("#saveButton").prop("disabled", false);
                     $("#username").parent().find("th").html("Username");
                     $("#username").parent().find("th").css("color", "#828282");
+                    if ($("#first").html().toString().trim() !== "")
+                    {
+                        $("#saveButton").prop("disabled", false);
+                    }
                 }
             }
         });
+    });
+    
+    $("#first").on("input", function () {
+        if ($("#first").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
     });
 });
 
