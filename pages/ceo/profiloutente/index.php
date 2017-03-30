@@ -1,8 +1,9 @@
 <?php
     include '../../functions.php';
     checkLogin ( ceoType , "../../../");
-    import("../../../");
+    
     open_html ( "Profilo" );
+    import("../../../");
     $id_az = $_SESSION ['userId'];
     echo "<script src='profiloutente.js'></script>";
     $connessione = dbConnection ("../../../");

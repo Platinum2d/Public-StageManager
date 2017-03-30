@@ -2,8 +2,9 @@
 include '../../functions.php';
 checkLogin ( ceoType , "../../../" );
 checkEmail();
-import("../../../");
 open_html ( "Contatta" );
+import("../../../");
+
 ?>
 <script src='js/scripts.js?0.1'></script>
 <body>

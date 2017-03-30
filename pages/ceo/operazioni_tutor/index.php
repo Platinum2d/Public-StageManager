@@ -1,8 +1,9 @@
 <?php
     include '../../functions.php';
    checkLogin ( ceoType , "../../../");
-    import("../../../");
+    
     open_html ( "Tutor" );
+    import("../../../");
     $connessione = dbConnection ("../../../");
         
 ?>
