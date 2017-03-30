@@ -92,7 +92,13 @@
                             
                         <tbody style="text-align: center">
                             <?php
-                            $studente_has_stage_query = "SELECT id_studente_has_stage FROM studente_has_stage AS shs WHERE shs.docente_tutor_id_docente_tutor = ".$id_doc;
+                            $studente_has_stage_query = "SELECT id_studente_has_stage 
+                                                        FROM studente_has_stage AS shs, classe_has_stage AS chs 
+                                                        WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage                                                         
+                                                        AND shs.docente_tutor_id_docente_tutor = ".$id_doc." 
+                                                        AND shs.studente_id_studente = $idstudente 
+                                                        AND chs.classe_id_classe = $idclasse     
+                                                        AND chs.anno_scolastico_id_anno_scolastico = $idanno";
                             $result = $conn->query($studente_has_stage_query);
                             if ($result && $result->num_rows > 0)
                             {
@@ -142,7 +148,7 @@
                                         $stage_result = $stage_result->fetch_assoc(); 
                                         $id_stage = $stage_result['id_stage'];
                                         $inizio_stage = $stage_result['inizio_stage'];
-                                        $durata_stage = $stage_result['durata_stage'];
+                                        $durata_stage = $stage_result['durata_stage'] - 1;
                                     }
                                     else
                                     {

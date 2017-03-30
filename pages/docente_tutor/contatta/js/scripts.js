@@ -64,11 +64,15 @@ $(document).ready (function () {
 	});
 	
 	$("#receiver").change (function () {
-		if ($("#receiver").val () != '-1') {
+		if ($("#receiver").val () != '-1' && $("#receiver").val () != '') {
 			showSecondPart ();
 		}
 		else {
 			hideSecondPart ();
+		}
+		if ($("#receiver").val () == '') {
+			printError ("Impossibile contattare il destinatario", "Impossibile contattare il destinatario poichè non ha ancora inserito il proprio indirizzo e-mail.<br>" +
+					"		Ci auguriamo che lo faccia al più presto.")
 		}
 		checkTheWhole ();
 	});

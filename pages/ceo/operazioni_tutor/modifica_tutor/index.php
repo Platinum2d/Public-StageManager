@@ -54,7 +54,12 @@
                 <div class="panel" id="mainPanel" style="min-height: 0px">
                     <h1>Visualizza Tutor</h1> 
                                         <?php
-                                            echo "<div align=\"right\"> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"><select name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> tutor per pagina </form></div> ";
+                                            echo "<div align=\"right\">" /*<form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualcustomredirect\"> "
+                                            . "Filtra righe <input style='width:33%' class='form-control' type=\"text\" id=\"customnum\" name=\"customtutor\">  </form> */
+                                                    . "<form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\">"
+                                                    . "Tutor per pagina<select style='width:13%; ' class='form-control' name=\"ntutor\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> "
+                                                    . "</select> "
+                                                    . "</form></div> ";
                                             if (isset($_POST['ntutor']))
                                             {
                                         ?>
@@ -118,7 +123,7 @@
         </div>
     </div>
     <script>
-        $("#customnum").css("height",parseInt($("#slc").height()));
+        //$("#customnum").css("height",parseInt($("#slc").height()));
         if ($(".active").length === 0)
             $("#pages").find("ul").children().first().addClass("active");
         

@@ -34,7 +34,7 @@
         topNavbar ("../../../../../");
         titleImg ("../../../../../");
     ?>
-    <script src="scripts/script.js"> </script>
+    <script src="scripts/script.js?0.1"> </script>
     <div class="container">
         
         <div class="row">
@@ -95,7 +95,7 @@
                                 echo "<td align=\"center\">";
                                     echo "<div id=\"ButtonBox".$I."\" align=\"center\">";
                                          echo "<button class = \"btn btn-success \" name=\"".$row['id_studente']."\" id = \"modifica".$I."\" onclick = \"openEdit('VisibleBox".$I."',$(this).closest('button').attr('name'), $idclasse, $idanno)\"><span class='glyphicon glyphicon-edit'></span> Modifica</button></td> "
-                                                 . "<td align=\"center\"><button class = \"btn btn-danger\" value=\"\" id = \"elimina".$I."\" onclick=\"deleteData(".$I.",$('#modifica".$I."').closest('button').attr('name'))\"><span class='glyphicon glyphicon-remove'></span> Elimina</button> </td>";
+                                                 . "<td align=\"center\"><button class = \"btn btn-danger\" value=\"\" id = \"elimina".$I."\" onclick=\"deleteData(".$I.",$('#modifica".$I."').closest('button').attr('name'))\"><span class='glyphicon glyphicon-trash'></span> Elimina</button> </td>";
                                     echo "</div>";
                                 echo "</tr>";
                                 $I++;

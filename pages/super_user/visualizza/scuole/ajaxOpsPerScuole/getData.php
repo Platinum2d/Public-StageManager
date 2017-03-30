@@ -10,13 +10,14 @@ $xml = new SimpleXMLElement ( $xmlstr );
 
     $idscuola = $_POST['id'];
     
-    $query =  "SELECT * FROM scuola WHERE id_scuola = $idscuola";
+    $query =  "SELECT * FROM utente, scuola WHERE id_utente = id_scuola AND id_scuola = $idscuola";
     
     $result = $connessione->query($query);
     
     $scuola = $xml->addChild("scuola");
     while ($row = $result->fetch_assoc())
     {
+        $scuola->addChild("username", $row['username']);
         $scuola->addChild("nome", $row['nome']);
         $scuola->addChild("citta", $row['citta']);
         $scuola->addChild("CAP", $row['CAP']);

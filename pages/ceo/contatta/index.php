@@ -1,11 +1,10 @@
 <?php
-include '../../functions.php';
-checkLogin ( ceoType , "../../../" );
-checkEmail();
-import("../../../");
-open_html ( "Contatta" );
+    include '../../functions.php';
+    checkLogin ( ceoType , "../../../" );
+    import("../../../");
+    open_html ( "Contatta" );
 ?>
-<script src='js/scripts.js'></script>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");

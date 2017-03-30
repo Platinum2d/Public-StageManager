@@ -1,11 +1,10 @@
 <?php
-include '../../functions.php';
-checkLogin ( docrefType , "../../../" );
-checkEmail();
-import("../../../");
-open_html ( "Contatta" );
+    include '../../functions.php';
+    checkLogin ( docrefType , "../../../" );
+    import("../../../");
+    open_html ( "Contatta" );
 ?>
-<script src='js/scripts.js'></script>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");
@@ -30,6 +29,7 @@ open_html ( "Contatta" );
                                             <option value="<?php echo doctutType;?>">Docente tutor</option>
                                             <option value="<?php echo studType;?>">Studente</option>
                                             <option value="<?php echo ceoType;?>">Responsabile aziendale</option>
+                                            <option value="<?php echo aztutType;?>">Tutor aziendale</option>
                                         </select>
                                     </div>
                                 	<div class="col col-sm-6">

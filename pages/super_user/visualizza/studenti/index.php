@@ -29,7 +29,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/script.js"> </script>
+    <script src="scripts/script.js?0.1"> </script>
     <div class="container">
         
         <div class="row">
@@ -56,7 +56,7 @@
                         
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                             </div>
                         </div>
                     </div>    

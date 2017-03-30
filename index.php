@@ -1,8 +1,6 @@
 <?php
     include "pages/functions.php";
     checkAccessDenied();
-    //checkVoto();
-    checkEmail();
     import("");
     echo "<script src='sessione/login/scripts/login.js'></script>";
     open_html("Home");

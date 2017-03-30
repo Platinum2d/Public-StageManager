@@ -26,7 +26,7 @@
     ?>
     <script src="scripts/scripts.js"></script>
         
-    <input type="hidden" value="<?php echo $recordperpagina ?>" id="recordperpagina">
+    <input type="hidden" value="<?php //echo $recordperpagina ?>" id="recordperpagina">
     <!-- Begin Body -->
     <div class="container">
         <div class="row">
@@ -53,7 +53,7 @@
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
                                 <form style="display: inline" action="" method="POST" id="manualcustomredirect">
-                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                                 </form>
                             </div>
                         </div>
