@@ -2,7 +2,7 @@
 include '../../functions.php';
 checkLogin ( scuolaType , "../../../" );
 import("../../../");
-checkEmail();
+//checkEmail();
 
 open_html ( "Contatta" );
 import("../../../");

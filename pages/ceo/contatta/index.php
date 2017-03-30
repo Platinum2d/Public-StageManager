@@ -1,7 +1,7 @@
 <?php
 include '../../functions.php';
 checkLogin ( ceoType , "../../../" );
-checkEmail();
+//checkEmail();
 open_html ( "Contatta" );
 import("../../../");
 

@@ -2,7 +2,7 @@
     include '../../functions.php';
     checkLogin ( doctutType , "../../../" );
     import("../../../");
-    checkEmail();    
+    //checkEmail();    
     open_html ( "Contatta" );
     import("../../../");
 ?>
