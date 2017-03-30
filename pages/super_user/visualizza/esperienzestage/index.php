@@ -4,12 +4,12 @@
     open_html ( "Esperienze di stage" );
     import("../../../../");
     $conn = dbConnection("../../../../");
-        
-    if (!isset($classe) || !isset($anno)) 
-        header (" Location : ../../../../index.php ");
             
     $classe = $_POST['id_classe'];
-    $anno = $_POST['years'];   
+    $anno = $_POST['years'];  
+    
+        if (!isset($classe) || !isset($anno)) 
+        header (" Location : ../../../../index.php ");
         
     $query = "SELECT nome FROM classe WHERE id_classe = $classe";
     $result = $conn->query($query);

@@ -5,7 +5,7 @@
     import("../../../");
     open_html ( "Contatta" );
 ?>
-<script src='js/scripts.js'></script>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");

@@ -1,24 +1,24 @@
 <?php
-    include '../../../functions.php';
-    checkLogin ( doctutType , "../../../../");
-    $conn = dbConnection ("../../../../");    
-        
-    $id_doc = $_SESSION ['userId'];
-    $idanno = $_POST['ida'];
-    $id_studente_has_stage = $_POST['studente_has_stage'];
-    $query = "SELECT stud.nome, stud.cognome FROM studente AS stud, studente_has_stage AS shs WHERE shs.studente_id_studente = stud.id_studente AND shs.id_studente_has_stage = $id_studente_has_stage";
-        
-    $result = $conn->query($query)->fetch_assoc();
-    $cognomestudente = $result['cognome'];
-    $nomestudente = $result['nome'];
-        
-    $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
-        
-    open_html ( "Registro di $cognomestudente $nomestudente" );
-        
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
-        
+include '../../../functions.php';
+checkLogin ( docrefType , "../../../../");
+$conn = dbConnection ("../../../../");
+
+$id_doc = $_SESSION ['userId'];
+$idanno = $_POST['ida'];
+$id_studente_has_stage = $_POST['studente_has_stage'];
+$query = "SELECT stud.nome, stud.cognome FROM studente AS stud, studente_has_stage AS shs WHERE shs.studente_id_studente = stud.id_studente AND shs.id_studente_has_stage = $id_studente_has_stage";
+
+$result = $conn->query($query)->fetch_assoc();
+$cognomestudente = $result['cognome'];
+$nomestudente = $result['nome'];
+
+$nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
+
+open_html ( "Registro di $cognomestudente $nomestudente" );
+
+import("../../../../");
+echo "<script src=\"scripts.js\"> </script>";
+
 ?>
     
 <body>
@@ -38,7 +38,7 @@
                     <h1> Registro di <?php echo $cognomestudente . " " . $nomestudente ?></h1> 
                     <br>
                     <div class="table-responsive">
-                        <table class='table table-striped'>
+                        <table class='table table-bordered'>
                             <thead>
                             <th>
                                 Data
