@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( superUserType , "../../../../");    
+    checkLogin ( superUserType , "../../../../");
+    open_html ( "Impostazioni - Database" );
     import("../../../../");
     echo "<script src=\"scripts.js\"> </script>";
-    open_html ( "Impostazioni - Database" );
     $connessione = dbConnection ("../../../../");
     require "../../../../db_config.php";
 ?>
