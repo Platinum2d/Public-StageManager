@@ -5,7 +5,7 @@
     echo "<script src='sessione/login/scripts/login.js'></script>";
     checkAccessDenied();
     //checkVoto();
-    checkEmail();    
+    //checkEmail();    
 
 ?>
 <body>

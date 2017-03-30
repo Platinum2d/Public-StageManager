@@ -2,8 +2,8 @@
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci periodi di stage" );
-    echo "<script src='scripts/script.js'></script>";
     import("../../../../");
+    echo "<script src='scripts/script.js'></script>";    
 ?>
 
 <script>

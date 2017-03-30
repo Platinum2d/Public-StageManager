@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
+    open_html ( "Visualizza classi" );
     import("../../../../");
     echo "<script src=\"scripts/scripts.js\"> </script>";
-    open_html ( "Visualizza classi" );
     $connessione = dbConnection ("../../../../");
         
 ?>
