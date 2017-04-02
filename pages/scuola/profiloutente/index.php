@@ -1,12 +1,11 @@
 <?php
     include '../../functions.php';
-    define ("versione_profilo_scuola", "0.01");
     
     checkLogin(scuolaType, "../../../");
     open_html ( "Profilo" );
     import("../../../");
     $id_doc = $_SESSION ['userId'];
-    echo "<script src='profiloutente.js?".versione_profilo_scuola."'></script>";
+    echo "<script src='profiloutente.js?0.01'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT * FROM utente, scuola WHERE id_utente = id_scuola AND id_scuola= $id_doc";
     $result = $connessione->query ( $sql );   

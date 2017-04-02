@@ -169,8 +169,13 @@ HTML;
                 </ul>
 HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
-                echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-
+                echo "<li class=\"dropdown dropdown-hover\">
+                  <a href=\"".$goBack."pages/scuola/profiloutente/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Profilo <span class=\"caret\"></span></a>
+                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                        echo "<li><a href='".$goBack."pages/scuola/profiloutente/responsabile/index.php'>Profilo del responsabile</a></li>";
+                        echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo della scuola</a></li>";
+                echo "</ul></li>";
+                
                 echo "<li class=\"dropdown dropdown-hover\">
                   <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserisci <span class=\"caret\"></span></a>
                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
