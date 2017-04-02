@@ -1,8 +1,9 @@
 <?php
     include '../../functions.php';
     checkLogin ( scuolaType , "../../../");
-    import("../../../");
+    
     open_html ( "Modifica" );
+    import("../../../");
     $connessione = dbConnection ("../../../");
         
 ?>

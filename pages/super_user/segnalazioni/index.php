@@ -1,9 +1,10 @@
 <?php
     include '../../functions.php';
-    checkLogin ( superUserType , "../../../");
-    import("../../../");
-    echo "<script src='scripts/script.js'> </script>";
+    checkLogin ( superUserType , "../../../");  
+    
     open_html ( "Segnalazioni di problemi" );
+    echo "<script src='scripts/script.js'> </script>";
+    import("../../../");
     $connessione = dbConnection ("../../../");
     $risolto = $_GET['ris'];
 ?>

@@ -1,8 +1,10 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( ceoType , "../../../" );
-    import("../../../");
-    open_html ( "Contatta" );
+include '../../functions.php';
+checkLogin ( ceoType , "../../../" );
+//checkEmail();
+open_html ( "Contatta" );
+import("../../../");
+
 ?>
 <script src='js/scripts.js?0.1'></script>
 <body>

@@ -4,6 +4,8 @@ $(document).ready(function (){
     fillTable();
 });
 
+//<button type=\"button\" class=\"btn btn-danger\" value=\"\" id=\"elimina"+I+"\" onclick=\"askForDeleting("+I+")\"><span class='glyphicon glyphicon-trash'></span>  Elimina</button>\n\
+
 function fillTable(){
     $.ajax({
         url : 'ajaxOpsPerClasse/ajaxClasse.php',
@@ -144,6 +146,29 @@ function redirect(progressiv)
     }
     
     form.submit();
+}
+
+function askForDeleting(progressiv)
+{
+    $("#SuperAlert").modal("show");
+    var modal = $("#SuperAlert").find(".modal-body");
+    $("#SuperAlert").find(".modal-title").html("ATTENZIONE");
+    modal.html("<div align='center'><u>ATTENZIONE</u></div>\n\
+                <br>\n\
+                Eliminando questa classe, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
+                <ul>\n\
+                    <li>Tutti gli studenti</li>\n\
+                    <li>Tutti i registri di lavoro</li>\n\
+                    <li>Tutte le valutazioni degli studenti</li>\n\
+                    <li>Tutte le valutazioni delle aziende</li>\n\
+                </ul>");
+    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                                                    <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
+                                                    <div class='col col-sm-6'> \n\
+                                                        <button class='btn btn-success' onclick='deleteClasse()'>Si</button>\n\
+                                                        <button class='btn btn-danger' data-dismiss='modal'>No</button>\n\
+                                                    </div> \n\
+                                                 </div>");
 }
 
 function closeEdit(numberId)

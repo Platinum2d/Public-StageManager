@@ -2,7 +2,9 @@
     include '../../functions.php';
     checkLogin ( doctutType , "../../../" );
     import("../../../");
+    //checkEmail();    
     open_html ( "Contatta" );
+    import("../../../");
 ?>
 <script src='js/scripts.js?0.1'></script>
 <body>

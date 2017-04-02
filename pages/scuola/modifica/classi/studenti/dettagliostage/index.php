@@ -2,8 +2,9 @@
     include '../../../../../functions.php';
     checkLogin(scuolaType, "../../../../../../");
     open_html("Dettaglio esperienze");
-    echo "<script src=\"scripts.js\"> </script>";
     import("../../../../../../");    
+    echo "<script src=\"scripts.js\"> </script>";
+    
     $connessione = dbConnection("../../../../../../");
     $idstudente = $_POST['studente'];
     $idclasse = $_POST['classe']; 
