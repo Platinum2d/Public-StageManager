@@ -156,7 +156,7 @@ function sendData(idStudente, numberId, id_classe)
     studente.classe = id_classe;
     
     studente.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
-        
+    
     if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty() && !studente.citta.isEmpty() && !studente.mail.isEmpty())
     {
         
@@ -174,31 +174,56 @@ function sendData(idStudente, numberId, id_classe)
     }
 }
 
-function deleteData(numberId, idStudente)
+function askForDeleteStudent(progressiv, id_studente, id_classe, id_anno)
 {
-    var confirmed = confirm("Confermare l'eliminazione dello studente?");
-    if (confirmed)
-    {
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerStudente/ajaxElimina.php',
-            data : {'id' : idStudente},
-            success : function (msg)
+    $("#SuperAlert").modal("show");
+    var modal = $("#SuperAlert").find(".modal-body");
+    $("#SuperAlert").find(".modal-title").html("ATTENZIONE");
+    modal.html("<div align='center'><u>ATTENZIONE</u></div>\n\
+                <br>\n\
+                Eliminando questo studente, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
+                <ul>\n\
+                    <li>Tutti i registri di lavoro</li>\n\
+                    <li>Tutte le valutazioni rilasciate alle aziende</li>\n\
+                    <li>Tutte le valutazioni ricevute dalle aziende</li>\n\
+                    <li>Tutte le assegnazioni a docenti referenti, docenti tutor e tutor aziendali</li>\n\
+                </ul>");
+    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                                                    <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
+                                                    <div class='col col-sm-6'> \n\
+                                                        <button class='btn btn-success' onclick='deleteStudent("+progressiv+", "+id_studente+", "+id_classe+", "+id_anno+")'>Si</button>\n\
+                                                        <button class='btn btn-danger' data-dismiss='modal'>No</button>\n\
+                                                    </div> \n\
+                                                 </div>");
+}
+
+function deleteStudent(progressiv, id_studente, id_classe, id_anno)
+{
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerStudente/ajaxElimina.php',
+        data : 
+        {
+            'id' : id_studente,
+            'classe' : id_classe,
+            'anno' : id_anno
+        },
+        success : function (msg)
+        {
+            if (msg === "ok")
             {
-                if (msg === "ok")
-                    $("#VisibleBox"+numberId).closest("tr").fadeOut("slow");
-                else
-                    printError("Eliminazione non riuscita","Contattare l'amministratore");
+                $("#SuperAlert").find(".modal-footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Chiudi</button>")
+                printSuccess("Eliminazione riuscita", "<div align='center'>Lo studente e tutti i dati ad esso affiliati sono stati rimossi con successo</div>");
             }
-        });
-    }
+        }
+    });
 }
 
 function closeEdit(numberId)
 {
     $("#ButtonBox"+numberId).height($("#VisibleBox"+numberId).height() - $("#HiddenBox"+numberId).height());
-    $( "#HiddenBox"+numberId ).remove("br");
-    $( "#HiddenBox"+numberId ).remove();
+    $("#HiddenBox"+numberId ).remove("br");
+    $("#HiddenBox"+numberId ).remove();
     $("#modifica"+numberId).prop("disabled",false);
     $("#elimina"+numberId).prop("disabled",false);
     $("#registro"+numberId).prop("disabled",false);
