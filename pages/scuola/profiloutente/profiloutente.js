@@ -2,7 +2,10 @@ contact = {
     'username' : '',
     'first': '',
     'mail': '',
-    'phone': ''
+    'phone': '',
+    'citta' : '',
+    'CAP' : '',
+    'sitoweb' : ''
 };
 
 var initialUsername;
@@ -26,7 +29,10 @@ $(document).ready(function(){
     contact.first=$("#first").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
-	
+    contact.citta=$("#citta").html();
+    contact.CAP=$("#CAP").html();
+    contact.sitoweb=$("#sitoweb").html();    
+    
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
     $("#saveButton").hide();
@@ -37,6 +43,9 @@ $(document).ready(function(){
         contact.first=$("#first").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
+        contact.citta=$("#citta").html();
+        contact.CAP=$("#CAP").html();
+        contact.sitoweb=$("#sitoweb").html();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -58,6 +67,9 @@ $(document).ready(function(){
         contact.first=$("#first").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
+        contact.citta=$("#citta").html();
+        contact.CAP=$("#CAP").html();
+        contact.sitoweb=$("#sitoweb").html();
 		
         //eseguo query
         if(contact.first.length>0 && contact.username.length>0){
@@ -91,6 +103,9 @@ $(document).ready(function(){
         $("#first").html(contact.first);
         $("#mail").html(contact.mail);
         $("#phone").html(contact.phone);
+        $("#citta").html(contact.citta);
+        $("#CAP").html(contact.CAP);
+        $("#sitoweb").html(contact.sitoweb);
 		
         //esco dalla modalità edit
         exitEdit();
