@@ -25,9 +25,12 @@
     $nomestudente = $conn->query("SELECT nome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['nome'];
     $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
     
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    
+   
     open_html ( "Esperienze di $cognomestudente $nomestudente" );
+    import("../../../../"); 
+    echo "<script src=\"scripts.js\"> </script>";
+    
 ?>
     
 <body>

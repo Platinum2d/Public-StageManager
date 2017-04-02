@@ -1,7 +1,8 @@
 <?php
 include '../../functions.php';
 checkLogin ( scuolaType , "../../../" );
-checkEmail();
+import("../../../");
+//checkEmail();
 
 open_html ( "Contatta" );
 import("../../../");
