@@ -8,6 +8,18 @@ contact = {
 
 var initialUsername;
 
+function turnEditOn()
+{
+    $("#myInformations td").addClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'true');
+}
+
+function turnEditOff()
+{
+    $("#myInformations td").removeClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'false');
+}
+
 $(document).ready(function()
 {
     initialUsername = $("#username").html();
@@ -22,6 +34,12 @@ $(document).ready(function()
     $("#saveButton").hide();
 	
     $("#editButton").click(function(){
+    	
+        contact.username=$("#username").html();
+        contact.first=$("#first").html();
+        contact.last=$("#last").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -31,8 +49,7 @@ $(document).ready(function()
         $("#cancelButton").show();
 		
         //rendo al tabella editabile
-        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-        $("#password").attr('contenteditable', 'false');
+        turnEditOn();
         $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
     });
 	
@@ -46,7 +63,7 @@ $(document).ready(function()
         contact.phone=$("#phone").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.mail.length>0 && contact.phone.length>0)
+        if(contact.username.length>0)
         {
             $.ajax({
                 type: "POST",
@@ -55,11 +72,14 @@ $(document).ready(function()
                 cache: false,
                 success : function (msg)
                 {
-                    if (msg === "ok")
+                    if (msg === "ok") {
                         exitEdit();
-                    else
+                    }
+                    else {
+                    	alert (msg);
                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
-                                                               Se il problema persiste, contattare un amministratore.</div>"); 
+                                                               Se il problema persiste, contattare un amministratore.</div>");
+                    }
                 }
             });
         }
@@ -72,6 +92,9 @@ $(document).ready(function()
     $("#cancelButton").click(function(){
 		
         //rimetto i valori precedenti nella tabella
+        $("#username").parent().parent().find("th").html("Username");
+        $("#username").parent().parent().find("th").css("color", "#828282");
+        $("#username").html(contact.username);
         $("#first").html(contact.first);
         $("#last").html(contact.last);
         $("#mail").html(contact.mail);
@@ -84,10 +107,11 @@ $(document).ready(function()
     function exitEdit(){
         $("#password").html("");
         //blocco la tabella
-        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        turnEditOff();
 		
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
+        $("#saveButton").prop("disabled", false);
         $("#saveButton").hide();
 		
         //compare bottone edit
@@ -98,16 +122,16 @@ $(document).ready(function()
         if ($("#username").html().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
-            $("#username").parent().find("th").html("Informazione obbligatoria");
-            $("#username").parent().find("th").css("color", "red");
+            $("#username").parent().parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().parent().find("th").css("color", "red");
             return;
         }
         
         if ($("#username").html().toString().trim().length > 50)
         {
             $("#saveButton").prop("disabled", true);
-            $("#username").parent().find("th").html("Troppo lungo (max. caratteri: 50)");
-            $("#username").parent().find("th").css("color", "red");
+            $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().parent().find("th").css("color", "red");
             return;
         }
         
@@ -121,14 +145,14 @@ $(document).ready(function()
                 if (esito === "trovato")
                 {
                     $("#saveButton").prop("disabled", true);
-                    $("#username").parent().find("th").html("Username (Esiste già)");
-                    $("#username").parent().find("th").css("color", "red");
+                    $("#username").parent().parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().parent().find("th").css("color", "red");
                 }
                 else
                 {
+                    $("#username").parent().parent().find("th").html("Username");
+                    $("#username").parent().parent().find("th").css("color", "#828282");
                     $("#saveButton").prop("disabled", false);
-                    $("#username").parent().find("th").html("Username");
-                    $("#username").parent().find("th").css("color", "#828282");
                 }
             }
         });

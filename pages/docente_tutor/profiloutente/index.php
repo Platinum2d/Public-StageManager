@@ -36,30 +36,30 @@
                         </div>
                             
                         <div class="col col-sm-9">
-                            <div class="table-responsive"><table id="myInformations" class="table table-striped">
+                            <div class="table-responsive"><table id="myInformations" class="table table-striped table-bordered">
                                     <tr>
-                                        <th class="col-sm-5">Username</th>
-                                        <td id="username" class="col-sm-5"><?php echo $username; ?></td>
+                                        <th class="col-sm-3">Username</th>
+                                        <td id="" class="col-sm-6"><div id="username" class='edittextdiv' contenteditable="false"><?php echo $username; ?></div></td>
                                     </tr>
                                     <tr>
-                                        <th class="col-sm-5">Password</th>
-                                        <td id="password" class="col-sm-5"></td>
+                                        <th>Password</th>
+                                        <td id="password"></td>
                                     </tr>
                                     <tr>
-                                        <th class="col-sm-5">Nome</th>
-                                        <td id="first" class="col-sm-5"><?php echo $nome; ?></td>
+                                        <th>Nome</th>
+                                        <td id=""><div id="first" class='edittextdiv' contenteditable="false"><?php echo $nome; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Cognome</th>
-                                        <td id="last"><?php echo $cognome; ?></td>
+                                        <td id=""><div id="last" class='edittextdiv' contenteditable="false"><?php echo $cognome; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td id="mail"><?php echo $email; ?></td>
+                                        <td id=""><div id="mail" class='edittextdiv' contenteditable="false"><?php echo $email; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Telefono</th>
-                                        <td id="phone"><?php echo $telefono; ?></td>
+                                        <td id=""><div id="phone" class='edittextdiv' contenteditable="false"><?php echo $telefono; ?></div></td>
                                     </tr>
                                 </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">

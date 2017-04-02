@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
-    import("../../../../");
-    echo "<script src=\"scripts/scripts.js\"> </script>";
     open_html ( "Visualizza classi" );
+    import("../../../../");
+    echo "<script src=\"scripts/scripts.js?0.01\"> </script>";
     $connessione = dbConnection ("../../../../");
         
 ?>
@@ -49,29 +49,6 @@
                             </select>
                         </div>
                     </div>
-                    <!--                    <div class="row" id="viewoptions">
-                                            <div class="col col-sm-4">
-                                                <div align="left">
-                                                    <p style="display: inline">Cerca</p> <input style="display: inline" class="form-control" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col col-sm-4">
-                                                Azione<div align="center">
-                                                    <select class="form-control" id="actions">
-                                                        <option>  </option>                                    
-                                                        <option value="1"> Espandi </option>
-                                                        <option value="2"> Riduci </option>
-                                                        <option value="3"> Elimina </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                            
-                                            <div class="col col-sm-4"> 
-                                                Filtra righe<div align="right">
-                                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
-                                                </div>
-                                            </div>
-                                        </div>    -->
                     <br>
                     <br>
                     <div id="table">

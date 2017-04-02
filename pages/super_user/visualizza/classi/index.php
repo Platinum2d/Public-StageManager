@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( superUserType , "../../../../");
+    checkLogin ( superUserType , "../../../../");    
+    open_html ( "Visualizza classi" );
     import("../../../../");
     echo "<script src=\"scripts/scripts.js\"> </script>";
-    open_html ( "Visualizza classi" );
     $connessione = dbConnection ("../../../../");
         
 ?>
@@ -67,7 +67,7 @@
                         
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php echo $recordperpagina ?>">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                             </div>
                         </div>
                     </div>    

@@ -117,11 +117,11 @@
                                             $password = generateRandomicString(PasswordLenght);
                                             $cryptedPassword = md5($password);
                                             $citta = strtolower(trim($sheet->getCell('C'.$I)->getValue()));
-                                                $citta = (empty($citta) || !isset($citta)) ? "Sconosciuta" : $citta;
+                                                $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
                                             $email = strtolower(trim($sheet->getCell('D'.$I)->getValue()));
-                                                $email = (empty($email) || !isset($email)) ? "Sconosciuta" : $email;
+                                                $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                             $telefono = strtolower(trim($sheet->getCell('E'.$I)->getValue()));
-                                                $telefono = (empty($telefono) || !isset($telefono)) ? "Sconosciuto" : $telefono;
+                                                $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                                     
                                             $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
                                                 
@@ -130,13 +130,65 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."','".$conn->escape_string($citta)."','".$conn->escape_string($email)."','".$conn->escape_string($telefono)."', ".$_SESSION['userId'].")";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$conn->escape_string($citta).",".$conn->escape_string($email).",".$conn->escape_string($telefono).", ".$_SESSION['userId'].")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
-                                                                    
-                                                if ($conn->query($insertquery) && $conn->query($attendsquery))
+                                                
+                                                $resultinsert = $conn->query($insertquery);
+                                                $resultattends = $conn->query($attendsquery);
+                                                
+                                                if ($resultattends && $resultinsert)
                                                 {
+                                                    //inserimento studente_has_stage
+                                                    //inserimento docente_referente_has_studente_has_stage
+                                                    
+                                                    $classexperiencesquery = "SELECT id_classe_has_stage 
+                                                                              FROM classe_has_stage 
+                                                                              WHERE classe_id_classe = $id_classe 
+                                                                              AND anno_scolastico_id_anno_scolastico = $id_anno";
+                                                    $resultexp = $conn->query($classexperiencesquery);
+                                                    if (is_object($resultexp) && $resultexp->num_rows > 0)
+                                                    {
+                                                        while ($rowexp = $resultexp->fetch_assoc())
+                                                        {
+                                                            $id_classe_has_stage = $rowexp['id_classe_has_stage'];
+                                                            
+                                                            $query = "INSERT INTO studente_has_stage ("
+                                                            . "visita_azienda, autorizzazione_registro, studente_id_studente, "
+                                                            . "classe_has_stage_id_classe_has_stage, valutazione_studente_id_valutazione_studente, "
+                                                            . "valutazione_stage_id_valutazione_stage, azienda_id_azienda, "
+                                                            . "docente_tutor_id_docente_tutor, tutor_id_tutor) "
+                                                            . "VALUES (0, 1, (SELECT MAX(id_studente) FROM studente), "
+                                                            . "$id_classe_has_stage, NULL, "
+                                                            . "NULL, NULL, "
+                                                            . "NULL, NULL)";
+                                                            
+                                                            if (!$conn->query($query))
+                                                                $reporterrori .= "<br><h3 style=\"color:red\">  ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
+                                                            
+                                                            $docsrefquery = "SELECT DISTINCT docente_id_docente 
+                                                                             FROM studente_has_stage AS shs, docente_referente_has_studente_has_stage AS drhshs, classe_has_stage AS chs 
+                                                                             WHERE shs.id_studente_has_stage = drhshs.studente_has_stage_id_studente_has_stage 
+                                                                             AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
+                                                                             AND shs.classe_has_stage_id_classe_has_stage = $id_classe_has_stage";
+                                                            
+                                                            $docsrefresult = $conn->query($docsrefquery);
+                                                            if (is_object($docsrefresult) && $docsrefresult->num_rows > 0)
+                                                            {
+                                                                while ($rowdoc = $docsrefresult->fetch_assoc())
+                                                                {
+                                                                    $id_doc = $rowdoc['docente_id_docente'];
+                                                                    
+                                                                    $query = "INSERT INTO docente_referente_has_studente_has_stage (studente_has_stage_id_studente_has_stage, docente_id_docente) "
+                                                                            . "VALUES((SELECT MAX(id_studente_has_stage) FROM studente_has_stage), $id_doc)";
+                                                                    if (!$conn->query($query))
+                                                                               $reporterrori .= "<br><h3 style=\"color:red\">  ==== FATAL ERROR ALLA RIGA $I ==== </h3>";               
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    
                                                     $htmltable .= "<tr><td>".($I - 1)."</td> <td>$username</td> <td>$password</td> <td>$citta</td> <td>$email</td> <td>$telefono</td> </tr>";
                                                     $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
                                                 }

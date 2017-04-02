@@ -118,46 +118,37 @@
                                         $password = generateRandomicString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $citta = (trim($sheet->getCell('B'.$I)->getValue()));
-                                        $citta = (empty($citta) || !isset($citta)) ? "Sconosciuta" : $citta;
+                                        $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
                                         $CAP = (trim($sheet->getCell('C'.$I)->getValue()));
-                                        $CAP = (empty($CAP) || !isset($CAP)) ? "000" : $CAP;
+                                        $CAP = (empty($CAP) || !isset($CAP)) ? "NULL" : "'".$CAP."'";
                                         $indirizzo = (trim($sheet->getCell('D'.$I)->getValue()));
-                                        $indirizzo = (empty($indirizzo) || !isset($indirizzo)) ? "Sconosciuto" : $indirizzo;
+                                        $indirizzo = (empty($indirizzo) || !isset($indirizzo)) ? "NULL" : "'".$indirizzo."'";
                                         $telefono = (trim($sheet->getCell('E'.$I)->getValue()));
-                                        $telefono = (empty($telefono) || !isset($telefono)) ? "Sconosciuto" : $telefono;
+                                        $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                         $email = (trim($sheet->getCell('F'.$I)->getValue()));
-                                        $email = (empty($email) || !isset($email)) ? "Sconosciuta" : $email;
+                                        $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                         $sito = (trim($sheet->getCell('G'.$I)->getValue()));
+                                        $sito = (empty($sito) || !isset($sito)) ? "NULL" : "'".$sito."'";
                                         $nomeresponsabile = (trim($sheet->getCell('H'.$I)->getValue()));
+                                        $nomeresponsabile = (empty($nomeresponsabile) || !isset($nomeresponsabile)) ? "NULL" : "'".$nomeresponsabile."'";
                                         $cognomeresponsabile = (trim($sheet->getCell('I'.$I)->getValue()));
+                                        $cognomeresponsabile = (empty($cognomeresponsabile) || !isset($cognomeresponsabile)) ? "NULL" : "'".$cognomeresponsabile."'";
                                         $telefonoresponsabile = (trim($sheet->getCell('J'.$I)->getValue()));
+                                        $telefonoresponsabile = (empty($telefonoresponsabile) || !isset($telefonoresponsabile)) ? "NULL" : "'".$telefonoresponsabile."'";
                                         $mailresponsabile = (trim($sheet->getCell('K'.$I)->getValue()));
+                                        $mailresponsabile = (empty($mailresponsabile) || !isset($mailresponsabile)) ? "NULL" : "'".$mailresponsabile."'";
                                         $conn->query("SET FOREIGN_KEY_CHECKS = 0");
-                                            
+                                        
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".ceoType.")";
-                                            
+                                        
                                         $insertquery = "INSERT INTO azienda (id_azienda, nome_aziendale, citta_aziendale, CAP, indirizzo, telefono_aziendale, email_aziendale, sito_web, nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile)"
-                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".ceoType."),'".$conn->escape_string($nome)."','".$conn->escape_string($citta)."','".$conn->escape_string($CAP)."','".$conn->escape_string($indirizzo)."','".$conn->escape_string($telefono)."', '".$conn->escape_string($email)."'";
+                                                . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".ceoType."),'".$conn->escape_string($nome)."',".$conn->escape_string($citta).",".$conn->escape_string($CAP).",".$conn->escape_string($indirizzo).",".$conn->escape_string($telefono).",".$conn->escape_string($email).",".$conn->escape_string($sito).",".$conn->escape_string($nomeresponsabile).",".$conn->escape_string($cognomeresponsabile).",".$conn->escape_string($telefonoresponsabile).",".$conn->escape_string($mailresponsabile).");";
+                                        
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$username</td> <td>$password</td> <td>$nome</td> <td>$citta</td> <td>$CAP</td> <td>$indirizzo</td>
                                             <td>$telefono</td><td>$email</td><td>$sito</td><td>$nomeresponsabile</td><td>$cognomeresponsabile</td><td>$telefonoresponsabile</td> 
                                             <td>$mailresponsabile</td></tr>";
                                                 
                                         $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome</td> <td>$username</td> <td>$password</td> </tr>";
-                                            
-                                        $sito = (!isset($sito) || empty($sito)) ? "NULL" : $conn->escape_string($sito);
-                                        if ($sito === "NULL") $insertquery .= ", $sito"; else $insertquery .= ", '$sito'";
-                                            
-                                        $nomeresponsabile = (!isset($nomeresponsabile) || empty($nomeresponsabile)) ? "NULL" : $conn->escape_string($nomeresponsabile);
-                                        if ($nomeresponsabile === "NULL") $insertquery .= ", $nomeresponsabile"; else $insertquery .= ", '$nomeresponsabile'";
-                                            
-                                        $cognomeresponsabile = (!isset($cognomeresponsabile) || empty($cognomeresponsabile)) ? "NULL" : $conn->escape_string($cognomeresponsabile);
-                                        if ($cognomeresponsabile === "NULL") $insertquery .= ", $cognomeresponsabile"; else $insertquery .= ", '$cognomeresponsabile'";
-                                            
-                                        $telefonoresponsabile = (!isset($telefonoresponsabile) || empty($telefonoresponsabile)) ? "NULL" : $conn->escape_string($telefonoresponsabile);
-                                        if ($telefonoresponsabile === "NULL") $insertquery .= ", $telefonoresponsabile"; else $insertquery .= ", '$telefonoresponsabile'";
-                                            
-                                        $mailresponsabile = (!isset($mailresponsabile) || empty($mailresponsabile)) ? "NULL" : $conn->escape_string($mailresponsabile);
-                                        if ($telefonoresponsabile === "NULL") $insertquery .= ", $telefonoresponsabile)"; else $insertquery .= ", '$telefonoresponsabile')";
                                             
                                             $conn->query($userquery);
 

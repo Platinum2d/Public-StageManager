@@ -5,7 +5,7 @@
     $idazienda = $_SESSION['userId'];
     $password = md5($_POST['password']);
     
-    $query = "UPDATE `azienda` SET `password` = '$password' WHERE `id_azienda` = $idazienda";
+    $query = "UPDATE `utente` SET `password` = '$password' WHERE `id_utente` = $idazienda";
     if($conn->query($query))
         echo "ok";
     else

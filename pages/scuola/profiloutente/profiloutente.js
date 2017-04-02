@@ -2,10 +2,25 @@ contact = {
     'username' : '',
     'first': '',
     'mail': '',
-    'phone': ''
+    'phone': '',
+    'citta' : '',
+    'CAP' : '',
+    'sitoweb' : ''
 };
 
 var initialUsername;
+
+function turnEditOn()
+{
+    $("#myInformations td").addClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'true');
+}
+
+function turnEditOff()
+{
+    $("#myInformations td").removeClass("editCell");
+    $("#myInformations .edittextdiv").attr('contenteditable', 'false');
+}
 
 $(document).ready(function(){
 	
@@ -14,12 +29,23 @@ $(document).ready(function(){
     contact.first=$("#first").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
-	
+    contact.citta=$("#citta").html();
+    contact.CAP=$("#CAP").html();
+    contact.sitoweb=$("#sitoweb").html();    
+    
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
     $("#saveButton").hide();
 	
     $("#editButton").click(function(){
+    	
+        contact.username=$("#username").html();
+        contact.first=$("#first").html();
+        contact.mail=$("#mail").html();
+        contact.phone=$("#phone").html();
+        contact.citta=$("#citta").html();
+        contact.CAP=$("#CAP").html();
+        contact.sitoweb=$("#sitoweb").html();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -29,8 +55,8 @@ $(document).ready(function(){
         $("#cancelButton").show();
 		
         //rendo al tabella editabile
-        $("#myInformations td").attr('contenteditable', 'true').addClass("editCell");
-        $("#password").attr('contenteditable', 'false');
+        turnEditOn();
+        
         $("#password").html("<a style=\"color:#828282\" href=\"javascript:addPasswordEdit()\"> Modifica </a>");
     });
 	
@@ -41,9 +67,12 @@ $(document).ready(function(){
         contact.first=$("#first").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
+        contact.citta=$("#citta").html();
+        contact.CAP=$("#CAP").html();
+        contact.sitoweb=$("#sitoweb").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0 && contact.username.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/ajax.php",
@@ -68,9 +97,15 @@ $(document).ready(function(){
     $("#cancelButton").click(function(){
 		
         //rimetto i valori precedenti nella tabella
+        $("#username").parent().parent().find("th").html("Username");
+        $("#username").parent().parent().find("th").css("color", "#828282");
+        $("#username").html(contact.username);
         $("#first").html(contact.first);
         $("#mail").html(contact.mail);
         $("#phone").html(contact.phone);
+        $("#citta").html(contact.citta);
+        $("#CAP").html(contact.CAP);
+        $("#sitoweb").html(contact.sitoweb);
 		
         //esco dalla modalità edit
         exitEdit();
@@ -80,10 +115,11 @@ $(document).ready(function(){
         $("#password").html("");
 
         //blocco la tabella
-        $("#myInformations td").attr('contenteditable', 'false').removeClass("editCell");
+        turnEditOff();
 		
         //spariscono i bottoni save e cancel
         $("#cancelButton").hide();
+        $("#saveButton").prop("disabled", false);
         $("#saveButton").hide();
 		
         //compare bottone edit
@@ -95,16 +131,16 @@ $(document).ready(function(){
         if ($("#username").html().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
-            $("#username").parent().find("th").html("Informazione obbligatoria");
-            $("#username").parent().find("th").css("color", "red");
+            $("#username").parent().parent().find("th").html("Informazione obbligatoria");
+            $("#username").parent().parent().find("th").css("color", "red");
             return;
         }
         
         if ($("#username").html().toString().trim().length > 50)
         {
             $("#saveButton").prop("disabled", true);
-            $("#username").parent().find("th").html("Troppo lungo (max. caratteri: 50)");
-            $("#username").parent().find("th").css("color", "red");
+            $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
+            $("#username").parent().parent().find("th").css("color", "red");
             return;
         }
         
@@ -118,17 +154,33 @@ $(document).ready(function(){
                 if (esito === "trovato")
                 {
                     $("#saveButton").prop("disabled", true);
-                    $("#username").parent().find("th").html("Username (Esiste già)");
-                    $("#username").parent().find("th").css("color", "red");
+                    $("#username").parent().parent().find("th").html("Username (Esiste già)");
+                    $("#username").parent().parent().find("th").css("color", "red");
                 }
                 else
                 {
-                    $("#saveButton").prop("disabled", false);
-                    $("#username").parent().find("th").html("Username");
-                    $("#username").parent().find("th").css("color", "#828282");
+                    $("#username").parent().parent().find("th").html("Username");
+                    $("#username").parent().parent().find("th").css("color", "#828282");
+                    if ($("#first").html().toString().trim() !== "")
+                    {
+                        $("#saveButton").prop("disabled", false);
+                    }
                 }
             }
         });
+    });
+    
+    $("#first").on("input", function () {
+        if ($("#first").html().toString().trim() === "")
+        {
+            $("#saveButton").prop("disabled", true);
+        }
+        else {
+            if ($("#username").html().toString().trim() !== "")
+            {
+                $("#saveButton").prop("disabled", false);
+            }
+        }
     });
 });
 

@@ -21,7 +21,8 @@ $(document).ready (function () {
 		        			if ($(element).find("cognome").length != 0) {
 		        				nome += " " + $(element).find("cognome").text();
 		        			}
-		        			var email = $(element).find("email").text();
+		        			var email = "";
+		        			email = $(element).find("email").text();
 		        			var nome_studente_node = $(element).find("nome_studente");
 		        			var cognome_studente_node = $(element).find("cognome_studente");
 		        			if (nome_studente_node.length !==0 && cognome_studente_node.length !==0) {
@@ -63,11 +64,15 @@ $(document).ready (function () {
 	});
 	
 	$("#receiver").change (function () {
-		if ($("#receiver").val () != '-1') {
+		if ($("#receiver").val () != '-1' && $("#receiver").val () != '') {
 			showSecondPart ();
 		}
 		else {
 			hideSecondPart ();
+		}
+		if ($("#receiver").val () == '') {
+			printError ("Impossibile contattare il destinatario", "Impossibile contattare il destinatario poichè non ha ancora inserito il proprio indirizzo e-mail.<br>" +
+					"		Ci auguriamo che lo faccia al più presto.")
 		}
 		checkTheWhole ();
 	});

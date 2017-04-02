@@ -2,8 +2,8 @@
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci periodi di stage" );
-    echo "<script src='scripts/script.js'></script>";
     import("../../../../");
+    echo "<script src='scripts/script.js'></script>";    
 ?>
 
 <script>
@@ -12,7 +12,7 @@
     };      
     
     var check = setInterval(function(){
-        if ($("#inizioStage").val().isEmpty())
+        if ($("#inizioStage").val().isEmpty() || $("#durataStage").val().isEmpty())
         {
             $("input[value=\"Invia\"]").prop("disabled",true);
         }
@@ -45,7 +45,7 @@
                                 <input type="button" class="btn btn-primary" value="Invia" onclick="sendData();">
                             </div>
                             <div class="col col-sm-6"> 
-                                Durata Stage <div class="form-group"> <input type="number" min="1" class="form-control" id="durataStage"> </div>
+                                Durata Stage* <div class="form-group"> <input type="number" min="1" class="form-control" id="durataStage"> </div>
                             </div>
                         </form>
                     </div>

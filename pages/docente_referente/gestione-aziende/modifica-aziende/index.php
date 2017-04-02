@@ -20,7 +20,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js?0.1"></script>
     
     <!-- Begin Body -->
     <div class="container">

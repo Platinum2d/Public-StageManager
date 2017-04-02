@@ -12,13 +12,10 @@
     define ( "err_noLog", 1 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina senza essersi loggato
     define ( "err_noPerm", 2 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina per la quale non ha i permessi necessari (pagina per un altro utente)
     
-    define ( "sent", 2);  //contiene il valore corrispondente ad un email correttamente inviata
-    define ( "notSent", 1);   //contiene il valore corrispondente ad un email non correttamente inviata
-    
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
     
-    define ( "EMAIL_ALESSIO", "alessio.scheri@gmail.com" ); //Indirizzo email di Alessio
-    define ( "EMAIL_DANIELE", "manicardi215@gmail.com" ); //Indirizzo email di Daniele
+    define ( "EMAIL_ALESSIO", "alessio.scheri@stagemanager.it" ); //Indirizzo email di Alessio
+    define ( "EMAIL_DANIELE", "manicardi@stagemanager.it" ); //Indirizzo email di Daniele
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
@@ -36,7 +33,7 @@
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
-        require_once ($goBack . "db_config.php");
+        require ($goBack . "db_config.php");
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
@@ -121,6 +118,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/inserisci-aziende/index.php'>Inserisci</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-aziende/modifica-aziende/index.php'>Modifica</a></li>";
                 echo "</ul></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/tutorato/index.php'>Tutorato</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
                         </ul>
@@ -171,8 +169,13 @@ HTML;
                 </ul>
 HTML;
             } elseif ($_SESSION ['type'] == scuolaType) {
-                echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-
+                echo "<li class=\"dropdown dropdown-hover\">
+                  <a href=\"".$goBack."pages/scuola/profiloutente/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Profilo <span class=\"caret\"></span></a>
+                        <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
+                        echo "<li><a href='".$goBack."pages/scuola/profiloutente/responsabile/index.php'>Profilo del responsabile</a></li>";
+                        echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo della scuola</a></li>";
+                echo "</ul></li>";
+                
                 echo "<li class=\"dropdown dropdown-hover\">
                   <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Inserisci <span class=\"caret\"></span></a>
                         <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
@@ -385,18 +388,22 @@ HTML;
         echo "<link href='".$goBack."lib/bootstrap-fileinput/css/fileinput.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jsPDF-1.3.3/dist/jspdf.debug.js'></script>";
         echo "<script src='".$goBack."lib/jsPDF-AutoTable-2.3.1/dist/jspdf.plugin.autotable.js'></script>";
+        echo "<script src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js'></script>";
+        echo "<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>";
     }
     
     function open_html($title) { // apre la pagina con il relativo titolo
     
+        echo "<!DOCTYPE html>";
     echo <<<HTML
+        
                 <html lang="it">
                         <head>
-                                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
                                 <meta charset="utf-8">
+                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
     
                                 <title>$title</title>
-                                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 HTML;
     echo <<<HTML
                         </head>
@@ -429,26 +436,6 @@ HTML;
         }
     }
     
-    function checkEmail() { //controllo email e stampa se il messaggio è stato inviato correttamente o no
-        if (isset ( $_SESSION ['email_sent'] )) {
-            if ($_SESSION ['email_sent'] == 2) {
-                echo <<<HTML
-                    <script>alert("L'e-mail e' stata inviata con successo.");
-                    </script>
-HTML;
-                unset ( $_SESSION ['email_sent'] );
-            } else {
-                if ($_SESSION ['email_sent'] == 1) {
-                    echo <<<HTML
-                    <script>alert("L'e-mail NON e' stata inviata correttamente.");
-                    </script>
-HTML;
-                    unset ( $_SESSION ['email_sent'] );
-                }
-            }
-        }
-    }
-    
     //     function printBadge($goBack)
     //     {
     //         echo "<a href = \"".$goBack."help.pdf\" target=\"_blank\">";
@@ -468,25 +455,6 @@ HTML;
     // </script>
     // HTML;
     //     }
-    
-    //    function checkVoto() { //controllo del voto e stampa un messaggio in caso di successo o di errore
-    //        if (isset ( $_SESSION ['grade_sent'] )) {
-    //            if ($_SESSION ['grade_sent'] == 2) {
-    //                echo "<script>alert(\"Il voto è stato inviato con successo.\"); </script>";
-    //                unset ( $_SESSION ['grade_sent'] );
-    //            } else {
-    //                if ($_SESSION ['grade_sent'] == 1) {
-    //                echo "<script>alert(\"Si è verificato un errore durante la connessione al database.\");</script>";
-    //                    unset ( $_SESSION ['grade_sent'] );
-    //                } else {
-    //                    if ($_SESSION ['grade_sent'] == 3) {
-    //                echo "<script>alert(\"Si è verificato un errore durante l'invio del voto.\");</script>";
-    //                        unset ( $_SESSION ['grade_sent'] );
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     
     function footer ($goBack) {
         $anno_attuale = date("Y");
@@ -511,7 +479,10 @@ HTML;
     	        							<h4>Contatti:</h4>
     		        						<ul>
     		        							<li>
-            										Daniele Manicardi:
+HTML;
+        
+            										echo "<u style='cursor:pointer' onclick='location.href = \"".$goBack."pages/visualizza_utente/super_user/daniele/index.php\"'>Daniele Manicardi</u>:";
+echo <<<HTML
     		        								<ul>
     		        									<li>
     		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
@@ -528,7 +499,9 @@ HTML;
     		        								</ul>
             									</li>
     		        							<li>
-    		        								Alessio Scheri:
+HTML;
+                                                                    echo "<u style='cursor:pointer' onclick='location.href = \"".$goBack."pages/visualizza_utente/super_user/alessio/index.php\"'>Alessio Scheri</u>:";
+                                                                    echo <<<HTML
     		        								<ul>
     		        									<li>
     		        										<i class="glyphicon glyphicon-phone" aria-hidden="true"></i>
