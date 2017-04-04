@@ -11,16 +11,6 @@
     $id_anno = $_POST['anno'];
     $id_classe = $_POST['classe'];
         
-    function generateRandomicString($length) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
-        
     function checkStudent($username){
         $connection = dbConnection("../../../../");
         $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($username)."'";
@@ -114,7 +104,7 @@
                                                     $tentativi++;
                                                 }
                                             }   
-                                            $password = generateRandomicString(PasswordLenght);
+                                            $password = generateRandomString(PasswordLenght);
                                             $cryptedPassword = md5($password);
                                             $citta = strtolower(trim($sheet->getCell('C'.$I)->getValue()));
                                                 $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
