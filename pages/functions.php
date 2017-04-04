@@ -333,7 +333,7 @@ HTML;
         echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
         echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
-        echo "<link href='".$goBack."lib/custom/css/custom.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/custom/css/custom.css?0.1' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
@@ -503,8 +503,12 @@ HTML;
     
     function studentNoStageWarning () {
         echo <<<HTML
-                <div align="center">
-                    <h1 class="alert-warning"> Non sei pronto per andare in stage. </h1>
+                <div class="text-center">
+                    <h4 class="bg-warning studentNoStageWarning">
+						Pagina al momento non disponibile.
+						<br>
+						Non appena il responsabile scolastico si sarà occupato del tuo stage, avrai accesso a questa funzionalità.
+					</h4>
                 </div>
 HTML;
     }
