@@ -58,3 +58,6 @@ cgi-bin/
 .project
 nbproject/
 nbproject/*
+
+# Profile images
+/media/loads/profimgs/*
