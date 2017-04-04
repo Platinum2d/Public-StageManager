@@ -1,6 +1,6 @@
 <?php
-include "../../pages/functions.php";
-$connessione = dbConnection("../../");
+include "../../../pages/functions.php";
+$connessione = dbConnection("../../../");
 
 $categoria = $_POST['categoria'];
 $oggetto = $_POST['oggetto'];

@@ -1,6 +1,6 @@
 <?php
-	include "../../pages/functions.php";
-	$connessione = dbConnection("../../");
+	include "../../../pages/functions.php";
+	$connessione = dbConnection("../../../");
 	
 	$categoria = $connessione->escape_string ($_POST['categoria']);
 	$oggetto = $connessione->escape_string ($_POST['oggetto']);
