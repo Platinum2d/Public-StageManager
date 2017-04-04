@@ -10,18 +10,6 @@
     $type = $_POST['tipo_docente'];
     $type = ($type === "docente_tutor") ? doctutType : docrefType;
         
-    function generateRandomicString($length) 
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) 
-        {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
-        
     function checkDoc($username)
     {
         $connection = dbConnection("../../../../");
@@ -121,7 +109,7 @@
                                             }
                                         }   
                                         
-                                        $password = generateRandomicString(PasswordLenght);
+                                        $password = generateRandomString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $telefono = (trim($sheet->getCell('C'.$I)->getValue()));
                                         $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";

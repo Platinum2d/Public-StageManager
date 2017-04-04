@@ -8,18 +8,6 @@
         
     define ("PasswordLenght", 8);
         
-    function generateRandomicString($length) 
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) 
-        {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
-        
     function checkCompany($username)
     {
         $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
@@ -115,7 +103,7 @@
                                                 $tentativi++;
                                             }
                                         }                        
-                                        $password = generateRandomicString(PasswordLenght);
+                                        $password = generateRandomString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $citta = (trim($sheet->getCell('B'.$I)->getValue()));
                                         $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
