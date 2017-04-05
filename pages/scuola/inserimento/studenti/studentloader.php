@@ -1,18 +1,28 @@
 <?php    
-    require '../../../../lib/PHPReader/Classes/PHPExcel.php';
-    include "../../../../pages/functions.php";
-    checkLogin(scuolaType, "../../../../");
-    $conn = dbConnection("../../../../");
+    require '../../../../../lib/PHPReader/Classes/PHPExcel.php';
+    include "../../../../../pages/functions.php";
+    checkLogin(scuolaType, "../../../../../");
+    $conn = dbConnection("../../../../../");
     open_html ( "Inserimento studenti da file" );
-    import("../../../../");
+    import("../../../../../");
         
     define ("PasswordLenght", 8);
         
     $id_anno = $_POST['anno'];
     $id_classe = $_POST['classe'];
         
+    function generateRandomicString($length) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+        
     function checkStudent($username){
-        $connection = dbConnection("../../../../");
+        $connection = dbConnection("../../../../../");
         $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($username)."'";
         $result = $connection->query($query);
         if (!$result || $result->num_rows === 0)
@@ -42,8 +52,8 @@
 <body>
     
         <?php
-        topNavbar ("../../../../");
-        titleImg ("../../../../");
+        topNavbar ("../../../../../");
+        titleImg ("../../../../../");
         ?> 
             
     <div class="container">
@@ -57,7 +67,7 @@
                         {
                             $fileName = $_FILES ['studentfile'] ['name'];
                             echo "<div align='center'><h3 style=\"color:green\"> ==== CARICAMENTO EFFETTUATO CON SUCCESSO ==== </h3><div>";
-                            $filepath = "../../../../media/loads/";
+                            $filepath = "../../../../../media/loads/";
                             if (move_uploaded_file ( $_FILES ['studentfile'] ['tmp_name'], $filepath . $fileName)) 
                             {
                                 //echo "<br><h3 style=\"color:green\"> ==== FILE SPOSTATO CON SUCCESSO ==== </h3>";
@@ -80,8 +90,8 @@
                                     
                                     for ($I=2; $I<$rows;$I++)
                                     {
-                                        $nome = (trim($sheet->getCell('A'.$I)->getValue()));
-                                        $cognome = (trim($sheet->getCell('B'.$I)->getValue()));
+                                        $nome = $conn->escape_string(trim($sheet->getCell('A'.$I)->getValue()));
+                                        $cognome = $conn->escape_string(trim($sheet->getCell('B'.$I)->getValue()));
                                         if (isset($nome) && !empty($nome) && isset($cognome) && !empty($cognome))
                                         {
                                             $username = $nome.$cognome;
@@ -104,13 +114,13 @@
                                                     $tentativi++;
                                                 }
                                             }   
-                                            $password = generateRandomString(PasswordLenght);
+                                            $password = generateRandomicString(PasswordLenght);
                                             $cryptedPassword = md5($password);
-                                            $citta = strtolower(trim($sheet->getCell('C'.$I)->getValue()));
+                                            $citta = $conn->escape_string(strtolower(trim($sheet->getCell('C'.$I)->getValue())));
                                                 $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
-                                            $email = strtolower(trim($sheet->getCell('D'.$I)->getValue()));
+                                            $email = $conn->escape_string(strtolower(trim($sheet->getCell('D'.$I)->getValue())));
                                                 $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
-                                            $telefono = strtolower(trim($sheet->getCell('E'.$I)->getValue()));
+                                            $telefono = $conn->escape_string(strtolower(trim($sheet->getCell('E'.$I)->getValue())));
                                                 $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                                     
                                             $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
@@ -120,7 +130,7 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$conn->escape_string($citta).",".$conn->escape_string($email).",".$conn->escape_string($telefono).", ".$_SESSION['userId'].")";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$citta.",".$email.",".$telefono.", ".$_SESSION['userId'].")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
@@ -184,7 +194,7 @@
                                                 }
                                                 else
                                                 {
-                                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
+                                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== $insertquery FATAL ERROR ALLA RIGA $I ==== </h3>";
                                                 }
                                             }                            
                                         }
@@ -229,4 +239,4 @@
     </script>    
 </body>      
     <?php
-        close_html("../../../../");
+        close_html("../../../../../");
