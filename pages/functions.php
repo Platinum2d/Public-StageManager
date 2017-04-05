@@ -76,6 +76,7 @@ HTML;
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/classi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/insegnamenti/index.php'>Insegnamenti</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/settori/index.php'>Settori</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/stage/index.php'>Stage</a></li>";
