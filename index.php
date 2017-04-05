@@ -2,10 +2,10 @@
     include "pages/functions.php";
     open_html("Home");
     import("");
-    echo "<script src='sessione/login/scripts/login.js'></script>";
+    echo "<script src='sessione/login/scripts/login.js?0.1'></script>";
     checkAccessDenied();
     //checkVoto();
-    checkEmail();    
+    //checkEmail();    
 
 ?>
 <body>

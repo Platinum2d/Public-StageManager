@@ -194,7 +194,7 @@ function deleteData(numberId, idStudente)
             success : function (msg)
             {
                 if (msg === "ok")
-                    $("#VisibleBox"+numberId).parent("tr").fadeOut("slow");
+                    $("#VisibleBox"+numberId).closest("tr").fadeOut("slow");
                 else
                     printError("Eliminazione non riuscita",msg);
             }

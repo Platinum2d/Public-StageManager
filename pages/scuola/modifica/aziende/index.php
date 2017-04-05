@@ -20,7 +20,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js?0.1"></script>
     
     <!-- Begin Body -->
     <div class="container">
@@ -92,7 +92,7 @@
                                                     echo "<td>";
                                                         echo "<div align=\"center\" id=\"ButtonBox$I\">"
                                                                 . "<button class=\"btn btn-success\" id=\"modifica$I\" value=\"\" onclick=\"openEdit('$I','".$row['id_azienda']."')\"><span class='glyphicon glyphicon-edit'></span>  Modifica</button>"
-                                                                . "    <button class=\"btn btn-danger\" value=\"\" onclick = \"deleteAzienda(".$row['id_azienda'].")\"><span class='glyphicon glyphicon-remove'></span>  Elimina</button></div>";
+                                                                . "    <button class=\"btn btn-danger\" value=\"\" onclick = \"deleteAzienda(".$row['id_azienda'].")\"><span class='glyphicon glyphicon-trash'></span>  Elimina</button></div>";
                                                     echo "</td>";                                                    
                                                     echo "</tr>";
                                                     $I++;

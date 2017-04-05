@@ -25,9 +25,12 @@
     $nomestudente = $conn->query("SELECT nome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['nome'];
     $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
     
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    
+   
     open_html ( "Esperienze di $cognomestudente $nomestudente" );
+    import("../../../../"); 
+    echo "<script src=\"scripts.js\"> </script>";
+    
 ?>
     
 <body>
@@ -148,7 +151,7 @@
                                         $stage_result = $stage_result->fetch_assoc(); 
                                         $id_stage = $stage_result['id_stage'];
                                         $inizio_stage = $stage_result['inizio_stage'];
-                                        $durata_stage = $stage_result['durata_stage'];
+                                        $durata_stage = $stage_result['durata_stage'] - 1;
                                     }
                                     else
                                     {

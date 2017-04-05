@@ -33,7 +33,7 @@
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                                             $I=0;
                                             echo "<div class=\"table-responsive\"><table id=\"tabledocenti\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
-                                            if($result->num_rows > 0)
+                                            if(is_object($result) && $result->num_rows > 0)
                                             {
                                                 while ($row = $result->fetch_assoc())
                                                 {
@@ -43,7 +43,8 @@
                                                     echo "</div>";
                                                     echo "</td>";
                                                     echo "<td>";
-                                                    echo "<div align=\"center\" id=\"ButtonBox$I\"><input class=\"btn btn-success\" type=\"button\" id=\"modifica$I\" value=\"Modifica\" onclick=\"openEdit('$I','".$row['id_docente']."')\"> <input class=\"btn btn-danger\" type=\"button\" value=\"Elimina\" onclick = \"deleteDocente(".$row['id_docente'].")\"></div>";
+                                                    echo "<div align=\"center\" id=\"ButtonBox$I\"><button class=\"btn btn-success\" id=\"modifica$I\" onclick=\"openEdit('$I','".$row['id_docente']."')\"><span class='glyphicon glyphicon-ok'></span> Modifica</button> "
+                                                            . "<button class=\"btn btn-danger\" onclick = \"deleteDocente(".$row['id_docente'].")\"><span class='glyphicon glyphicon-trash'></span> Elimina</button></div>";
                                                     echo "</td>";
                                                     echo "</tr>";
                                                     $I++;

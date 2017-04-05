@@ -1,11 +1,13 @@
 <?php
 include '../../functions.php';
 checkLogin ( scuolaType , "../../../" );
-checkEmail();
 import("../../../");
+//checkEmail();
+
 open_html ( "Contatta" );
+import("../../../");
 ?>
-<script src='js/scripts.js'></script>
+<script src='js/scripts.js?0.1'></script>
 <body>
     <?php
         topNavbar ("../../../");

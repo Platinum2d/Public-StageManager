@@ -227,3 +227,11 @@ table.table-bordered > thead {
 select.titolo-non-selezionabile:focus option:first-of-type {
     display: none;
 }
+
+.pull-content-bottom {
+	vertical-align: bottom!important;
+}
+
+.studentNoStageWarning {
+	padding: 20px;
+}
