@@ -106,40 +106,40 @@
                                         $password = generateRandomString(PasswordLenght);
                                         $cryptedPassword = md5($password);
                                         $citta = $conn->escape_string(trim($sheet->getCell('B'.$I)->getValue()));
-                                        $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
+                                        $cittaforinsert = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
                                         
                                         $CAP = $conn->escape_string(trim($sheet->getCell('C'.$I)->getValue()));
-                                        $CAP = (empty($CAP) || !isset($CAP)) ? "NULL" : "'".$CAP."'";
+                                        $CAPforinsert = (empty($CAP) || !isset($CAP)) ? "NULL" : "'".$CAP."'";
                                         
                                         $indirizzo = $conn->escape_string(trim($sheet->getCell('D'.$I)->getValue()));
-                                        $indirizzo = (empty($indirizzo) || !isset($indirizzo)) ? "NULL" : "'".$indirizzo."'";
+                                        $indirizzoforinsert = (empty($indirizzo) || !isset($indirizzo)) ? "NULL" : "'".$indirizzo."'";
                                         
                                         $telefono = $conn->escape_string(trim($sheet->getCell('E'.$I)->getValue()));
-                                        $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
+                                        $telefonoforinsert = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                         
                                         $email = $conn->escape_string(trim($sheet->getCell('F'.$I)->getValue()));
-                                        $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
+                                        $emailforinsert = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                         
                                         $sito = $conn->escape_string(trim($sheet->getCell('G'.$I)->getValue()));
-                                        $sito = (empty($sito) || !isset($sito)) ? "NULL" : "'".$sito."'";
+                                        $sitoforinsert = (empty($sito) || !isset($sito)) ? "NULL" : "'".$sito."'";
                                         
                                         $nomeresponsabile = $conn->escape_string(trim($sheet->getCell('H'.$I)->getValue()));
-                                        $nomeresponsabile = (empty($nomeresponsabile) || !isset($nomeresponsabile)) ? "NULL" : "'".$nomeresponsabile."'";
+                                        $nomeresponsabileforinsert = (empty($nomeresponsabile) || !isset($nomeresponsabile)) ? "NULL" : "'".$nomeresponsabile."'";
                                         
                                         $cognomeresponsabile = $conn->escape_string(trim($sheet->getCell('I'.$I)->getValue()));
-                                        $cognomeresponsabile = (empty($cognomeresponsabile) || !isset($cognomeresponsabile)) ? "NULL" : "'".$cognomeresponsabile."'";
+                                        $cognomeresponsabileforinsert = (empty($cognomeresponsabile) || !isset($cognomeresponsabile)) ? "NULL" : "'".$cognomeresponsabile."'";
                                         
                                         $telefonoresponsabile = $conn->escape_string(trim($sheet->getCell('J'.$I)->getValue()));
-                                        $telefonoresponsabile = (empty($telefonoresponsabile) || !isset($telefonoresponsabile)) ? "NULL" : "'".$telefonoresponsabile."'";
+                                        $telefonoresponsabileforinsert = (empty($telefonoresponsabile) || !isset($telefonoresponsabile)) ? "NULL" : "'".$telefonoresponsabile."'";
                                         
                                         $mailresponsabile = $conn->escape_string(trim($sheet->getCell('K'.$I)->getValue()));
-                                        $mailresponsabile = (empty($mailresponsabile) || !isset($mailresponsabile)) ? "NULL" : "'".$mailresponsabile."'";
+                                        $mailresponsabileforinsert = (empty($mailresponsabile) || !isset($mailresponsabile)) ? "NULL" : "'".$mailresponsabile."'";
                                         $conn->query("SET FOREIGN_KEY_CHECKS = 0");
                                         
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".ceoType.")";
                                         
                                         $insertquery = "INSERT INTO azienda (id_azienda, nome_aziendale, citta_aziendale, CAP, indirizzo, telefono_aziendale, email_aziendale, sito_web, nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile)"
-                                                . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".ceoType."),'".$conn->escape_string($nome)."',".($citta).",".($CAP).",".($indirizzo).",".($telefono).",".($email).",".($sito).",".($nomeresponsabile).",".($cognomeresponsabile).",".($telefonoresponsabile).",".($mailresponsabile).");";
+                                                . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".ceoType."),'".$conn->escape_string($nome)."', ".($cittaforinsert).", ".($CAPforinsert).", ".($indirizzoforinsert).", ".($telefonoforinsert).", ".($emailforinsert).", ".($sitoforinsert).", ".($nomeresponsabileforinsert).", ".($cognomeresponsabileforinsert).", ".($telefonoresponsabileforinsert).", ".($mailresponsabileforinsert).");";
                                         
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$username</td> <td>$password</td> <td>$nome</td> <td>$citta</td> <td>$CAP</td> <td>$indirizzo</td>
                                             <td>$telefono</td><td>$email</td><td>$sito</td><td>$nomeresponsabile</td><td>$cognomeresponsabile</td><td>$telefonoresponsabile</td> 

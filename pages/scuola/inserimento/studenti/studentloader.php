@@ -117,11 +117,11 @@
                                             $password = generateRandomicString(PasswordLenght);
                                             $cryptedPassword = md5($password);
                                             $citta = $conn->escape_string(strtolower(trim($sheet->getCell('C'.$I)->getValue())));
-                                                $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
+                                                $cittaforinsert = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
                                             $email = $conn->escape_string(strtolower(trim($sheet->getCell('D'.$I)->getValue())));
-                                                $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
+                                                $emailforinsert = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                             $telefono = $conn->escape_string(strtolower(trim($sheet->getCell('E'.$I)->getValue())));
-                                                $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
+                                                $telefonoforinsert = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                                     
                                             $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
                                                 
@@ -130,7 +130,7 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$citta.",".$email.",".$telefono.", ".$_SESSION['userId'].")";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", ".$_SESSION['userId'].")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
