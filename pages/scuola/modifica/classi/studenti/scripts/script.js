@@ -186,7 +186,7 @@ function askForDeleteStudent(progressiv, id_studente, id_classe, id_anno)
                     <li>Tutti i registri di lavoro</li>\n\
                     <li>Tutte le valutazioni rilasciate alle aziende</li>\n\
                     <li>Tutte le valutazioni ricevute dalle aziende</li>\n\
-                    <li>Tutte le assegnazioni a docenti referenti, docenti tutor e tutor aziendali</li>\n\
+                    <li>Tutte le assegnazioni a docenti referenti, docenti tutor, aziende e tutor aziendali</li>\n\
                 </ul>");
     $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
                                                     <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
@@ -203,8 +203,8 @@ function deleteStudent(progressiv, id_studente, id_classe, id_anno)
         type : 'POST',
         url : 'ajaxOpsPerStudente/ajaxElimina.php',
         data : 
-        {
-            'id' : id_studente,
+                {
+                    'id' : id_studente,
             'classe' : id_classe,
             'anno' : id_anno
         },
@@ -357,4 +357,85 @@ function moveStudent(idclasse)
             }
         }
     });
+}
+
+function askForDeleteClass(id_classe, id_anno)
+{
+    $("#SuperAlert").modal("show");
+    var modal = $("#SuperAlert").find(".modal-body");
+    $("#SuperAlert").find(".modal-title").html("ATTENZIONE");
+    modal.html("<div align='center'><u>ATTENZIONE</u></div>\n\
+                <br>\n\
+                Eliminando questa classe, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
+                <ul>\n\
+                    <li>Tutti gli studenti</li>\n\
+                    <li>Tutti i registri di lavoro</li>\n\
+                    <li>Tutte le valutazioni rilasciate alle aziende</li>\n\
+                    <li>Tutte le valutazioni ricevute dalle aziende</li>\n\
+                    <li>Tutte le assegnazioni a docenti referenti, docenti tutor, aziende e tutor aziendali</li>\n\
+                </ul>");
+    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                                                    <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
+                                                    <div class='col col-sm-6'> \n\
+                                                        <button class='btn btn-success' onclick='deleteClass("+id_classe+", "+id_anno+")'>Si</button>\n\
+                                                        <button class='btn btn-danger' data-dismiss='modal'>No</button>\n\
+                                                    </div> \n\
+                                                 </div>");
+}
+
+function deleteClass(id_classe, id_anno)
+{
+    var errore = false;
+    $(".iwrap").each(function (){
+        var id_studente = $(this).attr("name");
+        
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : 'ajaxOpsPerStudente/ajaxElimina.php',
+            data : 
+                    {
+                        'id' : id_studente,
+                'classe' : id_classe,
+                'anno' : id_anno
+            },
+            success : function (msg)
+            {
+                if (msg !== "ok")
+                {
+                    errore = true;
+                }
+            }
+        });
+    });
+    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerStudente/ajaxRemoveClassAssociations.php',
+        data : 
+        {
+            'classe' : id_classe,
+            'anno' : id_anno
+        },
+        success : function (msg)
+        {
+            if (msg !== "ok")
+            {
+                errore = true;
+            }
+        }
+    });
+    
+    if (errore)
+    {
+        printError("Errore durante l'eliminazione", "<div align='center'>Si è verificato un errore in fase di eliminazione. Si prega di riprovare.<br>Se l'errore persiste, contattare l'amministratore</div>");
+    }
+    else
+    {
+        $("#tablestudenti").fadeOut();
+        $("#SuperAlert").find(".modal-footer").html("<button type=\"button\" class=\"btn btn-defaul\" data-dismiss=\"modal\">Chiudi</button>");
+        printSuccess("Eliminazione avvenuta con successo", "<div align='center'>La classe è stata eliminata con successo!</div>", function (){
+            location.href='../index.php';
+        });
+    }
 }
