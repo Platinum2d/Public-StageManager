@@ -4,15 +4,6 @@
     open_html ( "Visualizza Aziende" );
     import("../../../../");
     $conn = dbConnection("../../../../");
-    /*$recordperpagina = (isset($_POST['customaz'])) ? intval($_POST['customaz']) : null;
-    if (!isset($recordperpagina)){  
-        $recordperpagina = (!isset($_POST['naziende'])) ? 10 : $_POST['naziende'];
-    }
-    if ($recordperpagina <= 0) {
-        $result = $conn->query("SELECT COUNT(id_azienda) AS tot FROM azienda");
-        $row = $result->fetch_assoc();
-        $recordperpagina = intval($row['tot']);
-    }*/
 ?>
 <body>
     <style>
@@ -24,9 +15,8 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js?0.1"></script>
         
-    <input type="hidden" value="<?php //echo $recordperpagina ?>" id="recordperpagina">
     <!-- Begin Body -->
     <div class="container">
         <div class="row">
@@ -51,35 +41,13 @@
                         </div>
                             
                         <div class="col col-sm-4"> 
-                            Filtra righe<div align="right">
-                                <form style="display: inline" action="" method="POST" id="manualcustomredirect">
-                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
-                                </form>
-                            </div>
+                            Filtra righe
                         </div>
                     </div>    
                         
                         
-                                        <?php
-                                            //echo "<div align=\"right\"><form style=\"display : inline\" action=\"\" method=\"POST\" id=\"manualcustomredirect\"> Visualizza <input type=\"number\" min=\"1\" id=\"customnum\" name=\"customaz\"> </form> <form style=\"display : inline\" action=\"index.php\" method=\"POST\" id=\"manualredirect\"> <select name=\"naziende\" id=\"slc\"> <option> 5 </option> <option> 10 </option> <option> 20 </option> <option> 30 </option> <option> 40 </option> </select> aziende per pagina </form></div> ";
-                                            /*  if (isset($_POST['naziende']))
-                                            {
-                                        ?>
-                                            <script>
-                                                var rightindex = 1;
-                                                $("#slc > option").each(function() {
-                                                    if (this.text === '<?php echo intval($_POST['naziende']); ?>')
-                                                    rightindex = this.index;
-
-                                                    $("#slc").prop('selectedIndex', rightindex);
-                                                });
-                                            </script>      
-                                      <?php }
-                                            else 
-                                            { ?> 
-                                            <script> $("#slc").prop('selectedIndex', 1); </script> 
-                                      <?php }   */
-                                          
+                                        <?phpS
+                                            
                                             $query = "SELECT * FROM azienda, utente WHERE tipo_utente = 4 AND id_utente = id_azienda ORDER BY username";
                                             $result = $conn->query($query);
                                             echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
@@ -103,19 +71,6 @@
                                                     
                                             }
                                             echo "</tbody></table></div>";
-                                            /*$querycount = "SELECT COUNT(*) FROM azienda";
-                                            $resultcount = $conn->query($querycount);
-                                            $rowcount = $resultcount->fetch_assoc();
-                                            $tuple = intval($rowcount['COUNT(*)']);
-                                            $npagine = intval($tuple / $recordperpagina);
-                                            if ($npagine * $recordperpagina < $tuple) $npagine += 1;
-                                            echo "<div align=\"center\" id=\"pages\"><ul class=\"pagination pagination-lg\">";
-                                            for ($I = 0;$I < $npagine;$I++)
-                                            {
-                                                $idtoprint = $I * $recordperpagina;
-                                                echo "<li><a id=\"$idtoprint\" href=\"javascript:changePage($recordperpagina,$idtoprint, $idtoprint)\"> ".($I + 1)." </a></li>";
-                                            }
-                                            echo "</ul></div>";*/
                                         ?>
                 </div>
             </div>

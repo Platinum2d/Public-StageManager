@@ -6,9 +6,9 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                  <div class=\"col col-sm-12\"> \n\
                     <div class=\"row\"> \n\
                        <div class=\"col col-sm-6\"> \n\
-                             <label>Azienda</label><select class=\"form-control\" id=\"editinfoazienda"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
-                             <label>Tutor</label><select class=\"form-control\" id=\"editinfotutor"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
-                             <label>Docente</label><select class=\"form-control\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
+                             <label class='custlabel'>Azienda</label><select class=\"form-control\" id=\"editinfoazienda"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
+                             <label class='custlabel'>Tutor</label><select class=\"form-control\" id=\"editinfotutor"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
+                             <label class='custlabel'>Docente</label><select class=\"form-control\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                        </div> <br>\n\
                        <div class=\"col col-sm-6\"> \n\
                             <div class=\"list-group\">\n\
@@ -17,10 +17,10 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
                             </div>\n\
                             \n\
                             <div class=\"checkbox\">\n\
-                              <label><input id=\"editinfovisita"+progressiv+"\" type=\"checkbox\">Azienda visitata</label>\n\
+                              <label class='custlabel'><input id=\"editinfovisita"+progressiv+"\" type=\"checkbox\">Azienda visitata</label>\n\
                             </div>\n\
                             <div class=\"checkbox\">\n\
-                              <label><input id=\"editinfoautorizzazione"+progressiv+"\" type=\"checkbox\">Autorizzazione alla compilazione del registro</label>\n\
+                              <label class='custlabel'><input id=\"editinfoautorizzazione"+progressiv+"\" type=\"checkbox\">Autorizzazione alla compilazione del registro</label>\n\
                             </div>\n\
                             <button id=\"confirm"+progressiv+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"\">\n\
                                 <span class=\"glyphicon glyphicon-ok\"></span>\n\

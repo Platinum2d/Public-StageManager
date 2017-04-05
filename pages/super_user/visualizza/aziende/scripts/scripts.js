@@ -15,47 +15,10 @@ azienda = {
     'emailresponsabile' : ''
 }
 
-$(function (){
-    $("#actions").change(function (){
-        
-        switch ($("#actions").find(":selected").val())
-        {
-            case "4":
-                var stile = "top=10, left=10, width=250, height=200, status=no, menubar=no, toolbar=no scrollbars=no";
-                window.open("newhtml.html", stile);
-            break;
-            
-            case "3":
-                $("#actions").val("");
-                getConfirmationForDeleteMultiple();
-                break;
-            
-            case "2":
-                $("#actions").val("");
-                reduceMultiple(parseInt($("#recordperpagina").val()));
-                break;
-            
-            case "1":
-                $("#actions").val("");
-                expandMultiple(parseInt($("#recordperpagina").val()));
-                break;
-        }
-    }); 
-    
+$(function (){    
     if ($(".active").length === 0)
         $("#pages").find("ul").children().first().addClass("active");
     
-    $("select[name=\"naziende\"]").change(function (){
-        $("#manualredirect").submit();
-    });
-    
-    $("#customnum").keyup(function (e){
-        if (e.which === 13)
-        {
-            if ($.isNumeric($("#customnum").val()))
-                $("#manualcustomredirect").submit();
-        }
-    });
     
     $("#checkall").change(function (){
         if ($(this).prop("checked"))
@@ -66,105 +29,6 @@ $(function (){
     
     $("form[target=\"_blank\"]").height($("#modifica0").height());
 });
-
-function changePage(tupledastampare, offset, pagetounderline)
-{
-    
-    $.ajax({
-        type : 'POST',
-        url : 'ajaxOpsPerAzienda/ajaxGetTablePortion.php',
-        data : { 'offset' : offset, 'tuple' : tupledastampare },
-        cache : false,
-        success : function (html)
-        {
-            $("#tableaziende").html("Caricamento....");
-            $("#tableaziende").html("<thead style=\"background : #eee; font-color : white \"> <th><div align=\"center\"><input type=\"checkbox\" id=\"checkall\"></div> </th> <th style=\"text-align : center\"> Nome azienda, Username  </th> <th style=\"text-align : center\"> Azioni </th></thead> ");
-            $("#tableaziende").append(html);                   
-            $("#tableaziende").hide();
-            $("#tableaziende").fadeIn();
-            $("#pages").find("ul").find("li").each(function (){
-                $(this).removeClass("active");
-            });
-            $("#"+pagetounderline).parent().addClass("active");
-            $("form[target=\"_blank\"]").height($("#modifica0").height())
-            $("#checkall").change(function (){
-                if ($(this).prop("checked"))
-                    $(".singlecheck").prop("checked", true);
-                else
-                    $(".singlecheck").prop("checked", false);
-            });
-        }
-    })
-}
-
-function getConfirmationForDeleteMultiple()
-{
-    if(confirm("ATTENZIONE: Tutte le aziende selezionate verranno definitivamente cancellate.\nNON c'è modo di annullare l'azione.\nProcedere?"))
-        deleteMultiple(parseInt($("#recordperpagina").val()));
-}
-
-function deleteMultiple(recordperpagina)
-{
-    String.prototype.isEmpty = function() {
-        return (this.length === 0 || !this.trim());
-    };
-    $("#actions").val("");
-    
-    var error = false;
-    for (var I=0; I < recordperpagina; I++)
-    {
-        if($("#check"+I).prop("checked"))
-        {
-            $.ajax({
-                url : 'ajaxOpsPerAzienda/ajaxElimina.php',
-                type : 'POST',
-                cache : false,
-                async : false, //IMPORTANTE: BLOCCA LE RICHIESTE DI FILE PHP ASINCRONE. IL CODICE ANDRA' AVANTI FINCHE' TUTTE LE RICHIESTE NON VERRANNO PORTATE A TERMINE
-                data : { 'idazienda' : $("#label"+I).attr("name") },
-                success : function(msg)
-                {
-                    if (msg === "non ok")
-                        error = true;
-                    else
-                    {
-                        $("#riga"+I).fadeOut({
-                            duration : 'slow',
-                            complete : function (){
-                                $("#riga"+I).remove();                                
-                            }
-                        });                        
-                    }                    
-                }
-            });
-        }
-    }
-    
-    if (error)
-        alert("Sono insorti errori durante l'operazione richiesta");
-    
-    if ($("#tableaziende").find("tbody").html().trim().isEmpty())
-    {
-        var newhref = $(".active").next().find("a").attr("href");
-        location.href = newhref;
-    }
-}
-
-function expandMultiple(recordperpagina)
-{
-    for (var I=0; I < recordperpagina; I++)
-    {
-        if($("#check"+I).prop("checked"))
-            $("#modifica"+I).trigger("click");
-    }
-}
-
-function reduceMultiple(recordperpagina){
-    for (var I=0; I < recordperpagina; I++)
-    {
-        if($("#check"+I).prop("checked"))
-            $("button[onclick=\"closeEdit("+I+")\"]").trigger("click");
-    }
-}
 
 function openEdit (id, idazienda)
 {
@@ -255,25 +119,25 @@ function sendData(idazienda, numberId)
         return (this.length === 0 || !this.trim());
     };
     azienda.id = idazienda;
-    azienda.username = $("#username"+numberId).val();
+    azienda.username = $("#username"+numberId).val().trim();
     azienda.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
-    azienda.nomeazienda = $("#nomeazienda"+numberId).val();
-    azienda.cittaazienda = $("#cittaazienda"+numberId).val();
-    azienda.capazienda = $("#capazienda"+numberId).val();
-    azienda.indirizzoazienda = $("#indirizzoazienda"+numberId).val();
-    azienda.telefonoazienda = $("#telefonoazienda"+numberId).val();
-    azienda.email = $("#email"+numberId).val();
-    azienda.sitoweb = $("#sitoweb"+numberId).val();
-    azienda.nomeresponsabile = $("#nomeresponsabile"+numberId).val();
-    azienda.cognomeresponsabile = $("#cognomeresponsabile"+numberId).val();
-    azienda.telefonoresponsabile = $("#telefonoresponsabile"+numberId).val();
-    azienda.emailresponsabile = $("#emailresponsabile"+numberId).val();
+    azienda.nomeazienda = $("#nomeazienda"+numberId).val().trim();
+    azienda.cittaazienda = $("#cittaazienda"+numberId).val().trim();
+    azienda.capazienda = $("#capazienda"+numberId).val().trim();
+    azienda.indirizzoazienda = $("#indirizzoazienda"+numberId).val().trim();
+    azienda.telefonoazienda = $("#telefonoazienda"+numberId).val().trim();
+    azienda.email = $("#email"+numberId).val().trim();
+    azienda.sitoweb = $("#sitoweb"+numberId).val().trim();
+    azienda.nomeresponsabile = $("#nomeresponsabile"+numberId).val().trim();
+    azienda.cognomeresponsabile = $("#cognomeresponsabile"+numberId).val().trim();
+    azienda.telefonoresponsabile = $("#telefonoresponsabile"+numberId).val().trim();
+    azienda.emailresponsabile = $("#emailresponsabile"+numberId).val().trim();
     
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     };
     
-    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty() && !azienda.cittaazienda.isEmpty() && !azienda.capazienda.isEmpty() && !azienda.indirizzoazienda.isEmpty())
+    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty())
     {
         $.ajax({
             type : 'POST',
