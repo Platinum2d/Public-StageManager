@@ -3,8 +3,8 @@
     checkLogin ( superUserType , "../../../");  
     
     open_html ( "Segnalazioni di problemi" );
-    echo "<script src='scripts/script.js'> </script>";
     import("../../../");
+    echo "<script src='scripts/script.js'> </script>";
     $connessione = dbConnection ("../../../");
     $risolto = $_GET['ris'];
 ?>
