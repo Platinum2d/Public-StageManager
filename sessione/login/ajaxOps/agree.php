@@ -44,9 +44,6 @@
                     $row_stage = $result_stage->fetch_assoc ();
                     $_SESSION ['studenteHasStageId'] = $row_stage ['id_studente_has_stage'];
                 }
-                else {
-                   $stato = 0;
-                }
         	}
         }
         else {

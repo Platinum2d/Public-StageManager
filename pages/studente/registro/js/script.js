@@ -54,8 +54,8 @@ function closeEdit(progressiv, idDescrizione)
         $("#elimina"+progressiv).html("<span class='glyphicon glyphicon-trash'></span>");
         $("#modifica"+progressiv).removeClass("btn-success");
         $("#modifica"+progressiv).addClass("btn-warning");
-        $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+")");
-        $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+"), "+idDescrizione+")");
+        $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+", "+idDescrizione+")");
+        $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+", "+idDescrizione+")");
         data = "";
         lavoro = "";
         insegnamenti = "";
@@ -120,7 +120,7 @@ function sendData(progressiv, idDescrizione)
 		                lavoro = $("#textareaLavoro"+progressiv).val();
 		                insegnamenti = $("#textareaInsegnamenti"+progressiv).val();
 		                commento = $("#textareaCommento"+progressiv).val();
-	                    closeEdit (progressiv);
+	                    closeEdit (progressiv, idDescrizione);
 	            },
 	            error : function ()
 	            {
@@ -216,7 +216,7 @@ function insertActivity(progressiv)
 	           data : lavorodainserire,
 	           success : function (maxid)
 	           {
-	               convertToInsertedData(progressiv, maxid);
+	               convertToInsertedData(progressiv, maxid, date);
 	           }
 	        });
     	}
@@ -234,7 +234,7 @@ function closeAddingBox(progressiv)
     $("#aggiungidata"+progressiv+"").closest("tr").remove();
 }
 
-function convertToInsertedData(progressiv, maxid)
+function convertToInsertedData(progressiv, maxid, date_new_element)
 {
     var generalprogressiv = parseInt($("#edit").attr("name"));
     $("#aggiungidata"+progressiv+"").closest("tr").attr("id","riga"+(generalprogressiv + 1));
@@ -255,9 +255,29 @@ function convertToInsertedData(progressiv, maxid)
     $("#aggiungiCommento"+progressiv+"").closest("td").attr("id","commento"+(generalprogressiv + 1));
     $("#aggiungiCommento"+progressiv+"").closest("td").html(commento);
     
-    $("#gobuttons"+progressiv).html("<div align=\"center\"><button class=\"btn btn-warning buttonfix btn-sm margin\" id=\"modifica"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" onclick = \"openEdit("+(generalprogressiv + 1)+")\"><span class=\"glyphicon glyphicon-edit\"></span></button> <button class=\"btn btn-danger buttonfix btn-sm margin\" id=\"elimina"+(generalprogressiv + 1)+"\" name=\""+maxid+"\" value=\"Cancella\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-trash\"></span></button></div>");
+    $("#gobuttons"+progressiv).html("<div align=\"center\" style=\"vertical-align: middle;\"><button class=\"btn btn-warning buttonfix btn-sm margin\" id=\"modifica"+(generalprogressiv + 1)+"\" onclick = \"openEdit("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-edit\"></span></button> <button class=\"btn btn-danger buttonfix btn-sm margin\" id=\"elimina"+(generalprogressiv + 1)+"\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-trash\"></span></button></div>");
+    $("#gobuttons"+progressiv).removeAttr("style");
+    $("#gobuttons"+progressiv).addClass("regEdit");
+    $("#gobuttons"+progressiv).attr("id","");
     $("#edit").attr("name",(generalprogressiv+1));
     
+    
+    var riga_successiva = null;
+    $("#DescTable tbody").find ("tr").each (function () {
+    	var riga = this;
+    	var data_riga=$(riga).find ("td[id^='data']").text();
+    	data_riga = data_riga.split ("-");
+    	data_riga = new Date (data_riga[2], parseInt (data_riga[1]) - 1, data_riga[0]);
+    	if (data_riga > date_new_element) {
+    		riga_successiva = riga;
+    		return false;
+    	}
+    });
+    if (riga_successiva != null) {
+        var temp = $("#riga"+(generalprogressiv + 1));
+        $("#riga"+(generalprogressiv + 1)).remove();
+        temp.insertBefore(riga_successiva);
+    }
     $("#riga"+(generalprogressiv + 1)).hide();
-    $("#riga"+(generalprogressiv + 1)).fadeIn("slow");
+	$("#riga"+(generalprogressiv + 1)).fadeIn("slow");
 }

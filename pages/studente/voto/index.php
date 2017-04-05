@@ -16,7 +16,9 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1>Voto azienda</h1>
+                    <h1>Voto azienda</h1>            
+                        <br>
+                        <div class="row">
                         <?php
                             if (isset($_SESSION ['studenteHasStageId'])) {
                                 $idStudenteHasStage = $_SESSION ['studenteHasStageId'];
@@ -44,10 +46,7 @@
 	                                    $result = $connection->query($Query);
 	                                    if ($result->num_rows <= 0)
 	                                    {
-                            ?>				
-                        <!-- Begin Body -->                    
-                        <br>
-                        <div class="row">
+                            ?>
                             <div class="col col-sm-8">
                                 <h2>Dai un voto alla tua azienda:</h2>
                                 <div id="voto">
@@ -129,14 +128,22 @@
                                 else
                                 {
                             ?>
-                        <div align="center">
-                            <h1 class="alert-warning"> Non sei assegnato a nessuna azienda </h1>
-                        </div>
+                  		<div class="col col-sm-12">
+                            <div class="text-center">
+			                    <h4 class="bg-warning studentNoStageWarning">
+									Pagina al momento non disponibile.
+									<br>
+									Non appena il tuo docente referente ti avrà assegnato ad un'azienda, avrai accesso a questa funzionalità.
+								</h4>
+			                </div>
+			            </div>
                     <?php
                             }
                         }
                         else {
+                        	echo "<div class='col col-sm-12'>";
                             studentNoStageWarning();
+                            echo "</div>";
                         }
                     ?>
                 </div>
