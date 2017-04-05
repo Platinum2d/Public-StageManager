@@ -7,8 +7,13 @@
     $username = $conn->escape_string($_POST['username']);
     $nome = $conn->escape_string($_POST['nome']);
     $cognome = $conn->escape_string($_POST['cognome']);
+    
     $mail = $conn->escape_string($_POST['mail']);
+    $mail = (isset($mail) && !empty($mail)) ? "'".$mail."'" : 'NULL';
+    
     $telefono = $conn->escape_string($_POST['telefono']);
+    $telefono = (isset($telefono) && !empty($telefono)) ? "'".$telefono."'" : 'NULL';
+    
     $azienda = $_POST['azienda'];
     
     $Query = "UPDATE `utente` SET `username` = '$username' ";
@@ -16,7 +21,7 @@
     $Query .= " WHERE `id_utente` = $idtutor";
     $ok = ($conn->query($Query)) ? true : false ;
     
-    $Query = "UPDATE `tutor` SET `nome` = '$nome', `cognome` = '$cognome',  `email` = '$mail', `telefono` = '$telefono', `azienda_id_azienda` = $azienda  WHERE id_tutor = $idtutor";
+    $Query = "UPDATE `tutor` SET `nome` = '$nome', `cognome` = '$cognome',  `email` = $mail, `telefono` = $telefono, `azienda_id_azienda` = $azienda  WHERE id_tutor = $idtutor";
     $ok = ($conn->query($Query)) ? true : false ;
     
     if ($ok)
