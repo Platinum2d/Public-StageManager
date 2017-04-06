@@ -27,7 +27,7 @@
 <?php
     }
 ?>
-<script src="js/script.js?0.1"></script>
+<script src="js/script.js?0.2"></script>
 <body>
    	<?php
         topNavbar ("../../../");
