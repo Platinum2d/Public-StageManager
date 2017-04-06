@@ -11,8 +11,10 @@ XML;
     $xml = new SimpleXMLElement ( $xmlstr );
         
     $query = "SELECT id_docente, doc.nome, doc.cognome "
-            . "FROM docente AS doc "
-            . "WHERE doc.scuola_id_scuola = ".$_SESSION['userId'];
+            . "FROM utente, docente AS doc "
+            . "WHERE id_docente = id_utente "
+            . "AND doc.scuola_id_scuola = ".$_SESSION['userId']." "
+            . "AND tipo_utente = ".docrefType;
     
     $result = $conn->query($query);
     
