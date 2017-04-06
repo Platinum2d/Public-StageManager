@@ -3,7 +3,7 @@
     checkLogin(scuolaType, "../../../../../../");
     open_html("Dettaglio esperienze");
     import("../../../../../../");    
-    echo "<script src=\"scripts.js?0.1\"> </script>";
+    echo "<script src=\"scripts.js?2\"> </script>";
     
     $connessione = dbConnection("../../../../../../");
     $idstudente = $_POST['studente'];
@@ -90,6 +90,9 @@
                         <div class="col col-sm-12">
                             <div class='row'>
                                 <div class="col col-sm-4">
+                                    <p class="small left">
+                                        * Vengono presi in considerazione solo docenti che insegnano nella classe dello studente
+                                    </p>
                                 </div>
                                 <div class="col col-sm-8" align='right'>
                                     <h3>A.S. <?php echo $nomeanno; ?></h3>

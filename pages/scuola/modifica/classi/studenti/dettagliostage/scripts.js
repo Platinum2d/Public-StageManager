@@ -8,7 +8,7 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
                        <div class=\"col col-sm-6\"> \n\
                              <label class='margin_bottom_label'>Azienda</label><select class=\"form-control margin_bottom_input\" id=\"editinfoazienda"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <label class='margin_bottom_label'>Tutor</label><select class=\"form-control margin_bottom_input\" id=\"editinfotutor"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
-                             <label class='margin_bottom_label'>Docente tutor</label><select class=\"form-control margin_bottom_input\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
+                             <label class='margin_bottom_label'>Docente tutor*</label><select class=\"form-control margin_bottom_input\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <br><div align='center'><a onclick='javascript:openDocsRefs("+id_studente_has_stage+", "+id_anno+")' style='color:#525252; cursor:pointer'><u>Docenti referenti</u></a></div>\n\
                        </div> <br>\n\
                        <div class=\"col col-sm-6\"> \n\
