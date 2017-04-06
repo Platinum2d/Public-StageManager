@@ -117,7 +117,7 @@ if (isset ($id_utente)) {
                 "In caso contrario, la preghiamo di ignorare questo messaggio.\n\n" .
                 "Clicchi sul seguente link per proseguire con il ripristino: ".
                 "https://stagemanager.it/sessione/reimposta-password/index.php?user=$username&code=$codice";
-        $mittente = "alessio.scheri@gmail.com";
+        $mittente = "noreply.stagemanager@gmail.com";
         $headers = "From: noreply StageManager <" . $mittente . ">";
         $oggetto = "Recupero password per $nome";
         if (mail($email, $oggetto, $messaggio, $headers)) {
