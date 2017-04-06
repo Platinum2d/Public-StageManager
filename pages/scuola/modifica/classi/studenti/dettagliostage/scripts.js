@@ -1,4 +1,4 @@
-function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_stage, id_anno)
+function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_studente_has_stage, id_anno)
 {
     var progressiv = numberId + 1;
     $("<tr> \n\
@@ -89,7 +89,7 @@ function openInfo(numberId, id_classe_has_stage, id_studente, id_studente_has_st
             $.ajax({
                 url : 'ajaxOpsPerDettaglioStage/ajaxDocente.php',
                 type : 'POST',
-                data : {exclusion : exclusion},
+                data : {'exclusion' : exclusion, 'classe' : id_classe},
                 success : function (docs){
                     $(docs).find("docenti").find("docente").each(function (){
                         $("#editinfodocente"+progressiv).append("<option value=\""+$(this).find("id").text()+"\"> "+$(this).find("cognome").text()+" "+$(this).find("nome").text()+" </option>")
