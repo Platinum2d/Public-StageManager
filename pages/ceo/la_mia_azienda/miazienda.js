@@ -3,7 +3,9 @@ contact = {
     'city': '',
     'address': '',
     'mail': '',
-    'phone': ''
+    'phone': '',
+    'website': '',
+    'cap': '',
 };
 
 var figuresSize = 12.5; //Costanti generali per le figure professionali
@@ -29,6 +31,8 @@ $(document).ready(function(){
     contact.address=$("#address").html();
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
+    contact.website=$("#website").html();
+    contact.cap=$("#cap").html();
     $(".label-info").css("font-size", figuresSize);
     $("#figurerichieste").on("itemAdded", function (event){  
         $(".label-info").css("font-size", figuresSize);
@@ -89,19 +93,36 @@ $(document).ready(function(){
         contact.address=$("#address").html();
         contact.mail=$("#mail").html();
         contact.phone=$("#phone").html();
+        contact.website=$("#website").html();
+        contact.cap=$("#cap").html();
         
         //eseguo query
-        if(contact.first.length>0 && contact.city.length>0 && contact.address.length>0 && contact.mail.length>0 && contact.phone.length>0){
+        if(contact.first.length>0){
             $.ajax({
                 type: "POST",
                 url: "ajaxOps/ajax.php",
                 data: contact,
-                cache: false
+                cache: false,
+                success : function (ret) {
+                	if (ret == "0") {
+                        //esco dalla modalità edit
+                        exitEdit();
+                	}
+                	else if (ret == "1") {
+                		printError ("Errore", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.");
+                	}
+                	else {
+                		alert (ret);
+                	}
+                },
+                error : function () {
+                	printError ("Problema nella richiesta", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.")
+                }
             });
         }
-        
-        //esco dalla modalità edit
-        exitEdit();
+        else {
+        	printError ("Dati mancanti", "È necessario inserire il nome dell'azienda per poter aggiornare i propri dati.");
+        }
     });
     
     $("#cancelButton").click(function(){
@@ -112,6 +133,8 @@ $(document).ready(function(){
         $("#address").html(contact.last);
         $("#mail").html(contact.mail);
         $("#phone").html(contact.phone);
+        $("#website").html(contact.website);
+        $("#cap").html(contact.cap);
         
         //esco dalla modalità edit
         exitEdit();

@@ -63,7 +63,7 @@ $(document).ready(function()
         contact.phone=$("#phone").html();
 		
         //eseguo query
-        if(contact.first.length>0 && contact.last.length>0 && contact.username.length>0)
+        if(contact.username.length>0)
         {
             $.ajax({
                 type: "POST",
@@ -72,11 +72,14 @@ $(document).ready(function()
                 cache: false,
                 success : function (msg)
                 {
-                    if (msg === "ok")
+                    if (msg === "ok") {
                         exitEdit();
-                    else
+                    }
+                    else {
+                    	alert (msg);
                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
-                                                               Se il problema persiste, contattare un amministratore.</div>"); 
+                                                               Se il problema persiste, contattare un amministratore.</div>");
+                    }
                 }
             });
         }
@@ -149,39 +152,10 @@ $(document).ready(function()
                 {
                     $("#username").parent().parent().find("th").html("Username");
                     $("#username").parent().parent().find("th").css("color", "#828282");
-                    if ($("#first").html().toString().trim() !== "" && $("#last").html().toString().trim() !== "")
-                    {
-                        $("#saveButton").prop("disabled", false);
-                    }
+                    $("#saveButton").prop("disabled", false);
                 }
             }
         });
-    });
-    
-    $("#first").on("input", function () {
-        if ($("#first").html().toString().trim() === "")
-        {
-            $("#saveButton").prop("disabled", true);
-        }
-        else {
-            if ($("#last").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
-            {
-                $("#saveButton").prop("disabled", false);
-            }
-        }
-    });
-    
-    $("#last").on("input", function () {
-        if ($("#last").html().toString().trim() === "")
-        {
-            $("#saveButton").prop("disabled", true);
-        }
-        else {
-            if ($("#first").html().toString().trim() !== "" && $("#username").html().toString().trim() !== "")
-            {
-                $("#saveButton").prop("disabled", false);
-            }
-        }
     });
 });
 

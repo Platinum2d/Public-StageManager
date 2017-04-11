@@ -120,11 +120,11 @@ function check_login(){
             	    $("#SuperAlert").find(".modal-body").html("<b>Per accedere ed utilizzare la piattagorma è necessario acconsentire " +
             	    											"il trattamento dei propri dati personali. Tale autorizzazione verrà" +
             	    											" utilizziata al solo scopo di fornire in modo ottimale i servizi proposti.</b>");
-            	    $("#SuperAlert").find(".modal-footer").prepend ("<button id='buttonAgree' type='button' class='btn btn-success' onclick='sendAgree ();'>Acconsento</button>");
+            	    $("#SuperAlert").find(".modal-footer").prepend ("<button id='buttonAgree' type='button' class='btn btn-success' onclick='sendAgree ();' autofocus>Acconsento</button>");
             	    $("#SuperAlert").find(".modal-body").css("background-color", "#B9D3F6");
             	    
                 	$("#SuperAlert").on('hidden.bs.modal', function () {
-                		$("#buttonAgree").remove ();
+                		$("#SuperAlert").find("#buttonAgree").remove ();
                 	});
             	}
             	else {

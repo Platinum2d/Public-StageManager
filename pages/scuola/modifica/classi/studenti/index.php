@@ -34,13 +34,17 @@
         topNavbar ("../../../../../");
         titleImg ("../../../../../");
     ?>
-    <script src="scripts/script.js?0.1"> </script>
+    <script src="scripts/script.js?66"> </script>
     <div class="container">
         
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id = "mainPanel">
-                    <h1>Studenti della <?php echo $nomeclasse; ?></h1>    
+                    <h1>Studenti della <?php echo $nomeclasse; ?></h1>
+                    <br>
+                    <div align='right'>
+                        <a href='javascript:askForDeleteClass(<?= $idclasse; ?>, <?= $idanno; ?>)'><u>Desidero eliminare questa classe</u></a>
+                    </div>
                     <br>                      
                     <!--                    <div class="row">
                                             <div class="col col-sm-4">
@@ -87,7 +91,7 @@
                             . "<thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
                             while ($row = $result->fetch_assoc ())
                             {
-                                echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td name=\"".$row['id_studente']."\" class=\"minw\">";
+                                echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td name=\"".$row['id_studente']."\" class=\"iwrap minw\">";
                                 echo "<div id=\"VisibleBox".$I."\">";                                
                                     echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label><input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                 echo "</div>";
@@ -95,7 +99,7 @@
                                 echo "<td align=\"center\">";
                                     echo "<div id=\"ButtonBox".$I."\" align=\"center\">";
                                          echo "<button class = \"btn btn-success \" name=\"".$row['id_studente']."\" id = \"modifica".$I."\" onclick = \"openEdit('VisibleBox".$I."',$(this).closest('button').attr('name'), $idclasse, $idanno)\"><span class='glyphicon glyphicon-edit'></span> Modifica</button></td> "
-                                                 . "<td align=\"center\"><button class = \"btn btn-danger\" value=\"\" id = \"elimina".$I."\" onclick=\"deleteData(".$I.",$('#modifica".$I."').closest('button').attr('name'))\"><span class='glyphicon glyphicon-trash'></span> Elimina</button> </td>";
+                                                 . "<td align=\"center\"><button class = \"btn btn-danger\" value=\"\" id = \"elimina".$I."\" onclick=\"askForDeleteStudent(".$I.", ".$row['id_studente'].", $idclasse, $idanno)\"><span class='glyphicon glyphicon-trash'></span> Elimina</button> </td>";
                                     echo "</div>";
                                 echo "</tr>";
                                 $I++;

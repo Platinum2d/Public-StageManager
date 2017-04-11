@@ -136,7 +136,7 @@ function sendData(idTutor, numberId)
     tutor.mail = $("#email"+numberId).val();
     tutor.azienda = $("#azienda"+numberId+" option:selected").attr('value');
     
-    if (!tutor.username.isEmpty() && !tutor.nome.isEmpty() && !tutor.nome.isEmpty() && !tutor.cognome.isEmpty() && !tutor.telefono.isEmpty() && !tutor.mail.isEmpty())
+    if (!tutor.username.isEmpty() && !tutor.nome.isEmpty() && !tutor.nome.isEmpty() && !tutor.cognome.isEmpty())
     {
         
         $.ajax({
