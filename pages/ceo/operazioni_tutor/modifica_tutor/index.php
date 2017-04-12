@@ -19,7 +19,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"> </script>
+    <script src="scripts/scripts.js?2"> </script>
         
     <!-- Begin Body -->
     <script>
@@ -88,13 +88,15 @@
                                                 echo "<br><div class=\"table-responsive\"><table id=\"tabletutor\" class=\"table table-bordered\"> <thead style=\"background : #eee; font-color : white \"> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Azioni </th></thead>  <tbody>";
                                                 while ($row = $result->fetch_assoc())
                                                 {
-                                                    echo "<tr><td class=\"minw\">";
+                                                    echo "<tr id='riga$I'><td class=\"minw\">";
                                                     echo "<div id=\"VisibleBox$I\">";
                                                         echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label> <input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                                     echo "</div>";
                                                     echo "</td>";
                                                     echo "<td>";
-                                                        echo "<div id=\"ButtonBox$I\" align=\"center\"><input class=\"btn btn-success\" type=\"button\" id=\"modifica$I\" value=\"Modifica\" onclick=\"openEdit('$I','".$row['id_tutor']."')\"> <input class=\"btn btn-danger\" type=\"button\" value=\"Elimina\" onclick = \"deleteTutor(".$row['id_tutor'].")\"> <br></div>";
+                                                        echo "<div id=\"ButtonBox$I\" align=\"center\">"
+                                                                . "<button class=\"btn btn-success\" type=\"button\" id=\"modifica$I\" onclick=\"openEdit('$I','".$row['id_tutor']."')\"><span class='glyphicon glyphicon-edit'></span> Modifica</button> "
+                                                                . "<button class=\"btn btn-danger\" type=\"button\" onclick = \"askForDeleteTutor(".$row['id_tutor'].", $I)\"><span class='glyphicon glyphicon-trash'></span> Elimina</button> <br></div>";
                                                     echo "</td>";
                                                     echo "</tr>";
                                                     $I++;
