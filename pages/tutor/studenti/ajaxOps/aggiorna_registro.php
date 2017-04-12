@@ -1,4 +1,4 @@
-<?php
+<?php	
     include '../../../functions.php';
     header ( "Content-Type: application/xml" );
     $xmlstr = <<<XML
@@ -16,10 +16,10 @@ XML;
         $line = $xml->addChild ( "line" );
         $line->addChild ( "id", $work_line ['id_lavoro_giornaliero'] );
         $line->addChild ( "date", date("d-m-Y", strtotime($work_line['data'])) );
-        $line->addChild ( "lavoro", $work_line ['lavoro_svolto'] );
-        $line->addChild ( "insegnamenti", $work_line ['insegnamenti'] );
+        $line->addChild ( "lavoro", xmlEscape($work_line ['lavoro_svolto'] ));
+        $line->addChild ( "insegnamenti", xmlEscape($work_line ['insegnamenti'] ));
         if (isset($work_line ['commento'])) {
-            $commento = $work_line ['commento'];
+        	$commento = xmlEscape($work_line ['commento']);
         }
         else {
             $commento = "";
