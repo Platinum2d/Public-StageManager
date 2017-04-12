@@ -21,7 +21,7 @@ $(document).ready(function() {
     	regLavoro.empty();
     	regInsegnamenti.empty();
     	regCommento.empty();
-    	regDate.append ("<input class='datepicker form-control'/>");
+    	regDate.append ("<input placeholder=\"gg-mm-aaaa\" class='datepicker form-control'/>");
     	regDate.find (".datepicker").datepicker({ 
     		dateFormat: 'dd-mm-yy', 
     		minDate: inizio_stage,
@@ -29,11 +29,11 @@ $(document).ready(function() {
 		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
-    	regLavoro.append("<textarea class='newLavoro form-control'>" + lavoro + "</textarea>");
+    	regLavoro.append("<textarea maxlength=\"500\" class='newLavoro form-control'>" + lavoro + "</textarea>");
     	regLavoro.append("<textarea class='lavoroBackup' style='display: none;'>" + lavoro + "</textarea>");
-    	regInsegnamenti.append("<textarea class='newInsegnamenti form-control'>" + insegnamenti + "</textarea>");
+    	regInsegnamenti.append("<textarea maxlength=\"500\" class='newInsegnamenti form-control'>" + insegnamenti + "</textarea>");
     	regInsegnamenti.append("<textarea class='insegnamentiBackup' style='display: none;'>" + insegnamenti + "</textarea>");
-    	regCommento.append("<textarea class='newCommento form-control'>" + commento + "</textarea>");
+    	regCommento.append("<textarea maxlength=\"500\" class='newCommento form-control'>" + commento + "</textarea>");
     	regCommento.append("<textarea class='commentoBackup' style='display: none;'>" + commento + "</textarea>");
     	regtr.find("td.regOpt").empty();
     	regtr.find("td.regOpt").append('<button class="descSave btn btn-success buttonfix btn-sm margin"><span class="glyphicon glyphicon-save"></span></button> <button class="descDiscard btn btn-danger buttonfix btn-sm margin"><span class="glyphicon glyphicon-remove"></span></button>');
@@ -146,58 +146,63 @@ $(document).ready(function() {
     	var insegnamenti = insegnamentitd.find(".newInsegnamenti").val();
     	var commentotd = regtr.find("td.regCommento");
     	var commento = commentotd.find(".newCommento").val();
-    	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
-		if (!isEmpty(date) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
-	    {
-	    	if (date >= inizio_stage && date <=fine_stage){
-		    	data = {
-		    		"lavoro": lavoro,
-		    		"insegnamenti": insegnamenti,
-		    		"commento": commento,
-		    		"id": regtr.find(".descId").val(),
-					"day": date.getDate(),
-					"month": date.getMonth() + 1,
-					"year": date.getFullYear(),
+    	if (checkDateItalianFormat (regtr.find(".regDate").find (".datepicker").val ())) {
+	    	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
+			if (!isEmpty(date) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
+		    {
+		    	if (date >= inizio_stage && date <=fine_stage){
+			    	data = {
+			    		"lavoro": lavoro,
+			    		"insegnamenti": insegnamenti,
+			    		"commento": commento,
+			    		"id": regtr.find(".descId").val(),
+						"day": date.getDate(),
+						"month": date.getMonth() + 1,
+						"year": date.getFullYear(),
+			    	}
+			    	$.ajax({
+			    		url: "ajaxOps/aggiorna_lavoro.php", //Pagina a quale invio la richiesta
+			    		type: "POST", //Metodologia di invio di dati
+			    		dataType: "xml", //Tipologia di dati restituiti
+			    		data: data, //Dati inviati
+			
+			
+			    		error: function(){
+			    			printError ("Errore", "Problema nell'invio della richiesta.");
+			    		},
+			
+			    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
+			    			if($(xml).find("status").text() == 0){
+			    				regtr.find("td.regLavoro").empty();
+			    				regtr.find("td.regLavoro").append(lavoro);
+			    				regtr.find("td.regInsegnamenti").empty();
+			    				regtr.find("td.regInsegnamenti").append(insegnamenti);
+			    				regtr.find("td.regCommento").empty();
+			    				regtr.find("td.regCommento").append(commento);
+			    				regtr.find("td.regOpt").empty();
+			    		    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-warning buttonfix btn-sm margin'><span class='glyphicon glyphicon-edit'></span></button> ");
+			    		    	regtr.find(".regEdit").click(DescEdit);
+			    		    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-danger buttonfix btn-sm margin'><span class='glyphicon glyphicon-trash'></span></button>");
+			    		    	regtr.find(".regDelete").click(DescDelete);
+			    				DescInit()
+			    			}
+			    			else{
+			    				printError("Errore", "Errore durante l'invio, prego riprovare.");
+			    			}
+			    		}
+			    	});
 		    	}
-		    	$.ajax({
-		    		url: "ajaxOps/aggiorna_lavoro.php", //Pagina a quale invio la richiesta
-		    		type: "POST", //Metodologia di invio di dati
-		    		dataType: "xml", //Tipologia di dati restituiti
-		    		data: data, //Dati inviati
-		
-		
-		    		error: function(){
-		    			printError ("Errore", "Problema nell'invio della richiesta.");
-		    		},
-		
-		    		success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
-		    			if($(xml).find("status").text() == 0){
-		    				regtr.find("td.regLavoro").empty();
-		    				regtr.find("td.regLavoro").append(lavoro);
-		    				regtr.find("td.regInsegnamenti").empty();
-		    				regtr.find("td.regInsegnamenti").append(insegnamenti);
-		    				regtr.find("td.regCommento").empty();
-		    				regtr.find("td.regCommento").append(commento);
-		    				regtr.find("td.regOpt").empty();
-		    		    	regtr.find("td.regOpt").append("<button class='regEdit btn btn-warning buttonfix btn-sm margin'><span class='glyphicon glyphicon-edit'></span></button> ");
-		    		    	regtr.find(".regEdit").click(DescEdit);
-		    		    	regtr.find("td.regOpt").append("<button class='regDelete btn btn-danger buttonfix btn-sm margin'><span class='glyphicon glyphicon-trash'></span></button>");
-		    		    	regtr.find(".regDelete").click(DescDelete);
-		    				DescInit()
-		    			}
-		    			else{
-		    				printError("Errore", "Errore durante l'invio, prego riprovare.");
-		    			}
-		    		}
-		    	});
-	    	}
-	    	else {
-	    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
-	    	}
-	    }
-		else {
-			printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");			
-		}
+		    	else {
+		    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+		    	}
+		    }
+			else {
+				printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
+			}
+    	}
+    	else {
+    		printError ("Errore", "Il formato della data inserito non è corretto.");
+    	}
     }
     
     function DescAdd(){
@@ -205,10 +210,10 @@ $(document).ready(function() {
     	$("#DescTable tbody").append("<tr id='DescAddTR'></tr>");
     	
     	////init tr e  td
-    	$("#DescAddTR").append("<td><input class='datepicker' id='DescAddDate' /></td>");
-    	$("#DescAddTR").append("<td><textarea id='lavoroAdd' class='form-control' rows='7'></textarea></td>");
-    	$("#DescAddTR").append("<td><textarea id='insegnamentiAdd' class='form-control' rows='7'></textarea></td>");
-    	$("#DescAddTR").append("<td><textarea id='commentoAdd' class='form-control' rows='7' placeholder='Facoltativo'></textarea></td>");
+    	$("#DescAddTR").append("<td><input placeholder=\"gg-mm-aaaa\" class='form-control datepicker' id='DescAddDate' /></td>");
+    	$("#DescAddTR").append("<td><textarea maxlength=\"500\" id='lavoroAdd' class='form-control' rows='7'></textarea></td>");
+    	$("#DescAddTR").append("<td><textarea maxlength=\"500\" id='insegnamentiAdd' class='form-control' rows='7'></textarea></td>");
+    	$("#DescAddTR").append("<td><textarea maxlength=\"500\" id='commentoAdd' class='form-control' rows='7' placeholder='Facoltativo'></textarea></td>");
     	$("#DescAddTR").append("<td class='pull-content-bottom text-center'><button id='DescAddSave' class='btn btn-success buttonfix btn-sm margin'><span class='glyphicon glyphicon-save'></span></button> <button id='DescAddDelete' class='btn btn-danger buttonfix btn-sm margin'><span class='glyphicon glyphicon-trash'></span></button></td>");
     	
     	//init componente
@@ -226,49 +231,54 @@ $(document).ready(function() {
     		var lavoro = $("#lavoroAdd").val();
     		var insegnamenti = $("#insegnamentiAdd").val();
     		var commento = $("#commentoAdd").val();
-    		if (!isEmpty(data) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
-    	    {
-	        	if (data >= inizio_stage && data <=fine_stage) {
-	    			data = {
-	    				"sid": shs,
-	    				"day": data.getDate(),
-	    				"month":  data.getMonth() + 1,
-	    				"year":  data.getFullYear(),
-	    				"lavoro": lavoro,
-	    				"insegnamenti" : insegnamenti,
-	    				"commento" : commento
-	    			}
-		    	
-		    		$.ajax({
-		    			url: "ajaxOps/aggiungi_lavoro.php", //Pagina a quale invio la richiesta
-		    			type: "POST", //Metodologia di invio di dati
-		    			dataType: "xml", //Tipologia di dati restituiti
-		    			data: data, //Dati inviati
-		    	
-		    	
-		    			error: function () {
-		    				  printError ("Errore", "Problema nell'invio della richiesta.");
-		    			},
-		    	
-		    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
-		    				if($(xml).find("status").text() == 0){
-		    					$("#DescAddTR").remove();
-		    					DescInit();
-		    				}
-		    				else{
-		    					printErorr ("Errore", "Salvataggio della relazione non riuscita.");
-		    				}
+        	if (checkDateItalianFormat ($("#DescAddDate").val ())) {
+	    		if (!isEmpty(data) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
+	    	    {
+		        	if (data >= inizio_stage && data <=fine_stage) {
+		    			data = {
+		    				"sid": shs,
+		    				"day": data.getDate(),
+		    				"month":  data.getMonth() + 1,
+		    				"year":  data.getFullYear(),
+		    				"lavoro": lavoro,
+		    				"insegnamenti" : insegnamenti,
+		    				"commento" : commento
 		    			}
-		    			
-		    		});
-	        	}
-	        	else {
-	        		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
-	        	}
-    	    }
-    		else {
-    			printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
-    		}
+			    	
+			    		$.ajax({
+			    			url: "ajaxOps/aggiungi_lavoro.php", //Pagina a quale invio la richiesta
+			    			type: "POST", //Metodologia di invio di dati
+			    			dataType: "xml", //Tipologia di dati restituiti
+			    			data: data, //Dati inviati
+			    	
+			    	
+			    			error: function () {
+			    				  printError ("Errore", "Problema nell'invio della richiesta.");
+			    			},
+			    	
+			    			success: function(xml){ //inserisco il risultato (contenuto nel tag xml result) dentro #response
+			    				if($(xml).find("status").text() == 0){
+			    					$("#DescAddTR").remove();
+			    					DescInit();
+			    				}
+			    				else{
+			    					printErorr ("Errore", "Salvataggio della relazione non riuscita.");
+			    				}
+			    			}
+			    			
+			    		});
+		        	}
+		        	else {
+		        		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+		        	}
+	    	    }
+	    		else {
+	    			printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
+	    		}
+        	}
+        	else {
+        		printError ("Errore", "Il formato della data inserito non è corretto.");
+        	}
     	});
         $("#DescAddDelete").click(function() {
     		$("#DescAddTR").remove();

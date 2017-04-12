@@ -15,13 +15,13 @@ function openEdit(progressiv, idDescrizione)
     $("#conferma"+progressiv).attr("onclick","sendData("+progressiv+", "+idDescrizione+")");
     $("#conferma"+progressiv).removeClass("btn-warning");
     $("#conferma"+progressiv).addClass("btn-success");
-    $("#data"+progressiv).html("<input class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
+    $("#data"+progressiv).html("<input placeholder=\"gg-mm-aaaa\" class=\"form-control\" style=\"padding:5px\" type=\"text\" id=\"textboxdata"+progressiv+"\" value=\""+data+"\">");
     $("#data"+progressiv).data ("old", data);
-    $("#lavoroSvolto"+progressiv).html("<textarea id=\"textareaLavoro"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+lavoro+"</textarea>");
+    $("#lavoroSvolto"+progressiv).html("<textarea maxlength=\"500\" id=\"textareaLavoro"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+lavoro+"</textarea>");
     $("#lavoroSvolto"+progressiv).data ("old", lavoro);
-    $("#insegnamenti"+progressiv).html("<textarea id=\"textareaInsegnamenti"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+insegnamenti+"</textarea>");
+    $("#insegnamenti"+progressiv).html("<textarea maxlength=\"500\" id=\"textareaInsegnamenti"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\">"+insegnamenti+"</textarea>");
     $("#insegnamenti"+progressiv).data ("old", insegnamenti);
-    $("#commento"+progressiv).html("<textarea id=\"textareaCommento"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\" placeholder=\"Facoltativo\">"+commento+"</textarea>");
+    $("#commento"+progressiv).html("<textarea maxlength=\"500\" id=\"textareaCommento"+progressiv+"\" style=\"resize:vertical\" rows=\"7\" class = \"form-control\" type=\"text\" placeholder=\"Facoltativo\">"+commento+"</textarea>");
     $("#commento"+progressiv).data("old", commento);
     $("#textboxdata"+progressiv).datepicker({ 
 		dateFormat: 'dd-mm-yy', 
@@ -96,45 +96,72 @@ function sendData(progressiv, idDescrizione)
     	    'commento' : ''+$("#textareaCommento"+progressiv).val()
 	};
 
-    if (!lavoro.data.isEmpty() && !lavoro.lavoro.isEmpty() && !lavoro.insegnamenti.isEmpty())
-    {
-    	$("#data"+progressiv).data ("old", lavoro.data);
-        $("#lavoroSvolto"+progressiv).data ("old", lavoro.lavoro);
-        $("#insegnamenti"+progressiv).data ("old", lavoro.insegnamenti);
-        $("#commento"+progressiv).data("old", lavoro.commento);
-        
-    	date = lavoro.data.split ("-");
-    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
-    	if (date >= inizio_stage && date <=fine_stage) {
-    		lavoro.data = date;
-	        $.ajax({
-	            type : 'POST',
-	            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
-	            data : lavoro,
-	            cache : false,
-	            success : function (msg)
-	            {
-	                if (msg === "ok")
-	                    resetColors(progressiv);
-		                data = $("#textboxdata"+progressiv).val();
-		                lavoro = $("#textareaLavoro"+progressiv).val();
-		                insegnamenti = $("#textareaInsegnamenti"+progressiv).val();
-		                commento = $("#textareaCommento"+progressiv).val();
-	                    closeEdit (progressiv, idDescrizione);
-	            },
-	            error : function ()
-	            {
-	                printError ("Errore", "Problema nell'invio della richiesta.");
-	            }
-	        });
-    	}
-    	else {
-    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
-    	}
+    if (checkDateItalianFormat (lavoro.data)) {
+	    if (!lavoro.data.isEmpty() && !lavoro.lavoro.isEmpty() && !lavoro.insegnamenti.isEmpty())
+	    {
+	    	$("#data"+progressiv).data ("old", lavoro.data);
+	        $("#lavoroSvolto"+progressiv).data ("old", lavoro.lavoro);
+	        $("#insegnamenti"+progressiv).data ("old", lavoro.insegnamenti);
+	        $("#commento"+progressiv).data("old", lavoro.commento);
+	        
+	    	date = lavoro.data.split ("-");
+	    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
+	    	if (date >= inizio_stage && date <=fine_stage) {
+	    		lavoro.data = date;
+		        $.ajax({
+		            type : 'POST',
+		            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
+		            data : lavoro,
+		            cache : false,
+		            success : function (msg)
+		            {
+		                if (msg === "ok")
+		                    resetColors(progressiv);
+			                data = $("#textboxdata"+progressiv).val();
+			                lavoro = $("#textareaLavoro"+progressiv).val();
+			                insegnamenti = $("#textareaInsegnamenti"+progressiv).val();
+			                commento = $("#textareaCommento"+progressiv).val();
+		                    closeEdit (progressiv, idDescrizione);
+		                    
+		                    var riga_successiva = null;
+		                    $("#DescTable tbody").find ("tr").each (function () {
+		                    	var riga = this;
+		                    	var data_riga=$(riga).find ("td[id^='data']").text();
+		                    	data_riga = data_riga.split ("-");
+		                    	data_riga = new Date (data_riga[2], parseInt (data_riga[1]) - 1, data_riga[0]);
+		                    	if (data_riga > date) {
+		                    		riga_successiva = riga;
+		                    		return false;
+		                    	}
+		                    });
+	                        var temp = $("#riga"+progressiv);
+	                        $("#riga"+progressiv).remove();
+		                    if (riga_successiva != null) {
+		                        temp.insertBefore(riga_successiva);
+		                    }
+		                    else {
+		                    	temp.insertAfter($("#DescTable tbody").find ("tr:last"));
+		                    }
+		                    $("#riga"+progressiv).hide();
+		                	$("#riga"+progressiv).fadeIn("slow");
+		            },
+		            error : function ()
+		            {
+		                printError ("Errore", "Problema nell'invio della richiesta.");
+		            }
+		        });
+	    	}
+	    	else {
+	    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+	    	}
+	    }
+	    else {
+	    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
+	    }
     }
-    else {
-    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
-    }
+	else {
+		printError ("Errore", "Il formato della data inserito non è corretto.");
+	}
 }
 
 function setOnChangeEvents(progressiv)
@@ -167,7 +194,7 @@ function resetColors(progressiv)
 function appendAddingBox()
 {
     var progressiv = parseInt($("#contatoreaggiungi").val());
-    $("#DescTable").append("<tr> <td> <input type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiLavoro"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiInsegnamenti"+progressiv+"\"></textarea> </td> <td> <textarea style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiCommento"+progressiv+"\" placeholder=\"Facoltativo\"></textarea> </td> <td class=\"pull-content-bottom\" id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-save\"> </span> </button> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-trash\"> </span> </button> </div> </td> </tr>");
+    $("#DescTable").append("<tr> <td> <input placeholder=\"gg-mm-aaaa\" type=\"text\" id=\"aggiungidata"+progressiv+"\" class=\"form-control\" style=\"padding:5px\"> </td> <td> <textarea maxlength=\"500\" style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiLavoro"+progressiv+"\"></textarea> </td> <td> <textarea maxlength=\"500\" style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiInsegnamenti"+progressiv+"\"></textarea> </td> <td> <textarea maxlength=\"500\" style=\"resize:vertical\" rows=\"7\" class=\"form-control\" id=\"aggiungiCommento"+progressiv+"\" placeholder=\"Facoltativo\"></textarea> </td> <td class=\"pull-content-bottom\" id=\"gobuttons"+progressiv+"\"> <div align=\"center\"> <button id=\"confirmadding"+progressiv+"\" class=\"btn btn-success btn-sm margin buttonfix\"  onclick=\"insertActivity("+progressiv+") \"> <span class=\"glyphicon glyphicon-save\"> </span> </button> <button style=\"height:30px\" class=\"btn btn-danger btn-sm margin buttonfix\" onclick=\"closeAddingBox("+progressiv+")\" id=\"canceladding"+progressiv+"\"> <span class=\"glyphicon glyphicon-trash\"> </span> </button> </div> </td> </tr>");
     $("#gobuttons"+progressiv+"").hide(); $("#gobuttons"+progressiv+"").fadeIn("slow");
     $("#aggiungiLavoro"+progressiv+"").hide();
     $("#aggiungiLavoro"+progressiv+"").fadeIn("slow");
@@ -203,30 +230,35 @@ function insertActivity(progressiv)
         'insegnamenti' : insegnamenti,
         'commento' : commento
     }
-    
-    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
-    {
-    	date = data.split ("-");
-    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]);
-    	if (date >= inizio_stage && date <=fine_stage) {
-	        $.ajax({
-	           type : 'POST',
-	           url : '../registro/ajaxOpsPerRegistro/ajaxInserisci.php',
-	           cache : false,
-	           data : lavorodainserire,
-	           success : function (maxid)
-	           {
-	               convertToInsertedData(progressiv, maxid, date);
-	           }
-	        });
-    	}
-    	else {
-    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
-    	}
-    }
-    else {
-    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
-    }
+
+    if (checkDateItalianFormat (lavorodainserire.data)) {
+	    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
+	    {
+	    	date = data.split ("-");
+	    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]);
+	    	if (date >= inizio_stage && date <=fine_stage) {
+		        $.ajax({
+		           type : 'POST',
+		           url : '../registro/ajaxOpsPerRegistro/ajaxInserisci.php',
+		           cache : false,
+		           data : lavorodainserire,
+		           success : function (maxid)
+		           {
+		               convertToInsertedData(progressiv, maxid, date);
+		           }
+		        });
+	    	}
+	    	else {
+	    		printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>La data specificata non rientra nel periodo di stage. Riprovare con una data corretta.");
+	    	}
+	    }
+	    else {
+	    	printError ("Errore", "Impossibile inviare il lavoro giornaliero.<br>Uno o più campi obbligatori sono vuoti.");
+	    }
+	}
+	else {
+		printError ("Errore", "Il formato della data inserito non è corretto.");
+	}
 }
 
 function closeAddingBox(progressiv)
