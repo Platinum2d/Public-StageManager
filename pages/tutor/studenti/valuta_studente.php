@@ -9,7 +9,7 @@
     echo "<link href='css/valuta_studente.css' rel='stylesheet' type='text/css'>";
 ?>
 <body>
-    <script src="js/scripts_valuta.js"> </script>
+    <script src="js/scripts_valuta.js?0.1"> </script>
         
 	<?php
         topNavbar ("../../../");
@@ -107,7 +107,7 @@
                                         	</div>
                                         	<div class="col col-sm-4">   
                                     			<div align="center">
-                                        			<input class="btn btn-primary" type="button" value="$button_value" id="SalvaValutazione" onclick="$button_onClick">
+                                        			<button class="btn btn-info" type="button" id="SalvaValutazione" onclick="$button_onClick"><span class="glyphicon glyphicon-education"></span> $button_value</button>
                                 				</div>
 	                                            <div align="center">
 			                                        <p id='media'> </p>

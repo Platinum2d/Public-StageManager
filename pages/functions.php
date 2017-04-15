@@ -19,28 +19,12 @@
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
     
-    /*function resetDBconf($goBack)
-    {
-        require_once ($goBack + "db_config.php");
-        $_SESSION['dbhost'] = $host;
-        $_SESSION['dbuser'] = $user;
-        $_SESSION['dbpassword'] = $password;
-        $_SESSION['dbname'] = $name;
-    
-        $connessioneforuse = new mysqli($_SESSION['dbhost'],$_SESSION['dbuser'],$_SESSION['dbpassword'],$_SESSION['dbname']);
-        $connessioneforuse->query("USE ".$_SESSION['dbname']);
-    }*/
-    
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
         require ($goBack . "db_config.php");
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
-        /*if (!isset($_SESSION['dbhost']) || !isset($_SESSION['dbuser']) || !isset($_SESSION['dbpassword']) || !isset($_SESSION['dbname']))
-        {
-            resetDBconf($goBack);
-        }*/
     
         $connessione = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
     
@@ -92,6 +76,7 @@ HTML;
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/classi/index.php'>Classi</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/docenti/index.php'>Docenti</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/figureprofessionali/index.php'>Figure professionali</a></li>";
+                echo " <li><a href='".$goBack."pages/super_user/visualizza/insegnamenti/index.php'>Insegnamenti</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/scuole/index.php'>Scuole</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/settori/index.php'>Settori</a></li>";
                 echo " <li><a href='".$goBack."pages/super_user/visualizza/stage/index.php'>Stage</a></li>";
@@ -208,38 +193,6 @@ HTML;
                 echo <<<HTML
                     </ul>
 HTML;
-//             } elseif ($_SESSION ['type'] == scuolaType) {
-//                 echo "<li><a href='".$goBack."pages/scuola/profiloutente/index.php'>Profilo</a></li>";
-                
-//                 echo "<li class=\"dropdown dropdown-hover\">
-//                       <a href=\"".$goBack."pages/scuola/inserimento/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Inserisci <span class=\"caret\"></span></a>
-//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
-//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/aziende/index.php'>Aziende</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/classi/index.php'>Classi</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/docenti/index.php'>Docenti</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/periodi_stage/index.php'>Periodi di stage</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/inserimento/studenti/index.php'>Studenti</a></li>";
-//                 echo "</ul></li>";
-                
-//                 echo "<li class=\"dropdown dropdown-hover\">
-//                       <a href=\"".$goBack."pages/scuola/modifica/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"> Modifica <span class=\"caret\"></span></a>
-//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-                
-//                 echo "<li><a href='".$goBack."pages/scuola/modifica/aziende/index.php'>Aziende</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/modifica/classi/index.php'>Classi</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/modifica/docenti/index.php'>Docenti</a></li>";
-//                 echo "<li><a href='".$goBack."pages/scuola/modifica/periodi_stage/index.php'>Periodi di stage</a></li>";
-//                 echo "</ul></li>";                
-                
-//                 echo "<li class=\"dropdown dropdown-hover\">
-//                       <a href=\"\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Gestisci<span class=\"caret\"></span></a>
-//                             <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";
-//                 echo "<li><a href='".$goBack."pages/scuola/gestione/classi_docenti_referenti/index.php'>Docenti referenti associati alle classi</a></li>";
-//                 echo "</ul></li>";
-//                 echo <<<HTML
-//                     </ul>      
-// HTML;
             }
         }
     }
@@ -306,8 +259,14 @@ HTML;
             if ($_SESSION['type'] !== superUserType)
             {
                 echo "<a href=\"".$goBack."contattaci.php\" ><i class=\"glyphicon glyphicon-earphone\"> </i> Contattaci </a>";
-                if (isset($_SESSION ['type']))
-                    echo "<li class=\"button\"> <a href=\"".$goBack."segnala-problema/index.php\"><i class=\"glyphicon glyphicon-exclamation-sign\"> </i> Segnala un problema </a> </li>";
+                if (isset($_SESSION ['type'])) {
+                	echo "<li class=\"dropdown dropdown-hover\">";
+                	echo "<a href=\"".$goBack."segnalazioni/segnalaci-problema/index.php\" class=\"dropdown-toggle disabled\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-exclamation-sign\"></span> Segnalazioni <span class=\"caret\"></span></a>";
+                	echo "<ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\">";
+                	echo " <li><a href='".$goBack."segnalazioni/le-mie-segnalazioni/index.php'>Le mie segnalazioni</a></li>";
+                	echo " <li><a href='".$goBack."segnalazioni/segnalaci-problema/index.php'>Segnalaci un problema</a></li>";
+                	echo "</ul></li>";
+                }
             }
             else
             {
@@ -368,14 +327,14 @@ HTML;
     function import($goBack) { //importa librerie
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap.min.css' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css' rel='stylesheet'>";
-        echo "<script src=\"".$goBack."pages/scripts.js\"> </script>";
+        echo "<script src=\"".$goBack."pages/scripts.js?0.1\"> </script>";
         echo "<script src='".$goBack."lib/jQuery/jquery-2.2.3.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>";
         echo "<script src='".$goBack."lib/bootstrap-filestyle/bootstrap-filestyle.min.js'></script>";
         echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
         echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
-        echo "<link href='".$goBack."lib/custom/css/custom.css' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/custom/css/custom.css?0.1' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
@@ -545,8 +504,12 @@ HTML;
     
     function studentNoStageWarning () {
         echo <<<HTML
-                <div align="center">
-                    <h1 class="alert-warning"> Non sei pronto per andare in stage. </h1>
+                <div class="text-center">
+                    <h4 class="bg-warning studentNoStageWarning">
+						Pagina al momento non disponibile.
+						<br>
+						Non appena il responsabile scolastico si sarà occupato del tuo stage, avrai accesso a questa funzionalità.
+					</h4>
                 </div>
 HTML;
     }
@@ -661,5 +624,9 @@ HTML;
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+    
+    function xmlEscape($string) {
+    	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $string);
     }
 ?>

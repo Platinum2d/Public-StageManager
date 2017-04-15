@@ -27,7 +27,7 @@
 <?php
     }
 ?>
-<script src="js/script.js"></script>
+<script src="js/script.js?0.4"></script>
 <body>
    	<?php
         topNavbar ("../../../");
@@ -48,13 +48,12 @@
         																WHERE lavoro_giornaliero.studente_has_stage_id_studente_has_stage = $idStudtudenteHasStage 
         																ORDER BY data ASC;");
                                                 
-                                            $Query = "SELECT autorizzazione_registro, visita_azienda 
+                                            $Query = "SELECT autorizzazione_registro 
                                                         FROM studente_has_stage 
                                                         WHERE id_studente_has_stage = $idStudtudenteHasStage;";
                                             $result = $db->query($Query);
                                             $row = $result->fetch_assoc();
                                             $autorizzazione = $row['autorizzazione_registro'];
-                                            $visita = $row['visita_azienda'];
                                     ?>
                                         <input type="hidden" id="contatoreaggiungi" value="0">                                        
                                         <div id="DescMain">
@@ -91,7 +90,7 @@
 															?>
                                                         </td>
                                                      	<?php
-                                                            if ($autorizzazione == "1" && $visita == "1") {   
+                                                            if ($autorizzazione == "1") {   
                                                         ?>
 														<td class="regEdit pull-content-bottom">
                                                             <div align="center" style="vertical-align: middle;">              
@@ -112,7 +111,7 @@
                                         </div>
                                     </div>
                                     <?php
-                                        if ($autorizzazione == "1" && $visita == "1") {   
+                                        if ($autorizzazione == "1") {   
                                     ?>                                            
                                     <button name="<?php echo $I - 1 ?>" id="edit" class="btn btn-info" onclick="appendAddingBox()"><span class="glyphicon glyphicon-plus"></span> Aggiungi</button>
                                     <?php

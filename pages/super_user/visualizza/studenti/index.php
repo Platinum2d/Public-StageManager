@@ -4,10 +4,10 @@
     open_html ( "Visualizza Studenti" );
     import("../../../../");
     $connessione = dbConnection("../../../../");    
-    
+        
     $idclasse = $_POST['id_classe'];
     $idanno = $_POST['years'];
-    
+        
     $nomeclasse = $connessione->query("SELECT nome FROM classe WHERE id_classe = $idclasse")->fetch_assoc()["nome"];
     $nomeanno = $connessione->query("SELECT nome_anno FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()["nome_anno"];
     $nomescuola = $connessione->query("SELECT s.nome FROM scuola AS s, classe AS c WHERE s.id_scuola = c.scuola_id_scuola AND c.id_classe = $idclasse")->fetch_assoc()["nome"];
@@ -18,18 +18,23 @@
         localStorage.setItem("clstd", <?php echo $idclasse; ?>);
         localStorage.setItem("anstd", <?php echo $idanno; ?>);
     </script>
-    
+        
     <style>
         .minw{
             width: 65%;
         }
+            
+        .custlabel{
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
     </style>
-    
+        
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/script.js?0.1"> </script>
+    <script src="scripts/script.js?0.2"> </script>
     <div class="container">
         
         <div class="row">
@@ -53,10 +58,10 @@
                                 </select>
                             </div>
                         </div>
-                        
+                            
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
-                                    <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
+                                <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
                             </div>
                         </div>
                     </div>    
@@ -103,7 +108,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../");
 ?>

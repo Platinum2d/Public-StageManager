@@ -25,6 +25,9 @@ function openEdit(id, idStudente, classe, anno)
     var numberId = id.replace('VisibleBox','');
     //alert(numberId)
     
+    //<br> <div align=\"center\"><input type=\"button\" class=\"btn btn-info\" value=\"Sposta in un'altra classe\" onclick=\"openMoveStudent($(this))\"></div>
+    //<div style=''><label>preferenze</label> <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div>
+    
     $("#modifica"+numberId).prop("disabled",true);
     $("#registro"+numberId).prop("disabled",true);
     $('#'+id).append("<div id=\"HiddenBox"+numberId+"\">\n\
@@ -32,17 +35,10 @@ function openEdit(id, idStudente, classe, anno)
  <div class=\"col col-sm-12\">\n\
  <div class=\"row\"> \n\
 <div class=\"col col-sm-6\"> \n\
-                <div ><label id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
-                <div ><label> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
-                <div ><label>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
-                <div ><label>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
-                <br> <div align=\"center\"><input type=\"button\" class=\"btn btn-info\" value=\"Sposta in un'altra classe\" onclick=\"openMoveStudent($(this))\"></div>\n\
-\n\</div>\n\
-<div class=\"col col-sm-6\">\n\
-\n\<div><label>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                <div ><label>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
-                <div ><label>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
-                <div ><label>preferenze</label> <br><input style=\"display:block\" disabled=\"true\" onkeydown=\"return false\" id=\"preferenze"+numberId+"\" class=\"form-control\" type=\"text\" value=\"\" data-role=\"tagsinput\" /></div>\n\
+                <div ><label class='custlabel' id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
+                <div ><label class='custlabel'> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
+                <div ><label class='custlabel'>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
+                <div ><label class='custlabel'>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
                 <div > <br>  \n\
                     <form method=\"POST\" action=\"dettagliostage/index.php\">\n\
                         <div align=\"center\"><input type=\"submit\" class=\"btn btn-info\" value=\"Vai al dettaglio delle esperienze\" /></div> \n\
@@ -50,7 +46,12 @@ function openEdit(id, idStudente, classe, anno)
                         <input type=\"hidden\" value=\""+classe+"\" name=\"classe\">\n\
                         <input type=\"hidden\" value=\""+anno+"\" name=\"anno_scolastico\">\n\
                     </form>\n\
-                </div>");
+                </div>\n\
+\n\</div>\n\
+<div class=\"col col-sm-6\">\n\
+\n\<div><label class='custlabel'>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
+                <div ><label class='custlabel'>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
+                <div ><label class='custlabel'>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\ ");
     
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
@@ -105,10 +106,10 @@ function openEdit(id, idStudente, classe, anno)
             });
             
             var first = true;
-            $(xml).find("preferenze").find("preferenza").each(function (){
-                if (first) {$("#preferenze"+numberId).tagsinput('add', ''+$(this).text()); first = false;}
-                $("#preferenze"+numberId).tagsinput('add', ''+$(this).text());
-            });
+//            $(xml).find("preferenze").find("preferenza").each(function (){
+//                if (first) {$("#preferenze"+numberId).tagsinput('add', ''+$(this).text()); first = false;}
+//                $("#preferenze"+numberId).tagsinput('add', ''+$(this).text());
+//            });
             $("span[data-role=\"remove\"]").css("visibility","hidden");
         }
     });  
@@ -148,19 +149,19 @@ function sendData(idStudente, numberId)
         return (this.length === 0 || !this.trim());
     };
     studente.id = idStudente;
-    studente.username = $("#username"+numberId+"").val();
-    studente.nome = $("#nome"+numberId+"").val();
-    studente.cognome = $("#cognome"+numberId+"").val();
-    studente.citta = $("#citta"+numberId+"").val();
-    studente.mail = $("#email"+numberId+"").val();
-    studente.telefono = $("#telefono"+numberId+"").val();
+    studente.username = $("#username"+numberId+"").val().trim();
+    studente.nome = $("#nome"+numberId+"").val().trim();
+    studente.cognome = $("#cognome"+numberId+"").val().trim();
+    studente.citta = $("#citta"+numberId+"").val().trim();
+    studente.mail = $("#email"+numberId+"").val().trim();
+    studente.telefono = $("#telefono"+numberId+"").val().trim();
     
     var appoggio = $("#classe"+numberId+"").find(':selected').attr('value') + '';
     studente.classe = (!appoggio.isEmpty()) ? $("#classe"+numberId+"").find(':selected').attr('value') : '';
     
     studente.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
     
-    if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty() && !studente.citta.isEmpty() && !studente.mail.isEmpty())
+    if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty())
     {
         
         $.ajax({
@@ -169,7 +170,7 @@ function sendData(idStudente, numberId)
             data : studente,
             success : function (xml)
             {      
-                var query    = $(xml).find("query").text();
+                var query = $(xml).find("query").text();
                 $("#label"+numberId).html(studente.cognome + " " + studente.nome + " ("+studente.username+")");
                 resetColors(numberId);
             },

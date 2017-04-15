@@ -23,7 +23,7 @@ $(function (){
             case "4":
                 var stile = "top=10, left=10, width=250, height=200, status=no, menubar=no, toolbar=no scrollbars=no";
                 window.open("newhtml.html", stile);
-            break;
+                break;
             
             case "3":
                 $("#actions").val("");
@@ -308,24 +308,59 @@ function sendData(idazienda, numberId)
     }
 }
 
-function deleteAzienda(idAzienda)
+function askForDeleteAzienda(id_azienda, progressiv)
 {
-    var confirmed = confirm("Confermare l'eliminazione di questa azienda?");
-    if (confirmed)
-    {
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerAzienda/ajaxElimina.php',
-            data : {'idazienda' : idAzienda},
-            success : function (msg)
+    $("#SuperAlert").modal("show");
+    var modal = $("#SuperAlert").find(".modal-body");
+    $("#SuperAlert").find(".modal-title").html("ATTENZIONE");
+    modal.html("<div align='center'><u>ATTENZIONE</u></div>\n\
+                <br>\n\
+                Eliminando questa azienda, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
+                <ul>\n\
+                    <li>Tutti i tutor della suddetta</li>\n\
+                    <li>Tutte le preferenze espresse riguardo le figure professionali</li>\n\
+                    <li><input type='checkbox' id='deleteRegistro' > Tutti i registri di lavoro </li>\n\
+                    <li><input type='checkbox' id='deleteNote' > Tutte le note dei docenti </li>\n\
+                    <li><input type='checkbox' id='deleteValutazioneStudente' > Tutte valutazioni dell'azienda verso gli studenti </li>\n\
+                    <li><input type='checkbox' id='deleteValutazioneStage' > Tutte le valutazioni degli studenti verso l'azienda </li>\n\
+                </ul>");
+    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                                                    <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
+                                                    <div class='col col-sm-6'> \n\
+                                                        <button class='btn btn-success' onclick=\"deleteAzienda("+id_azienda+", "+progressiv+")\">Si</button>\n\
+                                                        <button class='btn btn-danger' data-dismiss='modal'>No</button>\n\
+                                                    </div> \n\
+                                                 </div>");
+}
+
+function deleteAzienda(idAzienda, progressiv)
+{    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerAzienda/ajaxElimina.php',
+        data : 
+        {
+            'idazienda' : idAzienda, 
+            'deleteRegistro' : $("#deleteRegistro").prop("checked"),
+            'deleteNote' : $("#deleteNote").prop("checked"),
+            'deleteValutazioneStudente' : $("#deleteValutazioneStudente").prop("checked"),
+            'deleteValutazioneStage' : $("#deleteValutazioneStage").prop("checked")
+        },
+        success : function (msg)
+        {
+            if (msg === "ok")
             {
-                if (msg === "ok")
-                    location.reload();
-                else
-                    printError("Eliminazione non riuscita","Contattare l'amministratore");
+                printSuccess("Eliminazione riuscita", "<div align='center'>L'azienda è stata eliminata correttamente!</div>", function (){
+                    $("#riga"+progressiv).fadeOut("slow");
+                });
+                $("#SuperAlert").find(".modal-footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Chiudi</button>");
             }
-        });
-    }
+            else
+            {
+                printError("Errore in fase di eliminazione", "<div align='center'>"+msg+"</div>")
+            }
+        }
+    });
 }
 
 function setOnChangeEvents(numberId)
