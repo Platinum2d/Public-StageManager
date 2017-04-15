@@ -1,10 +1,10 @@
 <?php    
-    require '../../../../../lib/PHPReader/Classes/PHPExcel.php';
-    include "../../../../../pages/functions.php";
-    checkLogin(scuolaType, "../../../../../");
-    $conn = dbConnection("../../../../../");
+    require '../../../../lib/PHPReader/Classes/PHPExcel.php';
+    include "../../../../pages/functions.php";
+    checkLogin(scuolaType, "../../../../");
+    $conn = dbConnection("../../../../");
     open_html ( "Inserimento studenti da file" );
-    import("../../../../../");
+    import("../../../../");
         
     define ("PasswordLenght", 8);
         
@@ -22,7 +22,7 @@
     }
         
     function checkStudent($username){
-        $connection = dbConnection("../../../../../");
+        $connection = dbConnection("../../../../");
         $query = "SELECT id_utente FROM utente WHERE username = '".$connection->escape_string($username)."'";
         $result = $connection->query($query);
         if (!$result || $result->num_rows === 0)
@@ -52,8 +52,8 @@
 <body>
     
         <?php
-        topNavbar ("../../../../../");
-        titleImg ("../../../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
         ?> 
             
     <div class="container">
@@ -67,7 +67,7 @@
                         {
                             $fileName = $_FILES ['studentfile'] ['name'];
                             echo "<div align='center'><h3 style=\"color:green\"> ==== CARICAMENTO EFFETTUATO CON SUCCESSO ==== </h3><div>";
-                            $filepath = "../../../../../media/loads/";
+                            $filepath = "../../../../media/loads/";
                             if (move_uploaded_file ( $_FILES ['studentfile'] ['tmp_name'], $filepath . $fileName)) 
                             {
                                 //echo "<br><h3 style=\"color:green\"> ==== FILE SPOSTATO CON SUCCESSO ==== </h3>";
@@ -85,7 +85,7 @@
                                 //analisi di nomi e cognomi, creazione dello username sul posto. Se uno esiste già, usa il progressivo
                                 echo "<b>Creo gli username e inserisco gli studenti nel database....</b><br>";
                                 $htmltable = "<table class=\"table table-hover\"> <thead> <th>#</th> <th>Username</th> <th>Password</th> <th>Citta'</th> <th>Mail</th> <th>Telefono</th> </thead> <tbody>";
-                                $tableforpdf = "<table id='forpdf'> <thead> <th>#</th> <th>Nome e cognome</th> <th>Username</th> <th>Password</th> </thead> <tbody>";
+                                $tableforpdf = "<table id='forpdf'> <thead> <th>#</th> <th>Cognome e nome</th> <th>Username</th> <th>Password</th> </thead> <tbody>";
                                 $reporterrori = "";
                                     
                                     for ($I=2; $I<$rows;$I++)
@@ -95,7 +95,7 @@
                                         if (isset($nome) && !empty($nome) && isset($cognome) && !empty($cognome))
                                         {
                                             $username = $nome.$cognome;
-                                            str_replace(" ", "", $username);
+                                            $username = strip_whitespaces($username);
                                             $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
                                             $result = $conn->query($query);
                                             if ($result->num_rows > 0)
@@ -239,4 +239,4 @@
     </script>    
 </body>      
     <?php
-        close_html("../../../../../");
+        close_html("../../../../");

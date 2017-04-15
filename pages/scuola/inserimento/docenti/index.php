@@ -5,7 +5,7 @@
     echo "<script src='scripts/script.js'></script>";
     import("../../../../");
     $conn = dbConnection("../../../../");
-    
+        
 ?>
 <body>
     <?php
@@ -16,6 +16,12 @@
         String.prototype.isEmpty = function() {
             return (this.length === 0 || !this.trim());
         };    
+        
+        $(document).ready(function (){
+            $("#UsernameDocente").keypress(function (e){
+                if (e.which === 32) return false;
+            }); 
+        });
         
         var check = setInterval(function(){
             if ($("#UsernameDocente").val().isEmpty() || $("#PasswordDocente").val().isEmpty() || $("#ConfermaPasswordDocente").val().isEmpty() || $("#NomeDocente").val().isEmpty()
@@ -151,7 +157,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordDocente()
+        {            
             if ($("#PasswordDocente").val() !== $("#ConfermaPasswordDocente").val() || $("#PasswordDocente").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -174,7 +181,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");    
             }
-        }, 1);
+        }       
+        
+        $("#PasswordDocente").on("input", checkPasswordDocente);
+        $("#ConfermaPasswordDocente").on("input", checkPasswordDocente);
     </script>
 </body>
 <?php

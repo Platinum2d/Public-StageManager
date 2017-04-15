@@ -83,8 +83,8 @@
                                         $nome = (trim($sheet->getCell('A'.$I)->getValue()));
                                         if (isset($nome) && !empty($nome))
                                         {
-                                        str_replace(" ", "", $nome);
                                         $username = $nome;
+                                        $username = strip_whitespaces($username);
                                         $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
                                         $result = $conn->query($query);
                                         if ($result->num_rows > 0)
