@@ -21,6 +21,12 @@
             return (this.length === 0 || !this.trim());
         };      
         
+        $(document).ready(function (){
+            $("#usernameStudente").keypress(function (e){
+                if (e.which === 32) return false;
+            }); 
+        });
+        
         var check = setInterval(function(){
             if ($("#usernameStudente").val().isEmpty() || $("#passwordStudente").val().isEmpty() || $("#confermaPasswordStudente").val().isEmpty() || $("#nomeStudente").val().isEmpty()
                     || $("#cognomeStudente").val().isEmpty() || $("#classeStudente").val().isEmpty() || $("#annoclasseStudente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
@@ -162,7 +168,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordStudente()
+        {
             if ($("#passwordStudente").val() !== $("#confermaPasswordStudente").val() || $("#passwordStudente").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -185,7 +192,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");                                        
             }
-        }, 1);
+        }
+        
+        $("#passwordStudente").on("input", checkPasswordStudente);
+        $("#confermaPasswordStudente").on("input", checkPasswordStudente);        
     </script>
 </body>
 <?php

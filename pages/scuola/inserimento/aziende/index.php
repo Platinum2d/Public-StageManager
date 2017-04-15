@@ -18,7 +18,11 @@
         $(document).ready(function (){
             $(".buttonText").html("        Sfoglia");
             $(".icon-span-filestyle").remove();
-        });        
+            
+            $("#UsernameAzienda").keypress(function (e){
+                if (e.which === 32) return false;
+            });
+        }); 
         
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
@@ -67,7 +71,7 @@
                                 <br>
                                 <br>
                                 <br>
-                                
+                                    
                                 * Campo Obbligatorio<br>
                                 <input type="button" style="margin-top : 5px" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                     
@@ -155,8 +159,9 @@
                 }
             });
         });
-                                
-        var checkpw = setInterval(function (){
+        
+        function checkPasswordAzienda()
+        {
             if ($("#PasswordAzienda").val() !== $("#ConfermaPasswordAzienda").val() || $("#PasswordAzienda").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -179,7 +184,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");       
             }
-        }, 1);
+        }
+        
+        $("#PasswordAzienda").on("input", checkPasswordAzienda);
+        $("#ConfermaPasswordAzienda").on("input", checkPasswordAzienda);
     </script>
 </body>
 <?php
