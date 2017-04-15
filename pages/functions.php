@@ -625,4 +625,8 @@ HTML;
         }
         return $randomString;
     }
+    
+    function strip_whitespaces($string){
+        return preg_replace('/\s+/', '', $string);
+    }
 ?>
