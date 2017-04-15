@@ -2,7 +2,7 @@
     include '../../../../functions.php';
     $connection = dbConnection("../../../../../");
     
-    $username = $connection->escape_string($_POST['username']);
+    $username = $connection->escape_string(strip_whitespaces($_POST['username']));
     $password = md5($_POST['password']);
     $nome = $connection->escape_string($_POST['nome']);
     $cognome = $connection->escape_string($_POST['cognome']);
