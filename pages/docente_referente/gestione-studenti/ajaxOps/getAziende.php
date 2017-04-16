@@ -28,7 +28,7 @@ XML;
             {
                 $azienda = $xml->addChild("azienda");
                 $azienda->addChild("id", $row['id_azienda']);
-                $azienda->addChild("nome", $row['nome_aziendale']);
+                $azienda->addChild("nome", xmlEscape($row['nome_aziendale']));
             }        
         }
         else {
