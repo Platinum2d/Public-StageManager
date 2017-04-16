@@ -19,7 +19,8 @@ XML;
                     ORDER BY azienda.nome_aziendale;";*/
         
         $query =  "SELECT azienda.id_azienda, azienda.nome_aziendale
-			        FROM azienda;";
+			        FROM azienda
+                    ORDER BY azienda.nome_aziendale;";
         
         if ($result = $connessione->query($query)) {
             $xml->addChild("status", "1");
