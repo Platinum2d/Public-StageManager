@@ -63,8 +63,8 @@
                                 </div> 
                                 <b>Conferma Password*</b><div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordAzienda"></div> 
                                 <b>Nome Azienda*</b> <div class="form-group"><input class="form-control" id="NomeAzienda"></div> 
-                                <b>Città</b><div class="form-group"> <input class="form-control" id="CittaAzienda"></div>
-                                <b>Indirizzo</b><div class="form-group"> <input class="form-control" id="IndirizzoAzienda"></div> 
+                                Città<div class="form-group"> <input class="form-control" id="CittaAzienda"></div>
+                                Indirizzo<div class="form-group"> <input class="form-control" id="IndirizzoAzienda"></div> 
                                 <br>                               
                                 <br>
                                 <br>
