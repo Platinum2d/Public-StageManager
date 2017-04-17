@@ -61,7 +61,7 @@
         $url = $conn->query("SELECT URL FROM immagine_profilo, utente WHERE id_immagine_profilo = immagine_profilo_id_immagine_profilo AND id_utente = $id")->fetch_assoc()['URL'];
         $immagine_query = "DELETE FROM immagine_profilo WHERE id_immagine = (SELECT immagine_profilo_id_immagine_profilo FROM utente WHERE id_utente = $id)";
         if (!$conn->query($immagine_query)) $errore = true;
-        unlink("../../../../../../media/loads/profimgs/$url");
+        //unlink("../../../../../../media/loads/profimgs/$url");
     }
     
     $studente_query = "DELETE FROM studente WHERE id_studente = $id";

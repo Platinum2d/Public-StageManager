@@ -30,7 +30,7 @@
                             <select onchange="loadValidClasses(<?php echo $idanno; ?>)" style="display: inline" class="form-control" id='addGestioneDocenteRef'>
                                 
                                 <?php
-                                $query = "SELECT * FROM docente, utente WHERE id_utente = id_docente AND tipo_utente = ".docrefType;
+                                $query = "SELECT * FROM docente, utente WHERE id_utente = id_docente AND docente.scuola_id_scuola = ".$_SESSION['userId']." AND tipo_utente = ".docrefType;
                                 $result = $conn->query($query);
                                 if ($result && $result->num_rows > 0)
                                 {

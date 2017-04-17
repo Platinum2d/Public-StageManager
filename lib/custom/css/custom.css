@@ -231,3 +231,7 @@ select.titolo-non-selezionabile:focus option:first-of-type {
 .pull-content-bottom {
 	vertical-align: bottom!important;
 }
+
+.studentNoStageWarning {
+	padding: 20px;
+}

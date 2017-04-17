@@ -18,7 +18,7 @@
         localStorage.setItem("nome_classe", "<?php echo $nomeclasse; ?>");
         localStorage.setItem("nome_anno", "<?php echo $nomeanno; ?>");
     </script>
-    
+        
     <style>
         .minw{
             width: 65%;
@@ -29,18 +29,22 @@
             margin-top: 5px;
         }
     </style>
-    
+        
  	<?php
         topNavbar ("../../../../../");
         titleImg ("../../../../../");
     ?>
-    <script src="scripts/script.js?0.22"> </script>
+    <script src="scripts/script.js?1"> </script>
     <div class="container">
         
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel" id = "mainPanel">
-                    <h1>Studenti della <?php echo $nomeclasse; ?></h1>    
+                    <h1>Studenti della <?php echo $nomeclasse; ?></h1>
+                    <br>
+                    <div align='right'>
+                        <a href='javascript:askForDeleteClass(<?= $idclasse; ?>, <?= $idanno; ?>)'><u>Desidero eliminare questa classe</u></a>
+                    </div>
                     <br>                      
                     <!--                    <div class="row">
                                             <div class="col col-sm-4">
@@ -87,7 +91,7 @@
                             . "<thead style=\"background : #eee; font-color : white \"> <th style=\"width:2%; text-align : center\"> <input id=\"checkall\" type=\"checkbox\"> </th> <th style=\"text-align : center\"> Cognome, Nome, Username </th> <th style=\"text-align : center\"> Modifica </th> <th style=\"text-align : center\"> Elimina </th> </thead> <tbody>";
                             while ($row = $result->fetch_assoc ())
                             {
-                                echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td name=\"".$row['id_studente']."\" class=\"minw\">";
+                                echo "<tr><td><input class=\"singlecheck\" type=\"checkbox\"></td><td name=\"".$row['id_studente']."\" class=\"iwrap minw\">";
                                 echo "<div id=\"VisibleBox".$I."\">";                                
                                     echo "<label id=\"label".$I."\"> ".$row['cognome']." ".$row['nome']." (".$row['username'].")</label><input class=\"btn \" type=\"button\" value=\"modifica\" style=\"visibility:hidden\">";
                                 echo "</div>";
@@ -138,7 +142,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../../");
 ?>

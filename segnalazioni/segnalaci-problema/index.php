@@ -1,15 +1,15 @@
 <?php
-    include '../pages/functions.php';
+    include '../../pages/functions.php';
     if (!isset($_SESSION ['type'])){
-        header ("Location:../index.php");
+        header ("Location:../../index.php");
     }
     open_html ( "Segnala un problema" );
-    import("../");
+    import("../../");
 ?>
 <body>
     <?php
-        topNavbar ("../");
-        titleImg ("../");
+        topNavbar ("../../");
+        titleImg ("../../");
     ?>    
     <script src="js/script.js"></script>    
     <div class="container">
@@ -47,5 +47,5 @@
     </div>
 </body>    
 <?php
-    close_html ("../");
+    close_html ("../../");
 ?>

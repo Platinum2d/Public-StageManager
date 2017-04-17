@@ -4,6 +4,7 @@
     open_html ( "Studenti" );
     import("../../../");
     echo "<script src='js/scripts_studenti.js'></script>";
+    echo "<link href='css/styles.css' rel='stylesheet' type='text/css'>";
     $conn = dbConnection ("../../../");
         
     $id_tutor = $_SESSION ['userId'];        
@@ -20,16 +21,15 @@
                     <h1>Studenti</h1>
                     <div class="row">
                         <div class="col col-sm-12">
-                            <div class="table-responsive"><table id="mainTable" class="table table-striped">
+                            <div class="table-responsive"><table id="mainTable" class="table table-bordered">
                                     <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Cognome</th>
-                                            <th>Email</th>
-                                            <th>Telefono</th>
-                                            <th>Visita azienda</th>
-                                            <th> </th>
-                                            <th> </th>
+                                        <tr classnbz >
+                                            <th class="text-center">Nome</th>
+                                            <th class="text-center">Cognome</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Telefono</th>
+                                            <th class="text-center">Visita azienda</th>
+                                            <th class="text-center">Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,17 +55,15 @@
                                                     <td id="phone">$telefono</td>
 HTML;
                                    	?>
-	                                    <td><input id="visita" type="checkbox" name="visita" data-visita="<?php echo $visita_azienda; ?>" <?php if ($visita_azienda) {echo "checked";}?>/></td>
-	                                    <td>
+	                                    <td class="text-center"><input id="visita" type="checkbox" name="visita" data-visita="<?php echo $visita_azienda; ?>" <?php if ($visita_azienda) {echo "checked";}?>/></td>
+	                                    <td class="text-center">
 	                                        <form method="POST" action="registro.php" style="margin-bottom: 0;">
 	                                            <input type="hidden" name="shs" value="<?php echo $id_studente_has_stage; ?>">
-	                                            <button class="btn btn-primary" name="registro_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>>Registro</button>
-	                                        </form>
-	                                    </td>
-	                                    <td>
+	                                            <button class="btn btn-info" name="registro_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>><span class="glyphicon glyphicon-pencil"></span> Registro</button>
+	                                        </form> 
 	                                        <form method="POST" action="valuta_studente.php" style="margin-bottom: 0;">
 	                                            <input type="hidden" name="shs" value="<?php echo $id_studente_has_stage; ?>">
-		                                        <button class="btn btn-primary" name="valuta_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>>Valuta</button>
+		                                        <button class="btn btn-info" name="valuta_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>><span class="glyphicon glyphicon-education"></span> Valuta</button>
 		                                    </form>
 	                                    </td>
                                     </tr>

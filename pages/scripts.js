@@ -111,3 +111,8 @@ function userProfile(user_id, goback)
         }        
     });
 }
+
+function checkDateItalianFormat (dateString) {
+	var patt = new RegExp('[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]');
+    return patt.test(dateString);
+}

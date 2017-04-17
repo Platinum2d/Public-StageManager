@@ -10,18 +10,6 @@
     $type = $_POST['tipo_docente'];
     $type = ($type === "docente_tutor") ? doctutType : docrefType;
         
-    function generateRandomicString($length) 
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) 
-        {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
-        
     function checkDoc($username)
     {
         $connection = dbConnection("../../../../");
@@ -99,9 +87,8 @@
                                         $cognome = (trim($sheet->getCell('B'.$I)->getValue()));
                                         if (isset($nome) && !empty($nome) && isset($nome) && !empty($nome))
                                         {
-                                        str_replace(" ", "", $nome);
-                                        str_replace(" ", "", $cognome);
                                         $username = $nome.$cognome;
+                                        $username = strip_whitespaces($username);
                                         $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
                                         $result = $conn->query($query);
                                         if ($result->num_rows > 0)
@@ -121,18 +108,20 @@
                                             }
                                         }   
                                         
-                                        $password = generateRandomicString(PasswordLenght);
+                                        $password = generateRandomString(PasswordLenght);
                                         $cryptedPassword = md5($password);
-                                        $telefono = (trim($sheet->getCell('C'.$I)->getValue()));
-                                        $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
-                                        $email = (trim($sheet->getCell('D'.$I)->getValue()));
-                                        $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
+                                        
+                                        $telefono = $conn->escape_string(trim($sheet->getCell('C'.$I)->getValue()));
+                                        $telefonoforinsert = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
+                                        
+                                        $email = $conn->escape_string(trim($sheet->getCell('D'.$I)->getValue()));
+                                        $emailforinsert = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
                                         $conn->query("SET FOREIGN_KEY_CHECKS = 0");
                                             
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', $type)";
                                             
                                         $insertquery = "INSERT INTO docente (id_docente, nome, cognome, telefono, email, scuola_id_scuola)"
-                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$conn->escape_string($telefono).",".$conn->escape_string($email).", ".$_SESSION['userId'].")";
+                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".($telefonoforinsert).",".($emailforinsert).", ".$_SESSION['userId'].")";
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$nome $cognome</td> <td>$username</td> <td>$password</td> <td>$telefono</td> <td>$email</td> </tr>";
                                                 
                                         $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";

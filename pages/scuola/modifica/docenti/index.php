@@ -14,12 +14,16 @@
         .minw{
             width: 65%;
         }
+        .custlabel{
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
     </style>    
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js?2"></script>
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -43,7 +47,7 @@
                                                     echo "</div>";
                                                     echo "</td>";
                                                     echo "<td>";
-                                                    echo "<div align=\"center\" id=\"ButtonBox$I\"><button class=\"btn btn-success\" id=\"modifica$I\" onclick=\"openEdit('$I','".$row['id_docente']."')\"><span class='glyphicon glyphicon-ok'></span> Modifica</button> "
+                                                    echo "<div align=\"center\" id=\"ButtonBox$I\"><button class=\"btn btn-success\" id=\"modifica$I\" onclick=\"openEdit('$I','".$row['id_docente']."')\"><span class='glyphicon glyphicon-edit'></span> Modifica</button> "
                                                             . "<button class=\"btn btn-danger\" onclick = \"deleteDocente(".$row['id_docente'].")\"><span class='glyphicon glyphicon-trash'></span> Elimina</button></div>";
                                                     echo "</td>";
                                                     echo "</tr>";

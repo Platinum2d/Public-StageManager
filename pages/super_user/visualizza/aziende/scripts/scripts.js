@@ -23,7 +23,7 @@ $(function (){
             case "4":
                 var stile = "top=10, left=10, width=250, height=200, status=no, menubar=no, toolbar=no scrollbars=no";
                 window.open("newhtml.html", stile);
-            break;
+                break;
             
             case "3":
                 $("#actions").val("");
@@ -172,16 +172,30 @@ function openEdit (id, idazienda)
     
     $("#VisibleBox"+numberId).append("<div id=\"HiddenBox"+numberId+"\"> </div>");
     $("#HiddenBox"+numberId).hide();
-    $("#HiddenBox"+numberId).append(" <div class=\"row\"> <div class=\"col col-sm-12\"> <div class=\"col col-sm-6\"><label id=\"userlabel"+numberId+"\"> Username </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">Nome Azienda <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
-        Citta <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> CAP <input type=\"number\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
-        Indirizzo <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
-        </div> <div class=\"col col-sm-6\"> Password <input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">  Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
-        Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
-        Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
-        Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
-        <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
-        <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
-        </div></div></div><br><br>");
+    $("#HiddenBox"+numberId).append(" \n\
+    <div class=\"row\"> \n\
+        <div class=\"col col-sm-12\"> \n\
+            <div class=\"col col-sm-6\">\n\
+                <label class='custlabel' id=\"userlabel"+numberId+"\"> Username* </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                <label class='custlabel'>Password </label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                <label class='custlabel'>Nome Azienda*</label> <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+                <label class='custlabel'>Citta</label> <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
+                <label class='custlabel'>CAP</label> <input type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
+                <label class='custlabel'>Indirizzo</label> <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
+            </div>\n\
+            <div class=\"col col-sm-6\"> \n\
+                Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
+                Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> \n\
+                Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
+                Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
+                Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
+                Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
+                    <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
+                    <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
+            </div>\n\
+        </div>\n\
+    </div\n\
+><br><br>");
     $("#modifica"+numberId).prop('disabled',true);
     setOnChangeEvents(numberId);
     
@@ -255,25 +269,25 @@ function sendData(idazienda, numberId)
         return (this.length === 0 || !this.trim());
     };
     azienda.id = idazienda;
-    azienda.username = $("#username"+numberId).val();
-    azienda.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
-    azienda.nomeazienda = $("#nomeazienda"+numberId).val();
-    azienda.cittaazienda = $("#cittaazienda"+numberId).val();
-    azienda.capazienda = $("#capazienda"+numberId).val();
-    azienda.indirizzoazienda = $("#indirizzoazienda"+numberId).val();
-    azienda.telefonoazienda = $("#telefonoazienda"+numberId).val();
-    azienda.email = $("#email"+numberId).val();
-    azienda.sitoweb = $("#sitoweb"+numberId).val();
-    azienda.nomeresponsabile = $("#nomeresponsabile"+numberId).val();
-    azienda.cognomeresponsabile = $("#cognomeresponsabile"+numberId).val();
-    azienda.telefonoresponsabile = $("#telefonoresponsabile"+numberId).val();
-    azienda.emailresponsabile = $("#emailresponsabile"+numberId).val();
+    azienda.username = ''+$("#username"+numberId).val();
+    azienda.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : ''+$("#password"+numberId).val();
+    azienda.nomeazienda = ''+$("#nomeazienda"+numberId).val();
+    azienda.cittaazienda = ''+$("#cittaazienda"+numberId).val();
+    azienda.capazienda = ''+$("#capazienda"+numberId).val();
+    azienda.indirizzoazienda = ''+$("#indirizzoazienda"+numberId).val();
+    azienda.telefonoazienda = ''+$("#telefonoazienda"+numberId).val();
+    azienda.email = ''+$("#email"+numberId).val();
+    azienda.sitoweb = ''+$("#sitoweb"+numberId).val();
+    azienda.nomeresponsabile = ''+$("#nomeresponsabile"+numberId).val();
+    azienda.cognomeresponsabile = ''+$("#cognomeresponsabile"+numberId).val();
+    azienda.telefonoresponsabile = ''+$("#telefonoresponsabile"+numberId).val();
+    azienda.emailresponsabile = ''+$("#emailresponsabile"+numberId).val();
     
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
     };
     
-    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty() && !azienda.cittaazienda.isEmpty() && !azienda.capazienda.isEmpty() && !azienda.indirizzoazienda.isEmpty())
+    if (!azienda.username.isEmpty() && !azienda.nomeazienda.isEmpty())
     {
         $.ajax({
             type : 'POST',
@@ -289,26 +303,64 @@ function sendData(idazienda, numberId)
             }
         });
     }
+    else {
+    	printError ("Dati mancanti", "Alcuni dei campi obbligatori sono stati lasciati vuoti.")
+    }
 }
 
-function deleteAzienda(idAzienda)
+function askForDeleteAzienda(id_azienda, progressiv)
 {
-    var confirmed = confirm("Confermare l'eliminazione di questa azienda?");
-    if (confirmed)
-    {
-        $.ajax({
-            type : 'POST',
-            url : 'ajaxOpsPerAzienda/ajaxElimina.php',
-            data : {'idazienda' : idAzienda},
-            success : function (msg)
+    $("#SuperAlert").modal("show");
+    var modal = $("#SuperAlert").find(".modal-body");
+    $("#SuperAlert").find(".modal-title").html("ATTENZIONE");
+    modal.html("<div align='center'><u>ATTENZIONE</u></div>\n\
+                <br>\n\
+                Eliminando questa azienda, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
+                <ul>\n\
+                    <li>Tutti i tutor della suddetta</li>\n\
+                    <li>Tutte le preferenze espresse riguardo le figure professionali</li>\n\
+                    <li><input type='checkbox' id='deleteRegistro' > Tutti i registri di lavoro </li>\n\
+                    <li><input type='checkbox' id='deleteNote' > Tutte le note dei docenti </li>\n\
+                    <li><input type='checkbox' id='deleteValutazioneStudente' > Tutte valutazioni dell'azienda verso gli studenti </li>\n\
+                    <li><input type='checkbox' id='deleteValutazioneStage' > Tutte le valutazioni degli studenti verso l'azienda </li>\n\
+                </ul>");
+    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                                                    <div class='col col-sm-6' align='left'><h3 style='display:inline'>Procedere?</h3></div>\n\
+                                                    <div class='col col-sm-6'> \n\
+                                                        <button class='btn btn-success' onclick=\"deleteAzienda("+id_azienda+", "+progressiv+")\">Si</button>\n\
+                                                        <button class='btn btn-danger' data-dismiss='modal'>No</button>\n\
+                                                    </div> \n\
+                                                 </div>");
+}
+
+function deleteAzienda(idAzienda, progressiv)
+{    
+    $.ajax({
+        type : 'POST',
+        url : 'ajaxOpsPerAzienda/ajaxElimina.php',
+        data : 
+        {
+            'idazienda' : idAzienda, 
+            'deleteRegistro' : $("#deleteRegistro").prop("checked"),
+            'deleteNote' : $("#deleteNote").prop("checked"),
+            'deleteValutazioneStudente' : $("#deleteValutazioneStudente").prop("checked"),
+            'deleteValutazioneStage' : $("#deleteValutazioneStage").prop("checked")
+        },
+        success : function (msg)
+        {
+            if (msg === "ok")
             {
-                if (msg === "ok")
-                    location.reload();
-                else
-                    printError("Eliminazione non riuscita",msg);
+                printSuccess("Eliminazione riuscita", "<div align='center'>L'azienda è stata eliminata correttamente!</div>", function (){
+                    $("#riga"+progressiv).fadeOut("slow");
+                });
+                $("#SuperAlert").find(".modal-footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Chiudi</button>");
             }
-        });
-    }
+            else
+            {
+                printError("Errore in fase di eliminazione", "<div align='center'>"+msg+"</div>")
+            }
+        }
+    });
 }
 
 function setOnChangeEvents(numberId)

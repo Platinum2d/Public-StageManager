@@ -85,17 +85,17 @@
                                 //analisi di nomi e cognomi, creazione dello username sul posto. Se uno esiste già, usa il progressivo
                                 echo "<b>Creo gli username e inserisco gli studenti nel database....</b><br>";
                                 $htmltable = "<table class=\"table table-hover\"> <thead> <th>#</th> <th>Username</th> <th>Password</th> <th>Citta'</th> <th>Mail</th> <th>Telefono</th> </thead> <tbody>";
-                                $tableforpdf = "<table id='forpdf'> <thead> <th>#</th> <th>Nome e cognome</th> <th>Username</th> <th>Password</th> </thead> <tbody>";
+                                $tableforpdf = "<table id='forpdf'> <thead> <th>#</th> <th>Cognome e nome</th> <th>Username</th> <th>Password</th> </thead> <tbody>";
                                 $reporterrori = "";
                                     
                                     for ($I=2; $I<$rows;$I++)
                                     {
-                                        $nome = (trim($sheet->getCell('A'.$I)->getValue()));
-                                        $cognome = (trim($sheet->getCell('B'.$I)->getValue()));
+                                        $nome = $conn->escape_string(trim($sheet->getCell('A'.$I)->getValue()));
+                                        $cognome = $conn->escape_string(trim($sheet->getCell('B'.$I)->getValue()));
                                         if (isset($nome) && !empty($nome) && isset($cognome) && !empty($cognome))
                                         {
                                             $username = $nome.$cognome;
-                                            str_replace(" ", "", $username);
+                                            $username = strip_whitespaces($username);
                                             $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
                                             $result = $conn->query($query);
                                             if ($result->num_rows > 0)
@@ -116,12 +116,12 @@
                                             }   
                                             $password = generateRandomicString(PasswordLenght);
                                             $cryptedPassword = md5($password);
-                                            $citta = strtolower(trim($sheet->getCell('C'.$I)->getValue()));
-                                                $citta = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
-                                            $email = strtolower(trim($sheet->getCell('D'.$I)->getValue()));
-                                                $email = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
-                                            $telefono = strtolower(trim($sheet->getCell('E'.$I)->getValue()));
-                                                $telefono = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
+                                            $citta = $conn->escape_string(strtolower(trim($sheet->getCell('C'.$I)->getValue())));
+                                                $cittaforinsert = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
+                                            $email = $conn->escape_string(strtolower(trim($sheet->getCell('D'.$I)->getValue())));
+                                                $emailforinsert = (empty($email) || !isset($email)) ? "NULL" : "'".$email."'";
+                                            $telefono = $conn->escape_string(strtolower(trim($sheet->getCell('E'.$I)->getValue())));
+                                                $telefonoforinsert = (empty($telefono) || !isset($telefono)) ? "NULL" : "'".$telefono."'";
                                                     
                                             $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', ".studType.")";
                                                 
@@ -130,7 +130,7 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$conn->escape_string($citta).",".$conn->escape_string($email).",".$conn->escape_string($telefono).", ".$_SESSION['userId'].")";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", ".$_SESSION['userId'].")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
@@ -194,7 +194,7 @@
                                                 }
                                                 else
                                                 {
-                                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
+                                                    $reporterrori .= "<br><h3 style=\"color:red\"> ==== $insertquery FATAL ERROR ALLA RIGA $I ==== </h3>";
                                                 }
                                             }                            
                                         }

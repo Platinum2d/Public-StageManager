@@ -4,11 +4,11 @@
     open_html ( "Profilo" );
     import("../../../");
     echo "<link href='css/profiloutente.css' rel='stylesheet' type='text/css'>";
-    echo "<script src='js/profiloutente.js'></script>";
-    
+    echo "<script src='js/profiloutente.js?0.1'></script>";
+        
     $id_stud = $_SESSION ['userId'];
     $connessione = dbConnection ("../../../");
-    
+        
     $sql = "SELECT * FROM studente, utente WHERE id_studente=$id_stud AND id_utente=id_studente";
     $result = $connessione->query ( $sql );
     while ( $row = $result->fetch_assoc () ) {
@@ -42,8 +42,8 @@
                         </div>
                         <div class="col col-sm-9">
                             <div><table id="myInformations" class="table table-striped table-bordered table-responsive" style="table-layout:fixed"><tr>
-                                    <th class="col-sm-3">Username</th>
-                                        <td id="username" class="col-sm-6"><?php echo $username; ?></td>
+                                        <th class="col-sm-3">Username</th>
+                                        <td id="" class="col-sm-6"><div id="username" class='edittextdiv' contenteditable="false"><?php echo $username; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Password</th>
@@ -51,28 +51,28 @@
                                     </tr>                                    
                                     <tr>
                                         <th>Nome</th>
-                                        <td id="first"><?php echo $nome;?></td>
+                                        <td id=""><div id="first" class='edittextdiv' contenteditable="false"><?php echo $nome;?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Cognome</th>
-                                        <td id="last"><?php echo $cognome; ?></td>
+                                        <td id=""><div id="last" class='edittextdiv' contenteditable="false"><?php echo $cognome; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Citt&agrave;</th>
-                                        <td id="city"><?php echo $citta; ?></td>
+                                        <td id=""><div id="city" class='edittextdiv' contenteditable="false"><?php echo $citta; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>
-                                        <td id="mail"><?php echo $email; ?></td>
+                                        <td id=""><div id="mail" class='edittextdiv' contenteditable="false"><?php echo $email; ?></div></td>
                                     </tr>
                                     <tr>
                                         <th>Telefono</th>
-                                        <td id="phone"><?php echo $telefono; ?></td>
+                                        <td id=""><div id="phone" class='edittextdiv' contenteditable="false"><?php echo $telefono; ?></div></td>
                                     </tr>
-                                        
+                                    
                                 </table> 
                             </div>       
-                                
+                            
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </button>
@@ -88,9 +88,9 @@
                     <div class="row">
                         <div class="col col-sm-12">
                             <div class="table-responsive">
-                            	<table id="preferencesTable" class="table table-bordered">
+                                <table id="preferencesTable" class="table table-bordered">
                                     <thead>
-                                    	<tr>
+                                        <tr>
                                             <th class="col-sm-8">Figura professionale</th>
                                             <th class="col-sm-2 centeredText">Priorità</th>
                                             <th class="col-sm-2 centeredText">Azioni</th>
@@ -104,7 +104,7 @@
                         <div class="col col-sm-12">
                             <div class="col col-sm-3">
                                 <select id="selectFigura" class="form-control">
-                                	<option>Seleziona un'opzione</option>
+                                    <option>Seleziona un'opzione</option>
                                 	<?php
                                 		$query = "SELECT figura_professionale.id_figura_professionale, figura_professionale.nome
                                                 	FROM figura_professionale, anno_scolastico, studente_attends_classe, classe, settore_has_figura_professionale
@@ -118,7 +118,7 @@
                                                 																FROM studente_whises_figura_professionale
                                                 																WHERE studente_whises_figura_professionale.studente_id_studente = $id_stud);";
     								    $result = $connessione->query ( $query );
-    								    
+                                                                        
     								    while ($result && $work_line = $result->fetch_assoc () ) {
     								    	$id_figura = $work_line ['id_figura_professionale'];
     								    	$nome_figura = $work_line ['nome'];
@@ -132,11 +132,11 @@
                             </div>
                         </div>
                         <div id="note" class="col col-sm-12">
-                        	<p class="small text-right">
-                        		* Puoi indicare una preferenza come prioritaria o meno cliccando sull'apposita stella.
-                        		<br>
-                        		** Solo una preferenza può essere impostata come prioritaria.
-                        	</p>
+                            <p class="small text-right">
+                                * Puoi indicare una preferenza come prioritaria o meno cliccando sull'apposita stella.
+                                <br>
+                                ** Solo una preferenza può essere impostata come prioritaria.
+                            </p>
                         </div>
                     </div>
                 </div>
