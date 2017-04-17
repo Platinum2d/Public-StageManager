@@ -629,4 +629,8 @@ HTML;
     function strip_whitespaces($string){
         return preg_replace('/\s+/', '', $string);
     }
+    
+    function xmlEscape($string) {
+    	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $string);
+    }    
 ?>
