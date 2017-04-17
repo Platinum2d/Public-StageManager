@@ -22,24 +22,28 @@ function turnEditOff()
 
 $(document).ready(function()
 {
-    initialUsername = $("#username").html();
-    contact.username=$("#username").html();
-    contact.first=$("#first").html();
-    contact.last=$("#last").html();
-    contact.mail=$("#mail").html();
-    contact.phone=$("#phone").html();
+    initialUsername = $("#username").text();
+    contact.username=$("#username").text();
+    contact.first=$("#first").text();
+    contact.last=$("#last").text();
+    contact.mail=$("#mail").text();
+    contact.phone=$("#phone").text();
 	
+    $("#username").keypress(function (e){
+        if (e.which === 32) return false;
+    });
+    
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
     $("#saveButton").hide();
 	
     $("#editButton").click(function(){
     	
-        contact.username=$("#username").html();
-        contact.first=$("#first").html();
-        contact.last=$("#last").html();
-        contact.mail=$("#mail").html();
-        contact.phone=$("#phone").html();
+        contact.username=$("#username").text();
+        contact.first=$("#first").text();
+        contact.last=$("#last").text();
+        contact.mail=$("#mail").text();
+        contact.phone=$("#phone").text();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -56,11 +60,11 @@ $(document).ready(function()
     $("#saveButton").click(function(){
 
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
-        contact.username = $("#username").html();
-        contact.first=$("#first").html();
-        contact.last=$("#last").html();
-        contact.mail=$("#mail").html();
-        contact.phone=$("#phone").html();
+        contact.username = $("#username").text();
+        contact.first=$("#first").text();
+        contact.last=$("#last").text();
+        contact.mail=$("#mail").text();
+        contact.phone=$("#phone").text();
 		
         //eseguo query
         if(contact.username.length>0)
@@ -119,7 +123,8 @@ $(document).ready(function()
     }
     
     $("#username").on("input", function () {
-        if ($("#username").html().toString().trim() === "")
+        //alert($("#username").html().toString().trim().length);
+        if ($("#username").text().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Informazione obbligatoria");
@@ -127,7 +132,7 @@ $(document).ready(function()
             return;
         }
         
-        if ($("#username").html().toString().trim().length > 50)
+        if ($("#username").text().toString().trim().length > 50)
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
@@ -139,7 +144,7 @@ $(document).ready(function()
             type : 'POST',
             url : 'ajaxOps/ajaxCheckUserExistence.php',
             cache : false,
-            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            data : {'user' : $("#username").text(), 'exception' : initialUsername},
             success : function (esito)
             {
                 if (esito === "trovato")

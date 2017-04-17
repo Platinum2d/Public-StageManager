@@ -2,7 +2,7 @@
     include '../../../functions.php';
 	$connessione = dbConnection ("../../../../");
 	$id_az = $_SESSION ['userId'];
-	$username = $connessione->escape_string ( strip_tags($_POST ['username']));
+	$username = $connessione->escape_string ( strip_tags(strip_whitespaces($_POST ['username'])));
 	$nome = $connessione->escape_string ( strip_tags($_POST ['first']));
 	$cognome = $connessione->escape_string ( strip_tags($_POST ['last']) );
 	$email = $connessione->escape_string ( strip_tags($_POST ['mail']) );
