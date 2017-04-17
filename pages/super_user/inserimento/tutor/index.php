@@ -20,6 +20,12 @@
             return (this.length === 0 || !this.trim());
         };      
         
+        $(document).ready(function (){
+            $("#usernameTutor").keypress(function (e){
+                if (e.which === 32) return false;
+            });
+        });
+        
         var check = setInterval(function(){
             if ($("#usernameTutor").val().isEmpty() || $("#passwordTutor").val().isEmpty() || $("#confermaPasswordTutor").val().isEmpty() || $("#nomeTutor").val().isEmpty()
                     || $("#cognomeTutor").val().isEmpty() || $("#aziendaTutor").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1" || $('#aziendaTutor').val () == '-1')
@@ -60,8 +66,8 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="confermaPasswordTutor"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeTutor"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeTutor"> </div>
-                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="telefonoTutor"> </div>
-                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="emailTutor"> </div>
+                                Telefono<div class="form-group"> <input class="form-control" id="telefonoTutor"> </div>
+                                E-mail<div class="form-group"> <input class="form-control" id="emailTutor"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
@@ -124,7 +130,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordTutor()
+        {
             if ($("#passwordTutor").val() !== $("#confermaPasswordTutor").val() || $("#passwordTutor").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -147,7 +154,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");   
             }
-        }, 1);
+        }
+        
+        $("#passwordTutor").on("input", checkPasswordTutor);
+        $("#confermaPasswordTutor").on("input", checkPasswordTutor);
     </script>    
 </body>
 <?php
