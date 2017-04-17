@@ -29,6 +29,10 @@ $(document).ready(function(){
     contact.mail=$("#mail").html();
     contact.phone=$("#phone").html();
 	
+    $("#username").keypress(function (e){
+        if (e.which === 32) return false;
+    });
+        
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
     $("#saveButton").hide();
@@ -119,7 +123,7 @@ $(document).ready(function(){
     }
     
     $("#username").on("input", function () {
-        if ($("#username").html().toString().trim() === "")
+        if ($("#username").text().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Informazione obbligatoria");
@@ -127,7 +131,7 @@ $(document).ready(function(){
             return;
         }
         
-        if ($("#username").html().toString().trim().length > 50)
+        if ($("#username").text().toString().trim().length > 50)
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
