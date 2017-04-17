@@ -6,7 +6,7 @@ import("../../../");
 $conn = dbConnection("../../../");
 ?>
 <link href='css/gestione_studenti.css' rel='stylesheet' type='text/css'>
-<script src="scripts/script.js"></script>
+<script src="scripts/script.js?0.1"></script>
 <body>
  	<?php
         topNavbar ("../../../");

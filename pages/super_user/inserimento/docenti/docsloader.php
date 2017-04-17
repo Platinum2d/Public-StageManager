@@ -1,11 +1,13 @@
 <?php
     require '../../../../lib/PHPReader/Classes/PHPExcel.php';
     include "../../../../pages/functions.php";
-    checkLogin(scuolaType, "../../../../");
+    checkLogin(superUserType, "../../../../");
     $conn = dbConnection("../../../../");
     open_html ( "Inserimento docenti da file" );
     import("../../../../");
         
+    $scuola = $_POST['scuola'];
+    
     define ("PasswordLenght", 8);
     $type = $_POST['tipo_docente'];
     $type = ($type === "docente_tutor") ? doctutType : docrefType;
@@ -35,18 +37,12 @@
             }
         }
     }
-        
-        
     ?>
-        
 <body>
-    
         <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
         ?> 
-    
-    
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -121,7 +117,7 @@
                                         $userquery = "INSERT INTO utente (username, password, tipo_utente) VALUES ('".$conn->escape_string($username)."', '$cryptedPassword', $type)";
                                             
                                         $insertquery = "INSERT INTO docente (id_docente, nome, cognome, telefono, email, scuola_id_scuola)"
-                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".($telefonoforinsert).",".($emailforinsert).", ".$_SESSION['userId'].")";
+                                        . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = $type),'".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".($telefonoforinsert).",".($emailforinsert).", $scuola)";
                                         $htmltable .= "<tr> <td>".($I - 1)."  </td><td>$nome $cognome</td> <td>$username</td> <td>$password</td> <td>$telefono</td> <td>$email</td> </tr>";
                                                 
                                         $tableforpdf .= "<tr><td>".($I - 1)."</td> <td>$nome $cognome</td> <td>$username</td> <td>$password</td> </tr>";
@@ -166,8 +162,9 @@
     var res = doc.autoTableHtmlToJson(tb);
     doc.autoTable(res.columns, res.data);
     var tipo = (localStorage.getItem("tipo_docente") === "docente_tutor") ?  "Tutor" : "Referenti";
+    var scuola = localStorage.getItem("scuola");
     
-    doc.save("Credenziali_Docenti_"+tipo+".pdf");
+    doc.save("Credenziali_Docenti_"+tipo+"_"+scuola+".pdf");
     $("#forpdf").hide();
 </script>
     

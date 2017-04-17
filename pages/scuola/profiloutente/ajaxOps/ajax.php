@@ -3,7 +3,7 @@
     if ($_POST ['first']) {
         $connessione = dbConnection ("../../../../");
         $id_scuola = $_SESSION ['userId'];
-        $username = strip_tags($connessione->escape_string ($_POST ['username']));
+        $username = strip_tags($connessione->escape_string (strip_whitespaces($_POST ['username'])));
         $nome = strip_tags($connessione->escape_string($_POST ['first']));
         $email = strip_tags($connessione->escape_string ($_POST ['mail']));
         $telefono = strip_tags($connessione->escape_string ($_POST ['phone']));

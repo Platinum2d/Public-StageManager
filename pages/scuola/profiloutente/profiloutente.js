@@ -24,14 +24,18 @@ function turnEditOff()
 
 $(document).ready(function(){
 	
-    initialUsername = $("#username").html();
-    contact.username=$("#username").html();
-    contact.first=$("#first").html();
-    contact.mail=$("#mail").html();
-    contact.phone=$("#phone").html();
-    contact.citta=$("#citta").html();
-    contact.CAP=$("#CAP").html();
-    contact.sitoweb=$("#sitoweb").html();    
+    initialUsername = $("#username").text();
+    contact.username=$("#username").text();
+    contact.first=$("#first").text();
+    contact.mail=$("#mail").text();
+    contact.phone=$("#phone").text();
+    contact.citta=$("#citta").text();
+    contact.CAP=$("#CAP").text();
+    contact.sitoweb=$("#sitoweb").text();    
+    
+    $("#username").keypress(function (e){
+        if (e.which === 32) return false;
+    });
     
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
@@ -39,13 +43,13 @@ $(document).ready(function(){
 	
     $("#editButton").click(function(){
     	
-        contact.username=$("#username").html();
-        contact.first=$("#first").html();
-        contact.mail=$("#mail").html();
-        contact.phone=$("#phone").html();
-        contact.citta=$("#citta").html();
-        contact.CAP=$("#CAP").html();
-        contact.sitoweb=$("#sitoweb").html();
+        contact.username=$("#username").text();
+        contact.first=$("#first").text();
+        contact.mail=$("#mail").text();
+        contact.phone=$("#phone").text();
+        contact.citta=$("#citta").text();
+        contact.CAP=$("#CAP").text();
+        contact.sitoweb=$("#sitoweb").text();
 		
         //faccio sparire il bottone edit
         $("#editButton").hide();
@@ -63,13 +67,13 @@ $(document).ready(function(){
     $("#saveButton").click(function(){
 
         //salvo i nuovi dati contenuti nella tabella nell'oggetto contact
-        contact.username = $("#username").html();
-        contact.first=$("#first").html();
-        contact.mail=$("#mail").html();
-        contact.phone=$("#phone").html();
-        contact.citta=$("#citta").html();
-        contact.CAP=$("#CAP").html();
-        contact.sitoweb=$("#sitoweb").html();
+        contact.username = $("#username").text();
+        contact.first=$("#first").text();
+        contact.mail=$("#mail").text();
+        contact.phone=$("#phone").text();
+        contact.citta=$("#citta").text();
+        contact.CAP=$("#CAP").text();
+        contact.sitoweb=$("#sitoweb").text();
 		
         //eseguo query
         if(contact.first.length>0 && contact.username.length>0){
@@ -128,7 +132,7 @@ $(document).ready(function(){
     }
     
     $("#username").on("input", function () {
-        if ($("#username").html().toString().trim() === "")
+        if ($("#username").text().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Informazione obbligatoria");
@@ -136,7 +140,7 @@ $(document).ready(function(){
             return;
         }
         
-        if ($("#username").html().toString().trim().length > 50)
+        if ($("#username").text().toString().trim().length > 50)
         {
             $("#saveButton").prop("disabled", true);
             $("#username").parent().parent().find("th").html("Troppo lungo (max. caratteri: 50)");
@@ -148,7 +152,7 @@ $(document).ready(function(){
             type : 'POST',
             url : 'ajaxOps/ajaxCheckUserExistence.php',
             cache : false,
-            data : {'user' : $("#username").html(), 'exception' : initialUsername},
+            data : {'user' : $("#username").text(), 'exception' : initialUsername},
             success : function (esito)
             {
                 if (esito === "trovato")
@@ -161,7 +165,7 @@ $(document).ready(function(){
                 {
                     $("#username").parent().parent().find("th").html("Username");
                     $("#username").parent().parent().find("th").css("color", "#828282");
-                    if ($("#first").html().toString().trim() !== "")
+                    if ($("#first").text().toString().trim() !== "")
                     {
                         $("#saveButton").prop("disabled", false);
                     }
@@ -171,12 +175,12 @@ $(document).ready(function(){
     });
     
     $("#first").on("input", function () {
-        if ($("#first").html().toString().trim() === "")
+        if ($("#first").text().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);
         }
         else {
-            if ($("#username").html().toString().trim() !== "")
+            if ($("#username").text().toString().trim() !== "")
             {
                 $("#saveButton").prop("disabled", false);
             }

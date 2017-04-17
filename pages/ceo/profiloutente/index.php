@@ -40,7 +40,7 @@
                         <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped table-bordered" style="table-layout: fixed">
                                     <tr>
-                                        <th class="col-sm-3">Username*</th>
+                                        <th class="col-sm-3">Username</th>
                                         <td id="" class="col-sm-6"><div id="username" class='edittextdiv' contenteditable="false"><?php echo $username; ?></div></td>
                                     </tr>
                                     <tr>

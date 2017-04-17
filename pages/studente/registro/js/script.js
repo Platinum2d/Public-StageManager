@@ -1,14 +1,9 @@
-var data = "";
-var lavoro = "";
-var insegnamenti = "";
-var commento = "";
-
 function openEdit(progressiv, idDescrizione)
 {
-    data = $("#data"+progressiv).html().trim();
-    lavoro = $("#lavoroSvolto"+progressiv).html().trim();
-    insegnamenti = $("#insegnamenti"+progressiv).html().trim();
-    commento = $("#commento"+progressiv).html().trim();
+    var data = $("#data"+progressiv).html().trim();
+    var lavoro = $("#lavoroSvolto"+progressiv).html().trim();
+    var insegnamenti = $("#insegnamenti"+progressiv).html().trim();
+    var commento = $("#commento"+progressiv).html().trim();
     $("riga"+progressiv).css("background","yellow")
     $("#modifica"+progressiv).html("<span class='glyphicon glyphicon-save'></span>");
     $("#modifica"+progressiv).attr("id","conferma"+progressiv);
@@ -56,10 +51,6 @@ function closeEdit(progressiv, idDescrizione)
         $("#modifica"+progressiv).addClass("btn-warning");
         $("#modifica"+progressiv).attr("onclick","openEdit("+progressiv+", "+idDescrizione+")");
         $("#elimina"+progressiv).attr("onclick","deleteDescrizione("+progressiv+", "+idDescrizione+")");
-        data = "";
-        lavoro = "";
-        insegnamenti = "";
-        commento = "";
 }
 
 function deleteDescrizione(progressiv, idDescrizione)
@@ -88,7 +79,7 @@ function sendData(progressiv, idDescrizione)
         return (this.length === 0 || !this.trim());
     };
     
-    lavoro = {
+    var lavoro = {
     	    'id' : idDescrizione,
     	    'data' : ''+$("#textboxdata"+progressiv).val(),
     	    'lavoro' : ''+$("#textareaLavoro"+progressiv).val(),
@@ -104,10 +95,11 @@ function sendData(progressiv, idDescrizione)
 	        $("#insegnamenti"+progressiv).data ("old", lavoro.insegnamenti);
 	        $("#commento"+progressiv).data("old", lavoro.commento);
 	        
-	    	date = lavoro.data.split ("-");
-	    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]); 
-	    	if (date >= inizio_stage && date <=fine_stage) {
-	    		lavoro.data = date;
+	        var mod_date = lavoro.data.split ("-");
+	        var mod_db_date = "" + mod_date[2] + "-" + mod_date[1] + "-" + mod_date[0];
+	    	mod_date = new Date (mod_date[2], parseInt (mod_date[1]) - 1, mod_date[0]);
+	    	if (mod_date >= inizio_stage && mod_date <=fine_stage) {
+	    		lavoro.data = mod_db_date;
 		        $.ajax({
 		            type : 'POST',
 		            url : '../registro/ajaxOpsPerRegistro/ajaxInvia.php',
@@ -117,10 +109,6 @@ function sendData(progressiv, idDescrizione)
 		            {
 		                if (msg === "ok")
 		                    resetColors(progressiv);
-			                data = $("#textboxdata"+progressiv).val();
-			                lavoro = $("#textareaLavoro"+progressiv).val();
-			                insegnamenti = $("#textareaInsegnamenti"+progressiv).val();
-			                commento = $("#textareaCommento"+progressiv).val();
 		                    closeEdit (progressiv, idDescrizione);
 		                    
 		                    var riga_successiva = null;
@@ -129,7 +117,7 @@ function sendData(progressiv, idDescrizione)
 		                    	var data_riga=$(riga).find ("td[id^='data']").text();
 		                    	data_riga = data_riga.split ("-");
 		                    	data_riga = new Date (data_riga[2], parseInt (data_riga[1]) - 1, data_riga[0]);
-		                    	if (data_riga > date) {
+		                    	if (data_riga > mod_date) {
 		                    		riga_successiva = riga;
 		                    		return false;
 		                    	}
@@ -219,24 +207,21 @@ function insertActivity(progressiv)
         return (this.length === 0 || !this.trim());
     }; 
     
-    var data = ''+$("#aggiungidata"+progressiv+"").val();
-    var lavoroSvolto = ''+$("#aggiungiLavoro"+progressiv+"").val();
-    var insegnamenti = ''+$("#aggiungiInsegnamenti"+progressiv+"").val();
-    var commento = ''+$("#aggiungiCommento"+progressiv+"").val();
-    
-    lavorodainserire = {
-        'data' : data,
-        'lavoroSvolto' : lavoroSvolto,
-        'insegnamenti' : insegnamenti,
-        'commento' : commento
+    var lavorodainserire = {
+        'data' : ''+$("#aggiungidata"+progressiv+"").val(),
+        'lavoroSvolto' : ''+$("#aggiungiLavoro"+progressiv+"").val(),
+        'insegnamenti' : ''+$("#aggiungiInsegnamenti"+progressiv+"").val(),
+        'commento' : ''+$("#aggiungiCommento"+progressiv+"").val()
     }
 
     if (checkDateItalianFormat (lavorodainserire.data)) {
 	    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
 	    {
-	    	date = data.split ("-");
-	    	date = new Date (date[2], parseInt (date[1]) - 1, date[0]);
-	    	if (date >= inizio_stage && date <=fine_stage) {
+	    	var new_date = lavorodainserire.data.split ("-");
+	    	var new_db_date = "" + n_date[2] + "-" + new_date[1] + "-" + new_date[0];
+	    	new_date = new Date (new_date[2], parseInt (new_date[1]) - 1, new_date[0]);
+	    	if (new_date >= inizio_stage && new_date <=fine_stage) {
+	    		lavorodainserire.data = new_db_date;
 		        $.ajax({
 		           type : 'POST',
 		           url : '../registro/ajaxOpsPerRegistro/ajaxInserisci.php',
@@ -244,7 +229,7 @@ function insertActivity(progressiv)
 		           data : lavorodainserire,
 		           success : function (maxid)
 		           {
-		               convertToInsertedData(progressiv, maxid, date);
+		               convertToInsertedData(progressiv, maxid, new_date);
 		           }
 		        });
 	    	}
@@ -271,21 +256,21 @@ function convertToInsertedData(progressiv, maxid, date_new_element)
     var generalprogressiv = parseInt($("#edit").attr("name"));
     $("#aggiungidata"+progressiv+"").closest("tr").attr("id","riga"+(generalprogressiv + 1));
     
-    var data = $("#aggiungidata"+progressiv+"").val();
+    var insert_data = $("#aggiungidata"+progressiv+"").val();
     $("#aggiungidata"+progressiv+"").closest("td").attr("id","data"+(generalprogressiv + 1));
-    $("#aggiungidata"+progressiv+"").closest("td").html(data)
+    $("#aggiungidata"+progressiv+"").closest("td").html(insert_data)
     
-    var lavoro = $("#aggiungiLavoro"+progressiv+"").val();
+    var insert_lavoro = $("#aggiungiLavoro"+progressiv+"").val();
     $("#aggiungiLavoro"+progressiv+"").closest("td").attr("id","lavoroSvolto"+(generalprogressiv + 1));
-    $("#aggiungiLavoro"+progressiv+"").closest("td").html(lavoro);
+    $("#aggiungiLavoro"+progressiv+"").closest("td").html(insert_lavoro);
     
-    var insegnamenti = $("#aggiungiInsegnamenti"+progressiv+"").val();
+    var insert_insegnamenti = $("#aggiungiInsegnamenti"+progressiv+"").val();
     $("#aggiungiInsegnamenti"+progressiv+"").closest("td").attr("id","insegnamenti"+(generalprogressiv + 1));
-    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").html(insegnamenti);
+    $("#aggiungiInsegnamenti"+progressiv+"").closest("td").html(insert_insegnamenti);
 
-    var commento = $("#aggiungiCommento"+progressiv+"").val();
+    var insert_commento = $("#aggiungiCommento"+progressiv+"").val();
     $("#aggiungiCommento"+progressiv+"").closest("td").attr("id","commento"+(generalprogressiv + 1));
-    $("#aggiungiCommento"+progressiv+"").closest("td").html(commento);
+    $("#aggiungiCommento"+progressiv+"").closest("td").html(insert_commento);
     
     $("#gobuttons"+progressiv).html("<div align=\"center\" style=\"vertical-align: middle;\"><button class=\"btn btn-warning buttonfix btn-sm margin\" id=\"modifica"+(generalprogressiv + 1)+"\" onclick = \"openEdit("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-edit\"></span></button> <button class=\"btn btn-danger buttonfix btn-sm margin\" id=\"elimina"+(generalprogressiv + 1)+"\" onclick = \"deleteDescrizione("+(generalprogressiv + 1)+", "+maxid+")\"><span class=\"glyphicon glyphicon-trash\"></span></button></div>");
     $("#gobuttons"+progressiv).removeAttr("style");
