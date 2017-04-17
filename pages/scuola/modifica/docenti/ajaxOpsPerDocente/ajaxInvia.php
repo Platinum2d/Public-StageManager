@@ -3,12 +3,16 @@
     $conn = dbConnection("../../../../../");
     
     $iddocente = $_POST['id'];
-    $username = $conn->escape_string($_POST['username']);
+    $username = $conn->escape_string(strip_whitespaces($_POST['username']));
     $password = $_POST['password'];
     $cognome = $conn->escape_string($_POST['cognome']);
     $nome = $conn->escape_string($_POST['nome']);
+    
     $telefono = $conn->escape_string($_POST['telefono']);
+    $telefono = (isset($telefono) && !empty($telefono)) ? "'$telefono'" : "NULL";
+    
     $email = $conn->escape_string($_POST['email']);
+    $email = (isset($email) && !empty($email)) ? "'$email'" : "NULL";
     $tipo_utente = $_POST['tipo_utente'];
     
     
@@ -19,7 +23,7 @@
     
     $ok = ($conn->query($query)) ? true : false;
     
-    $query = "UPDATE `docente` SET `nome` =  '$nome',`cognome` =  '$cognome',`telefono` =  '$telefono',`email` =  '$email' WHERE  `id_docente` = $iddocente;";
+    $query = "UPDATE `docente` SET `nome` =  '$nome',`cognome` =  '$cognome',`telefono` =  $telefono,`email` =  $email WHERE  `id_docente` = $iddocente;";
     
     $ok = ($conn->query($query)) ? true : false;
     

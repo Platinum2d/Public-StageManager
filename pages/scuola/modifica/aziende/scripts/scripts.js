@@ -176,23 +176,25 @@ function openEdit (id, idazienda)
     <div class=\"row\"> \n\
         <div class=\"col col-sm-12\"> \n\
             <div class=\"col col-sm-6\">\n\
-                <label class='custlabel' id=\"userlabel"+numberId+"\"> Username* </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
-                <label class='custlabel'>Password </label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                <label class='custlabel'>Nome Azienda*</label> <input type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
-                <label class='custlabel'>Citta</label> <input type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
-                <label class='custlabel'>CAP</label> <input type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
-                <label class='custlabel'>Indirizzo</label> <input type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
+                <label class='custlabel' style='margin-top:0px' id=\"userlabel"+numberId+"\"> Username* </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                <label class='custlabel'>Password</label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                <label class='custlabel'>Nome Azienda*</label> <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+                Citta<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
+                CAP<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
+                Indirizzo<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
             </div>\n\
-            <div class=\"col col-sm-6\"> \n\
-                Telefono <input type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
-                Email <input type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> \n\
-                Sito Web <input type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
-                Nome Responsabile <input type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> Cognome Responsabile <input type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
-                Telefono Responsabile <input type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
-                Email Responsabile <input type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
+            <div style='margin-bottom:5px' class=\"col col-sm-6\"> \n\
+                Telefono <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"telefonoazienda"+numberId+"\">\n\
+                Email <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"> \n\
+                Sito Web <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"sitoweb"+numberId+"\">\n\
+                Nome Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"nomeresponsabile"+numberId+"\"> \n\
+                Cognome Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
+                Telefono Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
+                Email Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
                     <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
                     <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
             </div>\n\
+            <p class='left'><b>* Campo obbligatorio</b></p>\n\
         </div>\n\
     </div\n\
 ><br><br>");
@@ -222,6 +224,10 @@ function openEdit (id, idazienda)
                 $("#emailresponsabile"+numberId).val($(this).find("email_responsabile").text());               
             });
             
+            $("#username"+numberId).keypress(function (e){
+                if (e.which === 32) return false;
+            }); 
+            
             $("#username"+numberId).on("input", function (){
                 $.ajax({
                     type : 'POST',
@@ -233,14 +239,16 @@ function openEdit (id, idazienda)
                         {                    
                             $("#userlabel"+numberId).css("color", "red");
                             $("#userlabel"+numberId).html("username (esiste gia')");
+                            $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", true);
                         }
                         else
                         {
                             $("#userlabel"+numberId).css("color", "#828282");
                             $("#userlabel"+numberId).html("username");
+                            $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", false);
                         }
                     }
-                });
+                });                
             });
         },
         error : function()
@@ -269,19 +277,19 @@ function sendData(idazienda, numberId)
         return (this.length === 0 || !this.trim());
     };
     azienda.id = idazienda;
-    azienda.username = ''+$("#username"+numberId).val();
+    azienda.username = ''+$("#username"+numberId).val().trim();
     azienda.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : ''+$("#password"+numberId).val();
-    azienda.nomeazienda = ''+$("#nomeazienda"+numberId).val();
-    azienda.cittaazienda = ''+$("#cittaazienda"+numberId).val();
-    azienda.capazienda = ''+$("#capazienda"+numberId).val();
-    azienda.indirizzoazienda = ''+$("#indirizzoazienda"+numberId).val();
-    azienda.telefonoazienda = ''+$("#telefonoazienda"+numberId).val();
-    azienda.email = ''+$("#email"+numberId).val();
-    azienda.sitoweb = ''+$("#sitoweb"+numberId).val();
-    azienda.nomeresponsabile = ''+$("#nomeresponsabile"+numberId).val();
-    azienda.cognomeresponsabile = ''+$("#cognomeresponsabile"+numberId).val();
-    azienda.telefonoresponsabile = ''+$("#telefonoresponsabile"+numberId).val();
-    azienda.emailresponsabile = ''+$("#emailresponsabile"+numberId).val();
+    azienda.nomeazienda = ''+$("#nomeazienda"+numberId).val().trim();
+    azienda.cittaazienda = ''+$("#cittaazienda"+numberId).val().trim();
+    azienda.capazienda = ''+$("#capazienda"+numberId).val().trim();
+    azienda.indirizzoazienda = ''+$("#indirizzoazienda"+numberId).val().trim();
+    azienda.telefonoazienda = ''+$("#telefonoazienda"+numberId).val().trim();
+    azienda.email = ''+$("#email"+numberId).val().trim();
+    azienda.sitoweb = ''+$("#sitoweb"+numberId).val().trim();
+    azienda.nomeresponsabile = ''+$("#nomeresponsabile"+numberId).val().trim();
+    azienda.cognomeresponsabile = ''+$("#cognomeresponsabile"+numberId).val().trim();
+    azienda.telefonoresponsabile = ''+$("#telefonoresponsabile"+numberId).val().trim();
+    azienda.emailresponsabile = ''+$("#emailresponsabile"+numberId).val().trim();
     
     String.prototype.isEmpty = function() {
         return (this.length === 0 || !this.trim());
@@ -339,8 +347,8 @@ function deleteAzienda(idAzienda, progressiv)
         type : 'POST',
         url : 'ajaxOpsPerAzienda/ajaxElimina.php',
         data : 
-        {
-            'idazienda' : idAzienda, 
+                {
+                    'idazienda' : idAzienda, 
             'deleteRegistro' : $("#deleteRegistro").prop("checked"),
             'deleteNote' : $("#deleteNote").prop("checked"),
             'deleteValutazioneStudente' : $("#deleteValutazioneStudente").prop("checked"),

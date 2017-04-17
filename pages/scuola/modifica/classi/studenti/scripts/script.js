@@ -29,28 +29,34 @@ function openEdit(id, idStudente, classe, anno)
     
     $("#modifica"+numberId).prop("disabled",true);
     $("#registro"+numberId).prop("disabled",true);
-    $('#'+id).append("<div id=\"HiddenBox"+numberId+"\">\n\
-<div class=\"row\">\n\
- <div class=\"col col-sm-12\">\n\
- <div class=\"row\"> \n\
-<div class=\"col col-sm-6\"> \n\
-                <div ><label  class='custlabel' id=\"userlabel"+numberId+"\">username</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\"></div>\n\
-                <div ><label  class='custlabel'> nome </label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"></div> \n\
-                <div ><label  class='custlabel'>cognome </label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\"></div>\n\
-\n\</div>\n\
-<div class=\"col col-sm-6\">\n\
-\n\<div><label  class='custlabel'>password</label> <input style=\"\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                <div ><label  class='custlabel'>e-mail</label> <input placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\"></div> \n\
-                <div ><label  class='custlabel'>telefono</label> <input placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\"></div>\n\
-                <div ><label  class='custlabel'>citta</label> <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\"></div>\n\
-                <div > <br>  \n\
-                    <form method=\"POST\" action=\"dettagliostage/index.php\">\n\
-                        <div align=\"center\"><input type=\"submit\" class=\"btn btn-info\" value=\"Vai al dettaglio delle esperienze\" /></div> \n\
-                        <input type=\"hidden\" value=\""+idStudente+"\" name=\"studente\">\n\
-                        <input type=\"hidden\" value=\""+classe+"\" name=\"classe\">\n\
-                        <input type=\"hidden\" value=\""+anno+"\" name=\"anno_scolastico\">\n\
-                    </form>\n\
-                </div>");
+    $('#'+id).append("\
+    <div id=\"HiddenBox"+numberId+"\">\n\
+        <div class=\"row\">\n\
+            <div class=\"col col-sm-12\">\n\
+                <div class=\"row\"> \n\
+                    <div class=\"col col-sm-6\"> \n\
+                        <label class='custlabel' id=\"userlabel"+numberId+"\">username*</label> <input placeholder=\"Username\" class=\"form-control\" type=\"text\" id=\"username"+numberId+"\">\n\
+                        <label class='custlabel'>nome*</label><input placeholder=\"Nome\" class=\"form-control\" type=\"text\" id=\"nome"+numberId+"\"> \n\
+                        <label class='custlabel'>cognome*</label><input placeholder=\"Cognome\" class=\"form-control\" type=\"text\" id=\"cognome"+numberId+"\">\n\
+                    </div>\n\
+                    <div class=\"col col-sm-6\" style=\"margin-top:5px\">\n\
+                        password <input style=\"margin-bottom:5px\" placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                        e-mail <input style=\"margin-bottom:5px\" placeholder=\"E-Mail\" class=\"form-control\" type=\"text\" id=\"email"+numberId+"\">\n\
+                        telefono <input style=\"margin-bottom:5px\" placeholder=\"Telefono\" class=\"form-control\" type=\"number\" id=\"telefono"+numberId+"\">\n\
+                        città <input placeholder=\"Citta'\" class=\"form-control\" type=\"text\" id=\"citta"+numberId+"\">\n\
+                        <br>  \n\
+                            <form method=\"POST\" action=\"dettagliostage/index.php\">\n\
+                                <div align=\"center\"><input type=\"submit\" class=\"btn btn-info\" value=\"Vai al dettaglio delle esperienze\" /></div> \n\
+                                <input type=\"hidden\" value=\""+idStudente+"\" name=\"studente\">\n\
+                                <input type=\"hidden\" value=\""+classe+"\" name=\"classe\">\n\
+                                <input type=\"hidden\" value=\""+anno+"\" name=\"anno_scolastico\">\n\
+                            </form>\n\
+                    </div>\n\
+                </div>\n\
+                <br><p class='left'><b>* Campo obbligatorio</b></p>\n\
+            </div>\n\
+        </div>\n\
+    </div>");
     
     $("#HiddenBox"+numberId).hide();
     $("#HiddenBox"+numberId).append("<button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idStudente+","+numberId+", "+classe+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button> </div></div></div></div><br><br><br>");
@@ -112,6 +118,10 @@ function openEdit(id, idStudente, classe, anno)
         }
     });  
     
+    $("#username"+numberId).keypress(function (e){
+        if (e.which === 32) return false;
+    }); 
+    
     $("#username"+numberId).on("input", function (){
         $.ajax({
             type : 'POST',
@@ -122,12 +132,14 @@ function openEdit(id, idStudente, classe, anno)
                 if (msg === "trovato")
                 {                    
                     $("#userlabel"+numberId).css("color", "red");
-                    $("#userlabel"+numberId).html("username (esiste gia')");
+                    $("#userlabel"+numberId).html("username (esiste gia')*");
+                    $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", true);
                 }
                 else
                 {
                     $("#userlabel"+numberId).css("color", "#828282");
-                    $("#userlabel"+numberId).html("username");
+                    $("#userlabel"+numberId).html("username*");
+                    $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", false);
                 }
             }
         });
@@ -157,7 +169,7 @@ function sendData(idStudente, numberId, id_classe)
     
     studente.password = ($("#password"+numberId).val().isEmpty()) ? 'immutato' : $("#password"+numberId).val();
     
-    if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty() && !studente.citta.isEmpty() && !studente.mail.isEmpty())
+    if (!studente.username.isEmpty() && !studente.nome.isEmpty() && !studente.cognome.isEmpty())
     {
         
         $.ajax({
@@ -413,8 +425,8 @@ function deleteClass(id_classe, id_anno)
         type : 'POST',
         url : 'ajaxOpsPerStudente/ajaxRemoveClassAssociations.php',
         data : 
-        {
-            'classe' : id_classe,
+                {
+                    'classe' : id_classe,
             'anno' : id_anno
         },
         success : function (msg)
