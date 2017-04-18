@@ -20,7 +20,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js?0.44"></script>
+    <script src="scripts/scripts.js?1"></script>
         
     <input type="hidden" id="secureDelete" value="0">
         
