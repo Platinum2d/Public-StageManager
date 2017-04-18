@@ -83,8 +83,8 @@ function openAddInsegnante(progressiv, id_classe, id_anno)
                     <select style='margin-top:5px; text-align-last:center;' class='form-control' id='addInsegnanteSelect'></select>\n\
                 </td>\n\
                 <td align='center'> \n\
-                    <button onclick='assegna("+id_classe+", "+id_anno+")' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok'></span></button>\n\
-                    <button onclick='closeAddInsegnante()' class='btn btn-danger btn-sm margin buttonfix'><span class='glyphicon glyphicon-remove'></span></button>\n\
+                    <button onclick='assegna("+id_classe+", "+id_anno+")' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok spanfix'></span></button>\n\
+                    <button onclick='closeAddInsegnante()' class='btn btn-danger btn-sm margin buttonfix'><span class='glyphicon glyphicon-remove spanfix'></span></button>\n\
                 </td>\n\
             </tr>");
         

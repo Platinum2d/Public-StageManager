@@ -74,13 +74,13 @@
                                     </tr>
                                 </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                <span class="glyphicon glyphicon-edit spanfix"></span>
                             </button>
                             <button id="saveButton" class="btn btn-success btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok spanfix"></span>
                             </button>
                             <button id="cancelButton" class="btn btn-danger btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove spanfix"></span>
                             </button>
                         </div>
                     </div>

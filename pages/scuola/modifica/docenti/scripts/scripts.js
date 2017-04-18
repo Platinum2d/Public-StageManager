@@ -40,8 +40,8 @@ function openEdit (id, iddocente)
                         <div class=\"form-group\"><label id=\"doctut\"> Docente Tutor </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentetutor"+numberId+"\"></div>\n\
                     </div>\n\
                 </div>\n\
-            <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
-            <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+iddocente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
+            <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove spanfix\"> </span> </button> \n\
+            <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+iddocente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok spanfix\"> </span> </button>\n\
         <br><p class='left'><b>* Campo obbligatorio</b></p>\n\
         </div>\n\
     </div>");
