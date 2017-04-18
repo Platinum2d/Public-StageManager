@@ -3,7 +3,7 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci aziende" );
     import("../../../../");
-    echo "<script src='scripts/script.js'></script>";
+    echo "<script src='scripts/script.js?1></script>";
 ?>
 <body>
  	<?php

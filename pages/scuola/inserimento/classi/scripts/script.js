@@ -27,7 +27,7 @@ function sendData()
     
     if (classe.nome.isEmpty())
     {
-        alert("Si prega di compilare i campi obbligatori");
+        printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
         return;
     }
     

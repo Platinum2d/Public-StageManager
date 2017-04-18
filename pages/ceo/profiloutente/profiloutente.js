@@ -79,10 +79,10 @@ $(document).ready(function()
                     if (msg === "ok") {
                         exitEdit();
                     }
-                    else {
-                    	alert (msg);
+                    else 
+                    {
                        printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento del profilo. Si prega di ritentare.<br>\n\
-                                                               Se il problema persiste, contattare un amministratore.</div>");
+                                                              Se il problema persiste, contattare un amministratore.</div>");
                     }
                 }
             });
@@ -123,7 +123,6 @@ $(document).ready(function()
     }
     
     $("#username").on("input", function () {
-        //alert($("#username").html().toString().trim().length);
         if ($("#username").text().toString().trim() === "")
         {
             $("#saveButton").prop("disabled", true);

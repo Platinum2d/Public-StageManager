@@ -61,7 +61,6 @@ $(document).ready(function(){
             cache: false,
             success : function (msg)
             {
-                alert(msg);
                 if (msg === "ok")
                     exitEdit();
                 else

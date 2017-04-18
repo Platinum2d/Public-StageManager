@@ -90,12 +90,8 @@ function openEdit (id, iddocente)
                     });
                 });
             });
-        },
-        error : function()
-        {
-            alert("errore")
         }
-    })
+    });
     $("#HiddenBox"+numberId).fadeIn("slow");
     $("#ButtonBox"+numberId).animate({
         height : $("#ButtonBox"+numberId).height() + $("#HiddenBox"+numberId).height()

@@ -40,7 +40,6 @@ $(document).ready (function () {
 		        		});
 		        	}
 	        		else {
-	        			alert(xml);
 	        			printError ("Errore", "Errore nella richiesta dei destinatari disponibili.");
 	        		}
 	        	},
@@ -48,7 +47,6 @@ $(document).ready (function () {
 	        		printError ("Errore", "Errore nella richiesta.");
 	        	},
 	        	complete : function () {
-
 	        		checkTheWhole ();
 	        	}
 	        });
@@ -129,7 +127,6 @@ function sendMail () {
 	        		printSuccess ("Invio riuscito", "Invio della email avvenuto con successo.");
 	        	}
 	    		else {
-	    			alert (msg);
 	    			printError ("Errore", "Errore nell'invio della email");
 	    		}
 	    	},

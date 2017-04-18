@@ -449,14 +449,14 @@ function sendSingleData(userType)
             
             if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty() || docente.telefono.isEmpty() || docente.email.isEmpty() || NoCheckBoxSelected)
             {
-                alert("Si prega di compilare i cambi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }
             else
             {
                 if (docente.password.trim() !== docente.confermaPassword.trim() || docente.password.length < 8)
                 {
-                    alert("errore nell'inserimento della password");
+                    printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
                     return;
                 }
                 
@@ -485,13 +485,13 @@ function sendSingleData(userType)
             azienda.nome = ''+$('#NomeAzienda').val().trim();
             if (azienda.username.isEmpty() || azienda.password.isEmpty() || azienda.nome.isEmpty())
             {
-                alert("Si prega di compilare i cambi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }
             
             if (azienda.password.trim() !== azienda.confermaPassword.trim() || azienda.password.length < 8)
             {
-                alert("errore nell'inserimento della password");
+                printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
                 return;
             }
 
@@ -553,12 +553,12 @@ function sendSingleData(userType)
             
             if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.citta.isEmpty() || studente.mail.isEmpty() || studente.telefono.isEmpty() || studente.classe.isEmpty() || studente.scuola.isEmpty())
             {
-                alert("Si prega di compilare i cambi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }
             if(!studente.password || studente.password !== studente.confermaPassword || studente.password < 8)
             {
-                alert("errore nell'inserimento della password");
+                printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
                 return;
             }
             
@@ -585,7 +585,7 @@ function sendSingleData(userType)
             
             if (classe.nome.isEmpty())
             {
-                alert("Si prega di compilare i campi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }
             
@@ -642,12 +642,12 @@ function sendSingleData(userType)
             
             if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty() || tutor.telefono.isEmpty() || tutor.email.isEmpty())
             {
-                alert("si prega di inserire i campi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }            
             if (tutor.password !== tutor.confermaPassword || tutor.password.isEmpty() || tutor.password < 8)
             {
-                alert("errore nell'inserimento della password");
+                printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
                 return;
             }
             
@@ -673,7 +673,7 @@ function sendSingleData(userType)
             preferenza.nome = $("#nomepreferenza").val();
             if (preferenza.nome.isEmpty())
             {
-                alert("si prega di compilare i campi obbligatori");
+                printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
                 return;
             }
             else
@@ -685,7 +685,6 @@ function sendSingleData(userType)
                     data: preferenza,
                     success : function (msg)
                     {
-                        alert (msg);
                         if (msg === "invio dei dati riuscito!")
                             freeFieldsFor('preferenza');
                     }
@@ -747,8 +746,7 @@ function sendSingleData(userType)
                 success : function (msg){
                     if (msg === "ok")
                         freeFieldsFor ("figuraprofessionale");
-                    else
-                        alert(msg);
+                    else printError("Errore", "<div align='center'>Errore in fase di aggiornamento</div>");
                 }
             });
             break;

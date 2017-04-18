@@ -23,7 +23,7 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js?2"></script>
+    <script src="scripts/scripts.js?1"></script>
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">

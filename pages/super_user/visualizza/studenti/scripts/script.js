@@ -173,10 +173,6 @@ function sendData(idStudente, numberId)
                 var query = $(xml).find("query").text();
                 $("#label"+numberId).html(studente.cognome + " " + studente.nome + " ("+studente.username+")");
                 resetColors(numberId);
-            },
-            error : function ()
-            {
-                alert("errore")
             }
         })
     }

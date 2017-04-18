@@ -128,7 +128,6 @@ function sendMail () {
 	        		printSuccess ("Invio riuscito", "Invio della email avvenuto con successo.");
 	        	}
 	    		else {
-	    			alert (msg);
 	    			printError ("Errore", "Errore nell'invio della email");
 	    		}
 	    	},

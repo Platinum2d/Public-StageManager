@@ -94,7 +94,6 @@ function openAddInsegnante(progressiv, id_classe, id_anno)
             cache : false,
             success : function (xml)
             {
-                //alert(xml);
                 $(xml).find("docenti").find("docente").each(function (){
                     var id_docente = $(this).find("id").text();
                     var nome = $(this).find("nome").text();

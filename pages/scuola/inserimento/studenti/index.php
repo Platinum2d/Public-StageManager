@@ -3,7 +3,7 @@
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci studenti" );
     import("../../../../");
-    echo "<script src='scripts/script.js?1'></script>";    
+    echo "<script src='scripts/script.js?2'></script>";    
 ?>
 <script>
     addSelectionsFor('anno_scolastico');
