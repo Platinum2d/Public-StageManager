@@ -40,8 +40,8 @@ function insertGrades ()
         {
             if (msg === "ok") {
                 printSuccess ("Inserimento riuscito", "Valutazione inserita con successo!");
-                $("input#SalvaValutazione").attr ("value", "Aggiorna valutazione");
-                $("input#SalvaValutazione").attr ("onclick", "updateGrades();");
+                $("button#SalvaValutazione").html("<span class='glyphicon glyphicon-education'></span> Aggiorna valutazione");
+                $("button#SalvaValutazione").attr ("onclick", "updateGrades();");
             }
             else {
             	printError ("Errore", "Problema non previsto.");

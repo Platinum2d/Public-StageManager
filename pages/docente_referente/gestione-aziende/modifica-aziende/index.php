@@ -57,7 +57,7 @@
 
                     <?php
                       
-                        $query = "SELECT * FROM azienda, utente WHERE tipo_utente = 4 AND id_utente = id_azienda ORDER BY username";
+                        $query = "SELECT * FROM azienda, utente WHERE tipo_utente = 4 AND id_utente = id_azienda ORDER BY azienda.nome_aziendale";
                         $result = $conn->query($query);
                         echo "<div class = \"row\"> <div class = \"col col-sm-12\">";
                         $I=0;

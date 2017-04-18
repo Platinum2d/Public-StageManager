@@ -220,6 +220,10 @@ hr.hr-padding {
     height: 30px;
 }
 
+.spanfix {
+    margin-top: 2px;
+}
+
 table.table-bordered > thead {
 	background: #eee;
 }

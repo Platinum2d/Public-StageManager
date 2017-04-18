@@ -165,8 +165,8 @@ $(document).ready(function (){
     		$(this).closest("tr").next(".azienda-row").remove ();
     		return;
     	}
-    	if ($(this).closest("tr").next(".docTut-row").length) {
-    		$(this).closest("tr").next(".docTut-row").remove ();
+    	if ($(this).closest("tr").next(".doctut-row").length) {
+    		$(this).closest("tr").next(".doctut-row").remove ();
     	}
     	var tr_click = $(this).parents("tr");
 	    var id_azienda = $(this).data("id");
@@ -201,6 +201,7 @@ $(document).ready(function (){
 	    	},
 	        success : function (xml) {
 	        	if ($(xml).find("status").text() == '1') {
+	        		alert (xml);
 	        		var select = aziendaContent.find ("select");
 	        		select.data ("last", id_azienda);
 	        		if (id_azienda == "-1") {

@@ -29,11 +29,11 @@ $(document).ready(function() {
 		});
     	regDate.find (".datepicker").datepicker("setDate", new Date(year,month,day));
     	regDate.data ("oldDate", date);
-    	regLavoro.append("<textarea maxlength=\"500\" class='newLavoro form-control'>" + lavoro + "</textarea>");
+    	regLavoro.append("<textarea maxlength=\"500\" rows=\"7\" class='newLavoro form-control'>" + lavoro + "</textarea>");
     	regLavoro.append("<textarea class='lavoroBackup' style='display: none;'>" + lavoro + "</textarea>");
-    	regInsegnamenti.append("<textarea maxlength=\"500\" class='newInsegnamenti form-control'>" + insegnamenti + "</textarea>");
+    	regInsegnamenti.append("<textarea maxlength=\"500\" rows=\"7\" class='newInsegnamenti form-control'>" + insegnamenti + "</textarea>");
     	regInsegnamenti.append("<textarea class='insegnamentiBackup' style='display: none;'>" + insegnamenti + "</textarea>");
-    	regCommento.append("<textarea maxlength=\"500\" class='newCommento form-control'>" + commento + "</textarea>");
+    	regCommento.append("<textarea maxlength=\"500\" rows=\"7\" placeholder='Facoltativo' class='newCommento form-control'>" + commento + "</textarea>");
     	regCommento.append("<textarea class='commentoBackup' style='display: none;'>" + commento + "</textarea>");
     	regtr.find("td.regOpt").empty();
     	regtr.find("td.regOpt").append('<button class="descSave btn btn-success buttonfix btn-sm margin"><span class="glyphicon glyphicon-save"></span></button> <button class="descDiscard btn btn-danger buttonfix btn-sm margin"><span class="glyphicon glyphicon-remove"></span></button>');
@@ -80,7 +80,7 @@ $(document).ready(function() {
     		dataType: "xml", //Tipologia di dati restituiti
     		data: data, //Dati inviati
     		
-    		error: function(){ //in caso di errore attende 2 secondi
+    		error: function (request, error) { //riprovo dopo due secondi
     			setTimeout(DescInit,2000)
     		},
 

@@ -334,7 +334,7 @@ HTML;
         echo "<link href='".$goBack."lib/custom/css/styles.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.js'></script>";
         echo "<link href='".$goBack."lib/jquery-ui-1.11.4/jquery-ui.min.css' type'text/css' rel='stylesheet'>";
-        echo "<link href='".$goBack."lib/custom/css/custom.css?0.1' rel='stylesheet'>";
+        echo "<link href='".$goBack."lib/custom/css/custom.css?0.11' rel='stylesheet'>";
         echo "<link href='".$goBack."lib/badger/badger.css' rel='stylesheet'>";
         echo "<script src='".$goBack."lib/custom/js/scripts.js'></script>";
         echo "<script src='".$goBack."lib/badger/badger.js'></script>";
@@ -430,7 +430,7 @@ HTML;
         echo <<<HTML
     			        				</a>
     	        						<p class="levi-text">
-    	        							<i>Con il patrocinio dell'istituto Primo Levi di Vignola.</i>
+    	        							<i>Con il patrocinio dell'Istituto Primo Levi di Vignola.</i>
     	        						</p>
     	                            </div>
     		            			<div id="footer-contact" class="col col-sm-4 col-sm-offset-2">
