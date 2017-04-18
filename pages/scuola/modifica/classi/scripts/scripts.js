@@ -66,10 +66,10 @@ function openEdit(id, idClasse)
                                         </div>\n\
                                     </div>\n\
                                     <button id=\"confirm"+numberId+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"sendData("+numberId+", "+idClasse+")\">\n\
-                                        <span class=\"glyphicon glyphicon-ok\"></span>\n\
+                                        <span class=\"glyphicon glyphicon-ok spanfix\"></span>\n\
                                     </button>\n\
                                     <button id=\"closedit"+numberId+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\">\n\
-                                        <span class=\"glyphicon glyphicon-remove\"></span>\n\
+                                        <span class=\"glyphicon glyphicon-remove spanfix\"></span>\n\
                                     </button>\n\
                                 </div>\n\
                             </div>\n\
