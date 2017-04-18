@@ -29,21 +29,20 @@ function openEdit (id, iddocente)
         <div class=\"col col-sm-12\">\n\
             <div class=\"row\">\n\
                 <div class=\"col col-sm-6\">\n\
-                    <form class=\"form-vertical\">\n\
-                        <div class=\"form-group\"><label id=\"userlabel"+numberId+"\">Username</label><input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">Telefono <input placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\"></div>\n\
-                        <div class=\"form-group\">E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\"></div>\n\
+                        <label class='custlabel' id=\"userlabel"+numberId+"\">Username*</label><input style='margin-bottom:5px' placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                        Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                        <label class='custlabel' id=\"nomelabel"+numberId+"\">Nome*</label><input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\">\n\
+                        <label class='custlabel' id=\"cognomelabel"+numberId+"\">Cognome*</label><input style='margin-bottom:5px' placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\">\n\
+                        Telefono <input style='margin-bottom:5px' placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\">\n\
+                        E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\">\n\
                         </div>\n\
                         <div class=\"col col-sm-6\"><div class=\"form-group\"><label id=\"docref\"> Docente Referente </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentereferente"+numberId+"\"></div>\n\
                         <div class=\"form-group\"><label id=\"doctut\"> Docente Tutor </label> <input type=\"checkbox\" class=\"form-control\" id=\"docentetutor"+numberId+"\"></div>\n\
-                    </form>\n\
                     </div>\n\
                 </div>\n\
             <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
             <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+iddocente+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
+        <br><p class='left'><b>* Campo obbligatorio</b></p>\n\
         </div>\n\
     </div>");
     $("#modifica"+numberId).prop('disabled',true);
@@ -65,6 +64,9 @@ function openEdit (id, iddocente)
                 $("#email"+numberId).val($(this).find("email").text());     
                 if ($(this).find("tipo_utente").text() === "3") $("#docentetutor"+numberId).attr('checked',true);
                 if ($(this).find("tipo_utente").text() === "2") $("#docentereferente"+numberId).attr('checked',true);
+                $("#username"+numberId).keypress(function (e){
+                    if (e.which === 32) return false;
+                }); 
                 $("#username"+numberId).on("input", function (){
                     $.ajax({
                         type : 'POST',
@@ -76,11 +78,13 @@ function openEdit (id, iddocente)
                             {                    
                                 $("#userlabel"+numberId).css("color", "red");
                                 $("#userlabel"+numberId).html("username (esiste gia')");
+                                $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", true);
                             }
                             else
                             {
                                 $("#userlabel"+numberId).css("color", "#828282");
                                 $("#userlabel"+numberId).html("username");
+                                $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", false);
                             }
                         }
                     });
@@ -113,12 +117,12 @@ function sendData(iddocente, numberId)
         return (this.length === 0 || !this.trim());
     };
     docente.id = iddocente;
-    docente.password = ($("#password"+numberId).val().isEmpty()) ? "immutato" : $("#password"+numberId).val();
-    docente.username = $("#username"+numberId).val();
-    docente.cognome = $("#cognome"+numberId).val();
-    docente.nome = $("#nome"+numberId).val();
-    docente.telefono = $("#telefono"+numberId).val();
-    docente.email = $("#email"+numberId).val();
+    docente.password = ($("#password"+numberId).val().isEmpty()) ? "immutato" : $("#password"+numberId).val().trim();
+    docente.username = $("#username"+numberId).val().trim();
+    docente.cognome = $("#cognome"+numberId).val().trim();
+    docente.nome = $("#nome"+numberId).val().trim();
+    docente.telefono = $("#telefono"+numberId).val().trim();
+    docente.email = $("#email"+numberId).val().trim();
     docente.tipo_utente = ($("#docentereferente"+numberId).prop('checked') === true) ? "2" : "3";
     
     $.ajax({

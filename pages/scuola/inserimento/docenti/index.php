@@ -59,8 +59,8 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordDocente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="NomeDocente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="CognomeDocente"> </div>
-                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
-                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
+                                Telefono <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
+                                E-mail <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
                                 <br>
                                 * Campo Obbligatorio
                                 <br>

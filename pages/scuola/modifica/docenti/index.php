@@ -14,12 +14,16 @@
         .minw{
             width: 65%;
         }
+        .custlabel{
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
     </style>    
     <?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/scripts.js"></script>
+    <script src="scripts/scripts.js?2"></script>
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">

@@ -430,7 +430,7 @@ HTML;
         echo <<<HTML
     			        				</a>
     	        						<p class="levi-text">
-    	        							<i>Con il patrocinio dell'istituto Primo Levi di Vignola.</i>
+    	        							<i>Con il patrocinio dell'Istituto Primo Levi di Vignola.</i>
     	        						</p>
     	                            </div>
     		            			<div id="footer-contact" class="col col-sm-4 col-sm-offset-2">
@@ -632,6 +632,5 @@ HTML;
     
     function xmlEscape($string) {
     	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $string);
-    }
-    
-    ?>
+    }    
+?>

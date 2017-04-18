@@ -67,9 +67,9 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input class="form-control" type="password" id="confermaPasswordStudente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeStudente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeStudente"> </div>
-                                <b>Città</b> <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
-                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
-                                <b>Telefono</b> <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
+                                Città <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
+                                E-mail <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
+                                Telefono <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
