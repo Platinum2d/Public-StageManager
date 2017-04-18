@@ -3,7 +3,7 @@
     checkLogin(scuolaType, "../../../../../../");
     open_html("Dettaglio esperienze");
     import("../../../../../../");    
-    echo "<script src=\"scripts.js?2\"> </script>";
+    echo "<script src=\"scripts.js?1\"> </script>";
     
     $connessione = dbConnection("../../../../../../");
     $idstudente = $_POST['studente'];
