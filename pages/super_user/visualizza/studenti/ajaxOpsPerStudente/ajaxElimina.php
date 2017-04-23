@@ -1,6 +1,6 @@
 <?php
     include '../../../../functions.php';
-    $conn = dbConnection("../../../../../");
+    $conn = dbConnection("../../../../../"); //
     $id = intval ($_POST['id']);    
     $classe = $_POST['classe'];
     $anno = $_POST['anno'];

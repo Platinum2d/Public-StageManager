@@ -1,6 +1,6 @@
 <?php
 
-    include "../../../../../functions.php";
+    include "../../../../../functions.php"; //
     $conn = dbConnection("../../../../../../");
     
     $id_drhshs = $_POST['drhshs'];
