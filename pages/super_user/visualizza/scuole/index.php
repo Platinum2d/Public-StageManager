@@ -11,7 +11,7 @@
         titleImg ("../../../../");
     ?>
         
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js?3"></script>
         
     <div class="container">
         <div class="row">

@@ -35,14 +35,18 @@ function openEdit(numberId, id_scuola)
                                         <span id=\"userlabel"+numberId+"\">Username</span><input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\" value='"+username+"'>\n\
                                         Nome <input class=\"form-control\" id=\"nome"+numberId+"\" value=\""+nome+"\"\">\n\
                                         Città <input class=\"form-control\" id=\"citta"+numberId+"\" value=\""+citta+"\"\">\n\
-                                        CAP <input class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
+                                        CAP <input type=\"number\" min='00000' class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
                                         Indirizzo <input class=\"form-control\" id=\"indirizzo"+numberId+"\" value=\""+indirizzo+"\"\">\n\
                                     </div>\n\
                                     <div class=\"col col-sm-6\">\n\
                                         Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
                                         Telefono <input class=\"form-control\" id=\"telefono"+numberId+"\" value=\""+telefono+"\"\">\n\
                                         E-Mail <input class=\"form-control\" id=\"email"+numberId+"\" value=\""+email+"\"\">\n\
-                                        Sito Web <input class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\"><br>\n\
+                                        Sito Web <input class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\">\n\
+                                        Nome Responsabile <input class=\"form-control\" id=\"nomeResponsabile"+numberId+"\" value=\""+sitoweb+"\"\">\n\
+                                        Cognome Responsabile <input class=\"form-control\" id=\"cognomeResponsabile"+numberId+"\" value=\""+sitoweb+"\"\">\n\
+                                        Telefono Responsabile <input class=\"form-control\" id=\"telefonoResponsabile"+numberId+"\" value=\""+sitoweb+"\"\">\n\
+                                        Email Responsabile <input class=\"form-control\" id=\"mailResponsabile"+numberId+"\" value=\""+sitoweb+"\"\"><br>\n\
                                         <button id=\"save"+numberId+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"sendData("+numberId+", "+id_scuola+")\"><span class=\"glyphicon glyphicon-ok\"></span></button>\n\
                                         <button id=\"cancel"+numberId+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"><span class=\"glyphicon glyphicon-remove\"></span></button>\n\
                                     </div>\n\
@@ -69,6 +73,10 @@ function setOnChangeEvents(numberId)
     $("#telefono"+numberId).on ('input', function (e){ $(this).css('color','red'); });
     $("#email"+numberId).on ('input', function (e){ $(this).css('color','red'); });
     $("#sitoweb"+numberId).on ('input', function (e){ $(this).css('color','red'); });
+    $("#nomeResponsabile"+numberId).on ('input', function (e){ $(this).css('color','red'); });
+    $("#cognomeResponsabile"+numberId).on ('input', function (e){ $(this).css('color','red'); });
+    $("#telefonoResponsabile"+numberId).on ('input', function (e){ $(this).css('color','red'); });
+    $("#mailResponsabile"+numberId).on ('input', function (e){ $(this).css('color','red'); });
 }
 
 function resetColors(numberId)
@@ -82,6 +90,10 @@ function resetColors(numberId)
     $("#telefono"+numberId).css('color','#555');
     $("#email"+numberId).css('color','#555');
     $("#sitoweb"+numberId).css('color','#555');
+    $("#nomeResponsabile"+numberId).css('color','#555');
+    $("#cognomeResponsabile"+numberId).css('color','#555');
+    $("#telefonoResponsabile"+numberId).css('color','#555');
+    $("#mailResponsabile"+numberId).css('color','#555');
 }
 
 function sendData(numberId, id_scuola)
@@ -100,9 +112,13 @@ function sendData(numberId, id_scuola)
         'indirizzo' : $("#indirizzo"+numberId).val(),
         'telefono' : $("#telefono"+numberId).val(),
         'email' : $("#email"+numberId).val(),
-        'sitoweb' : $("#sitoweb"+numberId).val()
+        'sitoweb' : $("#sitoweb"+numberId).val(),
+        'nomeresp' : $("#nomeResponsabile"+numberId).val(),
+        'cognomeresp' : $("#cognomeResponsabile"+numberId).val(),
+        'telefonoresp' : $("#telefonoResponsabile"+numberId).val(),
+        'mailresp' : $("#mailResponsabile"+numberId).val()
     };
-    
+        
     tosend.password = ($("#password"+numberId).val().isEmpty()) ? "immutato" : $("#password"+numberId).val();
     
     $.ajax({
