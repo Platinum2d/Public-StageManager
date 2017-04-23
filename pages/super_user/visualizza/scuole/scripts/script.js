@@ -32,17 +32,21 @@ function openEdit(numberId, id_scuola)
                             <div class=\"col col-sm-12\">\n\
                                 <div class=\"row\">\n\
                                     <div class=\"col col-sm-6\">\n\
-                                        <span id=\"userlabel"+numberId+"\">Username</span><input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\" value='"+username+"'>\n\
-                                        Nome <input class=\"form-control\" id=\"nome"+numberId+"\" value=\""+nome+"\"\">\n\
-                                        Città <input class=\"form-control\" id=\"citta"+numberId+"\" value=\""+citta+"\"\">\n\
-                                        CAP <input class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
+                                        <label class='custlabel' id=\"userlabel"+numberId+"\">Username</label><input style='margin-bottom:5px' placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\" value='"+username+"'>\n\
+                                        Nome <input style='margin-bottom:5px' class=\"form-control\" id=\"nome"+numberId+"\" value=\""+nome+"\"\">\n\
+                                        Città <input style='margin-bottom:5px' class=\"form-control\" id=\"citta"+numberId+"\" value=\""+citta+"\"\">\n\
+                                        CAP <input style='margin-bottom:5px' class=\"form-control\" id=\"CAP"+numberId+"\" value=\""+CAP+"\"\">\n\
                                         Indirizzo <input class=\"form-control\" id=\"indirizzo"+numberId+"\" value=\""+indirizzo+"\"\">\n\
                                     </div>\n\
-                                    <div class=\"col col-sm-6\">\n\
-                                        Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                                        Telefono <input class=\"form-control\" id=\"telefono"+numberId+"\" value=\""+telefono+"\"\">\n\
-                                        E-Mail <input class=\"form-control\" id=\"email"+numberId+"\" value=\""+email+"\"\">\n\
-                                        Sito Web <input class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\"><br>\n\
+                                    <div style='margin-top:5px' class=\"col col-sm-6\">\n\
+                                        Password <input style='margin-bottom:5px' placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                                        Telefono <input style='margin-bottom:5px' class=\"form-control\" id=\"telefono"+numberId+"\" value=\""+telefono+"\"\">\n\
+                                        E-Mail <input style='margin-bottom:5px' class=\"form-control\" id=\"email"+numberId+"\" value=\""+email+"\"\">\n\
+                                        Sito Web <input style='margin-bottom:5px' class=\"form-control\" id=\"sitoweb"+numberId+"\" value=\""+sitoweb+"\"\">\n\
+                                        Nome responsabile <input style='margin-bottom:5px' class=\"form-control\" id=\"nomeResponsabile"+numberId+"\">\n\
+                                        Cognome responsabile <input style='margin-bottom:5px' class=\"form-control\" id=\"cognomeResponsabile"+numberId+"\">\n\
+                                        Telefono responsabile <input style='margin-bottom:5px' class=\"form-control\" id=\"telefonoResponsabile"+numberId+"\">\n\
+                                        Email responsabile <input style='margin-bottom:5px' class=\"form-control\" id=\"mailResponsabile"+numberId+"\"><br>\n\
                                         <button id=\"save"+numberId+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"sendData("+numberId+", "+id_scuola+")\"><span class=\"glyphicon glyphicon-ok\"></span></button>\n\
                                         <button id=\"cancel"+numberId+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"><span class=\"glyphicon glyphicon-remove\"></span></button>\n\
                                     </div>\n\

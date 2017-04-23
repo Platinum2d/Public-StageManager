@@ -1,5 +1,5 @@
 <?php
-    include '../../../../../functions.php';
+    include '../../../../../functions.php'; //
     $connection = dbConnection("../../../../../../");
     
     $azienda = (!isset($_POST['azienda']) || empty($_POST['azienda']) || $_POST['azienda'] === "-1") ? "NULL" : $_POST['azienda'];
