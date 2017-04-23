@@ -25,6 +25,10 @@ $xml = new SimpleXMLElement ( $xmlstr );
         $scuola->addChild("telefono", $row['telefono']);
         $scuola->addChild("email", $row['email']);
         $scuola->addChild("sito_web", $row['sito_web']);
+        $scuola->addChild("nome_resp", $row['nome_responsabile']);
+        $scuola->addChild("cognome_resp", $row['cognome_responsabile']);
+        $scuola->addChild("telefono_resp", $row['telefono_responsabile']);
+        $scuola->addChild("email_resp", $row['email_responsabile']);
     }
     
     echo $xml->asXML(); 

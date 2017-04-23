@@ -31,8 +31,8 @@ $(document).ready(function (){
                         <td><input class=\"singlecheck\" type=\"checkbox\"></td>\n\
                         <td style=\"width: 33%\"> <div id=\"VisibleBox"+I+"\"> "+$(this).find("nome").text()+" </div> </td>\n\
                         <td style=\"width : 33%\"> <div align=\"center\" id=\"ButtonBox"+I+"\"> \n\
-                            <input type=\"button\" class=\"btn btn-success\" value=\"Modifica\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\">\n\
-                            <input type=\"button\" class=\"btn btn-danger\" value=\"Elimina\" id=\"elimina"+I+"\"> </div> </td>\n\
+                            <button class=\"btn btn-success\" value=\"\" id=\"modifica"+I+"\" onclick=\"openEdit('VisibleBox"+I+"', "+$(this).find("id").text()+")\"><span class='glyphicon glyphicon-edit'></span> Modifica</button>\n\
+                            </div> </td>\n\
                         <td style=\"width : 33%\"> \n\
                             <form style=\"height:0px\" action=\"\" method=\"POST\"> \n\
                                     <input type=\"hidden\" value=\""+$(this).find("id").text()+"\" name=\"id_classe\"> \n\
