@@ -1,25 +1,23 @@
-    <?php
+<?php
     $xmlstr = "<?xml version=\"1.0\" encoding=\"utf-8\" ?> <data></data>";
     include '../../../../functions.php';
     $xml = new SimpleXMLElement ( $xmlstr ); 
 
     $connessione = dbConnection("../../../../../");
     $id = $_POST['id'];
-    $username = $connessione->escape_string($_POST['username']);
+    $username = $connessione->escape_string(strip_whitespaces($_POST['username']));
     $password = $_POST['password'];
     $nome = $connessione->escape_string($_POST['nome']);
     $cognome = $connessione->escape_string($_POST['cognome']);
     
     $citta = $connessione->escape_string($_POST['citta']);
-    $citta = (isset($citta) && !empty($citta)) ? "'".$citta."'" : 'NULL';
+    $citta = (isset($citta) && !empty($citta)) ? "'$citta'" : "NULL";
     
     $mail = $connessione->escape_string($_POST['mail']);
-    $mail = (isset($mail) && !empty($mail)) ? "'".$mail."'" : 'NULL';
+    $mail = (isset($mail) && !empty($mail)) ? "'$mail'" : "NULL";
     
     $telefono = $connessione->escape_string($_POST['telefono']);
-    $telefono = (isset($telefono) && !empty($telefono)) ? "'".$telefono."'" : 'NULL';
-
-    $idclasse = $_POST['classe'];
+    $telefono = (isset($telefono) && !empty($telefono)) ? "'$telefono'" : "NULL";
 
     $userquery = "UPDATE utente SET username = '$username' ";
     if ($password !== "immutato") $userquery .= ", `password` = '".md5($password)."' ";
@@ -33,7 +31,7 @@
         $xml->addChild('user',$username);
         $xml->addChild('nome',$nome);
         $xml->addChild('cognome',$cognome);
-        $xml->addChild('query',$Query);
+        $xml->addChild('query',$userquery);
         echo $xml->asXML();
     }
     else
