@@ -3,7 +3,7 @@
     checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci aziende" );
     import("../../../../");
-    echo "<script src='scripts/script.js?1></script>";
+    echo "<script src='scripts/script.js'></script>";
 ?>
 <body>
  	<?php
@@ -18,11 +18,7 @@
         $(document).ready(function (){
             $(".buttonText").html("        Sfoglia");
             $(".icon-span-filestyle").remove();
-            
-            $("#UsernameAzienda").keypress(function (e){
-                if (e.which === 32) return false;
-            });
-        }); 
+        });        
         
         var check = setInterval(function(){
             if ($("#UsernameAzienda").val().isEmpty() || $("#PasswordAzienda").val().isEmpty() || $("#ConfermaPasswordAzienda").val().isEmpty() || $("#NomeAzienda").val().isEmpty()
@@ -71,7 +67,7 @@
                                 <br>
                                 <br>
                                 <br>
-                                    
+                                
                                 * Campo Obbligatorio<br>
                                 <input type="button" style="margin-top : 5px" class="btn btn-primary" value="Invia" onclick="sendSingleData('azienda');">                             
                                     
@@ -159,9 +155,8 @@
                 }
             });
         });
-        
-        function checkPasswordAzienda()
-        {
+                                
+        var checkpw = setInterval(function (){
             if ($("#PasswordAzienda").val() !== $("#ConfermaPasswordAzienda").val() || $("#PasswordAzienda").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -184,10 +179,7 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");       
             }
-        }
-        
-        $("#PasswordAzienda").on("input", checkPasswordAzienda);
-        $("#ConfermaPasswordAzienda").on("input", checkPasswordAzienda);
+        }, 1);
     </script>
 </body>
 <?php
