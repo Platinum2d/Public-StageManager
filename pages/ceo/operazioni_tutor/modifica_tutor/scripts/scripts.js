@@ -74,10 +74,6 @@ function openEdit (id, idTutor)
                     });
                 });
             });
-        },
-        error : function()
-        {
-            alert("errore")
         }
     });
     $("#HiddenBox"+numberId).fadeIn("slow");

@@ -2,7 +2,7 @@
     include '../../../functions.php';
     checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci scuole" );
-    echo "<script src='../js/scripts.js'></script>";
+    echo "<script src='../js/scripts.js?1'></script>";
     import("../../../../");
 ?>
     

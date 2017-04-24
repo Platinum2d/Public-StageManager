@@ -2,7 +2,7 @@
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci docenti" );
-    echo "<script src='scripts/script.js'></script>";
+    echo "<script src='scripts/script.js?1'></script>";
     import("../../../../");
     $conn = dbConnection("../../../../");
         

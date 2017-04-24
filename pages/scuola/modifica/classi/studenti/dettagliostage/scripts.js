@@ -24,10 +24,10 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
                               <label><input id=\"editinfoautorizzazione"+progressiv+"\" type=\"checkbox\">Autorizzazione alla compilazione del registro</label>\n\
                             </div>\n\
                             <button id=\"confirm"+progressiv+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"\">\n\
-                                <span class=\"glyphicon glyphicon-ok\"></span>\n\
+                                <span class=\"glyphicon glyphicon-ok spanfix\"></span>\n\
                             </button>\n\
                             <button id=\"closedit"+progressiv+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+progressiv+")\">\n\
-                                <span class=\"glyphicon glyphicon-remove\"></span>\n\
+                                <span class=\"glyphicon glyphicon-remove spanfix\"></span>\n\
                             </button>\n\
                         </div> \n\
                     </div> \n\

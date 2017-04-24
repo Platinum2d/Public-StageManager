@@ -218,7 +218,7 @@ function insertActivity(progressiv)
 	    if (!lavorodainserire.data.isEmpty() && !lavorodainserire.lavoroSvolto.isEmpty() && !lavorodainserire.insegnamenti.isEmpty())
 	    {
 	    	var new_date = lavorodainserire.data.split ("-");
-	    	var new_db_date = "" + n_date[2] + "-" + new_date[1] + "-" + new_date[0];
+	    	var new_db_date = "" + new_date[2] + "-" + new_date[1] + "-" + new_date[0];
 	    	new_date = new Date (new_date[2], parseInt (new_date[1]) - 1, new_date[0]);
 	    	if (new_date >= inizio_stage && new_date <=fine_stage) {
 	    		lavorodainserire.data = new_db_date;

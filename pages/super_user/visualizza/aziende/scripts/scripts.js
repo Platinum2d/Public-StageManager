@@ -140,7 +140,7 @@ function deleteMultiple(recordperpagina)
     }
     
     if (error)
-        alert("Sono insorti errori durante l'operazione richiesta");
+        printError("Errore", "<div align='center'>Errore in fase di aggiornamento</div>");
     
     if ($("#tableaziende").find("tbody").html().trim().isEmpty())
     {

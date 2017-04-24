@@ -6,6 +6,12 @@
     $conn = dbConnection("../../../../");
 ?>
 <body>
+    <style>
+        .custlabel{
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+    </style>
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
@@ -35,7 +41,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+                            
                         <div class="col col-sm-4"> 
                             Filtra righe<div align="right">
                                 <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
@@ -43,14 +49,14 @@
                         </div>
                     </div>    
                     <br>
-                    
+                        
                     <table id="annitable" class="table table-bordered">
                         <thead style="background : #eee; font-color : white">
                         <th style="text-align : center"> <input type="checkbox" id="checkall"> </th>
                         <th style="text-align : center"> Nome della scuola </th>
                         <th style="text-align : center; width: 35%"> Azioni </th>
                         </thead>
-                        
+                            
                         <tbody>
                             <?php
                                 $query = "SELECT id_scuola, nome FROM scuola ORDER BY nome";
@@ -76,7 +82,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../");
 ?>

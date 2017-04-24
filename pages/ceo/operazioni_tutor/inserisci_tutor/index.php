@@ -2,7 +2,7 @@
     include '../../../functions.php';
     checkLogin ( ceoType , "../../../../");
     open_html ( "Inserisci tutor" );
-    echo "<script src='scripts/script.js'></script>";
+    echo "<script src='scripts/script.js?1'></script>";
     import("../../../../");
 ?>
     
@@ -116,7 +116,6 @@
                     var checkpw = setInterval(function (){
                         if ($("#passwordTutor").val() !== $("#confermaPasswordTutor").val() || $("#passwordTutor").val().length < 8)
                         {
-                            //alert($("#passwordTutor").val() + " " + $("#confermaPasswordTutor").val());
                             $("#psw").html("Password (Minimo 8 caratteri)* troppo corta o non coincide");
                             $("#psw").css("color","red");
                             $("#passwordregulator").removeClass("has-warning");

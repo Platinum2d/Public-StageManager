@@ -140,7 +140,7 @@ function deleteMultiple(recordperpagina)
     }
     
     if (error)
-        alert("Sono insorti errori durante l'operazione richiesta");
+        printError("Errore", "<div align='center'>Sono insorti errori durante l'operazione richiesta</div>");
     
     if ($("#tableaziende").find("tbody").html().trim().isEmpty())
     {
@@ -176,9 +176,9 @@ function openEdit (id, idazienda)
     <div class=\"row\"> \n\
         <div class=\"col col-sm-12\"> \n\
             <div class=\"col col-sm-6\">\n\
-                <label class='custlabel' style='margin-top:0px' id=\"userlabel"+numberId+"\"> Username* </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                <label class='custlabel' style='margin-top:0px' id=\"userlabel"+numberId+"\"> Username </label><input type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
                 <label class='custlabel'>Password</label><input placeholder=\"Lasciare vuoto per nessuna modifica\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                <label class='custlabel'>Nome Azienda*</label> <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
+                <label class='custlabel'>Nome Azienda</label> <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"nomeazienda"+numberId+"\">\n\
                 Citta<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"cittaazienda"+numberId+"\"> \n\
                 CAP<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"capazienda"+numberId+"\">\n\
                 Indirizzo<input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"indirizzoazienda"+numberId+"\"> \n\
@@ -191,8 +191,8 @@ function openEdit (id, idazienda)
                 Cognome Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"cognomeresponsabile"+numberId+"\">\n\
                 Telefono Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"telefonoresponsabile"+numberId+"\">\n\
                 Email Responsabile <input style='margin-bottom:5px' type=\"text\" class=\"form-control\" id=\"emailresponsabile"+numberId+"\">\n\
-                    <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove\"> </span> </button> \n\
-                    <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok\"> </span> </button>\n\
+                    <button class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+numberId+")\"> <span class=\"glyphicon glyphicon-remove spanfix\"> </span> </button> \n\
+                    <button class=\"btn btn-success btn-sm rightAlignment margin buttonfix\"  onclick=\" sendData("+idazienda+","+numberId+")\"> <span class=\"glyphicon glyphicon-ok spanfix\"> </span> </button>\n\
             </div>\n\
             <p class='left'><b>* Campo obbligatorio</b></p>\n\
         </div>\n\
@@ -250,10 +250,6 @@ function openEdit (id, idazienda)
                     }
                 });                
             });
-        },
-        error : function()
-        {
-            alert("errore")
         }
     })
     $("#HiddenBox"+numberId).fadeIn("slow")

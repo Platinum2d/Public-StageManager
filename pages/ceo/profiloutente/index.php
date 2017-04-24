@@ -5,7 +5,7 @@
     open_html ( "Profilo" );
     import("../../../");
     $id_az = $_SESSION ['userId'];
-    echo "<script src='profiloutente.js?0.1'></script>";
+    echo "<script src='profiloutente.js?1'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile, username FROM azienda, utente WHERE id_azienda = id_utente AND id_azienda=$id_az";
     $result = $connessione->query ( $sql );
