@@ -13,14 +13,14 @@ XML;
     $conn = dbConnection("../../../");
 
     $table = $_POST['table'];
-    $column = $_POST['column']; //opzionale, se non viene passato vengono restituite le lunghezze di tutti i campi
+    $column = (isset($_POST['column']) && !empty($_POST['column'])) ? $_POST['column'] : null; //opzionale, se non viene passato vengono restituite le lunghezze di tutti i campi
     
     $query = "SELECT COLUMN_NAME, CHARACTER_MAXIMUM_LENGTH 
               FROM information_schema.columns
               WHERE TABLE_SCHEMA = '$dbname' AND 
               TABLE_NAME = '$table'";
     
-    if (isset($column) && !empty($column)) $query .= "AND COLUMN_NAME = '$column'";
+    if (null !== $column) $query .= "AND COLUMN_NAME = '$column'";
     
     $result = $conn->query($query);
     if (is_object($result) && $result->num_rows > 0)
