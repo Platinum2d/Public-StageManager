@@ -1,8 +1,8 @@
 <?php
     session_start ();
     
-    define ( "superUserType", 0 );
-    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente super_user
+    define ( "superUserType", 0 ); //contiene il valore corrispondente all'utente super_user
+    define ( "scuolaType", 1 ); //contiene il valore corrispondente all'utente scuola
     define ( "docrefType", 2 ); //contiene il valore corrispondente all'utente docente referente
     define ( "doctutType", 3 ); //contiene il valore corrispondente all'utente docente tutor
     define ( "ceoType", 4 ); //contiene il valore corrispondente all'utente ceo
@@ -13,11 +13,23 @@
     define ( "err_noPerm", 2 ); //contiene il valore relativo all'errore corrispondente all'utente che cerca di accedere ad una pagina per la quale non ha i permessi necessari (pagina per un altro utente)
     
     define ( "maximumProfileImageSize", 50000); //50 Mb, è la massima dimensione di un'immagine di profilo
+    define ( "offlineFileName", "offline.php"); //costante per sapere il nome del file di manutenzione in qualsiasi parte del programma, si sa mai che serva
     
     define ( "EMAIL_ALESSIO", "alessio.scheri@stagemanager.it" ); //Indirizzo email di Alessio
     define ( "EMAIL_DANIELE", "manicardi@stagemanager.it" ); //Indirizzo email di Daniele
     define ( "TELEFONO_ALESSIO", "+39 333 2810581" ); //Numero di telefono di Alessio
     define ( "TELEFONO_DANIELE", "+39 334 9056026" ); //Numero di telefono di Daniele
+    
+    function checkOnline($goBack)
+    {
+        require ($goBack . "sessione/stato-portale/status_config.php");
+        
+        if (!$status && !strstr($_SERVER['REQUEST_URI'], offlineFileName) && $_SESSION['type'] !== superUserType)
+        {
+            session_destroy();
+            header ( "Location: ".$goBack."sessione/stato-portale/offline.php" );
+        }
+    }
     
     function dbConnection($goBack) // connessione al database 'alternanza_scuola_lavoro' come utente root. ritorna un alert con il messaggi od ierrore se la connessione non è riuscita
     {
@@ -25,7 +37,8 @@
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
-    
+        checkOnline($goBack);
+        
         $connessione = new mysqli($dbhost,$dbuser,$dbpassword,$dbname);
     
         if ($connessione->connect_error)
@@ -281,11 +294,12 @@ HTML;
     }
     
     function topNavbar($goBack) {  // barra di navigazione che contiene sia la barra orizzontale che i bottoni
-//      printBadge($goBack);
         if (!file_exists($goBack."okuser.txt")) {
             header ( "Location: ".$goBack."install/index.php" );
         }
     
+        checkOnline($goBack);
+        
         echo "<div class='container'><div id='logo-row' class='row parent-max-height'><div class='col col-xs-4 col-sm-3'><a href='".$goBack."' title='Stage Manager'><img class='logo img-responsive' src='".$goBack."media/img/logo_stage_manager.png' alt='Stage Manager'></a></div>"; //menù giusto
         echo "<div id='title' class='col col-xs-8 col-sm-9 child-max-height'><h1>Stage Manager</h1></div></div></div>";
         echo <<<HTML
@@ -513,7 +527,7 @@ HTML;
                 </div>
 HTML;
     }
-    
+       
     function printMainModel(){
         echo <<<HTML
             <div id="SuperAlert" class="modal fade" role="dialog">
@@ -553,22 +567,22 @@ HTML;
                                 </form>
 HTML;
             ?>
-            <script>                                
-                $("#profileimage").fileinput({
-                    maxFileSize: <?php echo maximumProfileImageSize; ?>,
-                    showClose: true,
-                    showCaption: false,
-                    showBrowse: false,
-                    browseOnZoneClick: true,
-                    removeLabel: 'Cancella',
-                    uploadLabel: "Carica",
-                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-                    msgErrorClass: 'alert alert-block alert-danger',
-                    defaultPreviewContent: '<img src="../../../media/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
-                    allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
-                });
-            </script>
-    
+<script>                                
+    $("#profileimage").fileinput({
+        maxFileSize: <?php echo maximumProfileImageSize; ?>,
+        showClose: true,
+        showCaption: false,
+        showBrowse: false,
+        browseOnZoneClick: true,
+        removeLabel: 'Cancella',
+        uploadLabel: "Carica",
+        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="../../../media/img/default_avatar_male.jpg" alt="La tua immagine" style="width:160px"><h6 class="text-muted">Clicca per selezionare</h6>',
+        allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
+    });
+</script>
+
             <?php
     
             }
@@ -580,38 +594,38 @@ HTML;
                 echo "<div align=\"center\"><img style=\"max-height : 255px; max-width : 255px\" id=\"profileimage\" src=\"../../../media/loads/profimgs/".$row['URL']."\"></div><br>";
                 echo "<a style=\"color: #828282\"> <span id=\"editspan\" style=\"position:absolute; font-size: 15px; cursor : pointer;\" class=\"glyphicon glyphicon-pencil\"></span></a>";
             ?>
-            <script>
-                $("#editspan").on("click", function (){
-                    $("#SuperAlert").modal("show");
-                    var modal = $("#SuperAlert").find(".modal-body");
+<script>
+    $("#editspan").on("click", function (){
+        $("#SuperAlert").modal("show");
+        var modal = $("#SuperAlert").find(".modal-body");
     
-                    $("#SuperAlert").find(".modal-title").html("Cambia l'immagine del profilo");
-                    modal.html('<form class="text-center" action="ajaxOps/replace_avatar.php" method="post" enctype="multipart/form-data">\n\
-                                    <label class="control-label">Seleziona un\'immagine</label>\n\
-                                    <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
-                                </form>');
-                                            $("#input-file").fileinput({   
-                                                maxFileSize: <?php echo maximumProfileImageSize; ?>,
-                                                previewFileType: "image",
-                                                browseClass: "btn btn-success",
-                                                browseLabel: "Sfoglia...",
-                                                browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                                                removeClass: "btn btn-danger",
-                                                removeLabel: "Cancella",
-                                                removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                                                uploadClass: "btn btn-info",
-                                                uploadLabel: "Carica",
-                                                uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
-                                                allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
-                                            });
-                                            $(".btn-primary > .hidden-xs").html("Seleziona...");
-                                            modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
-                                            <?php //$urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
-                                            var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
-                                            modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php //echo $urlattuale ?> \">");*/
-                                        });
+        $("#SuperAlert").find(".modal-title").html("Cambia l'immagine del profilo");
+        modal.html('<form class="text-center" action="ajaxOps/replace_avatar.php" method="post" enctype="multipart/form-data">\n\
+                        <label class="control-label">Seleziona un\'immagine</label>\n\
+                        <input id="input-file" name = "profileimagechange" type="file" accept="image/*" class="file-loading">\n\
+                    </form>');
+                                $("#input-file").fileinput({   
+                                    maxFileSize: <?php echo maximumProfileImageSize; ?>,
+                                    previewFileType: "image",
+                                    browseClass: "btn btn-success",
+                                    browseLabel: "Sfoglia...",
+                                    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                                    removeClass: "btn btn-danger",
+                                    removeLabel: "Cancella",
+                                    removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                                    uploadClass: "btn btn-info",
+                                    uploadLabel: "Carica",
+                                    uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",                                        
+                                    allowedFileExtensions: ["jpg", "png", "gif", "jpeg"]
+                                });
+                                $(".btn-primary > .hidden-xs").html("Seleziona...");
+                                modal.append("<br> <a> Oppure <a href=\"javascript:resetAvatar()\"> <u>ripristina l'avatar predefinito</u></a> </a>");/*
+                                <?php //$urlattuale = $connessione->query("SELECT id_immagine_profilo, URL FROM utente, immagine_profilo WHERE immagine_profilo_id_immagine_profilo = id_immagine_profilo AND id_utente = ".$_SESSION['userId'])->fetch_assoc()['URL']; ?>
+                                var maxwidth = $("#SuperAlert").width(), maxheight = $("#SuperAlert").height();
+                                modal.append("<img width=\""+maxwidth+"\" height=\""+maxheight+"\" src=\"../../../media/loads/profimgs/<?php //echo $urlattuale ?> \">");*/
+                                    });
     
-            </script>
+</script>
             <?php
             }
     }
