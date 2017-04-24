@@ -1,7 +1,7 @@
 <?php
 
     include '../../../../functions.php';        
-    $connessione = dbConnection("../../../../../");
+    $connessione = dbConnection("../../../../../"); //
     
     $idclassenuova = $_POST['classenuova'];
     $idclassevecchia = $_POST['classevecchia'];

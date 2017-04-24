@@ -18,7 +18,7 @@
         localStorage.setItem("nome_classe", "<?php echo $nomeclasse; ?>");
         localStorage.setItem("nome_anno", "<?php echo $nomeanno; ?>");
     </script>
-    
+        
     <style>
         .minw{
             width: 65%;
@@ -29,12 +29,12 @@
             margin-top: 5px;
         }
     </style>
-    
+        
  	<?php
         topNavbar ("../../../../../");
         titleImg ("../../../../../");
     ?>
-    <script src="scripts/script.js?66"> </script>
+    <script src="scripts/script.js?1"> </script>
     <div class="container">
         
         <div class="row">
@@ -142,7 +142,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../../");
 ?>

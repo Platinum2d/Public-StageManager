@@ -35,9 +35,9 @@
                     <br>
                     <div class="row">
                         <div class="col col-sm-4">
-                            <p class="large text-left">
+<!--                            <p class="large text-left">
                                 <u>E' caldamente consigliato l'inserimento di TUTTI gli studenti della classe <?php echo $nomeclasse; ?> prima di procedere</u>
-                            </p>
+                            </p>-->
                         </div>
                         <div class="col col-sm-4">
                             <select id='add' class="form-control">

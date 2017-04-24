@@ -4,7 +4,7 @@
     open_html ( "Profilo personale del responsabile" );
     import("../../../../");
     $id_doc = $_SESSION ['userId'];
-    echo "<script src='scripts/script.js?0.02'></script>";
+    echo "<script src='scripts/script.js?1'></script>";
     $connessione = dbConnection ("../../../../");
     $sql = "SELECT * FROM utente, scuola WHERE id_utente = id_scuola AND id_scuola= $id_doc";
     $result = $connessione->query ( $sql );   
@@ -52,13 +52,13 @@
                                     </tr>
                                 </table></div>
                             <button id="editButton" class="btn btn-warning btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-edit"></span>
+                                <span class="glyphicon glyphicon-edit spanfix"></span>
                             </button>
                             <button id="saveButton" class="btn btn-success btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok spanfix"></span>
                             </button>
                             <button id="cancelButton" class="btn btn-danger btn-sm rightAlignment margin buttonfix">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove spanfix"></span>
                             </button>
                         </div>
                     </div>

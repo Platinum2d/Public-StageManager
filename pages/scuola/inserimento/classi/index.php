@@ -3,7 +3,7 @@
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci classi" );
     import("../../../../");
-    echo "<script src='scripts/script.js'></script>";    
+    echo "<script src='scripts/script.js?1'></script>";    
 ?>
     
 <script>

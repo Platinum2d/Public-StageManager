@@ -2,11 +2,21 @@
     include '../../../functions.php';
     checkLogin ( superUserType , "../../../../");
     open_html ( "Inserisci scuole" );
-    echo "<script src='../js/scripts.js'></script>";
+    echo "<script src='../js/scripts.js?1'></script>";
     import("../../../../");
 ?>
     
 <script>
+    String.prototype.isEmpty = function() {
+        return (this.length === 0 || !this.trim());
+    };  
+    
+    $(document).ready(function (){
+        $("#usernameScuola").keypress(function (e){
+            if (e.which === 32) return false;
+        });
+    });
+    
     var check = setInterval(function(){
         if ($("#usernameScuola").val().isEmpty() || $("#passwordScuola").val().isEmpty() || $("#confermapasswordScuola").val().isEmpty() || $("#nomeScuola").val().isEmpty() || $("#userexists").val() === "1" || 
                 $("#passworderror").val() === "1")
@@ -18,9 +28,8 @@
             $("input[value=\"Invia\"]").prop("disabled",false);
         }
     },1);
-    String.prototype.isEmpty = function() {
-        return (this.length === 0 || !this.trim());
-    };      
+    
+    
 </script>
 <body>
     <?php
@@ -39,7 +48,7 @@
                     <br>
                     <div class="row">
                         <form class="form-vertical">
-                                <div class="col col-sm-6">
+                            <div class="col col-sm-6">
                                 
                                 <b id='usr'>Username*</b> 
                                 <div class="form-group">
@@ -56,7 +65,7 @@
                                     </div>
                                 </div>
                                 <b>Conferma Password*</b> <div class="form-group"> <input  type="password" class="form-control" id="confermapasswordScuola"> </div>
-                                
+                                    
                                 Telefono<div class="form-group"> <input class="form-control" id="telefonoScuola"> </div>
                                 Email<div class="form-group"> <input class="form-control" id="emailScuola"> </div>
                                 Sito Web<div class="form-group"> <input class="form-control" id="sitoScuola"> </div>
@@ -71,16 +80,16 @@
                                 Citta'<div class="form-group"> <input class="form-control" id="cittaScuola"> </div>
                                 CAP<div class="form-group"> <input type="number" min='1' class="form-control" id="CAPScuola"> </div>
                                 Indirizzo<div class="form-group"> <input class="form-control" id="indirizzoScuola"> </div>
-                                
+                                    
                             </div>                           
                         </form>
-                        
+                            
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+        
     <script>
         $("#usernameScuola").on('input',function (){
             $.ajax({
@@ -128,7 +137,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordScuola()
+        {
             if ($("#passwordScuola").val() !== $("#confermapasswordScuola").val() || $("#passwordScuola").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -151,7 +161,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");       
             }
-        }, 1);
+        }
+        
+        $("#passwordScuola").on("input", checkPasswordScuola);
+        $("#confermapasswordScuola", checkPasswordScuola);
     </script>
 </body>
 <?php

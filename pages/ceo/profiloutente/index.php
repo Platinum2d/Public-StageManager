@@ -5,7 +5,7 @@
     open_html ( "Profilo" );
     import("../../../");
     $id_az = $_SESSION ['userId'];
-    echo "<script src='profiloutente.js?0.1'></script>";
+    echo "<script src='profiloutente.js?1'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT nome_responsabile, cognome_responsabile, telefono_responsabile, email_responsabile, username FROM azienda, utente WHERE id_azienda = id_utente AND id_azienda=$id_az";
     $result = $connessione->query ( $sql );
@@ -40,7 +40,7 @@
                         <div class="col col-sm-9">
                             <div class="table-responsive"><table id="myInformations" class="table table-striped table-bordered" style="table-layout: fixed">
                                     <tr>
-                                        <th class="col-sm-3">Username*</th>
+                                        <th class="col-sm-3">Username</th>
                                         <td id="" class="col-sm-6"><div id="username" class='edittextdiv' contenteditable="false"><?php echo $username; ?></div></td>
                                     </tr>
                                     <tr>

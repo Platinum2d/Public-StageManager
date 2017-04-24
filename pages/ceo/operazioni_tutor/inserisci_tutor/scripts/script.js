@@ -25,12 +25,12 @@ function sendSingleData()
             
     if (tutor.username.isEmpty() || tutor.nome.isEmpty() || tutor.cognome.isEmpty())
     {
-        alert("si prega di inserire i campi obbligatori");
+        printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
         return;
     }            
     if (tutor.password !== tutor.confermaPassword || tutor.password.isEmpty() || tutor.password < 8)
     {
-        alert("errore nell'inserimento della password");
+        printError("Errore", "<div align='center'>Errore nell'inserimento della password</div>");
         return;
     }
             

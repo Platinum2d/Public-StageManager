@@ -2,10 +2,10 @@
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci docenti" );
-    echo "<script src='scripts/script.js'></script>";
+    echo "<script src='scripts/script.js?1'></script>";
     import("../../../../");
     $conn = dbConnection("../../../../");
-    
+        
 ?>
 <body>
     <?php
@@ -16,6 +16,12 @@
         String.prototype.isEmpty = function() {
             return (this.length === 0 || !this.trim());
         };    
+        
+        $(document).ready(function (){
+            $("#UsernameDocente").keypress(function (e){
+                if (e.which === 32) return false;
+            }); 
+        });
         
         var check = setInterval(function(){
             if ($("#UsernameDocente").val().isEmpty() || $("#PasswordDocente").val().isEmpty() || $("#ConfermaPasswordDocente").val().isEmpty() || $("#NomeDocente").val().isEmpty()
@@ -53,8 +59,8 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input type="password" class="form-control" id="ConfermaPasswordDocente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="NomeDocente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="CognomeDocente"> </div>
-                                <b>Telefono</b> <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
-                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
+                                Telefono <div class="form-group"> <input class="form-control" id="TelefonoDocente"> </div> 
+                                E-mail <div class="form-group"> <input class="form-control" id="EmailDocente"> </div>                       
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
@@ -151,7 +157,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordDocente()
+        {            
             if ($("#PasswordDocente").val() !== $("#ConfermaPasswordDocente").val() || $("#PasswordDocente").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -174,7 +181,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");    
             }
-        }, 1);
+        }       
+        
+        $("#PasswordDocente").on("input", checkPasswordDocente);
+        $("#ConfermaPasswordDocente").on("input", checkPasswordDocente);
     </script>
 </body>
 <?php

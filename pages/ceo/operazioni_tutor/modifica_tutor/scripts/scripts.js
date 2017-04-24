@@ -18,13 +18,13 @@ function openEdit (id, idTutor)
             <div class=\"col col-sm-12\">\n\
                 <div class=\"row\">\n\
                     <div class=\"col col-sm-6\">\n\
-                        <label id=\"userlabel"+numberId+"\">Username</label> <input placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
-                        Password <input placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
-                        Nome <input placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\">\n\
-                        Cognome <input placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\">\n\
+                        <b class='custlabel' id=\"userlabel"+numberId+"\">Username</b> <input style='margin-bottom:5px' placeholder=\"Username\" type=\"text\" class=\"form-control\" id=\"username"+numberId+"\">\n\
+                        Password <input style='margin-bottom:5px' placeholder=\"Password (lasciare vuoto per nessuna modifica)\" type=\"password\" class=\"form-control\" id=\"password"+numberId+"\">\n\
+                        <b class='custlabel'>Nome</b><input style='margin-bottom:5px' placeholder=\"Nome\" type=\"text\" class=\"form-control\" id=\"nome"+numberId+"\">\n\
+                        <b class='custlabel'>Cognome</b><input style='margin-bottom:5px' placeholder=\"Cognome\" type=\"text\" class=\"form-control\" id=\"cognome"+numberId+"\">\n\
                      </div>\n\
-                     <div class=\"col col-sm-6\">\n\
-                        Telefono <input placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\">\n\
+                     <div class=\"col col-sm-6\" style='margin-top:5px'>\n\
+                        Telefono <input style='margin-bottom:5px' placeholder=\"Telefono\" type=\"text\" class=\"form-control\" id=\"telefono"+numberId+"\">\n\
                         E-mail <input placeholder=\"E-Mail\" type=\"text\" class=\"form-control\" id=\"email"+numberId+"\">\n\
                      </div>\n\
                 </div>\n\
@@ -62,20 +62,18 @@ function openEdit (id, idTutor)
                             {                    
                                 $("#userlabel"+numberId).css("color", "red");
                                 $("#userlabel"+numberId).html("username (esiste gia')");
+                                $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", true);
                             }
                             else
                             {
                                 $("#userlabel"+numberId).css("color", "#828282");
                                 $("#userlabel"+numberId).html("username");
+                                $("#HiddenBox"+numberId).find(".glyphicon-ok").parent().prop("disabled", false);
                             }
                         }
                     });
                 });
             });
-        },
-        error : function()
-        {
-            alert("errore")
         }
     });
     $("#HiddenBox"+numberId).fadeIn("slow");

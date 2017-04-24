@@ -1,6 +1,5 @@
 <?php
     include '../../../../../functions.php';
-    //header ( "Content-Type: application/xml" );
     $xmlstr = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
@@ -12,9 +11,13 @@ XML;
     $connection = dbConnection("../../../../../../");    
     $exclude = (isset($_POST['exclusion']) && !empty($_POST['exclusion'])) ? ($_POST['exclusion']) : null; 
     
-    $Query = "SELECT * FROM docente ";
-    if (isset($exclude)) $Query .= "WHERE id_docente != $exclude ";
-    $Query .= "ORDER BY cognome";
+    $classe = $_POST['classe'];
+    
+    $Query = "SELECT * FROM docente, utente
+              WHERE id_docente = id_utente 
+              AND id_docente IN (SELECT docente_id_docente FROM classe_has_docente WHERE classe_id_classe = $classe) ";
+    if (isset($exclude)) $Query .= "AND id_docente != $exclude";
+    $Query .= " ORDER BY cognome";
     
     if (!$result = $connection->query($Query))
     {

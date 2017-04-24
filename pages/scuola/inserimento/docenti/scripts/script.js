@@ -30,14 +30,14 @@ function send()
         
     if (docente.username.isEmpty() || docente.password.isEmpty() || docente.nome.isEmpty() || docente.cognome.isEmpty())
     {
-        alert("Si prega di compilare i cambi obbligatori");
+        printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
         return;
     }
     else
     {
         if (docente.password.trim() !== docente.confermaPassword.trim() || docente.password.length < 8)
         {
-            alert("errore nell'inserimento della password");
+            printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
             return;
         }
         

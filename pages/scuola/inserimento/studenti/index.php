@@ -3,7 +3,7 @@
     checkLogin ( scuolaType , "../../../../");
     open_html ( "Inserisci studenti" );
     import("../../../../");
-    echo "<script src='scripts/script.js?1'></script>";    
+    echo "<script src='scripts/script.js?2'></script>";    
 ?>
 <script>
     addSelectionsFor('anno_scolastico');
@@ -20,6 +20,12 @@
         String.prototype.isEmpty = function() {
             return (this.length === 0 || !this.trim());
         };      
+        
+        $(document).ready(function (){
+            $("#usernameStudente").keypress(function (e){
+                if (e.which === 32) return false;
+            }); 
+        });
         
         var check = setInterval(function(){
             if ($("#usernameStudente").val().isEmpty() || $("#passwordStudente").val().isEmpty() || $("#confermaPasswordStudente").val().isEmpty() || $("#nomeStudente").val().isEmpty()
@@ -61,9 +67,9 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input class="form-control" type="password" id="confermaPasswordStudente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeStudente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeStudente"> </div>
-                                <b>Città</b> <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
-                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
-                                <b>Telefono</b> <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
+                                Città <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
+                                E-mail <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
+                                Telefono <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
@@ -162,7 +168,8 @@
             });
         });
         
-        var checkpw = setInterval(function (){
+        function checkPasswordStudente()
+        {
             if ($("#passwordStudente").val() !== $("#confermaPasswordStudente").val() || $("#passwordStudente").val().length < 8)
             {
                 $("#passworderror").val("1");
@@ -185,7 +192,10 @@
                 $("#passwordspanregulator").removeClass("glyphicon-remove");
                 $("#passwordspanregulator").addClass("glyphicon-ok");                                        
             }
-        }, 1);
+        }
+        
+        $("#passwordStudente").on("input", checkPasswordStudente);
+        $("#confermaPasswordStudente").on("input", checkPasswordStudente);        
     </script>
 </body>
 <?php

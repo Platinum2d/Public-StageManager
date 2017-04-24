@@ -82,12 +82,12 @@ function sendData()
     
     if (studente.username.isEmpty() || studente.nome.isEmpty() || studente.cognome.isEmpty() || studente.classe.isEmpty() || studente.annoclasse.isEmpty())
     {
-        alert("Si prega di compilare i cambi obbligatori");
+        printError("Errore", "<div align='center'>Si prega di inserire i campi obbligatori</div>");
         return;
     }
     if(!studente.password || studente.password !== studente.confermaPassword || studente.password < 8)
     {
-        alert("errore nell'inserimento della password");
+        printError("Errore", "<div align='center'>Errore nella modifica della password</div>");
         return;
     }
     
