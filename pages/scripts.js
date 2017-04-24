@@ -1,3 +1,5 @@
+var tempReturnValue = "";
+
 function printError(title, message, closeFunction)
 {
     $("#SuperAlert").modal("show");
@@ -113,6 +115,29 @@ function userProfile(user_id, goback)
 }
 
 function checkDateItalianFormat (dateString) {
-	var patt = new RegExp('[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]');
+    var patt = new RegExp('[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]');
     return patt.test(dateString);
+}
+
+function tempReturn(data)
+{
+    tempReturnValue = data;
+}
+
+function getMaximumLengthOf(goback, table, column)
+{
+    var tosend = (undefined !== column) ? {'table' : table, 'column' : column} : {'table' : table};
+    
+    $.ajax({
+        type : 'POST',
+        url : goback+'lib/custom/ajax/ajaxMaximumCharacters.php',
+        data : tosend,
+        async : false,
+        success : function (xml)
+        {            
+            tempReturn(xml);
+        }
+    });
+    
+    return tempReturnValue;
 }

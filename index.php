@@ -4,9 +4,6 @@
     import("");
     echo "<script src='sessione/login/scripts/login.js?0.1'></script>";
     checkAccessDenied();
-    //checkVoto();
-    //checkEmail();    
-
 ?>
 <body>
     <?php

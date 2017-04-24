@@ -8,7 +8,7 @@ XML;
     $xml = new SimpleXMLElement ( $xmlstr );
     
     include "../../../pages/functions.php";
-    $conn = dbConnection("../../../");
+    $conn = dbConnection("../../../");    
     
     $id_utente = $_POST['id'];
     $query = "SELECT tipo_utente FROM utente WHERE id_utente = $id_utente";
