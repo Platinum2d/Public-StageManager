@@ -10,7 +10,7 @@
     $idanno = $_POST['ida'];
     $idclasse = $_POST['idc'];
     
-    $query = "  SELECT id_studente_has_stage, tut.nome, tut.cognome, az.nome_aziendale, st.inizio_stage, st.durata_stage
+    $query = "  SELECT id_studente_has_stage, tut.nome, tut.cognome, az.nome_aziendale, st.inizio_stage, st.fine_stage
                 FROM studente_has_stage AS shs, tutor AS tut, azienda AS az, stage AS st, classe_has_stage AS chs 
                 WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
                 AND shs.tutor_id_tutor = tut.id_tutor 
@@ -108,7 +108,7 @@
                                     $current_stage = $row['id_studente_has_stage'];
                                     $tutor_query = "SELECT tut.id_tutor, tut.nome AS nometutor, tut.cognome AS cognometutor FROM tutor AS tut, studente_has_stage AS shs WHERE shs.tutor_id_tutor = tut.id_tutor AND shs.id_studente_has_stage = $current_stage";
                                     $azienda_query = "SELECT az.id_azienda, az.nome_aziendale FROM azienda AS az, studente_has_stage AS shs WHERE shs.azienda_id_azienda = az.id_azienda AND shs.id_studente_has_stage = $current_stage";
-                                    $stage_query = "SELECT st.id_stage, st.inizio_stage, st.durata_stage 
+                                    $stage_query = "SELECT st.id_stage, st.inizio_stage, st.fine_stage 
                                                     FROM stage AS st, studente_has_stage AS shs, classe_has_stage AS chs
                                                     WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
                                                     AND chs.stage_id_stage = st.id_stage 
@@ -148,18 +148,18 @@
                                         $stage_result = $stage_result->fetch_assoc(); 
                                         $id_stage = $stage_result['id_stage'];
                                         $inizio_stage = $stage_result['inizio_stage'];
-                                        $durata_stage = $stage_result['durata_stage'] - 1;
+                                        $fine_stage = $stage_result['fine_stage'];
                                     }
                                     else
                                     {
                                         $id_stage = "-1";
                                         $inizio_stage = "";
-                                        $durata_stage = "";
+                                        $fine_stage = "";
                                     }
                                     
                                     echo "<tr id=\"riga$I\" style=\"font-size : 20px\"> "
                                             . "<td>".date("d-m-Y", strtotime($inizio_stage))."</td> "
-                                            . "<td>".date('d-m-Y', strtotime("+".$durata_stage." days", strtotime($inizio_stage)))."</td>"
+                                            . "<td>".date('d-m-Y', strtotime($fine_stage))."</td>"
                                             . "<td>$nome_azienda</td>"
                                             . "<td>$cognome_tutor $nome_tutor</td> "
                                             . "<td><div align=\"center\">"
@@ -168,20 +168,6 @@
                                     $I++;
                                 }
                             }
-//                                $result = $conn->query($query);
-//                                $I = 0;
-//                                    
-//                                while ($row = $result->fetch_assoc())
-//                                {
-//                                    $inizio = $row['inizio_stage'];
-//                                    $durata = $row['durata_stage'];
-//                                        
-//                                    echo "<tr id=\"riga$I\" style=\"font-size : 20px\"> <td>".date("d-m-Y", strtotime($inizio))."</td> <td>".date('d-m-Y', strtotime("+".$durata." days", strtotime($inizio)))."</td>"
-//                                       . " <td>".$row['nome_aziendale']."</td> <td>".$row['cognome']." ".$row['nome']."</td> <td><div align=\"center\">"
-//                                       . "<button onclick=\"establishDestination($I, ".$row['id_studente_has_stage'].")\" id=\"dettagli$I\" style=\"margin : 0px\" class=\"btn btn-success\"> <span class=\"glyphicon glyphicon-circle-arrow-right\"></span> Visualizza </button></div></td></tr>";
-//                                           
-//                                    $I++;
-//                                }
                             ?>
                         </tbody>
                     </table>

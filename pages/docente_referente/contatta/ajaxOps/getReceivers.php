@@ -13,10 +13,9 @@ XML;
     
     if ($tipo == ceoType) {
         $query = "SELECT DISTINCT azienda.nome_responsabile AS nome, azienda.cognome_responsabile AS cognome, azienda.email_responsabile AS email, azienda.nome_aziendale
-                    FROM azienda, docente_referente_has_studente_has_stage, studente_has_stage, classe_has_stage, anno_scolastico, classe, settore_has_figura_professionale, azienda_needs_figura_professionale
-                    WHERE docente_referente_has_studente_has_stage.docente_id_docente = $id_docente
-                    AND docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
-                    AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+                    FROM azienda, docente_referente_has_classe_has_stage, studente_has_stage, classe_has_stage, anno_scolastico, classe, settore_has_figura_professionale, azienda_needs_figura_professionale
+                    WHERE docente_referente_has_classe_has_stage.docente_id_docente = $id_docente
+                    AND docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
                     AND anno_scolastico.corrente = 1
                     AND classe_has_stage.classe_id_classe = classe.id_classe
@@ -36,9 +35,9 @@ XML;
     }
     elseif ($tipo == doctutType) {
         $query = "SELECT docente.nome, docente.cognome, docente.email, studente.nome AS nome_studente, studente.cognome AS cognome_studente
-                    FROM docente, studente, docente_referente_has_studente_has_stage, studente_has_stage, classe_has_stage, anno_scolastico
-                    WHERE docente_referente_has_studente_has_stage.docente_id_docente = $id_docente
-                    AND docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
+                    FROM docente, studente, docente_referente_has_classe_has_stage, studente_has_stage, classe_has_stage, anno_scolastico
+                    WHERE docente_referente_has_classe_has_stage.docente_id_docente = $id_docente
+                    AND docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
                     AND anno_scolastico.corrente = 1
@@ -47,9 +46,9 @@ XML;
     }
     elseif ($tipo == studType) {
         $query = "SELECT studente.nome, studente.cognome, studente.email
-                    FROM studente, docente_referente_has_studente_has_stage, studente_has_stage, classe_has_stage, anno_scolastico
-                    WHERE docente_referente_has_studente_has_stage.docente_id_docente = $id_docente
-                    AND docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
+                    FROM studente, docente_referente_has_classe_has_stage, studente_has_stage, classe_has_stage, anno_scolastico
+                    WHERE docente_referente_has_classe_has_stage.docente_id_docente = $id_docente
+                    AND docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
                     AND anno_scolastico.corrente = 1
