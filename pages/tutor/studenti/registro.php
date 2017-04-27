@@ -8,7 +8,7 @@
     
     echo "<script src='js/scripts_registro.js?0.3'></script>";
     
-    $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.durata_stage  
+    $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.fine_stage  
 			FROM studente_has_stage, stage, classe_has_stage 
 			WHERE studente_has_stage.id_studente_has_stage = $idStudenteHasStage 
 			AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage 
@@ -17,15 +17,18 @@
     $row = $Result->fetch_assoc ();
     $visita = $row ['visita_azienda'];
     $inizioStage = explode ("-", $row ['inizio_stage']);
-    $durataStage = $row ['durata_stage'] - 1;
-    $anno = $inizioStage[0];
-    $mese = $inizioStage[1] - 1;
-    $giorno = $inizioStage[2];
+    $fineStage = explode ("-", $row ['fine_stage']);
+    $anno_inizio = $inizioStage[0];
+    $mese_inizio = $inizioStage[1] - 1;
+    $giorno_inizio = $inizioStage[2];
+    $anno_fine = $fineStage[0];
+    $mese_fine = $fineStage[1] - 1;
+    $giorno_fine = $fineStage[2];
 ?>
 <script>
 	var shs = <?php echo $_POST['shs'] ?>;
-	var inizio_stage = new Date(<?php echo "$anno,$mese,$giorno" ?>);
-	var fine_stage = new Date(inizio_stage.getTime() + <?php echo "$durataStage"; ?> * 86400000 );
+	var inizio_stage = new Date(<?php echo "$anno_inizio,$mese_inizio,$giorno_inizio"; ?>);
+	var fine_stage = new Date(<?php echo "$anno_fine,$mese_fine,$giorno_fine"; ?>);
 </script>
 <body>
 	<?php
