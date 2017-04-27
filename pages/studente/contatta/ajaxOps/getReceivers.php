@@ -24,9 +24,10 @@ XML;
     elseif ($tipo == docrefType) {
         $id_shs = $_SESSION ['studenteHasStageId'];
         $query = "SELECT docente.nome, docente.cognome, docente.email
-					FROM docente, docente_referente_has_studente_has_stage
-					WHERE docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = $id_shs
-					AND docente_referente_has_studente_has_stage.docente_id_docente = docente.id_docente;";
+					FROM docente, docente_referente_has_classe_has_stage, studente_has_stage
+					WHERE docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = studente_has_stage.classe_has_stage_id_classe_has_stage
+                    AND studente_has_stage.id_studente_has_stage = $id_shs
+					AND docente_referente_has_classe_has_stage.docente_id_docente = docente.id_docente;";
     }
     elseif ($tipo == doctutType) {
         $id_shs = $_SESSION ['studenteHasStageId'];

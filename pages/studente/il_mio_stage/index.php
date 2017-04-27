@@ -19,11 +19,6 @@
                     <div class="row">
                         <div class="col col-sm-12">
                             <?php
-                                
-                                function sommaGiorni($dateadd, $duratas) {
-                                    list ( $giorno, $mese, $anno ) = explode ( '-', $dateadd );
-                                    return date ( "d-m-Y", mktime ( 0, 0, 0, $mese, $giorno + $duratas - 1, $anno ) );
-                                }
                                     
                                 $idstud = $_SESSION ['userId'];
                                 if (isset($_SESSION ['studenteHasStageId']))
@@ -117,7 +112,7 @@
                                             $nome_tutor_sc = "<u><i>Non assegnato</i></u>";
                                         }
                                         // ouput periodo stage
-                                        $query_stage = "SELECT stage.inizio_stage, stage.durata_stage 
+                                        $query_stage = "SELECT stage.inizio_stage, stage.fine_stage 
                                                         FROM studente_has_stage, classe_has_stage, stage 
                                                         WHERE studente_has_stage.id_studente_has_stage = $idStudtudenteHasStage 
                                                         AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage 
@@ -127,14 +122,11 @@
                                         $inizio_stage = "SCONOSCIUTO";
                                         $fine_stage = "SCONOSCIUTO";
                                         $row = $result->fetch_assoc ();
-                                        if (isset ($row ['durata_stage'])){
-                                            $duratas = $row ['durata_stage'];
+                                        if (isset ($row ['fine_stage'])){
+                                            $fine_stage = date("d-m-Y", strtotime($row ['fine_stage']));
                                         }
                                         if (isset ($row ['inizio_stage'])){
                                             $inizio_stage = date("d-m-Y", strtotime($row ['inizio_stage']));
-                                        }
-                                        if (isset ($row ['inizio_stage']) && isset ($row ['durata_stage'])){
-                                            $fine_stage = sommaGiorni ( $inizio_stage, $duratas );
                                         }
                                         echo <<<HTML
                                             <p>
