@@ -363,6 +363,7 @@ HTML;
         echo "<script src='".$goBack."lib/jsPDF-AutoTable-2.3.1/dist/jspdf.plugin.autotable.js'></script>";
         echo "<script src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js'></script>";
         echo "<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>";
+        echo "<script src='".$goBack."lib/jQuery/datepicker-it.js'></script>";
     }
     
     function open_html($title) { // apre la pagina con il relativo titolo
