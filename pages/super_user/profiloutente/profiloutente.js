@@ -20,6 +20,23 @@ function turnEditOff()
     $("#myInformations .edittextdiv").attr('contenteditable', 'false');
 }
 
+function setLimits()
+{
+    var xmllimiteusername = getMaximumLengthOf("../../../", "utente", "username");
+    
+    $(xmllimiteusername).find("colonne").find("colonna").each(function (){
+        if ($(this).find("nome").text() === "username") limits.username = parseInt($(this).find("lunghezza_massima").text());
+    });    
+    
+    var xmllimiti = getMaximumLengthOf("../../../", "super_user");
+    $(xmllimiti).find("colonne").find("colonna").each(function (){
+        if ($(this).find("nome").text() === "nome") limits.first = parseInt($(this).find("lunghezza_massima").text());
+        if ($(this).find("nome").text() === "cognome") limits.last = parseInt($(this).find("lunghezza_massima").text());
+        if ($(this).find("nome").text() === "telefono") limits.phone = parseInt($(this).find("lunghezza_massima").text());
+        if ($(this).find("nome").text() === "email") limits.mail = parseInt($(this).find("lunghezza_massima").text());
+    });    
+}
+
 $(document).ready(function()
 {
     initialUsername = $("#username").text();

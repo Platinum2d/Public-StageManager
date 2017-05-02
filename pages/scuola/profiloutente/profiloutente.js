@@ -33,6 +33,10 @@ $(document).ready(function(){
     contact.CAP=$("#CAP").text();
     contact.sitoweb=$("#sitoweb").text();    
     
+    $(".edittextdiv").each(function (){
+        $(this).height($(this).parents("td").height());
+    });
+    
     $("#username").keypress(function (e){
         if (e.which === 32) return false;
     });
