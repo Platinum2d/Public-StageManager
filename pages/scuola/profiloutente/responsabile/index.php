@@ -4,7 +4,7 @@
     open_html ( "Profilo personale del responsabile" );
     import("../../../../");
     $id_doc = $_SESSION ['userId'];
-    echo "<script src='scripts/script.js?0.02'></script>";
+    echo "<script src='scripts/script.js?1'></script>";
     $connessione = dbConnection ("../../../../");
     $sql = "SELECT * FROM utente, scuola WHERE id_utente = id_scuola AND id_scuola= $id_doc";
     $result = $connessione->query ( $sql );   

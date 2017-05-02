@@ -33,6 +33,12 @@ $(document).ready(function(){
     contact.phone=$("#phone").html();
     contact.website=$("#website").html();
     contact.cap=$("#cap").html();
+    
+    $(".edittextdiv").each(function (){
+        $(this).height($(this).parents("td").height());
+    });
+    
+    
     $(".label-info").css("font-size", figuresSize);
     $("#figurerichieste").on("itemAdded", function (event){  
         $(".label-info").css("font-size", figuresSize);
@@ -104,24 +110,24 @@ $(document).ready(function(){
                 data: contact,
                 cache: false,
                 success : function (ret) {
-                	if (ret == "0") {
+                    if (ret == "0") {
                         //esco dalla modalità edit
                         exitEdit();
-                	}
-                	else if (ret == "1") {
-                		printError ("Errore", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.");
-                	}
-                	else {
-                		alert (ret);
-                	}
+                    }
+                    else if (ret == "1") {
+                        printError ("Errore", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.");
+                    }
+                    else {
+                        alert (ret);
+                    }
                 },
                 error : function () {
-                	printError ("Problema nella richiesta", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.")
+                    printError ("Problema nella richiesta", "Riscontrato problema nell'effettuare la richiesta.<br>Contattare l'amministratore.")
                 }
             });
         }
         else {
-        	printError ("Dati mancanti", "È necessario inserire il nome dell'azienda per poter aggiornare i propri dati.");
+            printError ("Dati mancanti", "È necessario inserire il nome dell'azienda per poter aggiornare i propri dati.");
         }
     });
     
