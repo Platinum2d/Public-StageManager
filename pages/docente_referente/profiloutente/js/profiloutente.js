@@ -29,6 +29,10 @@ $(document).ready(function()
     contact.mail=$("#mail").text();
     contact.phone=$("#phone").text();
     
+    $(".edittextdiv").each(function (){
+        $(this).height($(this).parents("td").height());
+    });
+    
     $("#username").keypress(function (e){
         if (e.which === 32) return false;
     });

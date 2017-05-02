@@ -24,6 +24,10 @@ $(document).ready(function(){
     reponsabile.mail=$("#mail").html();
     reponsabile.phone=$("#phone").html();
     
+    $(".edittextdiv").each(function (){
+        $(this).height($(this).parents("td").height());
+    });
+        
     //nascondo i bottoni save e cancel che compaiono solo in modalità edit
     $("#cancelButton").hide();
     $("#saveButton").hide();

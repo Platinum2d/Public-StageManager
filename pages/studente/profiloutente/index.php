@@ -4,7 +4,7 @@
     open_html ( "Profilo" );
     import("../../../");
     echo "<link href='css/profiloutente.css' rel='stylesheet' type='text/css'>";
-    echo "<script src='js/profiloutente.js?0.1'></script>";
+    echo "<script src='js/profiloutente.js?1'></script>";
         
     $id_stud = $_SESSION ['userId'];
     $connessione = dbConnection ("../../../");

@@ -50,9 +50,7 @@ function setLimits()
         if ($(this).find("nome").text() === "cognome") limits.last = parseInt($(this).find("lunghezza_massima").text());
         if ($(this).find("nome").text() === "telefono") limits.phone = parseInt($(this).find("lunghezza_massima").text());
         if ($(this).find("nome").text() === "email") limits.mail = parseInt($(this).find("lunghezza_massima").text());
-    });
-    
-    
+    });    
 }
 
 $(document).ready(function()

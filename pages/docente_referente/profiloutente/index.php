@@ -4,7 +4,7 @@
     open_html ( "Profilo" );
     import("../../../");
     $id_doc = $_SESSION ['userId'];
-    echo "<script src='js/profiloutente.js?0.1'></script>";
+    echo "<script src='js/profiloutente.js?1'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT nome, cognome, email, telefono, username 
     		FROM docente, utente 
