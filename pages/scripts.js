@@ -141,3 +141,23 @@ function getMaximumLengthOf(goback, table, column)
     
     return tempReturnValue;
 }
+
+String.prototype.isEmpty = function() {
+    return (this.length === 0 || !this.trim());
+};
+
+function checkEmptyFields (fields) {
+	var empty = false;
+	if (Array.isArray (fields)) {
+		fields.forEach (function (item) {
+			if ($(item).val().trim().isEmpty()) {
+				empty = true;
+				return;
+			}
+		});
+	}
+	else {
+		empty = true;
+	}
+	return empty;
+}

@@ -6,4 +6,9 @@
     display: table-cell;
     background: #eee;
     border-right-width: 2px;
+    vertical-align: middle;
+}
+
+#tabellaValutazioneStage tr td {
+    vertical-align: middle;
 }
