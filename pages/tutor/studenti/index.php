@@ -23,7 +23,7 @@
                         <div class="col col-sm-12">
                             <div class="table-responsive"><table id="mainTable" class="table table-bordered">
                                     <thead>
-                                        <tr classnbz >
+                                        <tr>
                                             <th class="text-center">Nome</th>
                                             <th class="text-center">Cognome</th>
                                             <th class="text-center">Email</th>
@@ -61,7 +61,7 @@ HTML;
 	                                            <input type="hidden" name="shs" value="<?php echo $id_studente_has_stage; ?>">
 	                                            <button class="btn btn-info" name="registro_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>><span class="glyphicon glyphicon-pencil"></span> Registro</button>
 	                                        </form> 
-	                                        <form method="POST" action="valuta_studente.php" style="margin-bottom: 0;">
+	                                        <form method="POST" action="valutazione-studente.php" style="margin-bottom: 0;">
 	                                            <input type="hidden" name="shs" value="<?php echo $id_studente_has_stage; ?>">
 		                                        <button class="btn btn-info" name="valuta_studente"<?php if (!$visita_azienda) {echo " disabled='disabled'";}?>><span class="glyphicon glyphicon-education"></span> Valuta</button>
 		                                    </form>

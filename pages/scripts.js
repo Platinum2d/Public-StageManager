@@ -150,10 +150,12 @@ function checkEmptyFields (fields) {
 	var empty = false;
 	if (Array.isArray (fields)) {
 		fields.forEach (function (item) {
-			if ($(item).val().trim().isEmpty()) {
-				empty = true;
-				return;
-			}
+			$(item).each (function () {
+				if ($(item).val().trim().isEmpty()) {
+					empty = true;
+					return;
+				}
+			});
 		});
 	}
 	else {

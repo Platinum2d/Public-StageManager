@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+#tabellaValutazioneStudente tr td:first-child {
+	text-align: center;
+    font-weight: bold;
+    display: table-cell;
+    background: #eee;
+    border-right-width: 2px;
+    vertical-align: middle;
+}
+
+#tabellaValutazioneStudente tr td {
+    vertical-align: middle;
+}
