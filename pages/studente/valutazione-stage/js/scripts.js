@@ -68,10 +68,14 @@ function addAnswers () {
         {
             if (msg == "ok") {
             	printSuccess ("Richiesta riuscita", "Invio della compilazione della valutazione riuscito con successo.");
+            	
+            	$("#action").removeClass ("btn-success")
+            	.addClass ("btn-info")
+            	.html ("<span class='glyphicon glyphicon-edit'></span> Modifica")
+            	.attr ("onclick", "updateAnswers();");
             }
             else {
             	printError ("Errore", "Errore nell'esecuzione della richiesta. Se il problema persiste, contattare l'aministratore.");
-            	alert (msg);
             }
         },
         error : function ()
