@@ -111,7 +111,7 @@
                                                                                     FROM risposta_voce_modulo_studente
                                                                                     WHERE riga_modulo_studente_id_riga_modulo_studente = $id_riga
                                                                                     AND colonna_modulo_studente_id_colonna_modulo_studente = $id_col
-                                                                                    AND studente_has_studente_id_studente_has_studente = $idStudenteHasStage;";
+                                                                                    AND studente_has_stage_id_studente_has_stage = $idStudenteHasStage;";
                                                     	        $risposta = "";
                                                     	        $risposta_result = $conn->query ( $sql_risposta );
                                                     	        if ($risposta_result && $risposta_result->num_rows > 0) {

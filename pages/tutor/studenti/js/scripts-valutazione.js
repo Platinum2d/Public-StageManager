@@ -1,12 +1,12 @@
 $(document).ready(function(){
 	checkStatusButton ();
-	$("textarea.answer").on("keyup",function (e) {
+	$('body').on("keyup",'.answer',function (e) {
 		checkStatusButton ();
 	});
 });
 
 function checkStatusButton () {
-	if (checkEmptyFields (["textarea.answer"])) {
+	if (checkEmptyFields ([".answer"])) {
 		$("#action").attr ("disabled", "");
 	}
 	else {
