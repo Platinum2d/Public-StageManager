@@ -161,7 +161,7 @@ HTML;
                 echo "<li><a href='".$goBack."pages/studente/profiloutente/index.php'>Profilo</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/il_mio_stage/index.php'>Il mio stage</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/registro/index.php'>Registro</a></li>";
-                echo "<li><a href='".$goBack."pages/studente/voto/index.php'>Voto</a></li>";
+                echo "<li><a href='".$goBack."pages/studente/valutazione-stage/index.php'>Valutazione stage</a></li>";
                 echo "<li><a href='".$goBack."pages/studente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
                 </ul>
@@ -649,5 +649,17 @@ HTML;
     
     function xmlEscape($string) {
     	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), $string);
-    }    
+    }
+    
+    function printProblemContent () {
+        echo <<<HTML
+                <div class="text-center">
+                    <h4 class="bg-warning">
+						Si è rilevato un problema nel caricamento della pagina.
+						<br>
+						Riprovare fra poco, e se il problema persiste, contattare l'amministratore.
+					</h4>
+                </div>
+HTML;
+    }
 ?>
