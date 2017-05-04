@@ -102,7 +102,7 @@
                                                     	    $testo = $rig ['descrizione'];
                                                     	    $id_riga = $rig ['id'];
                                                     	    echo "<tr>";
-                                                    	    echo "<td>$testo</td>";
+                                                    	    echo "<td class='col-sm-2'>$testo</td>";
                                                     	    foreach ($col_tab as $col) {
                                                     	        $id_col = $col ['id'];
                                                     	        $sql_risposta = "SELECT risposta
