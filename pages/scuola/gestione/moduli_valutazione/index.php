@@ -27,6 +27,7 @@
                             <div align="center">
                                 <table class="table table-hover">
                                     <tr> <td align="center"><h1> <a href="moduli_valutazione_studenti/index.php">Moduli di valutazione degli studenti</a>  </h1> </td> </tr>
+                                    <tr> <td align="center"><h1> <a href="moduli_valutazione_stage/index.php">Moduli di valutazione delle aziende</a>  </h1> </td> </tr>
                                 </table>
                             </div>
                         </div>

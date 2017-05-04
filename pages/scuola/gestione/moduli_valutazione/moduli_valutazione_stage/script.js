@@ -1,11 +1,17 @@
+var isEditing;
+
 $(document).ready(function (){
     $("#redirectForm").find("input[name='modulo']").val("");
+    isEditing = false;
 });
 
 function redirectToModule(id_modulo)
 {
-    $("#redirectForm").find("input[name='modulo']").val(id_modulo);
-    $("#redirectForm").submit();
+    if (!isEditing)
+    {
+        $("#redirectForm").find("input[name='modulo']").val(id_modulo);
+        $("#redirectForm").submit();
+    }
 }
 
 function openEdit(id_modulo, progressiv)
@@ -13,7 +19,8 @@ function openEdit(id_modulo, progressiv)
     $("tr[data-id='"+id_modulo+"']").find("td[name='nome']").html("<input type='text' class='form-control' value='"+$("tr[data-id='"+id_modulo+"']").find("td[name='nome']").text()+"'>");
     $("tr[data-id='"+id_modulo+"']").find("td[name='descrizione']").html("<textarea cols='9' rows='9' class='form-control'>"+$("tr[data-id='"+id_modulo+"']").find("td[name='descrizione']").text()+"</textarea>");
     $("#edit"+progressiv).html("<span class='glyphicon glyphicon-ok'></span> Conferma");
-    $("#edit"+progressiv).attr("onclick", "sendData("+id_modulo+", "+progressiv+")")
+    $("#edit"+progressiv).attr("onclick", "sendData("+id_modulo+", "+progressiv+")");
+    isEditing = true;
 }
 
 function sendData(id_modulo, progressiv)
@@ -26,13 +33,14 @@ function sendData(id_modulo, progressiv)
     
     $.ajax({
         method : 'POST',
-        url : 'ajaxOpsPerModuloStudenti/ajaxInvia.php',
+        url : 'ajaxOpsPerModuloStage/ajaxInvia.php',
         data : tosend,
         success : function (msg){
             if (msg === "ok")
             {
                 $("tr[data-id='"+id_modulo+"']").find("td[name='nome']").html(tosend.nome);
                 $("tr[data-id='"+id_modulo+"']").find("td[name='descrizione']").html(tosend.descrizione);
+                isEditing = false;
             }
             else
                 printError("Errore di aggiornamento", "<div align='center'>Si è verificato un errore in fase di aggiornamento.<br>Si prega di riprovare</div>");
@@ -52,7 +60,7 @@ function askForDeleteModule(id_modulo, progressiv)
                 <br>\n\
                 Eliminando questo modulo, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
                 <ul>\n\
-                    <li>Tutte le valutazioni date dalle aziende sulla base di questo modulo</li>\n\
+                    <li>Tutte le valutazioni date dagli studenti sulla base di questo modulo</li>\n\
                     <li>Tutte le opzioni possibili per le colonne a risposta chiusa</li>\n\
                 </ul>");
     $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
@@ -68,7 +76,7 @@ function deleteModule(id_modulo, progressiv)
 {
     $.ajax({
         method : 'POST',
-        url : 'ajaxOpsPerModuloStudenti/ajaxDelete.php',
+        url : 'ajaxOpsPerModuloStage/ajaxDelete.php',
         data : {'id' : id_modulo},
         success : function (msg){
             if (msg === "ok")
