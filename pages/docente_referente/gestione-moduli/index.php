@@ -23,7 +23,7 @@
                             <div align="center">
                                 <table class="table table-hover">
                                     <tr>
-                                        <td  class="menu-voice" align="center">
+                                        <td class="menu-voice" align="center">
                                         	<h2>
                                         		<a href="inserimento-moduli/index.php">
                                         			<span>Inserisci moduli</span>

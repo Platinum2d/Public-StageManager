@@ -22,7 +22,11 @@
                         <div class="col col-sm-12"> 
                             <div align="center">
                                 <table class="table table-hover">
-                                    <tr> <td align="center"><h1> <a href="moduli_valutazione_studenti/index.php">Moduli di valutazione degli studenti</a>  </h1> </td> </tr>
+                                    <tr>
+                                    	<td class="menu-voice" align="center">
+                                    		<h2><a href="moduli_valutazione_studenti/index.php">Moduli di valutazione degli studenti</a></h2>
+                                    	</td>
+                                	</tr>
                                 </table>
                             </div>
                         </div>
