@@ -1,9 +1,0 @@
-@CHARSET "UTF-8";
-
-#tabellaValutazioneStage tr td:first-child {
-	text-align: center;
-    font-weight: bold;
-    display: table-cell;
-    background: #eee;
-    border-right-width: 2px;
-}
