@@ -15,6 +15,7 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
                             <div class=\"list-group\">\n\
                                 <a href=\"javascript:redirectToValutazione('stage', "+id_studente_has_stage+")\" id=\"editvalutazioneazienda"+progressiv+"\" class=\"list-group-item\">Valutazione della azienda</a>\n\
                                 <a href=\"javascript:redirectToValutazione('studente', "+id_studente_has_stage+")\" id=\"editvalutazionestudente"+progressiv+"\" class=\"list-group-item\">Valutazione dello studente</a>\n\
+                                <a href=\"javascript:redirectToRegistro("+id_studente_has_stage+")\" id=\"editregistro"+progressiv+"\" class=\"list-group-item\">Registro</a>\n\
                             </div>\n\
                             \n\
                             <div class=\"checkbox\">\n\
@@ -430,5 +431,12 @@ function redirectToValutazione(tb, id_shs)
 {
     $("#redirectForm").find("input[name='shs']").val(id_shs);
     $("#redirectForm").find("input[name='tb']").val(tb);
+    $("#redirectForm").submit();
+}
+
+function redirectToRegistro(id_shs)
+{
+    $("#redirectForm").attr("action", "registro.php");
+    $("#redirectForm").find("input[name='shs']").val(id_shs);
     $("#redirectForm").submit();
 }
