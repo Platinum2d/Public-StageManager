@@ -3,7 +3,7 @@
     checkLogin ( scuolaType , "../../../../../");
     open_html ( "Moduli studenti" );
     import("../../../../../");
-    echo "<script src='script.js?4'> </script>";
+    echo "<script src='script.js?5'> </script>";
         
     $conn = dbConnection("../../../../../");
     $idscuola = $_SESSION['userId'];
