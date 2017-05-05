@@ -37,12 +37,10 @@
 
                 $query = "INSERT INTO studente_has_stage ("
                         . "visita_azienda, autorizzazione_registro, studente_id_studente, "
-                        . "classe_has_stage_id_classe_has_stage, valutazione_studente_id_valutazione_studente, "
-                        . "valutazione_stage_id_valutazione_stage, azienda_id_azienda, "
+                        . "classe_has_stage_id_classe_has_stage, azienda_id_azienda, "
                         . "docente_tutor_id_docente_tutor, tutor_id_tutor) "
                         . "VALUES (0, 1, (SELECT MAX(id_studente) FROM studente), "
                         . "$id_classe_has_stage, NULL, "
-                        . "NULL, NULL, "
                         . "NULL, NULL)";
                 if (!$connection->query($query))
                     $errore = true;
