@@ -61,7 +61,7 @@
                         </thead>
                         <tbody style="text-align: center">
                             <?php
-                                $query =    "SELECT shs.id_studente_has_stage, stud.cognome, stud.nome, stud.id_studente, shs.tutor_id_tutor, inizio_stage, durata_stage FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud, stage 
+                                $query =    "SELECT shs.id_studente_has_stage, stud.cognome, stud.nome, stud.id_studente, shs.tutor_id_tutor, inizio_stage, fine_stage FROM studente_has_stage AS shs, classe_has_stage AS chs, studente AS stud, stage 
                                             WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage AND 
                                             stud.id_studente = shs.studente_id_studente AND 
                                             chs.stage_id_stage = stage.id_stage AND
@@ -73,7 +73,7 @@
                                 while ($row = $result->fetch_assoc())
                                 {
                                     $startdate = date('d/m/Y', strtotime($row['inizio_stage']));
-                                    $enddate = date('d/m/Y', strtotime($row['inizio_stage']." + ".$row['durata_stage']." days"));
+                                    $enddate = date('d/m/Y', strtotime($row['fine_stage']));
                                     if (isset($row['tutor_id_tutor']) && !empty($row['tutor_id_tutor']))
                                     {
                                         $rowtutor = $conn->query("SELECT id_tutor, nome, cognome FROM tutor WHERE id_tutor = ".$row['tutor_id_tutor'])->fetch_assoc();
