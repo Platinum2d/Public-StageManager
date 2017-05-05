@@ -19,31 +19,27 @@
     $note_docenti_query = "DELETE FROM registro_note_azienda WHERE azienda_id_azienda = $idazienda";
     
     $studente_has_stage_query = "UPDATE studente_has_stage SET tutor_id_tutor = NULL, azienda_id_azienda = NULL";
-    if ($permesso_valutazione_stage === "1") $studente_has_stage_query .= ", valutazione_stage_id_valutazione_stage = NULL";
-    if ($permesso_valutazione_studente === "1") $studente_has_stage_query .= ", valutazione_studente_id_valutazione_studente = NULL";
     $studente_has_stage_query .= " WHERE azienda_id_azienda = $idazienda";
     
     if ($permesso_registro === "1")
         if (!$conn->query($lavoro_giornaliero_query)) $errore = true;
         
     if ($permesso_valutazione_studente === "1")
-    {    
-        $conn->query("SET FOREIGN_KEY_CHECKS = 0");
-        $valutazione_studente_query = "DELETE FROM valutazione_studente WHERE id_valutazione_studente IN (SELECT valutazione_studente_id_valutazione_studente 
-                                                                                                          FROM studente_has_stage  
-                                                                                                          WHERE azienda_id_azienda = $idazienda)";
-        if (!$conn->query($valutazione_studente_query)) $errore = true;
-        $conn->query("SET FOREIGN_KEY_CHECKS = 1");
+    {
+        $valutazione_studente_query = "DELETE FROM risposta_voce_modulo_studente WHERE studente_has_stage IN (SELECT id_studente_has_stage "
+                                                                                                           . "FROM studente_has_stage "
+                                                                                                           . "WHERE azienda_id_azienda = $idazienda)";
+        
+        $conn->query($valutazione_studente_query);
     }
         
     if ($permesso_valutazione_stage === "1")
     {
-        $conn->query("SET FOREIGN_KEY_CHECKS = 0");
-        $valutazione_stage_query = "DELETE FROM valutazione_stage WHERE id_valutazione_stage IN (SELECT valutazione_stage_id_valutazione_stage  
-                                                                                                 FROM studente_has_stage  
-                                                                                                 WHERE azienda_id_azienda = $idazienda)";     
-        if (!$conn->query($valutazione_stage_query)) $errore = true;
-        $conn->query("SET FOREIGN_KEY_CHECKS = 1");
+        $valutazione_stage_query = "DELETE FROM risposta_voce_modulo_stage WHERE studente_has_stage IN (SELECT id_studente_has_stage "
+                                                                                                           . "FROM studente_has_stage "
+                                                                                                           . "WHERE azienda_id_azienda = $idazienda)";
+        
+        $conn->query($valutazione_stage_query);
     }
         
     if ($permesso_note === "1")
