@@ -1,13 +1,13 @@
 <?php
     include '../../../../../functions.php';
-    checkLogin ( scuolaType , "../../../../../../");
+    checkLogin ( docrefType , "../../../../../../");
         
     $conn = dbConnection("../../../../../../");
     $idmodulo = $_POST['modulo'];
     $nomemodulo = $conn->query("SELECT nome FROM modulo_valutazione_studente WHERE id_modulo_valutazione_studente = $idmodulo")->fetch_assoc()['nome'];
     open_html ( $nomemodulo );
     import("../../../../../../");
-    echo "<script src='script.js?2'> </script>";
+    echo "<script src='script.js'> </script>";
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">";
     $conn->set_charset("UTF8");
 ?>
@@ -24,33 +24,35 @@
                     <br>
                     <table style="table-layout: fixed" class="table table-bordered">
                         <thead>
-                        <th style="width: 4%; background: white">#</th>
-                        <th style="width: 30%; background: white">Righe del modulo</th>
-                            <?php 
-                                $colonne_query = "  SELECT id_colonna_modulo_studente, descrizione, risposta_multipla, numero_voce 
-                                                    FROM colonna_modulo_studente 
-                                                    WHERE modulo_valutazione_studente_id_modulo_valutazione_studente = $idmodulo 
-                                                    ORDER BY numero_voce, descrizione ASC";
-                                                        
-                                $result_colonne = $conn->query($colonne_query);
-                                if (is_object($result_colonne) && $result_colonne->num_rows > 0)
-                                {
-                                    while ($row = $result_colonne->fetch_assoc())
-                                    {
-                                        $idcolonna = $row['id_colonna_modulo_studente'];
-                                        $descrizionecolonna = $row['descrizione'];
-                                        $numerovoce = $row['numero_voce'];
-                                        $multipla = $row['risposta_multipla'];
-                                        
-                                        echo "<th data-role='numero_voce' style='text-align:center' data-multiple='$multipla' data-position='$numerovoce' data-id='$idcolonna'>#$numerovoce $descrizionecolonna <span onclick='openEditModuleColumn(this)' style='cursor:pointer; color:orange' class='glyphicon glyphicon-pencil'></span></th>";
-                                    }
-                                }
-                            ?>
-                        <th style="width: 5%" style="text-align: center">
-                            <div align='center'>
-                                <span onclick="openAddColumn(<?php echo $idmodulo; ?>)" style="color:green; cursor: pointer" class="glyphicon glyphicon-plus"></span>
-                            </div>
-                        </th>
+                        	<tr>
+                                <th style="width: 4%; background: white">#</th>
+                                <th style="width: 30%; background: white">Righe del modulo</th>
+                                    <?php 
+                                        $colonne_query = "  SELECT id_colonna_modulo_studente, descrizione, risposta_multipla, numero_voce 
+                                                            FROM colonna_modulo_studente 
+                                                            WHERE modulo_valutazione_studente_id_modulo_valutazione_studente = $idmodulo 
+                                                            ORDER BY numero_voce, descrizione ASC";
+                                                                
+                                        $result_colonne = $conn->query($colonne_query);
+                                        if (is_object($result_colonne) && $result_colonne->num_rows > 0)
+                                        {
+                                            while ($row = $result_colonne->fetch_assoc())
+                                            {
+                                                $idcolonna = $row['id_colonna_modulo_studente'];
+                                                $descrizionecolonna = $row['descrizione'];
+                                                $numerovoce = $row['numero_voce'];
+                                                $multipla = $row['risposta_multipla'];
+                                                
+                                                echo "<th data-role='numero_voce' style='text-align:center' data-multiple='$multipla' data-position='$numerovoce' data-id='$idcolonna'>#$numerovoce $descrizionecolonna <span onclick='openEditModuleColumn(this)' style='cursor:pointer; color:orange' class='glyphicon glyphicon-pencil'></span></th>";
+                                            }
+                                        }
+                                    ?>
+                                <th style="width: 5%" style="text-align: center">
+                                    <div align='center'>
+                                        <span onclick="openAddColumn(<?php echo $idmodulo; ?>)" style="color:green; cursor: pointer" class="glyphicon glyphicon-plus"></span>
+                                    </div>
+                                </th>
+                        	</tr>
                         </thead>
                             
                         <tbody>
@@ -111,7 +113,6 @@
                                         </td>";
                                         for ($i = 0; $i < $result_colonne->num_rows + 1; $i++)
                                             echo "<td> </td>";
-                                
                                 echo "</tr>";
                             ?>
                         </tbody>

@@ -6,7 +6,16 @@
     echo "<script src='js/scripts.js'> </script>";
         
     $conn = dbConnection("../../../../../");
-    $idscuola = $_SESSION['userId'];
+    $id_docente = $_SESSION['userId'];
+    
+    $query_scuola = "SELECT scuola_id_scuola
+                        FROM docente
+                        WHERE docente.id_docente = $id_docente;";
+    if ($result = $conn->query($query_scuola)) {
+        if ( $row = $result->fetch_assoc()) {
+            $idscuola = $row ['scuola_id_scuola'];
+        }
+    }
 ?>
 <body>
  	<?php
@@ -28,44 +37,48 @@
                     <br>
                     <table class="table table-hover table-responsive">
                         <thead>
-                        <th style="width: 25%; text-align: center">
-                            Nome del modulo
-                        </th>
-                        <th style="width: 50%; text-align: center">
-                            Descrizione del modulo
-                        </th>
-                        <th style="width: 25%; text-align: center">
-                            Azioni
-                        </th>
+                        	<tr>
+                                <th class="col-sm-3 text-center">
+                                    Nome del modulo
+                                </th>
+                                <th class="col-sm-6 text-center">
+                                    Descrizione del modulo
+                                </th>
+                                <th class="col-sm-3 text-center">
+                                    Azioni
+                                </th>
+                        	</tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = "SELECT *
-                                      FROM modulo_valutazione_studente 
-                                      WHERE scuola_id_scuola = $idscuola";
-                                          
-                            $result = $conn->query($query);
-                                
-                            if (is_object($result) && $result->num_rows > 0)
-                            {
-                                $i = 0;
-                                while ($row = $result->fetch_assoc())
-                                {
-                                    $idmodulo = $row['id_modulo_valutazione_studente'];
-                                    $nomemodulo = $row['nome'];
-                                    $descrizionemodulo = $row['descrizione'];
+                                if (isset ($idscuola)) {
+                                    $query = "SELECT *
+                                              FROM modulo_valutazione_studente 
+                                              WHERE scuola_id_scuola = $idscuola";
+                                                  
+                                    $result = $conn->query($query);
                                         
-                                    echo "<tr data-progressiv='$i' data-id='$idmodulo'>
-                                            <td onclick='redirectToModule($idmodulo)' style='cursor:pointer;' name='nome' align='center'>$nomemodulo</td>
-                                            <td onclick='redirectToModule($idmodulo)' style='cursor:pointer; text-align: justify; text-justify: inter-word;' name='descrizione'>$descrizionemodulo</td>
-                                            <td align='center'>
-                                                <button id='edit$i' onclick='openEdit($idmodulo, $i)' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span> Modifica</button>
-                                                <button onclick='askForDeleteModule($idmodulo, $i)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Elimina</button>    
-                                            </td>
-                                          </tr>";
-                                    $i++;
+                                    if (is_object($result) && $result->num_rows > 0)
+                                    {
+                                        $i = 0;
+                                        while ($row = $result->fetch_assoc())
+                                        {
+                                            $idmodulo = $row['id_modulo_valutazione_studente'];
+                                            $nomemodulo = $row['nome'];
+                                            $descrizionemodulo = $row['descrizione'];
+                                                
+                                            echo "<tr data-progressiv='$i' data-id='$idmodulo'>
+                                                    <td onclick='redirectToModule($idmodulo)' style='cursor:pointer;' name='nome' align='center'>$nomemodulo</td>
+                                                    <td onclick='redirectToModule($idmodulo)' style='cursor:pointer; text-align: justify; text-justify: inter-word;' name='descrizione'>$descrizionemodulo</td>
+                                                    <td align='center'>
+                                                        <button id='edit$i' onclick='openEdit($idmodulo, $i)' class='btn btn-success'><span class='glyphicon glyphicon-edit'></span> Modifica</button>
+                                                        <button onclick='askForDeleteModule($idmodulo, $i)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Elimina</button>    
+                                                    </td>
+                                                  </tr>";
+                                            $i++;
+                                        }
+                                    }
                                 }
-                            }
                             ?>
                         </tbody>
                     </table>
