@@ -1,24 +1,23 @@
 <?php
-include '../../../../functions.php';
-checkLogin ( docrefType , "../../../../../");
-$conn = dbConnection ("../../../../../");
-
-$id_doc = $_SESSION ['userId'];
-$idanno = $_POST['ida'];
-$id_studente_has_stage = $_POST['studente_has_stage'];
-$query = "SELECT stud.nome, stud.cognome FROM studente AS stud, studente_has_stage AS shs WHERE shs.studente_id_studente = stud.id_studente AND shs.id_studente_has_stage = $id_studente_has_stage";
-
-$result = $conn->query($query)->fetch_assoc();
-$cognomestudente = $result['cognome'];
-$nomestudente = $result['nome'];
-
-$nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
-
-open_html ( "Registro di $cognomestudente $nomestudente" );
-
-import("../../../../../");
-echo "<script src=\"js/scripts.js\"> </script>";
-
+    include '../../../../functions.php';
+    checkLogin ( docrefType , "../../../../../");
+    $conn = dbConnection ("../../../../../");
+    
+    $id_doc = $_SESSION ['userId'];
+    $idanno = $_POST['ida'];
+    $id_studente_has_stage = $_POST['studente_has_stage'];
+    $query = "SELECT stud.nome, stud.cognome FROM studente AS stud, studente_has_stage AS shs WHERE shs.studente_id_studente = stud.id_studente AND shs.id_studente_has_stage = $id_studente_has_stage";
+    
+    $result = $conn->query($query)->fetch_assoc();
+    $cognomestudente = $result['cognome'];
+    $nomestudente = $result['nome'];
+    
+    $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
+    
+    open_html ( "Registro di $cognomestudente $nomestudente" );
+    
+    import("../../../../../");
+    echo "<script src=\"js/scripts.js\"> </script>";
 ?>
     
 <body>
@@ -40,18 +39,20 @@ echo "<script src=\"js/scripts.js\"> </script>";
                     <div class="table-responsive">
                         <table class='table table-bordered'>
                             <thead>
-                            <th>
-                                Data
-                            </th>
-                            <th>
-                                Attività svolte
-                            </th>
-                            <th>
-                                Capacità acquisite
-                            </th>
-                            <th>
-                                Commento
-                            </th>
+                            	<tr>
+                                    <th class="col-sm-2">
+                                        Data
+                                    </th>
+                                    <th class="col-sm-3">
+                                        Attività svolte
+                                    </th>
+                                    <th class="col-sm-3">
+                                        Capacità acquisite
+                                    </th>
+                                    <th class="col-sm-4">
+                                        Commento
+                                    </th>
+                                </tr>
                             </thead>
                                 
                             <tbody>

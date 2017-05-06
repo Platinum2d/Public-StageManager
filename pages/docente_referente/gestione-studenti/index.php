@@ -26,7 +26,7 @@
                                         <td class="menu-voice" align="center">
                                         	<h2>
                                         		<a href="inserimento/index.php">
-                                        			<span>Inserimento studenti</span>
+                                        			<span>Inserimento</span>
                                         		</a>
                                     		</h2>
                                 		</td>
@@ -35,7 +35,16 @@
                                         <td  class="menu-voice" align="center">
                                         	<h2>
                                         		<a href="assegnazione/index.php">
-                                        			<span>Assegnazione studenti</span>
+                                        			<span>Assegnazione</span>
+                                        		</a>
+                                    		</h2>
+                                		</td>
+                            		</tr>
+                                    <tr>
+                                        <td  class="menu-voice" align="center">
+                                        	<h2>
+                                        		<a href="tutorato/index.php">
+                                        			<span>Tutorato</span>
                                         		</a>
                                     		</h2>
                                 		</td>

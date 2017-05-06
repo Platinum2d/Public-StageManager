@@ -1,7 +1,7 @@
 <?php    
     require '../../../../lib/PHPReader/Classes/PHPExcel.php';
     include "../../../../pages/functions.php";
-    checkLogin(scuolaType, "../../../../");
+    checkLogin (docrefType, "../../../../");
     $conn = dbConnection("../../../../");
     open_html ( "Inserimento studenti da file" );
     import("../../../../");

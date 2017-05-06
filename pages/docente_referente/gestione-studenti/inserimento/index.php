@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
-    checkLogin ( scuolaType , "../../../../");
+    checkLogin ( docrefType , "../../../../");
     open_html ( "Inserisci studenti" );
     import("../../../../");
-    echo "<script src='scripts/script.js?2'></script>";    
+    echo "<script src='scripts/script.js'></script>";    
 ?>
 <script>
     addSelectionsFor('anno_scolastico');
