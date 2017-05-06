@@ -142,7 +142,10 @@ function deleteOption(id_opzione)
         success : function (msg)
         {
             if (msg === "ok")
+            {
                 $("#opTable").find("tbody").find("tr[data-id='"+id_opzione+"']").remove();
+                $("option[data-id='"+id_opzione+"']").remove();
+            }
         }
     });
 }
@@ -284,13 +287,12 @@ function editColumn(idcolonna)
             if (msg === "ok")
             {
                 if ($("#rispostachiusa").hasClass("active")) editOptions(idcolonna);
-                if (parseInt(posizione) !== parseInt($("th[data-id = '"+idcolonna+"']").attr("data-position"))) 
-                    location.reload();
                 else
                 {
                     var spanhtml = " <span onclick='openEditModuleColumn(this)' style='cursor:pointer; color:orange' class='glyphicon glyphicon-pencil'></span>";
                     $("th[data-id = '"+idcolonna+"']").html("#" + posizione + " " + nomecolonna + spanhtml);
                 }
+                location.reload();
             }
         }
     });

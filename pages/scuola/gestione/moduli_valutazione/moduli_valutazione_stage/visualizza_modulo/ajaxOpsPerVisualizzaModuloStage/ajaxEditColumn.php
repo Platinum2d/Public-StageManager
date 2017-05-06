@@ -6,13 +6,21 @@
     $idcolonna = $_POST['id'];
     $descrizione = $conn->escape_string($_POST['nome']);
     $posizione = $_POST['posizione'];
-    $tiporisposta = $_POST['risposta'];
+    $tiporisposta = intval($_POST['risposta']);
+    
+    $errore = false;
+    
+    if ($tiporisposta === 0)
+    {
+        $query_opzioni = "DELETE FROM possibile_risposta_colonna_stage WHERE colonna_modulo_stage_id_colonna_modulo_stage = $idcolonna";
+        if (!$conn->query($query_opzioni)) $errore = true; 
+    }
     
     $query = "UPDATE colonna_modulo_stage "
             . "SET descrizione = '$descrizione', numero_voce = $posizione, risposta_multipla = $tiporisposta "
             . "WHERE id_colonna_modulo_stage = $idcolonna";
     
-    if ($conn->query($query))
+    if (!$errore && $conn->query($query))
         echo "ok";
     else
         echo $conn->error;
