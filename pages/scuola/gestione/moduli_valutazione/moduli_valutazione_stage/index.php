@@ -1,7 +1,7 @@
 <?php
     include '../../../../functions.php';
     checkLogin ( scuolaType , "../../../../../");
-    open_html ( "Moduli studenti" );
+    open_html ( "Moduli stage" );
     import("../../../../../");
     echo "<script src='script.js?5'> </script>";
         
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Moduli di valutazione degli studenti</h1>
+                    <h1> Moduli di valutazione degli stage</h1>
                     <br>
                     <div align="center">
                         <h4><u>Fare click su una riga per visualizzare il modulo contenuto</u></h4>
@@ -41,7 +41,7 @@
                         <tbody>
                             <?php
                             $query = "SELECT *
-                                      FROM modulo_valutazione_studente 
+                                      FROM modulo_valutazione_stage 
                                       WHERE scuola_id_scuola = $idscuola";
                                           
                             $result = $conn->query($query);
@@ -51,7 +51,7 @@
                                 $i = 0;
                                 while ($row = $result->fetch_assoc())
                                 {
-                                    $idmodulo = $row['id_modulo_valutazione_studente'];
+                                    $idmodulo = $row['id_modulo_valutazione_stage'];
                                     $nomemodulo = $row['nome'];
                                     $descrizionemodulo = $row['descrizione'];
                                         

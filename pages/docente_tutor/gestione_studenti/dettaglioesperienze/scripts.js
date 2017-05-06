@@ -6,11 +6,11 @@ $(document).ready(function (){
 
 function establishDestination(numberId, id_studente_has_stage){
     if ($("#destination").val() === "valutazionestud") 
-        openValutazioneStudente(numberId, id_studente_has_stage);
+        openValutazione("studente", id_studente_has_stage);
     else
     {
         if ($("#destination").val() === "valutazioneaz")
-            openValutazioneStage(numberId, id_studente_has_stage);
+            openValutazione("stage", id_studente_has_stage);
         else
             openRegistro(id_studente_has_stage);
     }
@@ -20,11 +20,27 @@ function openRegistro(id_studente_has_stage)
 {
     var rForm = $("#rForm");
     
+    rForm.attr("action", "registro.php");
+    
     rForm.find("input[name='studente_has_stage']").each(function(){
         $(this).remove();
     });
     
     rForm.append("<input type='hidden' value='"+id_studente_has_stage+"' name='studente_has_stage'>");
+    rForm.submit();
+}
+
+function openValutazione(tb, id_shs)
+{
+    var rForm = $("#rForm");
+    
+    rForm.attr("action", "visualizza_valutazione.php");
+    rForm.find("input[name='studente_has_stage']").each(function(){
+        $(this).remove();
+    });
+    rForm.find("input[name='tb']").val(tb);
+    
+    rForm.append("<input type='hidden' value='"+id_shs+"' name='shs'>");
     rForm.submit();
 }
 

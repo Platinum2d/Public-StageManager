@@ -33,7 +33,7 @@ function sendData(id_modulo, progressiv)
     
     $.ajax({
         method : 'POST',
-        url : 'ajaxOpsPerModuloStudenti/ajaxInvia.php',
+        url : 'ajaxOpsPerModuloStage/ajaxInvia.php',
         data : tosend,
         success : function (msg){
             if (msg === "ok")
@@ -60,7 +60,7 @@ function askForDeleteModule(id_modulo, progressiv)
                 <br>\n\
                 Eliminando questo modulo, si perderanno DEFINITIVAMENTE i seguenti dati:\n\
                 <ul>\n\
-                    <li>Tutte le valutazioni date dalle aziende sulla base di questo modulo</li>\n\
+                    <li>Tutte le valutazioni date dagli studenti sulla base di questo modulo</li>\n\
                     <li>Tutte le opzioni possibili per le colonne a risposta chiusa</li>\n\
                 </ul>");
     $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
@@ -76,12 +76,12 @@ function deleteModule(id_modulo, progressiv)
 {
     $.ajax({
         method : 'POST',
-        url : 'ajaxOpsPerModuloStudenti/ajaxDelete.php',
+        url : 'ajaxOpsPerModuloStage/ajaxDelete.php',
         data : {'id' : id_modulo},
         success : function (msg){
             if (msg === "ok")
             {
-                $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
+                    $("#SuperAlert").find(".modal-footer").html("<div class='row'> \n\
                                                     <div class='col col-sm-6' align='left'></div>\n\
                                                     <div class='col col-sm-6'> \n\
                                                         <button class='btn' data-dismiss='modal'>Chiudi</button>\n\
@@ -93,8 +93,8 @@ function deleteModule(id_modulo, progressiv)
                 });
             }
             else
-                printError("Errore di eliminazione", "<div align='center'>"+msg+"</div>");
-            //printError("Errore di eliminazione", "<div align='center'>Il modulo non è stato eliminato correttamente.<br>Si prega di riprovare</div>");
+                 printError("Errore di eliminazione", "<div align='center'>"+msg+"</div>");
+                //printError("Errore di eliminazione", "<div align='center'>Il modulo non è stato eliminato correttamente.<br>Si prega di riprovare</div>");
         }
     });
 }

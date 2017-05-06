@@ -18,29 +18,20 @@
         while ($row = $result->fetch_assoc())
         {
             $id_studente_has_stage = $row['id_studente_has_stage'];
-            $valutazione_stage_id = $row['valutazione_stage_id_valutazione_stage'];
-            $valutazione_studente_id = $row['valutazione_studente_id_valutazione_studente'];
             
             $lavoro_giornaliero_query = "DELETE FROM lavoro_giornaliero WHERE studente_has_stage_id_studente_has_stage = $id_studente_has_stage";
             if (!$conn->query($lavoro_giornaliero_query)) $errore = true;
             
-            $drshsh_query = "DELETE FROM docente_referente_has_studente_has_stage WHERE studente_has_stage_id_studente_has_stage = $id_studente_has_stage";
-            if (!$conn->query($drshsh_query)) $errore = true;
+            $valutazione_stage_query = "DELETE FROM risposta_voce_modulo_stage WHERE studente_has_stage IN (SELECT id_studente_has_stage "
+                                                                                                           . "FROM studente_has_stage "
+                                                                                                           . "WHERE studente_id_studente = $id)";
+            
+            $valutazione_studente_query = "DELETE FROM risposta_voce_modulo_studente WHERE studente_has_stage IN (SELECT id_studente_has_stage "
+                                                                                                           . "FROM studente_has_stage "
+                                                                                                           . "WHERE studente_id_studente = $id)";
             
             $shs_query = "DELETE FROM studente_has_stage WHERE id_studente_has_stage = $id_studente_has_stage";
-            if (!$conn->query($shs_query)) $errore = true;
-            
-            if (!is_null($valutazione_stage_id))
-            {
-                $valutazione_stage_query = "DELETE FROM valutazione_stage WHERE id_valutazione_stage = $valutazione_stage_id";
-                if (!$conn->query($valutazione_stage_query)) $errore = true;
-            }
-            
-            if (!is_null($valutazione_studente_id))
-            {
-                $valutazione_studente_query = "DELETE FROM valutazione_studente WHERE id_valutazione_studente = $valutazione_studente_id";
-                if (!$conn->query($valutazione_studente_query)) $errore = true;
-            }
+            if (!$conn->query($shs_query) && !$conn->query($valutazione_stage_query) && !$conn->query($valutazione_studente_query)) $errore = true;
         }
     }
     

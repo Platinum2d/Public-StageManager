@@ -1,22 +1,26 @@
 <?php
-    include '../../../functions.php';
-    checkLogin ( doctutType , "../../../../");
-    $conn = dbConnection ("../../../../");    
+    include '../../../../../functions.php';
+    checkLogin ( scuolaType , "../../../../../../");
+    $conn = dbConnection ("../../../../../../");    
         
-    $id_doc = $_SESSION ['userId'];
-    $idanno = $_POST['ida'];
-    $id_studente_has_stage = $_POST['studente_has_stage'];
+    $id_studente_has_stage = $_POST['shs'];
     $query = "SELECT stud.nome, stud.cognome FROM studente AS stud, studente_has_stage AS shs WHERE shs.studente_id_studente = stud.id_studente AND shs.id_studente_has_stage = $id_studente_has_stage";
         
     $result = $conn->query($query)->fetch_assoc();
     $cognomestudente = $result['cognome'];
     $nomestudente = $result['nome'];
-        
-    $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
+       
+    
+    $nomeanno = $conn->query("SELECT nome_anno "
+            . "FROM anno_scolastico, classe_has_stage AS chs, studente_has_stage AS shs "
+            . "WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage "
+            . "AND shs.id_studente_has_stage = $id_studente_has_stage")->fetch_assoc()['nome_anno'];
+    
+    //$nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
         
     open_html ( "Registro di $cognomestudente $nomestudente" );
         
-    import("../../../../");
+    import("../../../../../../");
     echo "<script src=\"scripts.js\"> </script>";
         
 ?>
@@ -28,8 +32,8 @@
         }
     </style>
    	<?php
-        topNavbar ("../../../../");
-        titleImg ("../../../../");
+        topNavbar ("../../../../../../");
+        titleImg ("../../../../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -75,6 +79,8 @@
                             </tbody>
                         </table>
                     </div>
+                        
+                        
                     <br>
                     <br>
                     <br>
@@ -89,5 +95,5 @@
     </div>
 </body>
 <?php 
-    close_html("../../../../");
+    close_html("../../../../../../");
 ?>
