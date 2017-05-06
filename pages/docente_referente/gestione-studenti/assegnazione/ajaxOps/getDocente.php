@@ -1,12 +1,12 @@
 <?php
-    include '../../../functions.php';
+    include '../../../../functions.php';
     $xmlstr = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 </data>
 XML;
     $xml = new SimpleXMLElement ( $xmlstr );
-    $connessione = dbConnection("../../../../");
+    $connessione = dbConnection("../../../../../");
     
     $id_docente = $_POST['id'];
     

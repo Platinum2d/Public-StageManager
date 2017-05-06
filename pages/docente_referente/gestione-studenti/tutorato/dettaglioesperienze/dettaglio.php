@@ -1,8 +1,8 @@
 <?php
-    include '../../../functions.php';
-    checkLogin ( docrefType , "../../../../");
+    include '../../../../functions.php';
+    checkLogin ( docrefType , "../../../../../");
     
-    $conn = dbConnection ("../../../../");    
+    $conn = dbConnection ("../../../../../");    
 
     $id_doc = $_SESSION ['userId'];
         
@@ -25,8 +25,8 @@
     $nomestudente = $conn->query("SELECT nome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['nome'];
     $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()['nome'];
     
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    import("../../../../../");
+    echo "<script src=\"js/scripts.js\"> </script>";
     open_html ( "Esperienze di $cognomestudente $nomestudente" );
 ?>
     
@@ -37,8 +37,8 @@
         }
     </style>
    	<?php
-        topNavbar ("../../../../");
-        titleImg ("../../../../");
+        topNavbar ("../../../../../");
+        titleImg ("../../../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -69,25 +69,27 @@
                     <br>
                     <table class="table table-hover">
                         <thead>
-                        <th style="text-align: center">
-                            Data di inizio stage
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Data di fine stage
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Azienda
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Tutor
-                        </th>
-                            
-                        <th style="text-align: center;">
-                            Azioni
-                        </th>
+                        	<tr>
+                                <th style="text-align: center">
+                                    Data di inizio stage
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Data di fine stage
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Azienda
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Tutor
+                                </th>
+                                    
+                                <th style="text-align: center;">
+                                    Azioni
+                                </th>
+                        	</tr>
                         </thead>
                             
                         <tbody style="text-align: center">
@@ -184,5 +186,5 @@
     </div>
 </body>
 <?php 
-    close_html("../../../../");
+    close_html("../../../../../");
 ?>

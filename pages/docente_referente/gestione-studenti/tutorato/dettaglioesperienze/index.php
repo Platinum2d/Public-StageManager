@@ -1,8 +1,8 @@
 <?php
-    include '../../../functions.php';
-    checkLogin ( docrefType , "../../../../");
+    include '../../../../functions.php';
+    checkLogin ( docrefType , "../../../../../");
     
-    $conn = dbConnection ("../../../../");
+    $conn = dbConnection ("../../../../../");
     $id_doc = $_SESSION ['userId'];
     $id_anno = $_POST['anno'];
     $nome_anno = $_POST['nome_anno'];
@@ -10,8 +10,8 @@
     $nome_classe = $_POST['nome_classe'];
     
     open_html ( "Studenti di $nome_classe " );
-    import("../../../../");
-    echo "<script src=\"scripts.js\"> </script>";
+    import("../../../../../");
+    echo "<script src=\"js/scripts.js\"> </script>";
 ?>
     
 <body>
@@ -21,8 +21,8 @@
         }
     </style>
    	<?php
-        topNavbar ("../../../../");
-        titleImg ("../../../../");
+        topNavbar ("../../../../../");
+        titleImg ("../../../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -89,5 +89,5 @@
     </div>
 </body>
 <?php 
-    close_html("../../../../");
+    close_html("../../../../../");
 ?>

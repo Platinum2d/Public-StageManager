@@ -1,9 +1,9 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( docrefType , "../../../");
+    include '../../../functions.php';
+    checkLogin ( docrefType , "../../../../");
     open_html ( "Tutorato" );
-    $conn = dbConnection ("../../../");    
-    import("../../../");   
+    $conn = dbConnection ("../../../../");    
+    import("../../../../");   
     $id_doc = $_SESSION ['userId'];
         
     $query = "SELECT * FROM anno_scolastico WHERE corrente = 1";
@@ -11,7 +11,7 @@
     $row = $result->fetch_assoc();
     $id_anno_corrente = $row["id_anno_scolastico"];
     $nome_anno_corrente = $row["nome_anno"]; //prova
-    echo '<script src="scripts.js"></script>';
+    echo '<script src="js/scripts.js"></script>';
 ?>
     
 <body>
@@ -21,8 +21,8 @@
         }
     </style>
    	<?php
-        topNavbar ("../../../");
-        titleImg ("../../../");
+        topNavbar ("../../../../");
+        titleImg ("../../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -83,5 +83,5 @@
     </div>
 </body>
 <?php 
-    close_html("../../../");
+    close_html("../../../../");
 ?>

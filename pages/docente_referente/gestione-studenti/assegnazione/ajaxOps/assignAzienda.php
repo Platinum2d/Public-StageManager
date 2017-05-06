@@ -1,7 +1,7 @@
 <?php
-    include '../../../functions.php';
+    include '../../../../functions.php';
     
-    $connessione = dbConnection("../../../../");
+    $connessione = dbConnection("../../../../../");
 
     $id_shs = intval ($_POST['shs']);
     $id_azienda = intval ($_POST['id']);

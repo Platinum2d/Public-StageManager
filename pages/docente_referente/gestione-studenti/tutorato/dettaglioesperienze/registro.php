@@ -1,7 +1,7 @@
 <?php
-include '../../../functions.php';
-checkLogin ( docrefType , "../../../../");
-$conn = dbConnection ("../../../../");
+include '../../../../functions.php';
+checkLogin ( docrefType , "../../../../../");
+$conn = dbConnection ("../../../../../");
 
 $id_doc = $_SESSION ['userId'];
 $idanno = $_POST['ida'];
@@ -16,8 +16,8 @@ $nomeanno = $conn->query("SELECT nome_anno AS nome FROM anno_scolastico WHERE id
 
 open_html ( "Registro di $cognomestudente $nomestudente" );
 
-import("../../../../");
-echo "<script src=\"scripts.js\"> </script>";
+import("../../../../../");
+echo "<script src=\"js/scripts.js\"> </script>";
 
 ?>
     
@@ -28,8 +28,8 @@ echo "<script src=\"scripts.js\"> </script>";
         }
     </style>
    	<?php
-        topNavbar ("../../../../");
-        titleImg ("../../../../");
+        topNavbar ("../../../../../");
+        titleImg ("../../../../../");
     ?>
     <div class="container">
         <div class="row">
@@ -91,5 +91,5 @@ echo "<script src=\"scripts.js\"> </script>";
     </div>
 </body>
 <?php 
-    close_html("../../../../");
+    close_html("../../../../../");
 ?>
