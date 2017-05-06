@@ -1,7 +1,7 @@
 <?php
     $xmlstr = '<?xml version="1.0" encoding="utf-8" ?>   <data> </data>';
 
-    include '../../../../functions.php'; //
+    include '../../../../functions.php';
     $xml = new SimpleXMLElement ( $xmlstr ); 
         
     $connessione = dbConnection("../../../../../");

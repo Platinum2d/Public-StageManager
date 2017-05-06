@@ -6,7 +6,7 @@
     $connessione = dbConnection("../../../../");    
         
     $idclasse = $_POST['id_classe'];
-    $idanno = $_POST['years'];    
+    $idanno = $_POST['years'];
         
     $nomeclasse = $connessione->query("SELECT nome FROM classe WHERE id_classe = $idclasse")->fetch_assoc()["nome"];
     $nomeanno = $connessione->query("SELECT nome_anno FROM anno_scolastico WHERE id_anno_scolastico = $idanno")->fetch_assoc()["nome_anno"];
@@ -18,7 +18,7 @@
         localStorage.setItem("nome_classe", "<?php echo $nomeclasse; ?>");
         localStorage.setItem("nome_anno", "<?php echo $nomeanno; ?>");
     </script>
-    
+        
     <style>
         .minw{
             width: 65%;
@@ -29,12 +29,12 @@
             margin-top: 5px;
         }
     </style>
-    
+        
  	<?php
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-    <script src="scripts/script.js?2"> </script>
+    <script src="scripts/script.js?1"> </script>
     <div class="container">
         
         <div class="row">
@@ -45,7 +45,30 @@
                     <div align='right'>
                         <a href='javascript:askForDeleteClass(<?= $idclasse; ?>, <?= $idanno; ?>)'><u>Desidero eliminare questa classe</u></a>
                     </div>
-                    <br>
+                    <br>                      
+                    <!--                    <div class="row">
+                                            <div class="col col-sm-4">
+                                                <div align="left">
+                                                    <p style="display: inline">Cerca</p> <input style="display: inline" class="form-control" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col col-sm-4">
+                                                Azione<div align="center">
+                                                    <select class="form-control" id="actions">
+                                                        <option>  </option>                                    
+                                                        <option value="1"> Espandi </option>
+                                                        <option value="2"> Riduci </option>
+                                                        <option value="3"> Elimina </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                                
+                                            <div class="col col-sm-4"> 
+                                                Filtra righe<div align="right">
+                                                        <input class="form-control" type="number" min="1" id="customnum" name="customaz" value="<?php //echo $recordperpagina ?>">
+                                                </div>
+                                            </div>
+                                        </div>    -->
                     <br>
                     <?php
                         
@@ -119,7 +142,7 @@
         </div>
     </div>
 </body>
-
+    
 <?php
     close_html ("../../../../");
 ?>

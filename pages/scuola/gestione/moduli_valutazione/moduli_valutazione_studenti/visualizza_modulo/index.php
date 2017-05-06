@@ -7,7 +7,7 @@
     $nomemodulo = $conn->query("SELECT nome FROM modulo_valutazione_studente WHERE id_modulo_valutazione_studente = $idmodulo")->fetch_assoc()['nome'];
     open_html ( $nomemodulo );
     import("../../../../../../");
-    echo "<script src='script.js?2'> </script>";
+    echo "<script src='script.js?1'> </script>";
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\">";
     $conn->set_charset("UTF8");
 ?>
@@ -89,8 +89,9 @@
                                                     echo "<select class='form-control'>";
                                                     while ($row_possibilita = $possibili_risposte_result->fetch_assoc())
                                                     {
+                                                        $id = $row_possibilita['id_possibile_risposta_colonna_studente'];
                                                         $nomepossibilita = $row_possibilita['opzione'];
-                                                        echo "<option>$nomepossibilita</option>";
+                                                        echo "<option data-id='$id'>$nomepossibilita</option>";
                                                     }
                                                     echo "</select>";
                                                 echo "</td>";

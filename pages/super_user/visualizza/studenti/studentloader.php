@@ -10,7 +10,6 @@
         
     $id_anno = $_POST['anno'];
     $id_classe = $_POST['classe'];
-    $id_scuola = $conn->query("SELECT id_scuola FROM scuola, classe WHERE scuola_id_scuola = id_scuola AND id_classe = $id_classe")->fetch_assoc()['id_scuola'];
         
     function generateRandomicString($length) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -33,6 +32,7 @@
         else
         {
             $tentativi = 1;
+//            checkStudentRecursive($username . $tentativi, $tentativi);
             while (true)
             {
                 $newuser = $username.$tentativi;
@@ -95,7 +95,7 @@
                                         if (isset($nome) && !empty($nome) && isset($cognome) && !empty($cognome))
                                         {
                                             $username = $nome.$cognome;
-                                            $username = strip_whitespaces($username);
+                                            str_replace(" ", "", $username);
                                             $query = "SELECT id_utente FROM utente WHERE username = '".$conn->escape_string($username)."'";
                                             $result = $conn->query($query);
                                             if ($result->num_rows > 0)
@@ -130,7 +130,7 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", $id_scuola)";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", ".$_SESSION['userId'].")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
@@ -156,12 +156,10 @@
                                                             
                                                             $query = "INSERT INTO studente_has_stage ("
                                                             . "visita_azienda, autorizzazione_registro, studente_id_studente, "
-                                                            . "classe_has_stage_id_classe_has_stage, valutazione_studente_id_valutazione_studente, "
-                                                            . "valutazione_stage_id_valutazione_stage, azienda_id_azienda, "
+                                                            . "classe_has_stage_id_classe_has_stage, azienda_id_azienda, "
                                                             . "docente_tutor_id_docente_tutor, tutor_id_tutor) "
                                                             . "VALUES (0, 1, (SELECT MAX(id_studente) FROM studente), "
-                                                            . "$id_classe_has_stage, NULL, "
-                                                            . "NULL, NULL, "
+                                                            . "$id_classe_has_stage, NULL," 
                                                             . "NULL, NULL)";
                                                             
                                                             if (!$conn->query($query))

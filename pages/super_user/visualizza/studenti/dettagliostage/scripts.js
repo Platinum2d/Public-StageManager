@@ -1,4 +1,4 @@
-function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_studente_has_stage, id_anno, id_scuola)
+function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_studente_has_stage, id_anno)
 {
     var progressiv = numberId + 1;
     $("<tr> \n\
@@ -9,12 +9,13 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
                              <label class='margin_bottom_label'>Azienda</label><select class=\"form-control margin_bottom_input\" id=\"editinfoazienda"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <label class='margin_bottom_label'>Tutor</label><select class=\"form-control margin_bottom_input\" id=\"editinfotutor"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
                              <label class='margin_bottom_label'>Docente tutor*</label><select class=\"form-control margin_bottom_input\" id=\"editinfodocente"+progressiv+"\"><option value=\"-1\"> </option> </select>\n\
-                             <br><div align='center'><a onclick='javascript:openDocsRefs("+id_studente_has_stage+", "+id_anno+", "+id_scuola+")' style='color:#525252; cursor:pointer'><u>Docenti referenti</u></a></div>\n\
+                             <br><div align='center'><a onclick='javascript:openDocsRefs("+id_studente_has_stage+", "+id_anno+")' style='color:#525252; cursor:pointer'><u>Docenti referenti</u></a></div>\n\
                        </div> <br>\n\
                        <div class=\"col col-sm-6\"> \n\
                             <div class=\"list-group\">\n\
-                                <a id=\"editvalutazioneazienda"+progressiv+"\" class=\"list-group-item\">Valutazione dello stage</a>\n\
-                                <a id=\"editvalutazionestudente"+progressiv+"\" class=\"list-group-item\">Valutazione dello studente</a>\n\
+                                <a href=\"javascript:redirectToValutazione('stage', "+id_studente_has_stage+")\" id=\"editvalutazioneazienda"+progressiv+"\" class=\"list-group-item\">Valutazione della azienda</a>\n\
+                                <a href=\"javascript:redirectToValutazione('studente', "+id_studente_has_stage+")\" id=\"editvalutazionestudente"+progressiv+"\" class=\"list-group-item\">Valutazione dello studente</a>\n\
+                                <a href=\"javascript:redirectToRegistro("+id_studente_has_stage+")\" id=\"editregistro"+progressiv+"\" class=\"list-group-item\">Registro</a>\n\
                             </div>\n\
                             \n\
                             <div class=\"checkbox\">\n\
@@ -24,10 +25,10 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
                               <label><input id=\"editinfoautorizzazione"+progressiv+"\" type=\"checkbox\">Autorizzazione alla compilazione del registro</label>\n\
                             </div>\n\
                             <button id=\"confirm"+progressiv+"\" class=\"btn btn-success btn-sm rightAlignment margin buttonfix\" onclick=\"\">\n\
-                                <span class=\"glyphicon glyphicon-ok\"></span>\n\
+                                <span class=\"glyphicon glyphicon-ok spanfix\"></span>\n\
                             </button>\n\
                             <button id=\"closedit"+progressiv+"\" class=\"btn btn-danger btn-sm rightAlignment margin buttonfix\" onclick=\"closeEdit("+progressiv+")\">\n\
-                                <span class=\"glyphicon glyphicon-remove\"></span>\n\
+                                <span class=\"glyphicon glyphicon-remove spanfix\"></span>\n\
                             </button>\n\
                         </div> \n\
                     </div> \n\
@@ -59,15 +60,16 @@ function openInfo(numberId, id_classe, id_classe_has_stage, id_studente, id_stud
             else
                 $("#editinfoautorizzazione"+progressiv).prop("checked", false);
             
-            if ($(xml).find("valutazione_stage").text() === "-1") 
-                $("#editvalutazioneazienda"+progressiv).addClass("disabled");
-            else
-                $("#editvalutazioneazienda"+progressiv).attr("href", "javascript:goToValutazioneAzienda("+$(xml).find("valutazione_stage").text()+", "+progressiv+")");
             
-            if ($(xml).find("valutazione_studente").text() === "-1") 
+            if ($(xml).find("valutazione_stage").text().length <= 0 || $(xml).find("azienda").find("id").text().length <= 0)
+            {
+                $("#editvalutazioneazienda"+progressiv).addClass("disabled");
+            }
+            
+            if ($(xml).find("valutazione_studente").text().length <= 0 || $(xml).find("azienda").find("id").text().length <= 0)
+            {
                 $("#editvalutazionestudente"+progressiv).addClass("disabled");
-            else
-                $("#editvalutazionestudente"+progressiv).attr("href", "javascript:goToValutazioneStudente("+$(xml).find("valutazione_studente").text()+", "+progressiv+")");
+            }
             
             if ($(xml).find("azienda").find("id").text().length > 0)
             {
@@ -299,21 +301,20 @@ function resetColors(progressiv){
     $("#editinfoautorizzazione"+progressiv).closest("label").css("color", "#828282");
 }
 
-function openDocsRefs(id_studente_has_stage, id_anno, id_scuola)
+function openDocsRefs(id_studente_has_stage, id_anno)
 {
     $("#SuperAlert").modal("show");
     var modal = $("#SuperAlert").find(".modal-body");
     
     $("#SuperAlert").find(".modal-title").html("Docenti referenti");
     
+    //<a style=\"color:#828282\" href=\"javascript:openDocsRefsAdd("+id_studente_has_stage+", "+id_anno+")\"><span style=\"color:green\" class=\"glyphicon glyphicon-plus\"></span>   Aggiungi</a>\n\
+    
     modal.html("<div align=\"center\">\n\
-                    <a style=\"color:#828282\" href=\"javascript:openDocsRefsAdd("+id_studente_has_stage+", "+id_anno+", "+id_scuola+")\"><span style=\"color:green\" class=\"glyphicon glyphicon-plus\"></span>   Aggiungi</a>\n\
                 </div>\n\
-                <br>\n\
                 <table style='table-layout:fixed' id='docsRefsTable' class='table table-hover'>\n\
                     <thead>\n\
                         <th style='text-align:center'>Docente referente</th>\n\
-                        <th style='text-align:center'>Azioni</th>\n\
                     </thead>\n\
                 </table>");
     
@@ -325,21 +326,22 @@ function openDocsRefs(id_studente_has_stage, id_anno, id_scuola)
         success : function (xml)
         {
             $(xml).find("docenti").find("docente").each(function (){
-                var id_drhshs = $(this).find("drhshs").text();
+                var id_drhchs = $(this).find("drhchs").text();
                 var nome = $(this).find("nome").text();
                 var cognome = $(this).find("cognome").text();
                 var id_doc = $(this).find("id").text();
                 
-                $("#docsRefsTable").append("<tr id='"+id_doc+"' class='idcont' name='"+id_drhshs+"'>\n\
-                                                <td align='center'>"+cognome+" "+nome+"</td>\n\
-                                                <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
+                //<td align='center'><button onclick='disassegna("+id_drhchs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>
+                
+                $("#docsRefsTable").append("<tr id='"+id_doc+"' class='idcont' name='"+id_drhchs+"'>\n\
+                                                <td align='center'>"+cognome+" "+nome+"</td>\n\\n\
                                             </tr>")
             });
         }
     });
 }
 
-function openDocsRefsAdd(id_shs, id_anno, id_scuola)
+function openDocsRefsAdd(id_chs, id_anno)
 {    
     if($("#addDocsRefRow").length <= 0)
     {
@@ -349,7 +351,7 @@ function openDocsRefsAdd(id_shs, id_anno, id_scuola)
                     <select style='margin-top:5px; text-align-last:center;' class='form-control' id='addDocsRefSelect'></select>\n\
                 </td>\n\
                 <td align='center'> \n\
-                    <button onclick='assegna("+id_shs+", "+id_anno+")' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok'></span></button>\n\
+                    <button onclick='assegna("+id_chs+", "+id_anno+")' class='btn btn-success btn-sm margin buttonfix'><span class='glyphicon glyphicon-ok'></span></button>\n\
                     <button onclick='closeAddDocsRef()' class='btn btn-danger btn-sm margin buttonfix'><span class='glyphicon glyphicon-remove'></span></button>\n\
                 </td>\n\
             </tr>");
@@ -357,7 +359,6 @@ function openDocsRefsAdd(id_shs, id_anno, id_scuola)
         $.ajax({
             type : 'POST',
             url : 'ajaxOpsPerDettaglioStage/ajaxDocentiScuola.php',
-            data : {'scuola' : id_scuola},
             cache : false,
             success : function (xml)
             {
@@ -380,22 +381,22 @@ function openDocsRefsAdd(id_shs, id_anno, id_scuola)
     }
 }
 
-function assegna(id_shs, id_anno)
+function assegna(id_chs, id_anno)
 {
     $.ajax({
         type : 'POST',
         url : 'ajaxOpsPerDettaglioStage/ajaxAssegnaDocente.php',
-        data : {'docente' : $("#addDocsRefSelect").val(), 'shs' : id_shs, 'anno' : id_anno},
+        data : {'docente' : $("#addDocsRefSelect").val(), 'chs' : id_chs, 'anno' : id_anno},
         cache : false,
         success : function (xml)
         {
             if($(xml).find("esito").text() === "ok")
             {
-                var id_drhshs = $(xml).find("id_drhshs").text();
+                var id_drhchs = $(xml).find("id_drhchs").text();
                 
                 $("#docsRefsTable").append("<tr class='idcont' id='"+$("#addDocsRefSelect").val()+"'>\n\
                         <td align='center'>"+$("#addDocsRefSelect").find(":selected").text()+"</td>\n\
-                        <td align='center'><button onclick='disassegna("+id_drhshs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
+                        <td align='center'><button onclick='disassegna("+id_drhchs+", this)' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span> Disassegna</button></td>\n\
                      </tr>");
                 
                 closeAddDocsRef();
@@ -404,12 +405,12 @@ function assegna(id_shs, id_anno)
     });
 }
 
-function disassegna(id_drhshs, btn)
+function disassegna(id_drhchs, btn)
 {
     $.ajax({
         type : 'POST',
         url : 'ajaxOpsPerDettaglioStage/ajaxDisassegnaDocente.php',
-        data : {'drhshs' : id_drhshs},
+        data : {'drhchs' : id_drhchs},
         cache : false,
         success : function (msg)
         {
@@ -424,4 +425,18 @@ function disassegna(id_drhshs, btn)
 function closeAddDocsRef()
 {
     $("#addDocsRefRow").remove();
+}
+
+function redirectToValutazione(tb, id_shs)
+{
+    $("#redirectForm").find("input[name='shs']").val(id_shs);
+    $("#redirectForm").find("input[name='tb']").val(tb);
+    $("#redirectForm").submit();
+}
+
+function redirectToRegistro(id_shs)
+{
+    $("#redirectForm").attr("action", "registro.php");
+    $("#redirectForm").find("input[name='shs']").val(id_shs);
+    $("#redirectForm").submit();
 }

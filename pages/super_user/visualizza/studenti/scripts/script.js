@@ -224,10 +224,8 @@ function deleteStudent(progressiv, id_studente, id_classe, id_anno)
         {
             if (msg === "ok")
             {
-                $("#SuperAlert").find(".modal-footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Chiudi</button>");
-                printSuccess("Eliminazione riuscita", "<div align='center'>Lo studente e tutti i dati ad esso affiliati sono stati rimossi con successo</div>", function (){
-                    $("#VisibleBox"+progressiv).parents("tr").fadeOut("slow");
-                });
+                $("#SuperAlert").find(".modal-footer").html("<button type='button' class='btn btn-default' data-dismiss='modal'>Chiudi</button>")
+                printSuccess("Eliminazione riuscita", "<div align='center'>Lo studente e tutti i dati ad esso affiliati sono stati rimossi con successo</div>");
             }
         }
     });
