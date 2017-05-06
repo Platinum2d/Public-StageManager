@@ -8,17 +8,25 @@
         
     define ("PasswordLenght", 8);
         
-    $id_anno = $_POST['anno'];
     $id_classe = $_POST['classe'];
-        
-    function generateRandomicString($length) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
+    
+    $query_anno = "SELECT id_anno_scolastico
+                    FROM anno_scolastico
+                    WHERE corrente = 1;";
+    $result = $conn->query($query_anno);
+    if ($result)
+    {
+        $row = $result->fetch_assoc ();
+        $id_anno = $row ['id_anno_scolastico'];
+    }
+    $query_scuola = "SELECT scuola_id_scuola
+                        FROM classe
+                        WHERE id_classe = $id_classe;;";
+    $result = $conn->query($query_scuola);
+    if ($result)
+    {
+        $row = $result->fetch_assoc ();
+        $id_scuola = $row ['scuola_id_scuola'];
     }
         
     function checkStudent($username){
@@ -114,7 +122,7 @@
                                                     $tentativi++;
                                                 }
                                             }   
-                                            $password = generateRandomicString(PasswordLenght);
+                                            $password = generateRandomString(PasswordLenght);
                                             $cryptedPassword = md5($password);
                                             $citta = $conn->escape_string(strtolower(trim($sheet->getCell('C'.$I)->getValue())));
                                                 $cittaforinsert = (empty($citta) || !isset($citta)) ? "NULL" : "'".$citta."'";
@@ -130,7 +138,7 @@
                                             if ($result)
                                             {
                                                 $insertquery = "INSERT INTO studente (id_studente, nome, cognome, citta, email, telefono, scuola_id_scuola)"
-                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", ".$_SESSION['userId'].")";
+                                                            . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), '".$conn->escape_string($nome)."','".$conn->escape_string($cognome)."',".$cittaforinsert.",".$emailforinsert.",".$telefonoforinsert.", ".$id_scuola.")";
                                                                 
                                                 $attendsquery = "INSERT INTO studente_attends_classe (studente_id_studente, classe_id_classe, anno_scolastico_id_anno_scolastico)"
                                                                 . " VALUES ((SELECT MAX(id_utente) FROM utente WHERE tipo_utente = ".studType."), $id_classe, $id_anno)";
@@ -236,5 +244,6 @@
         $("#forpdf").hide();
     </script>    
 </body>      
-    <?php
-        close_html("../../../../");
+<?php
+    close_html("../../../../");
+?>

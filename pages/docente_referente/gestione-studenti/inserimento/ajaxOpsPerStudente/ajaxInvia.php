@@ -12,7 +12,16 @@
     $telefono = (isset($_POST['telefono']) && $_POST['telefono'] != "") ? "'".$connection->escape_string($_POST['telefono'])."'" : "NULL";
     $classe = $_POST['classe'];
     $scuola = $_SESSION['userId'];
-    $annoscolastico = $_POST['annoclasse'];
+    
+    $query_anno = "SELECT id_anno_scolastico
+                    FROM anno_scolastico
+                    WHERE corrente = 1;";
+    $result = $connection->query($query_anno);
+    if ($result)
+    {
+        $row = $result->fetch_assoc ();
+        $annoscolastico = $row ['id_anno_scolastico'];
+    }
         
     $connection->query("SET FOREIGN_KEY_CHECKS=0");
     $userquery = "INSERT INTO utente (`username`, `password`, `tipo_utente`) VALUES ('$username', '$password', ".studType.")";

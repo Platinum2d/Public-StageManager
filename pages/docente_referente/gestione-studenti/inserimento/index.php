@@ -15,30 +15,6 @@
         topNavbar ("../../../../");
         titleImg ("../../../../");
     ?>
-        
-    <script> 
-        String.prototype.isEmpty = function() {
-            return (this.length === 0 || !this.trim());
-        };      
-        
-        $(document).ready(function (){
-            $("#usernameStudente").keypress(function (e){
-                if (e.which === 32) return false;
-            }); 
-        });
-        
-        var check = setInterval(function(){
-            if ($("#usernameStudente").val().isEmpty() || $("#passwordStudente").val().isEmpty() || $("#confermaPasswordStudente").val().isEmpty() || $("#nomeStudente").val().isEmpty()
-                    || $("#cognomeStudente").val().isEmpty() || $("#classeStudente").val().isEmpty() || $("#annoclasseStudente").val().isEmpty() || $("#userexists").val() === "1" || $("#passworderror").val() === "1")
-            {
-                $("input[value=\"Invia\"]").prop("disabled",true);
-            }
-            else
-            {
-                $("input[value=\"Invia\"]").prop("disabled",false);
-            }
-        },1);
-    </script>
     <input type="hidden" id="userexists" value="0">
     <input type="hidden" id="passworderror" value="0">
     <div class="container">
@@ -67,9 +43,9 @@
                                 <b>Conferma Password*</b> <div class="form-group"> <input class="form-control" type="password" id="confermaPasswordStudente"> </div>
                                 <b>Nome*</b> <div class="form-group"> <input class="form-control" id="nomeStudente"> </div>
                                 <b>Cognome*</b> <div class="form-group"> <input class="form-control" id="cognomeStudente"> </div>
-                                Città <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
-                                E-mail <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
-                                Telefono <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
+                                <b>Città</b> <div class="form-group"> <input class="form-control" id="cittaStudente"> </div>
+                                <b>E-mail</b> <div class="form-group"> <input class="form-control" id="mailStudente"> </div>
+                                <b>Telefono</b> <div class="form-group"> <input class="form-control" type="number" min="1" id="telefonoStudente"> </div>
                                 <br>
                                 * Campo Obbligatorio
                                 <br>
@@ -81,7 +57,6 @@
                                 
                             <div class="col col-sm-6">
                                 <b>Classe* </b> <div class="form-group"><select class="form-control"  id="classeStudente">  </select> </div>
-                                <b>Anno Scolastico* </b> <div class="form-group"><select class="form-control"  id="annoclasseStudente">  </select> </div>
                             </div>
                         </form>
                     </div>
@@ -108,7 +83,6 @@
                                 </div>
                                 <div class="col col-sm-6">
                                     <b>Classe* </b> <div class="form-group"><select class="form-control"  id="classeStudenteForm">  </select> </div>
-                                    <b>Anno Scolastico* </b> <div class="form-group"><select class="form-control"  id="annoclasseStudenteForm">  </select> </div>
                                 </div>
                             </div>                        
                         </div>                    
@@ -117,86 +91,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function (){
-            $(".buttonText").html("        Sfoglia");
-            $(".icon-span-filestyle").remove();
-        });
-        
-        $("#usernameStudente").on('input',function (){
-            $.ajax({
-                type : 'POST',
-                url : 'ajaxOpsPerStudente/ajaxCheckUserExistence.php',
-                data : {'user' : $("#usernameStudente").val()},
-                cache : false,
-                success : function (msg)
-                {
-                    if (msg === "trovato")
-                    {
-                        $("#userexists").val("1");
-                        $("#usr").html("Username (già in uso)*");
-                        $("#usr").css("color","red");
-                        $("#usernameregulator").removeClass("has-warning");
-                        $("#usernameregulator").removeClass("has-success");
-                        $("#usernameregulator").addClass("has-error");
-                        $("#usernamespanregulator").removeClass("glyphicon-ok");
-                        $("#usernamespanregulator").addClass("glyphicon-remove");  
-                    }
-                    else
-                    {
-                        if ($("#usernameStudente").val().isEmpty())
-                        {
-                            $("#userexists").val("1");
-                            $("#usr").css("color","red");
-                            $("#usernameregulator").removeClass("has-warning");
-                            $("#usernameregulator").removeClass("has-success");
-                            $("#usernameregulator").addClass("has-error");
-                            $("#usernamespanregulator").removeClass("glyphicon-ok");
-                            $("#usernamespanregulator").addClass("glyphicon-remove");
-                            return;
-                        }
-                        $("#userexists").val("0");
-                        $("#usr").html("Username*");
-                        $("#usr").css("color","#828282");
-                        $("#usernameregulator").removeClass("has-warning");
-                        $("#usernameregulator").removeClass("has-error");
-                        $("#usernameregulator").addClass("has-success");
-                        $("#usernamespanregulator").removeClass("glyphicon-remove");
-                        $("#usernamespanregulator").addClass("glyphicon-ok");   
-                    }
-                }
-            });
-        });
-        
-        function checkPasswordStudente()
-        {
-            if ($("#passwordStudente").val() !== $("#confermaPasswordStudente").val() || $("#passwordStudente").val().length < 8)
-            {
-                $("#passworderror").val("1");
-                $("#psw").html("Password (Minimo 8 caratteri)* troppo corta o non coincide");
-                $("#psw").css("color","red");
-                $("#passwordregulator").removeClass("has-warning");
-                $("#passwordregulator").removeClass("has-success");
-                $("#passwordregulator").addClass("has-error");
-                $("#passwordspanregulator").removeClass("glyphicon-ok");
-                $("#passwordspanregulator").addClass("glyphicon-remove");
-            }
-            else
-            {
-                $("#passworderror").val("0");
-                $("#psw").css("color","#828282"); 
-                $("#psw").html("Password (Minimo 8 caratteri)*");
-                $("#passwordregulator").removeClass("has-warning");
-                $("#passwordregulator").removeClass("has-error");
-                $("#passwordregulator").addClass("has-success");
-                $("#passwordspanregulator").removeClass("glyphicon-remove");
-                $("#passwordspanregulator").addClass("glyphicon-ok");                                        
-            }
-        }
-        
-        $("#passwordStudente").on("input", checkPasswordStudente);
-        $("#confermaPasswordStudente").on("input", checkPasswordStudente);        
-    </script>
 </body>
 <?php
     close_html ("../../../../");
