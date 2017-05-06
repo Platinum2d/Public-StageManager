@@ -146,36 +146,34 @@
                                                             
                                                             $query = "INSERT INTO studente_has_stage ("
                                                             . "visita_azienda, autorizzazione_registro, studente_id_studente, "
-                                                            . "classe_has_stage_id_classe_has_stage, valutazione_studente_id_valutazione_studente, "
-                                                            . "valutazione_stage_id_valutazione_stage, azienda_id_azienda, "
+                                                            . "classe_has_stage_id_classe_has_stage, azienda_id_azienda, "
                                                             . "docente_tutor_id_docente_tutor, tutor_id_tutor) "
                                                             . "VALUES (0, 1, (SELECT MAX(id_studente) FROM studente), "
                                                             . "$id_classe_has_stage, NULL, "
-                                                            . "NULL, NULL, "
                                                             . "NULL, NULL)";
                                                             
                                                             if (!$conn->query($query))
                                                                 $reporterrori .= "<br><h3 style=\"color:red\">  ==== FATAL ERROR ALLA RIGA $I ==== </h3>";
                                                             
-                                                            $docsrefquery = "SELECT DISTINCT docente_id_docente 
-                                                                             FROM studente_has_stage AS shs, docente_referente_has_studente_has_stage AS drhshs, classe_has_stage AS chs 
-                                                                             WHERE shs.id_studente_has_stage = drhshs.studente_has_stage_id_studente_has_stage 
-                                                                             AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
-                                                                             AND shs.classe_has_stage_id_classe_has_stage = $id_classe_has_stage";
-                                                            
-                                                            $docsrefresult = $conn->query($docsrefquery);
-                                                            if (is_object($docsrefresult) && $docsrefresult->num_rows > 0)
-                                                            {
-                                                                while ($rowdoc = $docsrefresult->fetch_assoc())
-                                                                {
-                                                                    $id_doc = $rowdoc['docente_id_docente'];
-                                                                    
-                                                                    $query = "INSERT INTO docente_referente_has_studente_has_stage (studente_has_stage_id_studente_has_stage, docente_id_docente) "
-                                                                            . "VALUES((SELECT MAX(id_studente_has_stage) FROM studente_has_stage), $id_doc)";
-                                                                    if (!$conn->query($query))
-                                                                               $reporterrori .= "<br><h3 style=\"color:red\">  ==== FATAL ERROR ALLA RIGA $I ==== </h3>";               
-                                                                }
-                                                            }
+//                                                            $docsrefquery = "SELECT DISTINCT docente_id_docente 
+//                                                                             FROM studente_has_stage AS shs, docente_referente_has_studente_has_stage AS drhshs, classe_has_stage AS chs 
+//                                                                             WHERE shs.id_studente_has_stage = drhshs.studente_has_stage_id_studente_has_stage 
+//                                                                             AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
+//                                                                             AND shs.classe_has_stage_id_classe_has_stage = $id_classe_has_stage";
+//                                                            
+//                                                            $docsrefresult = $conn->query($docsrefquery);
+//                                                            if (is_object($docsrefresult) && $docsrefresult->num_rows > 0)
+//                                                            {
+//                                                                while ($rowdoc = $docsrefresult->fetch_assoc())
+//                                                                {
+//                                                                    $id_doc = $rowdoc['docente_id_docente'];
+//                                                                    
+//                                                                    $query = "INSERT INTO docente_referente_has_studente_has_stage (studente_has_stage_id_studente_has_stage, docente_id_docente) "
+//                                                                            . "VALUES((SELECT MAX(id_studente_has_stage) FROM studente_has_stage), $id_doc)";
+//                                                                    if (!$conn->query($query))
+//                                                                               $reporterrori .= "<br><h3 style=\"color:red\">  ==== FATAL ERROR ALLA RIGA $I ==== </h3>";               
+//                                                                }
+//                                                            }
                                                         }
                                                     }
                                                     

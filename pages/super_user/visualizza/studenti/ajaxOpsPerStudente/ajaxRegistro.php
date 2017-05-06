@@ -1,6 +1,6 @@
 <?php
     
-    include "../../../../functions.php"; //
+    include "../../../../functions.php";
         
         $xmlstr = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>

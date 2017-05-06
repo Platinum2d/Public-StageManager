@@ -5,17 +5,15 @@
 </data>
 XML;
 
-    include "../../../../../functions.php"; //
+    include "../../../../../functions.php";
     $conn = dbConnection("../../../../../../");
     
     $xml = new SimpleXMLElement ( $xmlstr );
         
-    $scuola = $_POST['scuola'];
-    
     $query = "SELECT id_docente, doc.nome, doc.cognome "
             . "FROM utente, docente AS doc "
             . "WHERE id_docente = id_utente "
-            . "AND doc.scuola_id_scuola = $scuola "
+            . "AND doc.scuola_id_scuola = ".$_SESSION['userId']." "
             . "AND tipo_utente = ".docrefType;
     
     $result = $conn->query($query);

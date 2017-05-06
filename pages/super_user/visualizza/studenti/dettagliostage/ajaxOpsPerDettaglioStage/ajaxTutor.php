@@ -1,5 +1,6 @@
 <?php
     include '../../../../../functions.php';
+    //header ( "Content-Type: application/xml" );    
         $xmlstr = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
