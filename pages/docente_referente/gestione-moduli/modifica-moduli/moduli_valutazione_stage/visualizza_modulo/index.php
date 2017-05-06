@@ -4,7 +4,7 @@
         
     $conn = dbConnection("../../../../../../");
     $idmodulo = $_POST['modulo'];
-    $nomemodulo = $conn->query("SELECT nome FROM modulo_valutazione_studente WHERE id_modulo_valutazione_studente = $idmodulo")->fetch_assoc()['nome'];
+    $nomemodulo = $conn->query("SELECT nome FROM modulo_valutazione_stage WHERE id_modulo_valutazione_stage = $idmodulo")->fetch_assoc()['nome'];
     open_html ( $nomemodulo );
     import("../../../../../../");
     echo "<script src='js/scripts.js'> </script>";
@@ -28,9 +28,9 @@
                                 <th style="width: 4%; background: white">#</th>
                                 <th style="width: 30%; background: white">Righe del modulo</th>
                                     <?php 
-                                        $colonne_query = "  SELECT id_colonna_modulo_studente, descrizione, risposta_multipla, numero_voce 
-                                                            FROM colonna_modulo_studente 
-                                                            WHERE modulo_valutazione_studente_id_modulo_valutazione_studente = $idmodulo 
+                                        $colonne_query = "  SELECT id_colonna_modulo_stage, descrizione, risposta_multipla, numero_voce 
+                                                            FROM colonna_modulo_stage 
+                                                            WHERE modulo_valutazione_stage_id_modulo_valutazione_stage = $idmodulo 
                                                             ORDER BY numero_voce, descrizione ASC";
                                                                 
                                         $result_colonne = $conn->query($colonne_query);
@@ -38,7 +38,7 @@
                                         {
                                             while ($row = $result_colonne->fetch_assoc())
                                             {
-                                                $idcolonna = $row['id_colonna_modulo_studente'];
+                                                $idcolonna = $row['id_colonna_modulo_stage'];
                                                 $descrizionecolonna = $row['descrizione'];
                                                 $numerovoce = $row['numero_voce'];
                                                 $multipla = $row['risposta_multipla'];
@@ -57,9 +57,9 @@
                             
                         <tbody>
                             <?php
-                                $righe_query = "    SELECT id_riga_modulo_studente, descrizione, numero_voce 
-                                                    FROM riga_modulo_studente 
-                                                    WHERE modulo_valutazione_studente_id_modulo_valutazione_studente = $idmodulo 
+                                $righe_query = "    SELECT id_riga_modulo_stage, descrizione, numero_voce 
+                                                    FROM riga_modulo_stage 
+                                                    WHERE modulo_valutazione_stage_id_modulo_valutazione_stage = $idmodulo 
                                                     ORDER BY numero_voce, descrizione ASC";
                                                         
                                 $result_righe = $conn->query($righe_query);
@@ -67,7 +67,7 @@
                                 {
                                     while ($row = $result_righe->fetch_assoc())
                                     {
-                                        $idriga = $row['id_riga_modulo_studente'];
+                                        $idriga = $row['id_riga_modulo_stage'];
                                         $descrizioneriga = $row['descrizione'];
                                         $numerovoce = $row['numero_voce'];
                                         
@@ -78,12 +78,12 @@
                                         while ($row_colonna = $result_colonne->fetch_assoc())
                                         {
                                             $multipla = $row_colonna['risposta_multipla'];
-                                            $idcolonna = $row_colonna['id_colonna_modulo_studente'];
+                                            $idcolonna = $row_colonna['id_colonna_modulo_stage'];
                                             if ($multipla === "1")
                                             {
                                                 $possibili_risposte_query = "SELECT * 
-                                                                             FROM possibile_risposta_colonna_studente 
-                                                                             WHERE colonna_modulo_studente_id_colonna_modulo_studente = $idcolonna 
+                                                                             FROM possibile_risposta_colonna_stage 
+                                                                             WHERE colonna_modulo_stage_id_colonna_modulo_stage = $idcolonna 
                                                                              ORDER BY numero_voce ASC";
                                                 $possibili_risposte_result = $conn->query($possibili_risposte_query);
                                                 
@@ -113,6 +113,7 @@
                                         </td>";
                                         for ($i = 0; $i < $result_colonne->num_rows + 1; $i++)
                                             echo "<td> </td>";
+                                
                                 echo "</tr>";
                             ?>
                         </tbody>
