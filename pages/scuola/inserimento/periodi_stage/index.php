@@ -1,9 +1,9 @@
 <?php
     include '../../../functions.php';
     checkLogin ( scuolaType , "../../../../");
-    open_html ( "Inserisci periodi di stage" );
+    open_html ( "Inserisci stage" );
+    echo "<script src='script.js?2'></script>";
     import("../../../../");
-    echo "<script src='scripts/script.js'></script>";    
 ?>
 
 <script>
@@ -12,7 +12,7 @@
     };      
     
     var check = setInterval(function(){
-        if ($("#inizioStage").val().isEmpty() || $("#durataStage").val().isEmpty())
+        if ($("#inizioStage").val().isEmpty() || $("#fineStage").val().isEmpty())
         {
             $("input[value=\"Invia\"]").prop("disabled",true);
         }
@@ -22,6 +22,7 @@
         }
     },1);
 </script>
+<link rel="stylesheet" href="../InsertStyle.css">
 <body>
     <?php
         topNavbar ("../../../../");
@@ -45,7 +46,7 @@
                                 <input type="button" class="btn btn-primary" value="Invia" onclick="sendData();">
                             </div>
                             <div class="col col-sm-6"> 
-                                <b>Durata Stage*</b> <div class="form-group"> <input type="number" min="1" class="form-control" id="durataStage"> </div>
+                                <b>Fine Stage*</b> <div class="form-group"> <input data-provide='datepicker' class="form-control" id="fineStage"> </div>
                             </div>
                         </form>
                     </div>
@@ -55,6 +56,7 @@
     </div>
     <script>
         $("#inizioStage").datepicker({ dateFormat: 'dd-mm-yy' });
+        $("#fineStage").datepicker({ dateFormat: 'dd-mm-yy' });
     </script>
 </body>
 <?php
