@@ -1,5 +1,5 @@
 <?php
-    
+    //da mettere nei generali
     include "../../../../functions.php";
     $conn = dbConnection("../../../../../");
     $username = $conn->escape_string(strip_whitespaces($_POST['user']));
