@@ -36,7 +36,13 @@ $(document).ready (function () {
 		        			else {
 		        				var nome_aziendale = "";
 		        			}
-		        			select.append("<option value='"+email+"'>" +nome + nome_studente + nome_aziendale + "</option>");
+		        			if ($(element).find("nome_classe").length !==0) {
+		        				var nome_classe = " (classe: " + $(element).find("nome_classe").text() + ")";
+		        			}
+		        			else {
+		        				var nome_classe = "";
+		        			}
+		        			select.append("<option value='"+email+"'>" +nome + nome_studente + nome_aziendale + nome_classe + "</option>");
 		        		});
 		        	}
 	        		else {
