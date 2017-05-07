@@ -12,12 +12,10 @@ XML;
     $tipo = intval ($_POST ['type']);
     
     if ($tipo == docrefType) {
-        $query = "SELECT docente.nome, docente.cognome, docente.email, studente.nome AS nome_studente, studente.cognome AS cognome_studente
-                    FROM docente, studente, studente_has_stage, classe_has_stage, anno_scolastico, docente_referente_has_studente_has_stage, classe
-                    WHERE studente_has_stage.studente_id_studente = studente.id_studente
-                    AND docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
-                    AND docente_referente_has_studente_has_stage.docente_id_docente = docente.id_docente
-                    AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+        $query = "SELECT docente.nome, docente.cognome, docente.email, classe.nome AS nome_classe
+                    FROM docente, classe_has_stage, anno_scolastico, docente_referente_has_classe_has_stage, classe
+                    WHERE docente_referente_has_classe_has_stage.docente_id_docente = docente.id_docente
+                    AND docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
                     AND anno_scolastico.corrente = 1
                     AND classe_has_stage.classe_id_classe = classe.id_classe
@@ -72,7 +70,10 @@ XML;
                 $destinatario->addChild("cognome_studente", $row['cognome_studente']);
             }
             if (isset ($row ['nome_aziendale'])) {
-                $destinatario->addChild("nome_aziendale", $row['nome_aziendale']);
+            	$destinatario->addChild("nome_aziendale", $row['nome_aziendale']);
+            }
+            if (isset ($row ['nome_classe'])) {
+            	$destinatario->addChild("nome_classe", $row['nome_classe']);
             }
         }
     }
