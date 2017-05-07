@@ -83,8 +83,8 @@
                                         
                                     echo "<tr id=\"riga$I\" style=\"text-align : center\"> <td> $inizio_stage </td> <td> $fine_stage </td>"
                                          . " <td>"
-                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclasse, $idclassestage, $idstudente, $id_studente_has_stage, $idanno)\" class=\"btn btn-success btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
-                                         . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"deleteExperience($id_studente_has_stage)\" class=\"btn btn-danger btn-sm margin buttonfix\"> <span class=\"glyphicon glyphicon-trash\"></span> Rimuovi </button> </td> </tr>";
+                                         . "<button id=\"dettagli$I\" style=\"margin : 0px\" onclick=\"openInfo($I, $idclasse, $idclassestage, $idstudente, $id_studente_has_stage, $idanno)\" class=\"btn btn-success\"> <span class=\"glyphicon glyphicon-edit\"></span> Dettagli </button> "
+                                         . "<button id=\"rimuovi$I\" style=\"margin : 0px\" onclick=\"deleteExperience($id_studente_has_stage)\" class=\"btn btn-danger\"> <span class=\"glyphicon glyphicon-trash\"></span> Rimuovi </button> </td> </tr>";
                                              
                                     $I++;
                                 }
