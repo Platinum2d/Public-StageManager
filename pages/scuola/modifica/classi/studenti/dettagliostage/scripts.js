@@ -429,6 +429,7 @@ function closeAddDocsRef()
 
 function redirectToValutazione(tb, id_shs)
 {
+    $("#redirectForm").attr("action", "visualizza_valutazione.php");
     $("#redirectForm").find("input[name='shs']").val(id_shs);
     $("#redirectForm").find("input[name='tb']").val(tb);
     $("#redirectForm").submit();
