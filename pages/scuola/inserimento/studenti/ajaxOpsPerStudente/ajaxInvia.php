@@ -44,26 +44,6 @@
                         . "NULL, NULL)";
                 if (!$connection->query($query))
                     $errore = true;
-                
-                $docsrefquery = "SELECT DISTINCT docente_id_docente 
-                                 FROM studente_has_stage AS shs, docente_referente_has_studente_has_stage AS drhshs, classe_has_stage AS chs 
-                                 WHERE shs.id_studente_has_stage = drhshs.studente_has_stage_id_studente_has_stage 
-                                 AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
-                                 AND shs.classe_has_stage_id_classe_has_stage = $id_classe_has_stage";
-
-                $docsrefresult = $connection->query($docsrefquery);
-                if (is_object($docsrefresult) && $docsrefresult->num_rows > 0)
-                {
-                    while ($rowdoc = $docsrefresult->fetch_assoc())
-                    {
-                        $id_doc = $rowdoc['docente_id_docente'];
-
-                        $query = "INSERT INTO docente_referente_has_studente_has_stage (studente_has_stage_id_studente_has_stage, docente_id_docente) "
-                                . "VALUES((SELECT MAX(id_studente_has_stage) FROM studente_has_stage), $id_doc)";
-                        if (!$connection->query($query))
-                            $errore = true;
-                    }
-                }
             }
         }
         if (!$errore)
