@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col col-sm-12">
                 <div class="panel">
-                    <h1> Moduli di valutazione degli stage</h1>
+                    <h1> Moduli di valutazione delle aziende </h1>
                     <br>
                     <div align="center">
                         <h4><u>Fare click su una riga per visualizzare il modulo contenuto</u></h4>
