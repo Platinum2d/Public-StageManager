@@ -1,11 +1,11 @@
 <?php
-    include '../../functions.php';
-    checkLogin ( docrefType , "../../../");
-    import("../../../");
-    echo "<link href='css/styles.css' rel='stylesheet' type='text/css'>";
-    open_html ( "Gestione moduli" );
-    $connessione = dbConnection ("../../../");
-        
+include '../../functions.php';
+checkLogin ( docrefType , "../../../");
+import("../../../");
+echo "<link href='css/styles.css' rel='stylesheet' type='text/css'>";
+open_html ( "Gestione moduli" );
+$connessione = dbConnection ("../../../");
+
 ?>
 <body>
     <?php
@@ -36,6 +36,15 @@
                                         	<h2>
                                         		<a href="modifica-moduli/index.php">
                                         			<span>Modifica moduli</span>
+                                        		</a>
+                                    		</h2>
+                                		</td>
+                            		</tr>
+                                    <tr>
+                                        <td  class="menu-voice" align="center">
+                                        	<h2>
+                                        		<a href="assegnazione-moduli/index.php">
+                                        			<span>Assegna moduli</span>
                                         		</a>
                                     		</h2>
                                 		</td>

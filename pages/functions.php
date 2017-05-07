@@ -125,6 +125,7 @@ HTML;
                                 <ul class=\"dropdown-menu dropdown-menu-hover\" role=\"menu\"> ";                
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-moduli/inserimento-moduli/index.php'>Inserisci</a></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/gestione-moduli/modifica-moduli/index.php'>Modifica</a></li>";
+                echo "<li><a href='".$goBack."pages/docente_referente/gestione-moduli/assegnazione-moduli/index.php'>Assegna</a></li>";
                 echo "</ul></li>";
                 echo "<li><a href='".$goBack."pages/docente_referente/contatta/index.php'>Contatta</a></li>";
                 echo <<<HTML
