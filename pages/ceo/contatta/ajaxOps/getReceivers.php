@@ -13,11 +13,11 @@ XML;
     
     if ($tipo == docrefType) {
         $query = "SELECT docente.nome, docente.cognome, docente.email, studente.nome AS nome_studente, studente.cognome AS cognome_studente
-                    FROM docente, studente, studente_has_stage, classe_has_stage, anno_scolastico, docente_referente_has_studente_has_stage
+                    FROM docente, studente, studente_has_stage, classe_has_stage, anno_scolastico, docente_referente_has_classe_has_stage
                     WHERE studente_has_stage.azienda_id_azienda = $id_azienda
                     AND studente_has_stage.studente_id_studente = studente.id_studente
-                    AND docente_referente_has_studente_has_stage.studente_has_stage_id_studente_has_stage = studente_has_stage.id_studente_has_stage
-                    AND docente_referente_has_studente_has_stage.docente_id_docente = docente.id_docente
+                    AND docente_referente_has_classe_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
+                    AND docente_referente_has_classe_has_stage.docente_id_docente = docente.id_docente
                     AND studente_has_stage.classe_has_stage_id_classe_has_stage = classe_has_stage.id_classe_has_stage
                     AND classe_has_stage.anno_scolastico_id_anno_scolastico = anno_scolastico.id_anno_scolastico
                     AND anno_scolastico.corrente = 1;";
