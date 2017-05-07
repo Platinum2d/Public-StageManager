@@ -5,7 +5,7 @@
     open_html ( "La mia azienda" );
     import("../../../");
     $id_az = $_SESSION ['userId'];
-    echo "<script src='miazienda.js?0.1'></script>";
+    echo "<script src='miazienda.js?1'></script>";
     $connessione = dbConnection ("../../../");
     $sql = "SELECT nome_aziendale, citta_aziendale, indirizzo, telefono_aziendale, email_aziendale, sito_web, CAP FROM azienda WHERE id_azienda=$id_az";
     $result = $connessione->query ( $sql );
