@@ -17,8 +17,7 @@
                 AND shs.azienda_id_azienda = az.id_azienda
                 AND chs.stage_id_stage = st.id_stage 
                 AND chs.classe_id_classe = $idclasse 
-                AND chs.anno_scolastico_id_anno_scolastico = $idanno 
-                AND shs.docente_tutor_id_docente_tutor = $id_doc 
+                AND chs.anno_scolastico_id_anno_scolastico = $idanno
                 AND shs.studente_id_studente = $idstudente";
     
     $cognomestudente = $conn->query("SELECT cognome FROM studente WHERE id_studente = $idstudente")->fetch_assoc()['cognome'];
@@ -75,33 +74,34 @@
                     <br>
                     <table class="table table-hover">
                         <thead>
-                        <th style="text-align: center">
-                            Data di inizio stage
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Data di fine stage
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Azienda
-                        </th>
-                            
-                        <th style="text-align : center" style="text-align: center;">
-                            Tutor
-                        </th>
-                            
-                        <th style="text-align: center;">
-                            Azioni
-                        </th>
+                        	<tr>
+                                <th style="text-align: center">
+                                    Data di inizio stage
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Data di fine stage
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Azienda
+                                </th>
+                                    
+                                <th style="text-align : center" style="text-align: center;">
+                                    Tutor
+                                </th>
+                                    
+                                <th style="text-align: center;">
+                                    Azioni
+                                </th>
+                            </tr>
                         </thead>
                             
                         <tbody style="text-align: center">
                             <?php
                             $studente_has_stage_query = "SELECT id_studente_has_stage 
                                                         FROM studente_has_stage AS shs, classe_has_stage AS chs 
-                                                        WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage                                                         
-                                                        AND shs.docente_tutor_id_docente_tutor = ".$id_doc." 
+                                                        WHERE shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage  
                                                         AND shs.studente_id_studente = $idstudente 
                                                         AND chs.classe_id_classe = $idclasse     
                                                         AND chs.anno_scolastico_id_anno_scolastico = $idanno";

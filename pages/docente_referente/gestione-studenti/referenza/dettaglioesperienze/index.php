@@ -59,9 +59,9 @@
                                           WHERE stud.id_studente = shs.studente_id_studente 
                                           AND shs.classe_has_stage_id_classe_has_stage = chs.id_classe_has_stage 
                                           AND chs.anno_scolastico_id_anno_scolastico = ass.id_anno_scolastico 
-                                          AND chs.classe_id_classe = $id_classe
-                                          AND shs.docente_tutor_id_docente_tutor = $id_doc 
-                                          AND ass.id_anno_scolastico = $id_anno;";
+                                          AND chs.classe_id_classe = $id_classe 
+                                          AND ass.id_anno_scolastico = $id_anno
+                                          ORDER BY stud.cognome;";
                                 $result = $conn->query($query);
                                 while ($row = $result->fetch_assoc())
                                 {
