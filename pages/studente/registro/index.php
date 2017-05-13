@@ -30,7 +30,7 @@
 <?php
     }
 ?>
-<script src="js/script.js?0.5"></script>
+<script src="js/script.js?0.6"></script>
 <body>
    	<?php
         topNavbar ("../../../");

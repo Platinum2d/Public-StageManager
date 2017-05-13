@@ -128,7 +128,7 @@ function sendData(progressiv, idDescrizione)
 		                        temp.insertBefore(riga_successiva);
 		                    }
 		                    else {
-		                    	temp.insertAfter($("#DescTable tbody").find ("tr:last"));
+		                    	temp.insertAfter($("#DescTable tbody").find ("tr[id^='riga']:last"));
 		                    }
 		                    $("#riga"+progressiv).hide();
 		                	$("#riga"+progressiv).fadeIn("slow");

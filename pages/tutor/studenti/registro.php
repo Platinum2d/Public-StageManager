@@ -6,7 +6,7 @@
     $conn = dbConnection ("../../../");
     $idStudenteHasStage = $_POST ['shs'];
     
-    echo "<script src='js/scripts_registro.js?0.3'></script>";
+    echo "<script src='js/scripts_registro.js?0.4'></script>";
     
     $sql = "SELECT studente_has_stage.visita_azienda, stage.inizio_stage, stage.fine_stage  
 			FROM studente_has_stage, stage, classe_has_stage 
