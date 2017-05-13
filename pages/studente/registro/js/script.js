@@ -81,10 +81,10 @@ function sendData(progressiv, idDescrizione)
     
     var lavoro = {
     	    'id' : idDescrizione,
-    	    'data' : ''+$("#textboxdata"+progressiv).val(),
-    	    'lavoro' : ''+$("#textareaLavoro"+progressiv).val(),
-    	    'insegnamenti' : ''+$("#textareaInsegnamenti"+progressiv).val(),
-    	    'commento' : ''+$("#textareaCommento"+progressiv).val()
+    	    'data' : ''+replaceSpecialCharacter($("#textboxdata"+progressiv).val()),
+    	    'lavoro' : ''+replaceSpecialCharacter($("#textareaLavoro"+progressiv).val()),
+    	    'insegnamenti' : ''+replaceSpecialCharacter($("#textareaInsegnamenti"+progressiv).val()),
+    	    'commento' : ''+replaceSpecialCharacter($("#textareaCommento"+progressiv).val())
 	};
 
     if (checkDateItalianFormat (lavoro.data)) {
@@ -208,10 +208,10 @@ function insertActivity(progressiv)
     }; 
     
     var lavorodainserire = {
-        'data' : ''+$("#aggiungidata"+progressiv+"").val(),
-        'lavoroSvolto' : ''+$("#aggiungiLavoro"+progressiv+"").val(),
-        'insegnamenti' : ''+$("#aggiungiInsegnamenti"+progressiv+"").val(),
-        'commento' : ''+$("#aggiungiCommento"+progressiv+"").val()
+        'data' : ''+replaceSpecialCharacter($("#aggiungidata"+progressiv+"").val()),
+        'lavoroSvolto' : ''+replaceSpecialCharacter($("#aggiungiLavoro"+progressiv+"").val()),
+        'insegnamenti' : ''+replaceSpecialCharacter($("#aggiungiInsegnamenti"+progressiv+"").val()),
+        'commento' : ''+replaceSpecialCharacter($("#aggiungiCommento"+progressiv+"").val())
     }
 
     if (checkDateItalianFormat (lavorodainserire.data)) {
@@ -256,19 +256,19 @@ function convertToInsertedData(progressiv, maxid, date_new_element)
     var generalprogressiv = parseInt($("#edit").attr("name"));
     $("#aggiungidata"+progressiv+"").closest("tr").attr("id","riga"+(generalprogressiv + 1));
     
-    var insert_data = $("#aggiungidata"+progressiv+"").val();
+    var insert_data = replaceSpecialCharacter($("#aggiungidata"+progressiv+"").val());
     $("#aggiungidata"+progressiv+"").closest("td").attr("id","data"+(generalprogressiv + 1));
     $("#aggiungidata"+progressiv+"").closest("td").html(insert_data)
     
-    var insert_lavoro = $("#aggiungiLavoro"+progressiv+"").val();
+    var insert_lavoro = replaceSpecialCharacter($("#aggiungiLavoro"+progressiv+"").val());
     $("#aggiungiLavoro"+progressiv+"").closest("td").attr("id","lavoroSvolto"+(generalprogressiv + 1));
     $("#aggiungiLavoro"+progressiv+"").closest("td").html(insert_lavoro);
     
-    var insert_insegnamenti = $("#aggiungiInsegnamenti"+progressiv+"").val();
+    var insert_insegnamenti = replaceSpecialCharacter($("#aggiungiInsegnamenti"+progressiv+"").val());
     $("#aggiungiInsegnamenti"+progressiv+"").closest("td").attr("id","insegnamenti"+(generalprogressiv + 1));
     $("#aggiungiInsegnamenti"+progressiv+"").closest("td").html(insert_insegnamenti);
 
-    var insert_commento = $("#aggiungiCommento"+progressiv+"").val();
+    var insert_commento = replaceSpecialCharacter($("#aggiungiCommento"+progressiv+"").val());
     $("#aggiungiCommento"+progressiv+"").closest("td").attr("id","commento"+(generalprogressiv + 1));
     $("#aggiungiCommento"+progressiv+"").closest("td").html(insert_commento);
     

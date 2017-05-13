@@ -17,6 +17,7 @@ $(document).ready(function() {
     	var year = dateSplitted [2];
     	var month = parseInt (dateSplitted [1]) - 1;
     	var day = dateSplitted [0];
+    	alert (insegnamenti);
     	regDate.empty ();
     	regLavoro.empty();
     	regInsegnamenti.empty();
@@ -43,9 +44,9 @@ $(document).ready(function() {
 
     function DescDiscard(event){
     	var regtr = $(event.target).closest("tr");
-    	var lavoro = regtr.find(".lavoroBackup").val();
-    	var insegnamenti = regtr.find(".insegnamentiBackup").val();
-    	var commento = regtr.find(".commentoBackup").val();
+    	var lavoro = replaceSpecialCharacter (regtr.find(".lavoroBackup").val());
+    	var insegnamenti = replaceSpecialCharacter (regtr.find(".insegnamentiBackup").val());
+    	var commento = replaceSpecialCharacter (regtr.find(".commentoBackup").val());
     	var date = regtr.find(".regDate").data ("oldDate");
     	regtr.find("td.regDate").empty().html(date);
     	regtr.find("td.regLavoro").empty();
@@ -141,11 +142,11 @@ $(document).ready(function() {
         
     	var regtr = $(event.target).closest("tr");
     	var lavorotd = regtr.find("td.regLavoro");
-    	var lavoro = lavorotd.find(".newLavoro").val();
+    	var lavoro = replaceSpecialCharacter (lavorotd.find(".newLavoro").val());
     	var insegnamentitd = regtr.find("td.regInsegnamenti");
-    	var insegnamenti = insegnamentitd.find(".newInsegnamenti").val();
+    	var insegnamenti = replaceSpecialCharacter (insegnamentitd.find(".newInsegnamenti").val());
     	var commentotd = regtr.find("td.regCommento");
-    	var commento = commentotd.find(".newCommento").val();
+    	var commento = replaceSpecialCharacter (commentotd.find(".newCommento").val());
     	if (checkDateItalianFormat (regtr.find(".regDate").find (".datepicker").val ())) {
 	    	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
 			if (!isEmpty(date) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
@@ -228,9 +229,9 @@ $(document).ready(function() {
     	//add events (save and delete)
     	$("#DescAddSave").click(function(){
     		var data = $("#DescAddDate").datepicker( "getDate" );
-    		var lavoro = $("#lavoroAdd").val();
-    		var insegnamenti = $("#insegnamentiAdd").val();
-    		var commento = $("#commentoAdd").val();
+    		var lavoro = replaceSpecialCharacter ($("#lavoroAdd").val());
+    		var insegnamenti = replaceSpecialCharacter ($("#insegnamentiAdd").val());
+    		var commento = replaceSpecialCharacter ($("#commentoAdd").val());
         	if (checkDateItalianFormat ($("#DescAddDate").val ())) {
 	    		if (!isEmpty(data) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
 	    	    {
