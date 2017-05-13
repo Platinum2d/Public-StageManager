@@ -44,9 +44,9 @@ $(document).ready(function() {
 
     function DescDiscard(event){
     	var regtr = $(event.target).closest("tr");
-    	var lavoro = replaceSpecialCharacter (regtr.find(".lavoroBackup").val());
-    	var insegnamenti = replaceSpecialCharacter (regtr.find(".insegnamentiBackup").val());
-    	var commento = replaceSpecialCharacter (regtr.find(".commentoBackup").val());
+    	var lavoro = replaceSpecialCharacters (regtr.find(".lavoroBackup").val());
+    	var insegnamenti = replaceSpecialCharacters (regtr.find(".insegnamentiBackup").val());
+    	var commento = replaceSpecialCharacters (regtr.find(".commentoBackup").val());
     	var date = regtr.find(".regDate").data ("oldDate");
     	regtr.find("td.regDate").empty().html(date);
     	regtr.find("td.regLavoro").empty();
@@ -142,11 +142,11 @@ $(document).ready(function() {
         
     	var regtr = $(event.target).closest("tr");
     	var lavorotd = regtr.find("td.regLavoro");
-    	var lavoro = replaceSpecialCharacter (lavorotd.find(".newLavoro").val());
+    	var lavoro = replaceSpecialCharacters (lavorotd.find(".newLavoro").val());
     	var insegnamentitd = regtr.find("td.regInsegnamenti");
-    	var insegnamenti = replaceSpecialCharacter (insegnamentitd.find(".newInsegnamenti").val());
+    	var insegnamenti = replaceSpecialCharacters (insegnamentitd.find(".newInsegnamenti").val());
     	var commentotd = regtr.find("td.regCommento");
-    	var commento = replaceSpecialCharacter (commentotd.find(".newCommento").val());
+    	var commento = replaceSpecialCharacters (commentotd.find(".newCommento").val());
     	if (checkDateItalianFormat (regtr.find(".regDate").find (".datepicker").val ())) {
 	    	var date = regtr.find(".regDate").find (".datepicker").datepicker("getDate");
 			if (!isEmpty(date) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
@@ -229,9 +229,9 @@ $(document).ready(function() {
     	//add events (save and delete)
     	$("#DescAddSave").click(function(){
     		var data = $("#DescAddDate").datepicker( "getDate" );
-    		var lavoro = replaceSpecialCharacter ($("#lavoroAdd").val());
-    		var insegnamenti = replaceSpecialCharacter ($("#insegnamentiAdd").val());
-    		var commento = replaceSpecialCharacter ($("#commentoAdd").val());
+    		var lavoro = replaceSpecialCharacters ($("#lavoroAdd").val());
+    		var insegnamenti = replaceSpecialCharacters ($("#insegnamentiAdd").val());
+    		var commento = replaceSpecialCharacters ($("#commentoAdd").val());
         	if (checkDateItalianFormat ($("#DescAddDate").val ())) {
 	    		if (!isEmpty(data) && !isEmpty(lavoro) && !isEmpty(insegnamenti))
 	    	    {

@@ -146,7 +146,7 @@ String.prototype.isEmpty = function() {
     return (this.length === 0 || !this.trim());
 };
 
-function replaceSpecialCharacter (string) {
+function replaceSpecialCharacters (string) {
 	if (typeof string === 'string') {
 		string = string.replace ("<", "&lt;");
 		string = string.replace (">", "&gt;");
