@@ -159,7 +159,7 @@ function checkEmptyFields (fields) {
 	if (Array.isArray (fields)) {
 		fields.forEach (function (item) {
 			$(item).each (function () {
-				if ($(this).val() && $(this).val().trim().isEmpty()) {
+				if ($(this).val().trim().isEmpty()) {
 					empty = true;
 					return;
 				}
