@@ -25,7 +25,7 @@
                                 if (isset($_POST ['shs'])) {
                                     $idStudenteHasStage = $_POST ['shs'];
                                     echo "<script>shs = $idStudenteHasStage;</script>";
-                                    echo "<script src='js/scripts-valutazione.js'></script>";
+                                    echo "<script src='js/scripts-valutazione.js?1'></script>";
                                     $gia_compilato = true;
                                     
                                     $sql = "SELECT classe_has_stage.modulo_valutazione_studente_id_modulo_valutazione_studente

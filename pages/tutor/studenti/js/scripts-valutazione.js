@@ -79,6 +79,7 @@ function addAnswers () {
             	.attr ("onclick", "updateAnswers();");
             }
             else {
+            	alert (msg);
             	printError ("Errore", "Errore nell'esecuzione della richiesta. Se il problema persiste, contattare l'aministratore.");
             }
         },
